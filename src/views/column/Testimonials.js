@@ -3,12 +3,12 @@ import React from 'react'
 
 const Testimonials = ({ data }) => {
   if (data) {
-    var testimonials = data.testimonials.map(function (testimonials) {
+    var annotations = data.annotation.map(function (annotation) {
       return (
-        <li key={testimonials.user}>
+        <li key={annotation.contributer}>
           <blockquote>
-            <p>{testimonials.text}</p>
-            <cite>{testimonials.user}</cite>
+            <p>{annotation.job}</p>
+            <cite>{annotation.contributer}</cite>
           </blockquote>
         </li>
       )
@@ -20,11 +20,11 @@ const Testimonials = ({ data }) => {
         <div className="row">
           <div className="two columns header-col">
             <h1>
-              <span>Client Testimonials</span>
+              <span>Client annotation</span>
             </h1>
           </div>
           <div className="ten columns flex-container">
-            <ul className="slides">{testimonials}</ul>
+            <ul className="slides">{annotations}</ul>
           </div>
         </div>
       </div>

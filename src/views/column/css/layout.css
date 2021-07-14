@@ -58,7 +58,7 @@ header .banner {
 
 header .banner-text { width: 100%; }
 header .banner-text h1 {
-   font: 90px/1.1em 'opensans-bold', sans-serif;
+   font: 50px/1.1em 'opensans-bold', sans-serif;
    color: #fff;
    letter-spacing: -2px;
    margin: 0 auto 18px auto;
@@ -246,7 +246,7 @@ ul#nav li.current a { color: #F06000; }
 #resume a:hover, #resume a:focus { color: #313131; }
 
 #resume h1 {
-   font: 18px/24px 'opensans-bold', sans-serif;
+   font: 22px/24px 'opensans-bold', sans-serif;
    text-transform: uppercase;
    letter-spacing: 1px;
 }
@@ -689,13 +689,13 @@ call-to-action .button {
 #testimonials blockquote p {
    font-family: 'librebaskerville-italic', serif;
    padding: 0;
-   font-size: 24px;
+   font-size: 30px;
    line-height: 48px;
    color: #fff
 }
 #testimonials blockquote cite {
    display: block;
-   font-size: 12px;
+   font-size: 20px;
    font-style: normal;
    line-height: 18px;
    color: #fff;

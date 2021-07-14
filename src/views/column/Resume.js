@@ -1,36 +1,43 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react'
+import React from 'react'
 const Resume = ({ data }) => {
-  if (data) {
-    var education = data.education.map(function (education) {
+  const getSubSections = (bigsection) => {
+    var subSections = bigsection.bigsections.map((bigsection) => {
       return (
-        <div key={education.school}>
-          <h3>{education.school}</h3>
+        <div key={bigsection.subtitle}>
+          <h3>{bigsection.subtitle}</h3>
           <p className="info">
-            {education.degree} <span>&bull;</span>
-            <em className="date">{education.graduated}</em>
+            {bigsection.degree} <span>&bull;</span>
+            <em className="date">{bigsection.graduated}</em>
           </p>
-          <p>{education.description}</p>
+          <p>{bigsection.subsection}</p>
         </div>
       )
     })
+    return subSections
   }
-  return (
-    <section id="resume">
-      <div className="row education">
-        <div className="three columns header-col">
-          <h1>
-            <span>一、前言</span>
-          </h1>
-        </div>
-        <div className="nine columns main-col">
-          <div className="row item">
-            <div className="twelve columns">{education}</div>
+  const getBigSection = () => {
+    if (data) {
+      var bigSections = data.body.map((bigsection) => {
+        return (
+          <div className="row education" key={bigsection.bigtitle}>
+            <div className="three columns header-col">
+              <h1>
+                <span>{bigsection.bigtitle}</span>
+              </h1>
+            </div>
+            <div className="nine columns main-col">
+              <div className="row item">
+                <div className="twelve columns">{getSubSections(bigsection)}</div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-  )
+        )
+      })
+    }
+    return bigSections
+  }
+  return <section id="resume">{getBigSection()}</section>
 }
 
 export default Resume
