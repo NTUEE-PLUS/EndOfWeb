@@ -18,9 +18,7 @@ const Title = ({ data }) => {
     <header id="home">
       <div className="row banner">
         <div className="banner-text">
-          <nobr>
-            <h1 className="responsive-headline">{title}</h1>
-          </nobr>
+          <h1 className="responsive-headline">{title}</h1>
           {hashtags}
           <hr />
         </div>

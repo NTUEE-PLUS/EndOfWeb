@@ -53,7 +53,7 @@ const Widgets = React.lazy(() => import('./views/components/widgets/Widgets'))
 
 const Charts = React.lazy(() => import('./views/components/charts/Charts'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Column = React.lazy(() => import('./views/column/Column'))
+const Column = React.lazy(() => import('./views/components/column/Column'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },

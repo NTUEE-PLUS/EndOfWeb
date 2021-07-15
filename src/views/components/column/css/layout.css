@@ -246,7 +246,7 @@ ul#nav li.current a { color: #F06000; }
 #resume a:hover, #resume a:focus { color: #313131; }
 
 #resume h1 {
-   font: 22px/24px 'opensans-bold', sans-serif;
+   font: 18px/24px 'opensans-bold', sans-serif;
    text-transform: uppercase;
    letter-spacing: 1px;
 }
