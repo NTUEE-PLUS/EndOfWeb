@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
   },
   media: {
-    height: 240,
+    height: '680px',
   },
   cardActions: {
     display: 'flex',
@@ -53,13 +53,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  exp: {
+    fontSize: '1.875rem',
+    fontWeight: '10',
+    margin: '1.2rem',
+  },
+  intro: {
+    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    fontSize: '1.15rem',
+    margin: '0.2rem',
+  },
 }))
 
 const ColumnSummary = ({ data }) => {
   const classes = useStyles()
   const contributions = (person) => {
     return (
-      <Box className={classes.author}>
+      <Box className={classes.author} key={person}>
         <Avatar src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
         <Box ml={2} display="flex" alignItems="center">
           <Typography variant="subtitle2" component="p">
@@ -76,14 +86,22 @@ const ColumnSummary = ({ data }) => {
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image="https://images.pexels.com/photos/2004161/pexels-photo-2004161.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              image="https://picsum.photos/1024/700"
               title="Contemplative Reptile"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h2" component="h2">
                 {art.title}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography gutterBottom className={classes.exp}>
+                ({art.exp})
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                className={classes.intro}
+              >
                 {art.intro}
               </Typography>
             </CardContent>
@@ -105,7 +123,6 @@ const ColumnSummary = ({ data }) => {
   })
   return (
     <div>
-      <introTitle />
       <Box className={classes.hero}>
         <Box>All Release</Box>
       </Box>
