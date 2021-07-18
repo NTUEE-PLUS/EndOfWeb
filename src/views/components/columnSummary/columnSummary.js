@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
 }))
+const height = { height: '100%' }
 function ColumnSummary() {
   const classes = useStyles()
 
@@ -67,7 +68,7 @@ function ColumnSummary() {
       <Box className={classes.hero}>
         <Box>All Release</Box>
       </Box>
-      <div className={classes.blogsContainer}>
+      <div className={classes.blogsContainer} style={height}>
         <Typography variant="h4" className={classes.blogTitle}>
           Articles
         </Typography>
@@ -145,10 +146,10 @@ function ColumnSummary() {
             </Card>
           </Grid>
         </Grid>
-        <Box my={4} className={classes.paginationContainer}>
-          <Pagination count={10} />
-        </Box>
       </div>
+      <Box my={4} className={classes.paginationContainer}>
+        <Pagination count={10} />
+      </Box>
     </div>
   )
 }
