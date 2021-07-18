@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
@@ -25,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     color: '#fff',
     fontSize: '4rem',
-    [theme.breakpoints.down('sm')]: {
-      height: 300,
-      fontSize: '3em',
-    },
   },
   blogsContainer: {
     paddingTop: theme.spacing(3),
@@ -57,10 +54,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ColumnSummary = () => {
+const ColumnSummary = ({ data }) => {
   const classes = useStyles()
-  const articles = [{ key: 1 }, { key: 2 }]
-  const article = articles.map((art) => {
+  const articles = data.map((art) => {
     return (
       <Grid item xs={12} md={12} key={art.key}>
         <Card className={classes.card}>
@@ -72,11 +68,10 @@ const ColumnSummary = () => {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                React useContext
+                {art.title}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
-                ranging across all continents except Antarctica
+                {art.intro}
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -102,15 +97,16 @@ const ColumnSummary = () => {
   })
   return (
     <div>
+      <introTitle />
       <Box className={classes.hero}>
-        <Box>All Release</Box>
+        <Box>All Release {classes.hero}</Box>
       </Box>
       <div className={classes.blogsContainer}>
         <Typography variant="h4" className={classes.blogTitle}>
           Articles
         </Typography>
         <Grid container spacing={1}>
-          {article}
+          {articles}
         </Grid>
       </div>
       <Box my={4} className={classes.paginationContainer}>
