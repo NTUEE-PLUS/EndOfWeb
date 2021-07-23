@@ -38,7 +38,7 @@ const Login = () => {
     e.preventDefault()
     // connect with backend
     // check if login
-    // if success then redirect
+    // if success then redirect inside
     setIsLogin(true)
   }
 
