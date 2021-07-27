@@ -5,7 +5,13 @@ import eesa from '../assets/images/eesa-icon.png'
 const AppFooter = () => {
   return (
     <>
-      <CFooter>
+      <CFooter
+        style={{
+          backgroundColor: 'var(--primary_bgcolor)',
+          borderColor: 'transparent',
+          color: 'white',
+        }}
+      >
         <CCol xs={9}>
           國立臺灣大學電機工程學系 系學會 <br />
           <div style={{ fontWeight: '600' }}>
@@ -17,7 +23,15 @@ const AppFooter = () => {
           <img src={eesa} alt="eesa" className="img-fluid" />
         </CCol>
       </CFooter>
-      <CFooter className="justify-content-center p-0" style={{ height: '1rem' }}>
+      <CFooter
+        className="justify-content-center p-0"
+        style={{
+          height: '1rem',
+          backgroundColor: '#001936',
+          borderColor: 'transparent',
+          color: 'white',
+        }}
+      >
         Copyright © 2021 NTUEESA
       </CFooter>
     </>
