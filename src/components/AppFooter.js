@@ -7,7 +7,7 @@ const AppFooter = () => {
     <>
       <CFooter
         style={{
-          backgroundColor: 'var(--primary_bgcolor)',
+          backgroundColor: '#002958',
           borderColor: 'transparent',
           color: 'white',
         }}

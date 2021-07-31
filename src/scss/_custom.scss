@@ -27,6 +27,7 @@ body {
 .nav-link {
   color: black !important;
 }
-// .nav-link .active{
-//   background-color: azure;
-// }
+
+.text-color-black {
+  color: var(--cui-body-color);
+}
