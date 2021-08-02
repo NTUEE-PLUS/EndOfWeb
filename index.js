@@ -57,9 +57,11 @@ mongoose.connection.on('open', () => {
         verbose: false,
       }),
     )
+    const JSON_DIR = path.join(__dirname, './client/public') // for develop
     const DIST_DIR = path.join(__dirname, './client/dist')
     const HTML_FILE = path.join(__dirname, './client/dist/index.html')
     app.use(express.static(DIST_DIR))
+    app.use(express.static(JSON_DIR)) // for develop
     app.get('/', (req, res) => {
       res.sendFile(HTML_FILE) // EDIT
     })
