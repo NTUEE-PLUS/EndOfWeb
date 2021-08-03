@@ -111,6 +111,7 @@ const AddRecommendation = () => {
       image: recommendationForm.file,
     }
     console.log(post)
+
     history.push('/recommendation')
   }
   return (
