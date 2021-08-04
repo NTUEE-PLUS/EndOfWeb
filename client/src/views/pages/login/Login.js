@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login'
+import axios from 'axios'
 import {
   CButton,
   CCard,
@@ -17,17 +18,26 @@ import {
 import CIcon from '@coreui/icons-react'
 
 const LoginFormTemplate = {
-  studentID: '',
+  account: '',
   password: '',
 }
 
 const Login = () => {
   const [loginForm, setLoginForm] = useState(LoginFormTemplate)
   const [isLogin, setIsLogin] = useState(false) // delete if redux is setting
+  const [needRegister, setNeedRegister] = useState(false)
 
   useEffect(() => {
     // check login status
-    setIsLogin(false) // for test
+    axios
+      .post('/api/isLogin', {})
+      .then((res) => {
+        alert('已登入!')
+        // setIsLogin(true)
+      })
+      .catch((err) => {
+        setIsLogin(false)
+      })
   }, [])
 
   const handleInputChange = (e) => {
@@ -39,7 +49,25 @@ const Login = () => {
     // connect with backend
     // check if login
     // if success then redirect inside
-    setIsLogin(true)
+    axios
+      .post('api/login', loginForm)
+      .then((res) => {
+        // console.log(res)
+        const { username } = res.data
+        alert(`歡迎回來! ${username}`)
+        setIsLogin(true)
+      })
+      .catch((err) => {
+        switch (err.response.status) {
+          case 404:
+            alert(err.response.data.description)
+            setNeedRegister(true)
+            break
+          default:
+            alert(err.response.data.description)
+            break
+        }
+      })
   }
 
   const handleFBSubmit = (res) => {
@@ -50,91 +78,94 @@ const Login = () => {
     // send res.userID
     console.log(res.userID)
   }
-
-  return isLogin ? (
-    <Redirect to="/"></Redirect>
-  ) : (
-    <div className="min-vh-100 d-flex flex-row align-items-center">
-      <CContainer className="align-items-center">
-        <CRow className="justify-content-center">
-          <CCol md="8">
-            <CCardGroup>
-              <CCard className="p-4">
-                <CCardBody>
-                  <CForm>
-                    <h1>Login</h1>
-                    <p className="text-medium-emphasis">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon name="cil-education" />
-                      </CInputGroupText>
-                      <CFormControl
-                        placeholder="Student ID"
-                        name="studentID"
-                        onChange={handleInputChange}
-                      />
-                    </CInputGroup>
-                    <CInputGroup className="mb-2">
-                      <CInputGroupText>
-                        <CIcon name="cil-lock-locked" />
-                      </CInputGroupText>
-                      <CFormControl
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        onChange={handleInputChange}
-                      />
-                    </CInputGroup>
-                    <CRow>
-                      <CCol xs="6">
-                        <Link to="/register_entry" color="link" className="px-0">
-                          Create a new account?
-                        </Link>
-                      </CCol>
-                      <CCol xs="6" className="d-flex justify-content-end">
-                        <Link to="/forget" color="link" className="px-0">
-                          Forgot password?
-                        </Link>
-                      </CCol>
-                    </CRow>
-                    <CRow className="mt-3">
-                      <CCol className="d-flex justify-content-center">
-                        <CButton color="dark" className="px-4" onClick={handleSubmit}>
-                          Login
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                    <CRow className="justify-content-center">
-                      <div
-                        className="w-75 text-center mt-3 pt-3"
-                        style={{ borderTop: '1px solid gray' }}
-                      >
-                        or login with...
-                      </div>
-                    </CRow>
-                    <CRow className="justify-content-center">
-                      <div style={{ width: '5rem' }}>
-                        <FacebookLogin
-                          appId="571174603253755"
-                          autoLoad={false}
-                          isMobile={false}
-                          fields="name,email,picture"
-                          callback={handleFBSubmit}
-                          cssClass="btnFacebook d-flex justify-content-center mt-2"
-                          icon="fa-facebook"
-                          textButton=""
+  if (isLogin) {
+    return <Redirect to="/"></Redirect>
+  } else if (needRegister) {
+    return <Redirect to="/register"></Redirect>
+  } else {
+    return (
+      <div className="min-vh-100 d-flex flex-row align-items-center">
+        <CContainer className="align-items-center">
+          <CRow className="justify-content-center">
+            <CCol md="8">
+              <CCardGroup>
+                <CCard className="p-4">
+                  <CCardBody>
+                    <CForm>
+                      <h1>Login</h1>
+                      <p className="text-medium-emphasis">Sign In to your account</p>
+                      <CInputGroup className="mb-3">
+                        <CInputGroupText>
+                          <CIcon name="cil-education" />
+                        </CInputGroupText>
+                        <CFormControl
+                          placeholder="Student ID"
+                          name="account"
+                          onChange={handleInputChange}
                         />
-                      </div>
-                    </CRow>
-                  </CForm>
-                </CCardBody>
-              </CCard>
-            </CCardGroup>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
-  )
+                      </CInputGroup>
+                      <CInputGroup className="mb-2">
+                        <CInputGroupText>
+                          <CIcon name="cil-lock-locked" />
+                        </CInputGroupText>
+                        <CFormControl
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                          onChange={handleInputChange}
+                        />
+                      </CInputGroup>
+                      <CRow>
+                        <CCol xs="6">
+                          <Link to="/register_entry" color="link" className="px-0">
+                            Create a new account?
+                          </Link>
+                        </CCol>
+                        <CCol xs="6" className="d-flex justify-content-end">
+                          <Link to="/forget" color="link" className="px-0">
+                            Forgot password?
+                          </Link>
+                        </CCol>
+                      </CRow>
+                      <CRow className="mt-3">
+                        <CCol className="d-flex justify-content-center">
+                          <CButton color="dark" className="px-4" onClick={handleSubmit}>
+                            Login
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                      <CRow className="justify-content-center">
+                        <div
+                          className="w-75 text-center mt-3 pt-3"
+                          style={{ borderTop: '1px solid gray' }}
+                        >
+                          or login with...
+                        </div>
+                      </CRow>
+                      <CRow className="justify-content-center">
+                        <div style={{ width: '5rem' }}>
+                          <FacebookLogin
+                            appId="571174603253755"
+                            autoLoad={false}
+                            isMobile={false}
+                            fields="name,email,picture"
+                            callback={handleFBSubmit}
+                            cssClass="btnFacebook d-flex justify-content-center mt-2"
+                            icon="fa-facebook"
+                            textButton=""
+                          />
+                        </div>
+                      </CRow>
+                    </CForm>
+                  </CCardBody>
+                </CCard>
+              </CCardGroup>
+            </CCol>
+          </CRow>
+        </CContainer>
+      </div>
+    )
+  }
 }
 
 export default Login
