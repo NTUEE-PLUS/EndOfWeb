@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login'
 import axios from 'axios'
@@ -23,22 +24,14 @@ const LoginFormTemplate = {
 }
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const isLogin = useSelector((state) => state.isLogin)
+  const setIsLogin = (isLogin) => {
+    dispatch({ type: 'set', isLogin: isLogin })
+  }
   const [loginForm, setLoginForm] = useState(LoginFormTemplate)
-  const [isLogin, setIsLogin] = useState(false) // delete if redux is setting
+  // const [isLogin, setIsLogin] = useState(false) // delete if redux is setting
   const [needRegister, setNeedRegister] = useState(false)
-
-  useEffect(() => {
-    // check login status
-    axios
-      .post('/api/isLogin', {})
-      .then((res) => {
-        alert('已登入!')
-        // setIsLogin(true)
-      })
-      .catch((err) => {
-        setIsLogin(false)
-      })
-  }, [])
 
   const handleInputChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value })
@@ -77,9 +70,28 @@ const Login = () => {
     // call backend
     // send res.userID
     console.log(res.userID)
+    axios
+      .post('/api/loginFB', { userID: res.userID })
+      .then((res) => {
+        console.log(res)
+        const { username } = res.data
+        alert(`歡迎回來! ${username}`)
+        setIsLogin(true)
+      })
+      .catch((err) => {
+        switch (err.response.status) {
+          case 404:
+            alert(err.response.data.description)
+            setNeedRegister(true)
+            break
+          default:
+            alert(err.response.data.description)
+            break
+        }
+      })
   }
   if (isLogin) {
-    return <Redirect to="/"></Redirect>
+    return <Redirect to="/dashboard"></Redirect>
   } else if (needRegister) {
     return <Redirect to="/register"></Redirect>
   } else {
