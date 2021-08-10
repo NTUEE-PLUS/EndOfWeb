@@ -1,4 +1,3 @@
-const getColumn = require('./imgProcess/getDetail')
 const asyncHandler = require('express-async-handler')
 const { dbCatch, ErrorHandler } = require('../../../error')
 
