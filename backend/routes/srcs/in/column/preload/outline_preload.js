@@ -1,5 +1,5 @@
-// const Column_out = require('../../../../Schemas/column_outline')
-// const Column = require('../../../../Schemas/column')
+const Column_out = require('../../../../Schemas/column_outline')
+const Column = require('../../../../Schemas/column')
 toInsert = [
   {
     anno: ['羅韻瑢', '鄭謹譯', '李筠婕', '吳建翰', '余欣澄'],
@@ -219,12 +219,16 @@ toInsert = [
 ]
 
 const main = async () => {
-  //   toInsert.forEach(async (obj) => {
-  //     const column_out = new Column_out(obj)
-  //     const { columnImg } = await Column.findOne({ filename: obj.filename })
-  //     column_out.columnImg = columnImg
-  //     console.log(rec)
-  //     column_out.save()
-  //   })
+  toInsert.forEach(async (obj) => {
+    const column_out = new Column_out(obj)
+    const { columnImg } = await Column.findOne({ filename: obj.id })
+    column_out.columnImg = columnImg
+    try {
+      await column_out.save()
+      console.log(obj.id, 'success')
+    } catch {
+      console.log(obj.id, 'fail')
+    }
+  })
 }
 main()

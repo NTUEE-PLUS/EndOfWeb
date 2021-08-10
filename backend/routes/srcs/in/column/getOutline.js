@@ -7,23 +7,27 @@ const Column_Outline = require('../../../Schemas/column_outline')
  * @apiName GetOutline
  * @apiGroup In/column
  *
- * @apiparam {-} - -
+ * @apiparam {String} id id(optional,若未給則送全部)
  *
  * @apiSuccessExample {json} Success-Response:
  * 	HTTP/1.1 200 OK
  * 	[{
- * 		id:["yymm"],
- * 		anno:["作者1","作者2","作者3"],
- * 		date:"yyyy/mm/dd 星期x",
- * 		title:["yyyy級 採訪者姓名 (目前職位)"...],
- * 		exp:["採訪者姓名 現任:目前職位"...],
- * 		edu:["採訪者姓名 學士/碩士/博士:....(畢業年分)",...],
- * 		intro:["內文段落1","內文段落2"...],
- * 	}]
+*     anno: [{ type: String }],
+      date: String,
+      title: [{ type: String }],
+      exp: [{ type: String }],
+      edu: [{ type: String }],
+      intro: [{ type: String }],
+      id: { type: String, unique: true },
+      columnImg: {
+        data: { type: Buffer },
+        contentType: { type: String },
+      }
+    },]
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
 module.exports = asyncHandler(async (req, res, next) => {
-  const columnOulines = await Column_Outline.find().catch(dbCatch)
+  const columnOulines = await Column_Outline.find({ id: req.body.id }).catch(dbCatch)
   return res.status(201).send(columnOulines.map((col) => col.getPublic()))
 })
