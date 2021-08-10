@@ -741,7 +741,7 @@ POST /showRecruitment
 [Back to top](#top)
 
 ```
-POST /getDetail
+GET /column/detail
 ```
 
 ### Parameters - `Parameter`
@@ -806,7 +806,7 @@ POST /getDetail
 [Back to top](#top)
 
 ```
-POST /getOutline
+GET /column/outline
 ```
 
 ### Parameters - `Parameter`
@@ -849,7 +849,7 @@ POST /getOutline
 [Back to top](#top)
 
 ```
-POST /addColumn
+POST /add
 ```
 
 ### Parameters - `Parameter`
@@ -934,7 +934,7 @@ axios.post('/api/addColumn', input, { headers: { 'content-type': 'multipart/form
 [Back to top](#top)
 
 ```
-POST /column/search
+GET /column/search
 ```
 
 ### Parameters - `Parameter`
