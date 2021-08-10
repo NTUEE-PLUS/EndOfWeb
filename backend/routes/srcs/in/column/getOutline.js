@@ -3,7 +3,7 @@ const { dbCatch } = require('../../../error')
 const Column_Outline = require('../../../Schemas/column_outline')
 
 /**
- * @api {post} /getOutline 拿Outline資料
+ * @api {get} /column/outline 拿Outline資料
  * @apiName GetOutline
  * @apiGroup In/column
  *
@@ -28,6 +28,8 @@ const Column_Outline = require('../../../Schemas/column_outline')
  * @apiError (500) {String} description 資料庫錯誤
  */
 module.exports = asyncHandler(async (req, res, next) => {
-  const columnOulines = await Column_Outline.find({ id: req.body.id }).catch(dbCatch)
+  const { id } = req.body
+  const query = id ? { id } : {}
+  const columnOulines = await Column_Outline.find(query).catch(dbCatch)
   return res.status(201).send(columnOulines.map((col) => col.getPublic()))
 })

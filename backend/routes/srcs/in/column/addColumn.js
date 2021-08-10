@@ -4,7 +4,7 @@ const Column_outline = require('../../../Schemas/column_outline')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {post} /addColumn 管理員新增文章
+ * @api {post} /add 管理員新增文章
  * @apiName addColumn
  * @apiGroup In/column
  *
