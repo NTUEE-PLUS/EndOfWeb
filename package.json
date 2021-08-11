@@ -7,7 +7,6 @@
     "dev": "npm-run-all --parallel start-client start-server"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "connect-history-api-fallback": "^1.6.0",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
