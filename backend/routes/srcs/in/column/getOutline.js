@@ -14,6 +14,7 @@ const Column_Outline = require('../../../Schemas/column_outline')
  *
  * @apiSuccessExample {json} Success-Response:
  * 	HTTP/1.1 200 OK
+ * {data:
  * 	[{
 *     anno: [{ type: String }],
       date: String,
@@ -26,7 +27,8 @@ const Column_Outline = require('../../../Schemas/column_outline')
         data: { type: Buffer },
         contentType: { type: String },
       }
-    },]
+    },],
+ * maxPage:Number}
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
