@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectGlobal, openSidebar, hideSidebar } from '../slices/globalSlice'
@@ -13,8 +13,15 @@ import {
   CNavItem,
   CImage,
   CButton,
+  CFormControl,
+  CInputGroup,
+  CCollapse,
+  CTooltip,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import Chip from '@material-ui/core/Chip'
+import DoneIcon from '@material-ui/icons/Done'
+import AddIcon from '@material-ui/icons/Add'
 
 import { AppHeaderDropdown } from './header/index'
 
@@ -24,6 +31,9 @@ const AppHeader = () => {
   const dispatch = useDispatch()
   const { sidebarShow } = useSelector(selectGlobal)
   const { isLogin } = useSelector(selectLogin)
+
+  // web element control
+  const [isOpenFilter, setIsOpenFilter] = useState(false)
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -40,15 +50,22 @@ const AppHeader = () => {
 
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
-              Dashboard
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Setting</CNavLink>
+            <CInputGroup>
+              <CFormControl type="search" placeholder="Search"></CFormControl>
+              <CButton>
+                <CIcon name="cil-search" />
+              </CButton>
+              <CTooltip content="Filters" placement="bottom">
+                <CButton
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setIsOpenFilter(!isOpenFilter)
+                  }}
+                >
+                  <CIcon name="cil-filter" />
+                </CButton>
+              </CTooltip>
+            </CInputGroup>
           </CNavItem>
         </CHeaderNav>
         {isLogin ? (
@@ -62,6 +79,18 @@ const AppHeader = () => {
             </CNavLink>
           </CHeaderNav>
         )}
+      </CContainer>
+      <CCollapse visible={isOpenFilter}>
+        <Chip
+          variant="outlined"
+          avatar={<AddIcon></AddIcon>}
+          label="Clickable"
+          onClick={handleClick}
+        />
+      </CCollapse>
+      <CHeaderDivider />
+      <CContainer fluid>
+        <AppBreadcrumb />
       </CContainer>
     </CHeader>
   )
