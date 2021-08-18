@@ -52,4 +52,4 @@ Column_detail.index({ id: -1 })
 const collectionName = 'Column_detail_v3'
 module.exports.Schema = Column_detail
 module.exports.collectionName = collectionName
-module.exports = mongoose.model(collectionName, Column_detail)
+module.exports.model = mongoose.model(collectionName, Column_detail)
