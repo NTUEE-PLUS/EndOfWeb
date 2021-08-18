@@ -7,7 +7,6 @@ COPY backend/package*.json ./backend/
 RUN yarn local-install
 # Bundle app source
 COPY . .
-# RUN yarn run reset-db
 RUN yarn run build-client
 EXPOSE 1993
 CMD [ "node", "index.js" ]
