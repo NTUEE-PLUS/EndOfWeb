@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { login, logout, setImgSrc } from './slices/loginSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, logout, setImgSrc, selectLogin } from './slices/loginSlice'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import './scss/style.scss'
+import default_male from './assets/images/default_male.png'
 
 const loading = (
   <div className="spinner-border text-primary mt-3" role="status">
@@ -29,6 +30,7 @@ const OwnRecruitment = React.lazy(() => import('./views/pages/recruitment/OwnRec
 const OwnRecommendation = React.lazy(() => import('./views/pages/recommendation/OwnRecommendation'))
 const App = () => {
   const dispatch = useDispatch()
+  const { isLogin } = useSelector(selectLogin)
 
   useEffect(() => {
     // check login status
@@ -37,12 +39,12 @@ const App = () => {
       .then((res) => {
         console.log(res)
         dispatch(login())
-        dispatch(setImgSrc(res.data.userimage))
+        dispatch(setImgSrc(res.data.userimage === '' ? default_male : res.data.userimage))
       })
       .catch((err) => {
         dispatch(logout())
       })
-  }, [])
+  }, [isLogin])
 
   return (
     <HashRouter>

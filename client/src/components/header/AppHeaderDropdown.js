@@ -13,7 +13,6 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
-import default_male from '../../assets/images/default_male.png'
 
 const AppHeaderDropdown = () => {
   const dispatch = useDispatch()
@@ -36,7 +35,7 @@ const AppHeaderDropdown = () => {
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
         {/* <h6>src/components/header/AppHeaderDropDown/CAvator</h6> */}
-        <CAvatar size="md" src={imgSrc === '' ? default_male : imgSrc} />
+        <CAvatar size="md" src={imgSrc} />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Settings</CDropdownHeader>

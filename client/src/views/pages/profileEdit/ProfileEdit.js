@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-// import './profile.css'
+import ProfilePicture from '@dsalvagni/react-profile-picture'
+import '@dsalvagni/react-profile-picture/dist/ProfilePicture.css'
+
 import {
   CButton,
   CCard,
@@ -162,8 +164,9 @@ const ProfileEdit = () => {
           <CCard>
             <CCardBody>
               <CInputGroup className="d-flex flex-column align-items-center text-center">
-                <img src={preImg} alt="Admin" className="rounded-circle" width="150" />
-                <CFormControl type="file" onChange={preViewImg} style={{ width: '100%' }} />
+                {/* <img src={preImg} alt="Admin" className="rounded-circle" width="150" />
+                <CFormControl type="file" onChange={preViewImg} style={{ width: '100%' }} /> */}
+                <ProfilePicture useHelper={false} debug={true} frameFormat="circle" />
                 <div className="mt-3">
                   <CFormControl
                     value={data.username}
