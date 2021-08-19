@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { login, logout } from './slices/loginSlice'
+import { login, logout, setImgSrc } from './slices/loginSlice'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import './scss/style.scss'
@@ -35,7 +35,9 @@ const App = () => {
     axios
       .post('/api/isLogin', {})
       .then((res) => {
+        console.log(res)
         dispatch(login())
+        dispatch(setImgSrc(res.data.userimage))
       })
       .catch((err) => {
         dispatch(logout())
