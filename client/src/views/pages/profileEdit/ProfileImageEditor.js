@@ -54,7 +54,7 @@ const ProfileImageEditor = () => {
   return (
     <CModal visible={editImage} onDismiss={closeModal}>
       <CModalHeader onDismiss={closeModal}>
-        <CModalTitle>Choose Your Photo</CModalTitle>
+        <CModalTitle>Edit Your Photo</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <ProfilePicture ref={profilePictureRef} frameFormat={'circle'} cropSize="150" />
