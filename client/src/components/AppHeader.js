@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectGlobal, openSidebar, hideSidebar } from '../slices/globalSlice'
 import { selectLogin } from '../slices/loginSlice'
+import { selectSearch, setKeywords, setResultProfiles } from '../slices/searchSlice'
 import {
   CContainer,
   CHeader,
@@ -15,25 +17,38 @@ import {
   CButton,
   CFormControl,
   CInputGroup,
-  CCollapse,
-  CTooltip,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import Chip from '@material-ui/core/Chip'
-import DoneIcon from '@material-ui/icons/Done'
-import AddIcon from '@material-ui/icons/Add'
 
 import { AppHeaderDropdown } from './header/index'
 
 import logo_row from '../assets/images/logo_row.png'
+import axios from 'axios'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { sidebarShow } = useSelector(selectGlobal)
   const { isLogin } = useSelector(selectLogin)
+  const { keywords } = useSelector(selectSearch)
 
-  // web element control
-  const [isOpenFilter, setIsOpenFilter] = useState(false)
+  const handleSearch = (e) => {
+    e.preventDefault()
+    axios
+      .post('api/smartsearchProfile', { keyword: keywords })
+      .then((res) => {
+        dispatch(setResultProfiles(res.data))
+        history.push('/profileSearch')
+      })
+      .catch((err) => console.log(err))
+  }
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleSearch(e)
+    }
+  }
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -49,24 +64,25 @@ const AppHeader = () => {
         </CHeaderBrand>
 
         <CHeaderNav className="d-none d-md-flex me-auto">
-          <CNavItem>
-            <CInputGroup>
-              <CFormControl type="search" placeholder="Search"></CFormControl>
-              <CButton>
-                <CIcon name="cil-search" />
-              </CButton>
-              <CTooltip content="Filters" placement="bottom">
-                <CButton
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setIsOpenFilter(!isOpenFilter)
+          {isLogin ? (
+            <CNavItem>
+              <CInputGroup>
+                <CFormControl
+                  type="search"
+                  placeholder="Search for Profile"
+                  onChange={(e) => {
+                    dispatch(setKeywords(e.target.value))
                   }}
-                >
-                  <CIcon name="cil-filter" />
+                  onKeyPress={handleEnter}
+                ></CFormControl>
+                <CButton onClick={handleSearch}>
+                  <CIcon name="cil-search" />
                 </CButton>
-              </CTooltip>
-            </CInputGroup>
-          </CNavItem>
+              </CInputGroup>
+            </CNavItem>
+          ) : (
+            <></>
+          )}
         </CHeaderNav>
         {isLogin ? (
           <CHeaderNav className="ms-3">
@@ -79,18 +95,6 @@ const AppHeader = () => {
             </CNavLink>
           </CHeaderNav>
         )}
-      </CContainer>
-      <CCollapse visible={isOpenFilter}>
-        <Chip
-          variant="outlined"
-          avatar={<AddIcon></AddIcon>}
-          label="Clickable"
-          onClick={handleClick}
-        />
-      </CCollapse>
-      <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
       </CContainer>
     </CHeader>
   )
