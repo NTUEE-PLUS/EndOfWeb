@@ -5,7 +5,7 @@ services:
     expose:
       - '27017'
   web:
-    image: node:12
+    image: node:14-alpine
     working_dir: /app
     restart: on-failure:5
     build:
