@@ -24,7 +24,9 @@ services:
     stdin_open: true
   nginx:
     image: nginx
-    depends_on:
-      - web
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - web:web
     ports:
       - 8888:80
