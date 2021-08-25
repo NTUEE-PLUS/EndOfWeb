@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const { dbCatch } = require('../../../error')
 
 /**
- * @api {post} /smartsearchProfile search by keywords
+ * @api {post} /smartsearchProfile search profile by keywords
  * @apiName SearchProfile
  * @apiGroup In/profile_new
  * @apiDescription 給定關鍵字(用空格區分)搜尋
@@ -38,13 +38,5 @@ const { dbCatch } = require('../../../error')
 module.exports = asyncHandler(async (req, res, next) => {
   const { keyword } = req.body
   const pros = await Profile.smartFind(keyword).catch(dbCatch)
-  return res.status(201).send(
-    pros.map((pro) => {
-      const imgSrc = pro['imgSrc']
-      const {
-        _doc: { userimage, ...restData },
-      } = pro
-      return { userimage: imgSrc, ...restData }
-    }),
-  )
+  return res.status(201).send(pros.map((pro) => pro.getPublic()))
 })

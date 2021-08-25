@@ -20,8 +20,15 @@ const RecruBlock = ({ post }) => {
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
           className="mb-4 widgetbrand"
+<<<<<<< HEAD
           headerChildren={<img className="eesa" src={post.image ? post.image : eesa} alt="eesa" />}
           values={[[`${post.title.company_name} 徵 ${post.title.work_type}`]]}
+=======
+          headerChildren={
+            <img className="eesa" src={post.image === '' ? eesa : post.image} alt="eesa" />
+          }
+          values={[[post.title.company_name]]}
+>>>>>>> search,update with query functionalize
         />
       </Link>
       <hr></hr>

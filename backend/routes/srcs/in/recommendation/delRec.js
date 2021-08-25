@@ -3,7 +3,7 @@ const Recommendation = require('../../../Schemas/recommendation')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {delete} /recommendation delete
+ * @api {delete} /recommendation delete recommendation
  * @apiName DeleteRecommendation
  * @apiGroup In/recommendation
  * @apiDescription 刪除簡歷

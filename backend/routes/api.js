@@ -7,20 +7,6 @@ env.config()
 if (process.env.NODE_ENV === 'development') {
   //test
   console.log('running in dev mode')
-  /**
-   * @api {get} /testClient testClient
-   * @apiName TestClient
-   * @apiGroup Test
-   * @apiDescription 前端的測試頁面，建議改用postman測試
-   *
-   * @apiSuccess {file} - 測試頁面
-   */
-  router.get('/testClient', function (req, res) {
-    const path = require('path')
-    // console.log("use test");
-    res.sendFile(path.join(__dirname + '/test/testClient.html'))
-  })
-  router.post('/testRoute', require('./test/testRoute'))
 }
 
 //out
@@ -35,7 +21,7 @@ router.use(require('./srcs/out/dashboard/main'))
 //check is user
 router.use(require('./srcs/in/auth/isUser'))
 //showVisual, chVisual, searchVisual
-router.use(require('./srcs/in/profile/main'))
+// router.use(require('./srcs/in/profile/main'))
 //profile, searchProfile
 router.use(require('./srcs/in/profile_new/main'))
 //showPerson, chLogin, isLogin, logout

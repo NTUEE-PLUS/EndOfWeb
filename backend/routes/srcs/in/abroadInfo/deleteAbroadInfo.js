@@ -3,22 +3,20 @@ const asyncHandler = require('express-async-handler')
 const { dbCatch } = require('../../../error')
 
 /**
- * @api {delete} /deleteAbroadInfo delete
+ * @api {delete} /deleteAbroadInfo delete abroadInfo
  * @apiName DeleteAbroadInfo
  * @apiGroup In/abroadInfo
  * @apiDescription 用_id刪除留學資訊
  *
  * @apiparam {String} _id 要刪除的
  *
- * @apiSuccess (200) data 刪除
+ * @apiSuccess (200) - -
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
 
 module.exports = asyncHandler(async (req, res, next) => {
-  console.log(req.body)
-  const deletedAbroadInfo = await Abroad_info.findByIdAndDelete(req.body._id).catch(dbCatch)
-  let deleteAbroadInfo = deletedAbroadInfo ? deletedAbroadInfo.title.title : '_id does not exist'
-  console.log('delete:', deleteAbroadInfo)
-  res.status(200).send({ data: deleteAbroadInfo })
+  const { _id } = req.body
+  await Abroad_info.findByIdAndDelete(_id).catch(dbCatch)
+  res.status(200).end()
 })

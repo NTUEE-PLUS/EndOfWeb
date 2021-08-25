@@ -35,7 +35,7 @@ async function deleteRecruitment(req, res, next) {
 }
 
 /**
- * @api {delete} /deleteRecruitment delete
+ * @api {delete} /deleteRecruitment delete recruitment
  * @apiName DeleteRecruitment
  * @apiGroup In/career
  * @apiDescription 用_id刪除職缺

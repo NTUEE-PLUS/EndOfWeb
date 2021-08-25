@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const { dbCatch } = require('../../../error')
 
 /**
- * @api {post} /smartsearchRecruitment search by keywords
+ * @api {post} /smartsearchRecruitment search recruitment by keywords
  * @apiName ShowRecruitment
  * @apiGroup In/career
  * @apiDescription 用空格區分關鍵字進行搜尋
@@ -30,5 +30,5 @@ const { dbCatch } = require('../../../error')
 module.exports = asyncHandler(async (req, res, next) => {
   const { keyword } = req.body
   const recrus = await Recruitment_new.smartFind(keyword).catch(dbCatch)
-  return res.status(201).send(recrus.map((recru) => recru.getPublic()))
+  res.status(201).send(recrus.map((recru) => recru.getPublic()).reverse())
 })

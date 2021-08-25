@@ -3,7 +3,7 @@ const { dbCatch } = require('../../../error')
 const { model: Column_Outline } = require('../../../Schemas/column_outline')
 
 /**
- * @api {get} /column/outline get outline with id optional
+ * @api {get} /column/outline get column outline with id optional
  * @apiName GetOutline
  * @apiGroup In/column
  * @apiDescription 拿Outline資料(含圖片)

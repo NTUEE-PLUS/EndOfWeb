@@ -1,9 +1,10 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Recommendation = require('../../../Schemas/recommendation')
+const { updateQuery, parseImg } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {patch} /recommendation update
+ * @api {patch} /recommendation update recommendation
  * @apiName UpdateRecommendation
  * @apiGroup In/recommendation
  * @apiDescription  更新簡歷
@@ -29,20 +30,13 @@ const asyncHandler = require('express-async-handler')
  */
 module.exports = asyncHandler(async (req, res) => {
   const account = req.session.loginAccount
-  if (!account) throw new ErrorHandler(403, 'not login')
 
   const { _id, title, name, desire_work_type, contact, email, diploma, experience, speciality } =
     req.body
+
   const data = await Recommendation.findById(_id).catch(dbCatch)
   if (!data || data.account !== account)
     throw new ErrorHandler(403, 'not valid _id or account not match')
-
-  let buffer,
-    mimetype = undefined
-  if (req.file) {
-    buffer = req.file.buffer
-    mimetype = req.file.mimetype
-  }
 
   const keys = {
     'title.title': title,
@@ -53,22 +47,9 @@ module.exports = asyncHandler(async (req, res) => {
     'info.diploma': diploma,
     'spec.experience': experience,
     'spec.speciality': speciality,
-    'img.data': buffer,
-    'img.contentType': mimetype,
+    img: parseImg(req.file),
   }
-  const toSet = Object.entries(keys).reduce(
-    (acc, [key, val]) => {
-      if (val === undefined) return acc
-      if (key in ['spec.experience', 'spec.speciality'] && !Array.isArray(val)) return acc
-      if (val === '') {
-        acc.$unset[key] = ''
-        return acc
-      }
-      acc.$set[key] = val
-      return acc
-    },
-    { $set: {}, $unset: {} },
-  )
+  const toSet = updateQuery(keys)
   await Recommendation.findByIdAndUpdate(_id, toSet).catch((e) => {
     throw new ErrorHandler(500, '資料格式錯誤')
   })

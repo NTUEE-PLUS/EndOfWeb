@@ -15,7 +15,4 @@ router.post('/logout', require('./logout'))
 
 router.post('/isLogin', require('./isLogin'))
 
-// router.post('/practice',
-// 	require('./practice'))
-
 module.exports = router

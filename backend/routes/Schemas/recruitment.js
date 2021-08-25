@@ -23,12 +23,7 @@ const Recruitment_Schema = new Schema({
     data: { type: Buffer },
     contentType: { type: String },
   },
-  //   id: String
 })
-
-// Recruitment_Schema.index({
-//   '$**': 'text',
-// })
 
 Recruitment_Schema.virtual('imgSrc').get(function () {
   try {
