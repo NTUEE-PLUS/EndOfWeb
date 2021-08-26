@@ -55,4 +55,14 @@ const updateRecruitment = async (req, res, next) => {
  * @apiError (403) {String} description unauthorized(僅建立者可以更新)
  */
 
-module.exports = asyncHandler(updateRecruitment)
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: ['title', 'company_name', 'work_type', 'salary', 'diploma'],
+    type: 'string',
+  },
+  { filename: 'optional', field: ['experience', 'diploma', 'description'], type: 'array' },
+  { filename: 'required', field: '_id' },
+]
+module.exports = [valid(rules), asyncHandler(updateRecruitment)]

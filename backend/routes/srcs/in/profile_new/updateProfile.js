@@ -76,4 +76,39 @@ const updateProfile = async (req, res, next) => {
   return res.status(204).end()
 }
 
-module.exports = asyncHandler(updateProfile)
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: [
+      'account',
+      'username',
+      'nickname',
+      'profile',
+      'publicEmail',
+      'cellphone',
+      'CC',
+      'web',
+      'facebook',
+      'Linkedin',
+      'github',
+      'major',
+      'double_major',
+      'minor',
+      'master',
+      'doctor',
+    ],
+    type: 'string',
+  },
+  {
+    filename: 'optional',
+    field: ['publicEmail'],
+    type: 'email',
+  },
+  {
+    filename: 'optional',
+    field: ['Occupation'],
+    type: 'array',
+  },
+]
+module.exports = [valid(rules), asyncHandler(updateProfile)]

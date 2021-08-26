@@ -35,8 +35,12 @@ const { dbCatch } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 
-module.exports = asyncHandler(async (req, res, next) => {
+const smartSearch = async (req, res, next) => {
   const { keyword } = req.body
   const pros = await Profile.smartFind(keyword).catch(dbCatch)
   return res.status(201).send(pros.map((pro) => pro.getPublic()))
-})
+}
+
+const valid = require('../../../middleware/validation')
+const rules = [{ filename: 'optional', field: ['keyword'] }]
+module.exports = [valid(rules), asyncHandler(smartSearch)]

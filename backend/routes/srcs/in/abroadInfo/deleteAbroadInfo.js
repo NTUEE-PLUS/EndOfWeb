@@ -14,9 +14,12 @@ const { dbCatch } = require('../../../error')
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
-
-module.exports = asyncHandler(async (req, res, next) => {
+const delAI = async (req, res, next) => {
   const { _id } = req.body
   await Abroad_info.findByIdAndDelete(_id).catch(dbCatch)
   res.status(200).end()
-})
+}
+
+const valid = require('../../../middleware/validation')
+const rules = [{ filename: 'required', field: '_id' }]
+module.exports = [valid(rules), asyncHandler(delAI)]

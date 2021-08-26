@@ -75,4 +75,23 @@ const searchRecuitment = async function (req, res, next) {
  * @apiError (500) {String} description 資料庫錯誤
  */
 
-module.exports = asyncHandler(searchRecuitment)
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: [
+      '_id',
+      'account',
+      'title',
+      'company_name',
+      'work_type',
+      'salary',
+      'experience',
+      'diploma',
+      'requirement',
+      'description',
+    ],
+    type: 'string',
+  },
+]
+module.exports = [valid(rules), asyncHandler(searchRecuitment)]

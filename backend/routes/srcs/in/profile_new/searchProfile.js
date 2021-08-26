@@ -56,6 +56,7 @@ const asyncHandler = require('express-async-handler')
  */
 const srhProfile = async function (req, res, next) {
   const {
+    account,
     username,
     nickname,
     profile,
@@ -73,6 +74,7 @@ const srhProfile = async function (req, res, next) {
     doctor,
   } = req.body
   const query = {
+    account,
     username,
     nickname,
     profile,
@@ -108,4 +110,34 @@ const srhProfile = async function (req, res, next) {
   return res.status(201).send(pros.map((p) => p.getPublic()))
 }
 
-module.exports = asyncHandler(srhProfile)
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: [
+      'account',
+      'username',
+      'nickname',
+      'profile',
+      'publicEmail',
+      'cellphone',
+      'CC',
+      'web',
+      'facebook',
+      'Linkedin',
+      'github',
+      'major',
+      'double_major',
+      'minor',
+      'master',
+      'doctor',
+    ],
+    type: 'string',
+  },
+  {
+    filename: 'optional',
+    field: ['Occupation'],
+    type: 'object',
+  },
+]
+module.exports = [valid(rules), asyncHandler(srhProfile)]

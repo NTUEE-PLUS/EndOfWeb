@@ -14,11 +14,11 @@ const ImgGet = require('../../../middleware/fileProcess')
 // router.post('/getImg',
 // 	require('./getImg'))
 
-router.get('/detail', valid('getDetail'), require('./getDetail'))
+router.get('/detail', valid([]), require('./getDetail'))
 
 router.get('/outline', require('./getOutline'))
 
-router_auth.post('/add', ImgGet('file'), valid('addColumn'), require('./addColumn'))
+router_auth.post('/add', ImgGet('file'), valid([]), require('./addColumn'))
 
 router.get('/search', require('./search'))
 

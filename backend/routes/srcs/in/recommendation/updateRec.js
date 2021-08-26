@@ -28,7 +28,7 @@ const asyncHandler = require('express-async-handler')
  * @apiError (403) {String} description not valid _id or account not match
  * @apiError (500) {String} description 資料庫錯誤
  */
-module.exports = asyncHandler(async (req, res) => {
+const updateRec = async (req, res) => {
   const account = req.session.loginAccount
 
   const { _id, title, name, desire_work_type, contact, email, diploma, experience, speciality } =
@@ -55,4 +55,25 @@ module.exports = asyncHandler(async (req, res) => {
   })
 
   return res.status(203).end()
-})
+}
+
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma'],
+    type: 'string',
+  },
+  {
+    filename: 'optional',
+    field: ['email'],
+    type: 'email',
+  },
+  {
+    filename: 'optional',
+    field: ['experience', 'speciality'],
+    type: 'array',
+  },
+  { filename: 'required', field: '_id' },
+]
+module.exports = [valid(rules), asyncHandler(updateRec)]

@@ -65,9 +65,8 @@ const asyncHandler = require('express-async-handler')
  * @apiError (500) {String} description 資料庫錯誤
  */
 
-module.exports = asyncHandler(async (req, res) => {
+const addCol = async (req, res) => {
   const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
-  if (!id) throw new ErrorHandler(400, 'id is required')
   const columnImg = parseImg(req.file)
 
   await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
@@ -75,4 +74,21 @@ module.exports = asyncHandler(async (req, res) => {
     .save()
     .catch(dbCatch)
   res.status(201).send({ id })
-})
+}
+
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: ['top', 'body', 'annotation'],
+    type: 'object',
+  },
+  {
+    filename: 'optional',
+    field: ['date'],
+    type: 'string',
+  },
+  { filename: 'optional', field: ['anno', 'title', 'exp', 'edu', 'intro'], type: 'array' },
+  { filename: 'required', field: 'id' },
+]
+module.exports = [valid(rules), asyncHandler(addCol)]

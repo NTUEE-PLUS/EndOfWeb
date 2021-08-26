@@ -38,7 +38,7 @@ const asyncHandler = require('express-async-handler')
  * @apiError (403) {String} - not login
  * @apiError (500) {String} description 資料庫錯誤
  */
-module.exports = asyncHandler(async (req, res, next) => {
+const showRec = async (req, res, next) => {
   const {
     account,
     _id,
@@ -65,6 +65,27 @@ module.exports = asyncHandler(async (req, res, next) => {
   }
   const sq = searchQuery(query)
   const recs = await Recommendation.find(sq).catch(dbCatch)
-  const output = recs.map((obj) => obj.getPublic())
-  res.status(200).send(output)
-})
+  res.status(200).send(recs.map((obj) => obj.getPublic()).reverse())
+}
+
+const valid = require('../../../middleware/validation')
+const rules = [
+  {
+    filename: 'optional',
+    field: [
+      'account',
+      '_id',
+      'title',
+      'name',
+      'desire_work_type',
+      'contact',
+      'email',
+      'diploma',
+      'experience',
+      'speciality',
+    ],
+    method: 'get',
+    type: 'string',
+  },
+]
+module.exports = [valid(rules), asyncHandler(showRec)]

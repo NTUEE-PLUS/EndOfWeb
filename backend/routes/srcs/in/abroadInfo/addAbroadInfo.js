@@ -18,10 +18,13 @@ const asyncHandler = require('express-async-handler')
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
-
-module.exports = asyncHandler(async (req, res) => {
+const addAbroadInfo = async (req, res) => {
   const { title, info } = req.body
   const icon = parseImg(req.file)
   const { _id } = await new Abroad_info({ title, info, icon }).save().catch(dbCatch)
   res.status(201).send({ title, _id })
-})
+}
+
+const valid = require('../../../middleware/validation')
+const rules = [{ filename: 'optional', field: ['title', 'info'] }]
+module.exports = [valid(rules), asyncHandler(addAbroadInfo)]

@@ -23,7 +23,6 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  */
 
 const updateAbroadInfo = async (req, res) => {
-  //const session_auth = (req.session.isAuth)
   const { _id, title, info } = req.body
   if (!_id) throw new ErrorHandler(403, '_id not given')
   const obj = await Abroad_info.findOne({ _id }, 'title').catch(dbCatch)
@@ -34,4 +33,10 @@ const updateAbroadInfo = async (req, res) => {
   await Abroad_info.findByIdAndUpdate(_id, toSet).catch(dbCatch)
   return res.status(200).end()
 }
-module.exports = asyncHandler(updateAbroadInfo)
+
+const valid = require('../../../middleware/validation')
+const rules = [
+  { filename: 'required', field: '_id' },
+  { filename: 'optional', field: ['title', 'info'] },
+]
+module.exports = [valid(rules), asyncHandler(updateAbroadInfo)]
