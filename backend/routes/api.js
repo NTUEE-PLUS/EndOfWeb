@@ -41,7 +41,7 @@ router.use(require('./srcs/in/auth/isAuth'))
 //column
 router.use('/column', require('./srcs/in/column/main').router_auth)
 //auth
-router.use(require('./srcs/in/auth/main'))
+// router.use(require('./srcs/in/auth/main'))
 //account
 router.use(require('./srcs/in/account/main').router_auth)
 //study

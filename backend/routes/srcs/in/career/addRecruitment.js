@@ -63,9 +63,9 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'company_name', 'work_type', 'salary', 'diploma'],
+    field: ['title', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
     type: 'string',
   },
-  { filename: 'optional', field: ['experience', 'diploma', 'description'], type: 'array' },
+  { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },
 ]
 module.exports = [valid(rules), asyncHandler(addRecru)]

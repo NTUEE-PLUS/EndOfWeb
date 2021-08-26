@@ -1,3 +1,4 @@
+const mongoose = require('../../../../Schemas/db')
 const imgPath = '../../../../../../../NTUEE_PLUS_WEBSITE/client/src/images'
 const fs = require('fs')
 const Recruitment = require('../../../../Schemas/recruitment')
@@ -111,7 +112,7 @@ const main = async () => {
         account: 'b07901029',
         title: { title, company_name, work_type },
         info: { salary, experience: experience.split('\n'), diploma },
-        spec: { requirement: requirement.split('\n'), description: description.split('\n') },
+        spec: { requirement: requirement.split('\n'), description: description },
       })
       filePath = path.join(imgPath, image + '.png')
       rec.img.data = fs.readFileSync(filePath)
@@ -121,4 +122,7 @@ const main = async () => {
     },
   )
 }
-main()
+mongoose.connection.on('open', () => {
+  console.log('DB on')
+  main()
+})
