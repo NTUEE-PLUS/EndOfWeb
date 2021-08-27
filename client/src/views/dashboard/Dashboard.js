@@ -120,11 +120,7 @@ const Dashboard = () => {
                         <CCardImage src={recruitment.image === '' ? logo : recruitment.image} />
                         <CCardBody>
                           <CCardTitle className="text-center">
-                            <h2>
-                              {recruitment.title.company_name +
-                                ' 徵 ' +
-                                recruitment.title.work_type}
-                            </h2>
+                            <h2>{recruitment.title.title}</h2>
                           </CCardTitle>
                         </CCardBody>
                       </CCard>
@@ -153,11 +149,7 @@ const Dashboard = () => {
                         />
                         <CCardBody>
                           <CCardTitle className="text-center">
-                            <h2>
-                              {recommendation.title.name +
-                                ' 求 ' +
-                                recommendation.title.desire_work_type}
-                            </h2>
+                            <h2>{recommendation.title.title}</h2>
                           </CCardTitle>
                         </CCardBody>
                       </CCard>
