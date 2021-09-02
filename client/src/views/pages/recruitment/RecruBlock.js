@@ -60,7 +60,7 @@ const RecruBlock = ({ post, setData, index }) => {
             <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
             {/* <h4>{post.spec.description.map((des) => spec(des))}</h4> */}
-            <h4>{post.spec.description}</h4>
+            <h4>{parser(post.spec.description)}</h4>
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}
