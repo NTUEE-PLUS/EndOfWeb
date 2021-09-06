@@ -88,7 +88,7 @@ const AppContent = () => {
                 )
               })
             : null}
-          <Redirect from="/" to="/dashboard" />
+          {/* <Redirect from="/" to="/dashboard" /> */}
         </Switch>
       </Suspense>
     </div>
