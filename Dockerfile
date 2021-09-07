@@ -1,5 +1,5 @@
 FROM node:14-alpine
-WORKDIR /usr/src/app
+WORKDIR /app
 # Install app dependencies
 COPY package*.json /usr/src/app/
 COPY client/package*.json /usr/src/app/client
