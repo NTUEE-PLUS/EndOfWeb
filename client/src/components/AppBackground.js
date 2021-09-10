@@ -28,11 +28,20 @@ const AppBackground = () => {
                 '#a2d6fe',
               ],
             },
+            opacity: {
+              value: 0.8,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 0.8,
+                opacity_min: 0.1,
+              },
+            },
             size: {
               value: 30,
               random: {
                 enable: true,
-                minimumValue: 2.5,
+                minimumValue: 5,
               },
               anim: {
                 speed: 2,
