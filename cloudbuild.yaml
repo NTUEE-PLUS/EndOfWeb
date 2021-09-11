@@ -18,3 +18,4 @@ steps:
       - 'asia-east1'
 images:
   - 'gcr.io/$PROJECT_ID/eeplus:$COMMIT_SHA'
+timeout: 1200s
