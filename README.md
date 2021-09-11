@@ -33,6 +33,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 ## GCP
 
 ```
-$ gcloud builds submit --tag gcr.io/eeplus-web/cra-cloud-run
-$ gcloud run deploy --image gcr.io/eeplus-web/cra-cloud-run --platform managed
+$ ./gcloud.sh
 ```
+
+> then open [website](https://eeplus-jflswz6uxq-de.a.run.app/#/contact)
