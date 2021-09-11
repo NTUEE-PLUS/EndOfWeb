@@ -11,6 +11,13 @@ const _navOut = [
   {
     _component: 'CNavItem',
     as: NavLink,
+    anchor: 'HOME',
+    to: '/home',
+    icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
     anchor: 'DASHBOARD',
     to: '/dashboard',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
