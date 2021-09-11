@@ -34,9 +34,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 
 ```bash
 # in cloud shell
-$ ./gcloud.sh
+$ gcloud builds submit
 ```
-
-> If permision denied, run `chmod 777 ./gcloud.sh`.
 
 > After deployment finish, open [website](https://eeplus-jflswz6uxq-de.a.run.app/#/contact)
