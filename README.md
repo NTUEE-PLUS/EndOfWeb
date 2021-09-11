@@ -33,7 +33,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 ## GCP
 
 ```bash
-# in cloud shell
+# in the cloud shell
 $ gcloud builds submit
 ```
 
