@@ -37,4 +37,5 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 $ gcloud builds submit
 ```
 
+> This will take 5~15 mins, depends on whether package.json was changed. If package wasn't changed, cache will be used; Otherwise, yarn install will take a lot of time.
 > After deployment finish, open [website](https://eeplus-jflswz6uxq-de.a.run.app/#/contact)
