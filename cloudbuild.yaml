@@ -1,7 +1,8 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['pull', 'gcr.io/$PROJECT_ID/eeplus', '||', 'true']
+    entrypoint: 'bash'
+    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/eeplus || true']
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args:
