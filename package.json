@@ -7,7 +7,7 @@
     "dev": "npm-run-all --parallel start-client start-server",
     "build-client": "cd client && yarn build && cd ..",
     "reset-db": "node ./backend/routes/Schemas/preload.js",
-    "heroku-prebuild": "yarn run local-install --only=dev",
+    "heroku-prebuild": "yarn run local-install  --dev",
     "heroku-postbuild": "yarn run local-install && yarn build-client",
     "start": "node index.js"
   },
