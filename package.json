@@ -10,6 +10,9 @@
     "heroku-postbuild": "yarn run local-install && yarn build-client",
     "start": "node index.js"
   },
+  "engines": {
+    "node": "14.15.1"
+  },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
     "bootstrap-icons": "^1.5.0",
