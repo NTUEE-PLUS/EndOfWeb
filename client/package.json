@@ -68,7 +68,7 @@
     "prettier": "2.3.2",
     "react-scripts": "^4.0.3",
     "sass": "^1.35.1",
-    "webpack-cli": "^4.7.2"
+    "webpack-cli": "^4.8.0"
   },
   "scripts": {
     "local-build": "webpack --watch --mode development",
