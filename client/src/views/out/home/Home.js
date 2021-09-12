@@ -4,31 +4,27 @@ import Dashboard from '../../dashboard/Dashboard'
 import About from '../about/About'
 import Contact from '../contact/Contact'
 import History from '../history/History'
-import Support from '../support/Support'
 import Team from '../team/Team'
+import Services from '../service/Service'
+import Feature from '../feature/Feature'
+import Interviews from '../interviews/Interviews'
+import Header from '../header/Header'
 
 const Home = () => {
   return (
-    <div>
-      <h2 id="dashboard">Dashboard</h2>
+    <div
+      className="landing"
+      style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}
+    >
+      <Header />
       <Dashboard />
-      <h2 id="about">About Us</h2>
+      <Feature />
       <About />
-      <h2 id="contact">Contact</h2>
-      <Contact />
-      <h2 id="history">History</h2>
+      <Services />
+      <Interviews />
       <History />
-      <h2 id="support">Support Us</h2>
-      <Support />
-      <h2 id="team">Our Team</h2>
       <Team />
-      <h2 id="here1">1 in here</h2>
-      <div style={{ height: '40px' }}></div>
-      <h2 id="here2">2 in here</h2>
-      <div style={{ height: '80px' }}></div>
-      <a href="#here1">go to 1</a>
-      <div style={{ height: '40px' }}></div>
-      <a href="#here2">go to 2</a>
+      <Contact />
     </div>
   )
 }
