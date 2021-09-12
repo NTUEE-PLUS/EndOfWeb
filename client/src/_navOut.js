@@ -10,28 +10,48 @@ const _navOut = [
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
-    anchor: 'HOME',
-    to: '/home',
+
+    anchor: 'HEADER',
+    to: 'header',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
     anchor: 'DASHBOARD',
     to: '/dashboard',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
+    anchor: 'FEATURES',
+    to: 'features',
+    icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
+
     anchor: 'ABOUT',
     to: '/about',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
+    anchor: 'SERVICES',
+    to: 'services',
+    icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
+
+    anchor: 'INTERVIEWS',
+    to: 'interviews',
+    icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
+
     anchor: 'HISTORY',
     to: '/history',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
@@ -49,13 +69,6 @@ const _navOut = [
     anchor: 'CONTACT',
     to: '/contact',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
-  },
-  {
-    _component: 'CNavItem',
-    as: NavLink,
-    anchor: 'SUPPORT',
-    to: '/support',
-    icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
   },
 ]
 

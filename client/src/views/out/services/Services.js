@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 
-const Service = () => {
+const Services = () => {
   return (
     <div id="services" className="text-center">
       <div className="container">
@@ -58,4 +58,4 @@ const Service = () => {
   )
 }
 
-export default Service
+export default Services

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 
-const Feature = () => {
+const Features = () => {
   return (
     <div id="features" className="text-center">
       <div className="container">
@@ -51,4 +51,4 @@ const Feature = () => {
   )
 }
 
-export default Feature
+export default Features
