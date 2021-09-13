@@ -2,6 +2,8 @@
 
 ## Run
 
+- get true .env from [here](https://drive.google.com/drive/folders/1sIbHwgsVmo1IHE-nc3OvVdYd3-haUc5N?usp=sharing)
+
 ```bash
 # whenever new package is used.
 yarn local-install
