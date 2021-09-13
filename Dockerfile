@@ -10,6 +10,8 @@ COPY . .
 ENV PORT=3000
 ENV NODE_ENV=production
 ENV newReg=false
+ARG MONGO_URI
+ENV MONGO_URI=${MONGO_URI:-}
 RUN yarn run build-client
 
 EXPOSE 3000

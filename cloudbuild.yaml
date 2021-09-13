@@ -11,9 +11,9 @@ steps:
       - 'gcr.io/$PROJECT_ID/eeplus'
       - '-t'
       - 'gcr.io/$PROJECT_ID/eeplus'
-      - '-e'
+      - '--build-arg'
       - 'MONGO_URI=${_MONGO_URI}'
-      - '-e'
+      - '--build-arg'
       - 'REACT_APP_fbAPIid=${_FB_APPID}'
       - '.'
   # Push the container image to Container Registry
