@@ -33,7 +33,7 @@
   line-height: 24px;
 }
 .landing a {
-  color: #608dfd;
+  color: white;
   font-weight: 400;
 }
 .landing a:hover,
@@ -167,6 +167,7 @@ header .intro-text {
 /* Features Section */
 #features {
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+  padding: 100px 0;
 }
 #features i.fa {
   font-size: 38px;
@@ -182,7 +183,6 @@ header .intro-text {
 }
 /* About Section */
 #about {
-  padding: 100px 0;
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
 }
 #about h3 {

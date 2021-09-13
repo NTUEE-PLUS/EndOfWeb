@@ -27,6 +27,8 @@ import {
   Study,
 } from './views/in'
 
+import Dashboard from './views/dashboard/Dashboard'
+
 // out routes
 const routes_out = [
   { path: '/home', exact: false, name: 'Home', component: Home },
@@ -44,6 +46,7 @@ const routes_out = [
 ]
 
 const routes_in = [
+  { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
   { path: '/column_summary', exact: true, name: 'ColumnSummary', component: ColumnSummary },
   { path: '/column_summary/:id', exact: false, name: 'column', component: Column },
   { path: '/career', exact: true, name: 'Career', component: Career },

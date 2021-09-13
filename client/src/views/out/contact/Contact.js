@@ -124,7 +124,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="col-md-12">
-            <div className="row">
+            <div className="row" style={{ color: 'white' }}>
               <div className="social">
                 <ul>
                   <li>
