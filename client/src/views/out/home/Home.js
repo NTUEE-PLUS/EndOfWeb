@@ -17,7 +17,6 @@ const Home = () => {
       style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}
     >
       <Header />
-      <Dashboard />
       <Feature />
       <About />
       <Services />
