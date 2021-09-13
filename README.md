@@ -38,7 +38,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 
 - In heroku/settings, modify config vars
 
-![image](https://github.com/Claude0311/EndOfWeb/tree/NTUEEPLUS-152/screenshot/heroku-arg.png)
+![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/heroku-arg.png)
 
 ## GCP
 
@@ -57,16 +57,16 @@ $ gcloud builds submit
 
 1. set **trigger** in cloud build and add arg fields
 
-   ![image](https://github.com/Claude0311/EndOfWeb/tree/NTUEEPLUS-152/screenshot/gcp-arg-step1.png)
+   ![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/gcp-arg-step1.png)
 
 2. In cloudbuild.yaml, use **--build-arg** to read args
 
-   ![image](https://github.com/Claude0311/EndOfWeb/tree/NTUEEPLUS-152/screenshot/gcp-arg-step2.png)
+   ![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/gcp-arg-step2.png)
 
 3. In Dockerfile, use **ARG** and **ENV** to set env
 
-   ![image](https://github.com/Claude0311/EndOfWeb/tree/NTUEEPLUS-152/screenshot/gcp-arg-step3.png)
+   ![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/gcp-arg-step3.png)
 
 4. If want to use .env in frontend, set **pulgin** in webpack.config.js
 
-   ![image](https://github.com/Claude0311/EndOfWeb/tree/NTUEEPLUS-152/screenshot/gcp-arg-step4.png)
+   ![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/gcp-arg-step4.png)
