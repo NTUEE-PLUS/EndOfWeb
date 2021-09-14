@@ -8,16 +8,16 @@
   margin: 0 0 20px;
   font-weight: 800;
   font-size: 36px;
-  color: #333;
+  // color: #333;
 }
 .landing h3 {
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  // color: #333;
 }
 .landing h4 {
   font-size: 18px;
-  color: #333;
+  // color: #333;
   font-weight: 600;
 }
 .landing h5 {
@@ -128,16 +128,13 @@
   display: table;
   width: 100%;
   padding: 0;
-  background: url(https://picsum.photos/id/237/900/600) center center no-repeat;
-  background-color: #e5e5e5;
+  background-color: transparent;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
 }
-.intro .overlay {
-  background: rgba(0, 0, 0, 0.2);
-}
+
 .intro h1 {
   font-family: 'Raleway', sans-serif;
   color: #fff;
@@ -160,15 +157,15 @@
   margin-bottom: 60px;
 }
 header .intro-text {
-  padding-top: 350px;
+  padding-top: 200px;
   padding-bottom: 200px;
   text-align: center;
 }
-/* Features Section */
-#features {
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+
+.section {
   padding: 100px 0;
 }
+/* Features Section */
 #features i.fa {
   font-size: 38px;
   margin-bottom: 20px;
@@ -182,9 +179,7 @@ header .intro-text {
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 /* About Section */
-#about {
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
-}
+
 #about h3 {
   font-size: 22px;
   margin: 0 0 20px;
@@ -230,8 +225,6 @@ header .intro-text {
 }
 /* Services Section */
 #services {
-  padding: 100px 0;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
   color: #fff;
 }
 #services .service-desc {
@@ -272,10 +265,7 @@ header .intro-text {
   margin-bottom: 40px;
 }
 /* Portfolio Section */
-#interviews {
-  padding: 100px 0;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
-}
+
 .portfolio-item {
   margin: 1px -15px 0 -14px;
   padding: 0;
@@ -318,10 +308,7 @@ header .intro-text {
   opacity: 1;
 }
 /* Team Section */
-#team {
-  padding: 100px 0;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
-}
+
 #team h4 {
   margin: 5px 0;
 }
@@ -338,8 +325,6 @@ header .intro-text {
 }
 /* Contact Section */
 #contact {
-  padding: 100px 0 60px;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
   color: rgba(255, 255, 255, 0.75);
 }
 #contact .section-title {

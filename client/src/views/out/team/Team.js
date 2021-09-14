@@ -1,14 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import { CContainer, CRow } from '@coreui/react'
+
 const Team = () => {
   return (
-    <div id="team" className="text-center">
-      <div className="container">
-        <div className="col-md-8 col-md-offset-2 section-title">
+    <div id="team" className="text-center section">
+      <CContainer>
+        <CRow className="section-title">
           <h2>Meet the Team</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
-        </div>
-        <div className="row">
+        </CRow>
+        <CRow>
           <div className="col-sm-3 col-xs-6 team">
             <div className="thumbnail">
               {' '}
@@ -49,8 +51,8 @@ const Team = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </CRow>
+      </CContainer>
     </div>
   )
 }

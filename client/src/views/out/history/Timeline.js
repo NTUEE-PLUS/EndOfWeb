@@ -20,7 +20,7 @@ const Timeline = ({ data }) => {
   }
 
   return (
-    <div style={{ width: '100%' }} className="text-color-black" id="history">
+    <div style={{ width: '100%' }} className="text-color-black section" id="history">
       <Chrono
         items={items}
         mode="VERTICAL_ALTERNATING"

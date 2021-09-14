@@ -1,15 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { CButton } from '@coreui/react'
+import { CContainer, CRow } from '@coreui/react'
 
 const About = () => {
   return (
-    <div id="about">
-      <div className="container">
-        <div className="row">
+    <div id="about" className="section">
+      <CContainer>
+        <CRow>
           <div className="col-xs-12 col-md-6">
             {' '}
-            <img src="https://picsum.photos/200/100" className="img-responsive" alt="" />{' '}
+            <img src="https://picsum.photos/520/380" className="img-responsive" alt="" />{' '}
           </div>
           <div className="col-xs-12 col-md-6">
             <div className="about-text">
@@ -39,8 +38,8 @@ const About = () => {
               </div> */}
             </div>
           </div>
-        </div>
-      </div>
+        </CRow>
+      </CContainer>
     </div>
   )
 }

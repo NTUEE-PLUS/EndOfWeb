@@ -3,7 +3,7 @@ import React from 'react'
 
 const Interviews = () => {
   return (
-    <div id="interviews" className="text-center">
+    <div id="interviews" className="text-center section">
       <div className="container">
         <div className="section-title">
           <h2>Interviews</h2>

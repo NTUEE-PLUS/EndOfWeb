@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import { CContainer, CRow } from '@coreui/react'
 
 const Header = () => {
   return (
     <header id="header">
       <div className="intro">
         <div className="overlay">
-          <div className="container">
-            <div className="row">
+          <CContainer>
+            <CRow className="justify-content-center">
               <div className="col-md-8 col-md-offset-2 intro-text">
                 <h1>
                   We are a landing page
@@ -22,8 +23,8 @@ const Header = () => {
                   Learn More
                 </a>{' '}
               </div>
-            </div>
-          </div>
+            </CRow>
+          </CContainer>
         </div>
       </div>
     </header>

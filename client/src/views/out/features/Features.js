@@ -1,14 +1,17 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import { CContainer, CRow } from '@coreui/react'
 
 const Features = () => {
   return (
-    <div id="features" className="text-center">
-      <div className="container">
-        <div className="col-md-10 col-md-offset-1 section-title">
+    <div id="features" className="text-center section">
+      <CContainer className="justify-content-center">
+        {/* <div className="col-md-10 col-md-offset-1 section-title"> */}
+
+        <CRow className="section-title">
           <h2>Features</h2>
-        </div>
-        <div className="row">
+        </CRow>
+        <CRow>
           <div className="col-xs-6 col-sm-3">
             {' '}
             <i className="bi bi-arrow-up-circle-fill"></i>
@@ -45,8 +48,8 @@ const Features = () => {
               veritatis vel commodi alias impedit?
             </p>
           </div>
-        </div>
-      </div>
+        </CRow>
+      </CContainer>
     </div>
   )
 }
