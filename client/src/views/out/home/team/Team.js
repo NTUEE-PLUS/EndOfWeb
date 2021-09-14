@@ -5,7 +5,7 @@ import { CContainer, CRow } from '@coreui/react'
 const Team = () => {
   return (
     <div id="team" className="text-center section">
-      <CContainer>
+      <CContainer data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
         <CRow className="section-title">
           <h2>Meet the Team</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>

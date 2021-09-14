@@ -1,14 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
-import Dashboard from '../../dashboard/Dashboard'
-import About from '../about/About'
-import Contact from '../contact/Contact'
-import History from '../history/History'
-import Team from '../team/Team'
-import Services from '../services/Services'
-import Feature from '../features/Features'
-import Interviews from '../interviews/Interviews'
-import Header from '../header/Header'
+import About from './about'
+import Contact from './contact'
+import History from './history'
+import Team from './team'
+import Services from './services'
+import Feature from './features'
+import Interviews from './interviews'
+import Header from './header'
 
 const Home = () => {
   return (

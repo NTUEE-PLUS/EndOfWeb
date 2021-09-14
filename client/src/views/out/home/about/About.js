@@ -4,7 +4,7 @@ import { CContainer, CRow } from '@coreui/react'
 const About = () => {
   return (
     <div id="about" className="section">
-      <CContainer>
+      <CContainer data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
         <CRow>
           <div className="col-xs-12 col-md-6">
             {' '}

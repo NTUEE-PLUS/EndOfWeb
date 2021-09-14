@@ -1,9 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { CCol, CContainer, CRow } from '@coreui/react'
 import React, { useState } from 'react'
-import FBQRcode from '../../../assets/images/FBQRcode.png'
-import IGQRcode from '../../../assets/images/IGQRcode.png'
-import GithubQRcode from '../../../assets/images/GithubQRcode.png'
+
 import emailjs from 'emailjs-com'
 
 const initialState = {
@@ -36,7 +34,7 @@ const Contact = () => {
   return (
     <div>
       <div id="contact" className="section">
-        <CContainer>
+        <CContainer data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
           <CRow>
             <div className="col-md-8">
               <CRow>

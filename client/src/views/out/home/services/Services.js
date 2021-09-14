@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import { CContainer } from '@coreui/react'
 
 const Services = () => {
   return (
     <div id="services" className="text-center section">
-      <div className="container">
+      <CContainer data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
         <div className="section-title">
           <h2>Our Services</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
@@ -53,7 +54,7 @@ const Services = () => {
             </div>
           </div>
         </div>
-      </div>
+      </CContainer>
     </div>
   )
 }

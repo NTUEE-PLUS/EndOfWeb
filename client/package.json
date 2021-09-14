@@ -31,6 +31,7 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@reduxjs/toolkit": "^1.6.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
+    "aos": "^2.3.4",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "chart.js": "^3.4.1",

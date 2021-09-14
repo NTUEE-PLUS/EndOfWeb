@@ -5,7 +5,7 @@ import { CContainer, CRow } from '@coreui/react'
 const Header = () => {
   return (
     <header id="header">
-      <div className="intro">
+      <div className="intro" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
         <div className="overlay">
           <CContainer>
             <CRow className="justify-content-center">

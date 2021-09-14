@@ -5,7 +5,11 @@ import { CContainer, CRow } from '@coreui/react'
 const Features = () => {
   return (
     <div id="features" className="text-center section">
-      <CContainer className="justify-content-center">
+      <CContainer
+        className="justify-content-center"
+        data-aos="fade-up"
+        data-aos-anchor-placement="bottom-bottom"
+      >
         {/* <div className="col-md-10 col-md-offset-1 section-title"> */}
 
         <CRow className="section-title">
