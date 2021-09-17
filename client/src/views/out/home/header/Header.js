@@ -11,7 +11,7 @@ const Header = () => {
             <CRow className="justify-content-center">
               <div className="col-md-8 col-md-offset-2 intro-text">
                 <h1>
-                  We are a landing page
+                  <span className="header-title">NTUEE+</span>
                   <span></span>
                 </h1>
                 <p>

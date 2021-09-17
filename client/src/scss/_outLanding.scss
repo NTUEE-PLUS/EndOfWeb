@@ -141,7 +141,7 @@
 .intro h1 {
   font-family: 'Raleway', sans-serif;
   color: #fff;
-  font-size: 82px;
+  font-size: 150px;
   font-weight: 700;
   text-transform: uppercase;
   margin-top: 0;
@@ -149,7 +149,48 @@
 }
 .intro h1 span {
   font-weight: 800;
-  color: #5ca9fb;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(90deg, #32b1fd 0%, #00ffcf 100%);
+  background-size: 150% 150%;
+  -webkit-animation: header-animation 5s ease infinite;
+  -moz-animation: header-animation 5s ease infinite;
+  animation: header-animation 5s ease infinite;
+}
+
+@-webkit-keyframes header-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes header-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes header-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 .intro p {
   color: #fff;
