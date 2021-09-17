@@ -20,7 +20,9 @@ const Services = () => {
         <CRow>
           <div className="col-xs-6 col-sm-3">
             {' '}
-            <CImage src={communicate} alt="..." className="img img-fluid"></CImage>
+            <div className="square-img-container">
+              <CImage src={communicate} alt="..." className="img img-fluid"></CImage>
+            </div>
             <h3>通訊錄</h3>
             <p>
               建立完整系友聯繫網路
@@ -30,19 +32,25 @@ const Services = () => {
           </div>
           <div className="col-xs-6 col-sm-3">
             {' '}
-            <CImage src={career} alt="..." className="img img-fluid"></CImage>
+            <div className="square-img-container">
+              <CImage src={career} alt="..." className="img img-fluid"></CImage>
+            </div>
             <h3>徵才求職</h3>
             <p></p>
           </div>
           <div className="col-xs-6 col-sm-3">
             {' '}
-            <CImage src={studyabroad} alt="..." className="img img-fluid"></CImage>
+            <div className="square-img-container">
+              <CImage src={studyabroad} alt="..." className="img img-fluid"></CImage>
+            </div>
             <h3>留學資訊</h3>
             <p></p>
           </div>
           <div className="col-xs-6 col-sm-3">
             {' '}
-            <CImage src={column} alt="..." className="img img-fluid"></CImage>
+            <div className="square-img-container">
+              <CImage src={column} alt="..." className="img img-fluid"></CImage>
+            </div>
             <h3>採訪文章</h3>
             <p></p>
           </div>

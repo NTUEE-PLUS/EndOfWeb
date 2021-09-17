@@ -311,9 +311,15 @@ header .intro-text {
   margin-bottom: 40px;
 }
 
+.square-img-container {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
+}
+
 #services .img {
-  width: 240px;
-  height: 240px;
+  position: absolute;
+  left: 0;
 }
 /* Portfolio Section */
 
@@ -368,9 +374,8 @@ header .intro-text {
 #team h4 {
   margin: 5px 0;
 }
-#team .team-img {
-  width: 240px;
-  height: 240px;
+#team .img {
+  position: absolute;
 }
 #team .thumbnail {
   background: transparent;
