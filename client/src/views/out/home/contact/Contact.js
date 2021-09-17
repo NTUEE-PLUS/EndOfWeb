@@ -35,7 +35,7 @@ const Contact = () => {
   return (
     <div>
       <div id="contact" className="section">
-        <CContainer data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
+        <CContainer data-aos="fade-up" data-aos-anchor-placement="top-bottom">
           <CRow>
             <div className="col-md-8">
               <CRow>
