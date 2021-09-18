@@ -2108,21 +2108,22 @@ GET /column/recent
 #### Success response example - `Success-Response:`
 
 ```json
-	HTTP/1.1 200 OK
-{'data':
-	[{
-   'anno': ['String'],
-   'date': 'String',
-   'title': ['String'],
-   'exp': ['String'],
-   'edu': ['String'],
-   'intro': ['String'],
-   'id': 'String',
-   'columnImg': {
-     'data': 'Buffer',
-     'contentType': 'String',
-   }
- }]
+{
+  "data": [
+    {
+      "anno": ["String"],
+      "date": "String",
+      "title": ["String"],
+      "exp": ["String"],
+      "edu": ["String"],
+      "intro": ["String"],
+      "id": "String",
+      "columnImg": {
+        "data": "Buffer",
+        "contentType": "String"
+      }
+    }
+  ]
 }
 ```
 
@@ -2192,7 +2193,7 @@ GET /recommendation/recent
 顯示所有職缺(等價於不傳任何參數的 searchRecruitment)
 
 ```
-POST /recruitment/recent
+GET /recruitment/recent
 ```
 
 ### Parameters - `Parameter`

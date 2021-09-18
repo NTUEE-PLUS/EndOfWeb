@@ -11,7 +11,6 @@ const Column_Outline = require('../../../Schemas/column_outline')
  * @apiParam {Number} number 篇數(default:5)
  *
  * @apiSuccessExample {json} Success-Response:
- * 	HTTP/1.1 200 OK
  * {'data':
  * 	[{
  *    'anno': ['String'],
