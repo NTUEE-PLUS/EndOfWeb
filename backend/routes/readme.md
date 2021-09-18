@@ -551,25 +551,26 @@ POST /searchRecruitment
 #### Success response example - `Success-Response:`
 
 ```json
-	HTTP/1.1 201 Created
-	[{
-     _id: String,
-		title: {
-         title: String,
-         company_name: String,
-         work_type: String
-     },
-     info: {
-            salary: String,
-            experience: String,
-            diploma: String
-     },
-		spec: {
-            requirement: String,
-            description: String
-     },
-        image: String
-	},...]
+[
+  {
+    "_id": "String",
+    "title": {
+      "title": "String",
+      "company_name": "String",
+      "work_type": "String"
+    },
+    "info": {
+      "salary": "String",
+      "experience": ["String"],
+      "diploma": "String"
+    },
+    "spec": {
+      "requirement": ["String"],
+      "description": "String"
+    },
+    "image": "String"
+  }
+]
 ```
 
 ### Error response
