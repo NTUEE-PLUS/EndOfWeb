@@ -145,17 +145,15 @@ DELETE /deleteAbroadInfo
 POST /getAbroadInfo
 ```
 
-### Success response example
+### Success response
 
-#### Success response example - `Success-Response:`
+#### Success response - `201`
 
-```json
-[{
-    iconSrc:string
-    title:string
-    info:string
-}]
-```
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| iconSrc | `String` | 圖片        |
+| title   | `String` | title       |
+| info    | `String` | info        |
 
 ### Error response
 
@@ -882,35 +880,35 @@ GET /column/detail
 #### Success response example - `Success-Response:`
 
 ```json
-	{
-		top:{
-         name:String,
-         experience:String,
-         hashtags:[String]
-     },
-     body: {
-            body: [
-            {
-                bigtitle: String,
-                bigsections: [
-                {
-                    subtitle: String,
-                    subsection: String,
-                },
-                ],
-            },
-            ],
-        },
-        annotation: {
-            annotation: [
-            {
-                job: String,
-                contributer: String,
-            },
-            ],
-        },
-        id: String,
-	}
+{
+  "top": {
+    "name": "String",
+    "experience": "String",
+    "hashtags": ["String"]
+  },
+  "body": {
+    "body": [
+      {
+        "bigtitle": "String",
+        "bigsections": [
+          {
+            "subtitle": "String",
+            "subsection": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "annotation": {
+    "annotation": [
+      {
+        "job": "String",
+        "contributer": "String"
+      }
+    ]
+  },
+  "id": "String"
+}
 ```
 
 ### Error response
@@ -950,21 +948,21 @@ GET /column/outline
 #### Success response example - `Success-Response:`
 
 ```json
-{data:
-	[{
-    anno: [{ type: String }],
-      date: String,
-      title: [{ type: String }],
-      exp: [{ type: String }],
-      edu: [{ type: String }],
-      intro: [{ type: String }],
-      id: { type: String, unique: true },
-      columnImg: {
-        data: { type: Buffer },
-        contentType: { type: String },
-      }
-    },],
-maxPage:Number}
+{
+  "data": [
+    {
+      "anno": ["String"],
+      "date": "String",
+      "title": ["String"],
+      "exp": ["String"],
+      "edu": ["String"],
+      "intro": ["String"],
+      "id": "String",
+      "imgSrc": "String"
+    }
+  ],
+  "maxPage": "Number"
+}
 ```
 
 ### Error response
@@ -999,37 +997,20 @@ GET /column/search
 #### Success response example - `Success-Response:`
 
 ```json
-{data:
-[{
-		top:{
-         name:String,
-         experience:String,
-         hashtags:[String]
-     },
-     body: {
-            body: [
-            {
-                bigtitle: String,
-                bigsections: [
-                {
-                    subtitle: String,
-                    subsection: String,
-                },
-                ],
-            },
-            ],
-        },
-        annotation: {
-            annotation: [
-            {
-                job: String,
-                contributer: String,
-            },
-            ],
-        },
-        id: String,
-	},...],
-maxPage:Number
+{
+  "data": [
+    {
+      "anno": ["String"],
+      "date": "String",
+      "title": ["String"],
+      "exp": ["String"],
+      "edu": ["String"],
+      "intro": ["String"],
+      "id": "String",
+      "imgSrc": "String"
+    }
+  ],
+  "maxPage": "Number"
 }
 ```
 
