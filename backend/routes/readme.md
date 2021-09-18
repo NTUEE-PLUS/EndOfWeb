@@ -22,7 +22,6 @@ EE+ api 文件
   - [delete recruitment](#delete-recruitment)
   - [search recruitment by field](#search-recruitment-by-field)
   - [search recruitment by keywords](#search-recruitment-by-keywords)
-  - [show all](#show-all)
   - [show all recruitment](#show-all-recruitment)
   - [show my recruitment](#show-my-recruitment)
   - [update recruitment](#update-recruitment)
@@ -30,7 +29,6 @@ EE+ api 文件
   - [add column](#add-column)
   - [get column detail](#get-column-detail)
   - [get column outline with id optional](#get-column-outline-with-id-optional)
-  - [get outline with id optional](#get-outline-with-id-optional)
   - [search column by keywords or hashtags](#search-column-by-keywords-or-hashtags)
 - [In/profile_new](#inprofile_new)
   - [search profile by fields](#search-profile-by-fields)
@@ -40,7 +38,6 @@ EE+ api 文件
 - [In/recommendation](#inrecommendation)
   - [add recommendation](#add-recommendation)
   - [delete recommendation](#delete-recommendation)
-  - [search by field](#search-by-field)
   - [search recommendation by field](#search-recommendation-by-field)
   - [search recommendation by keywords](#search-recommendation-by-keywords)
   - [show my recommendation](#show-my-recommendation)
@@ -57,9 +54,15 @@ EE+ api 文件
   - [logout](#logout)
   - [register](#register)
   - [registerFB](#registerfb)
+- [Out/contact](#outcontact)
+  - [get in touch](#get-in-touch)
 - [Out/forget](#outforget)
   - [activation](#activation)
   - [forget](#forget)
+- [Out/recent](#outrecent)
+  - [get recent column](#get-recent-column)
+  - [get recent recommendation](#get-recent-recommendation)
+  - [get recent recruitment](#get-recent-recruitment)
 
 ---
 
@@ -625,45 +628,6 @@ POST /smartsearchRecruitment
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
-## show all
-
-[Back to top](#top)
-
-顯示所有職缺(等價於不傳任何參數的 searchRecruitment)
-
-```
-POST /showRecruitment
-```
-
-### Success response
-
-#### Success response - `201`
-
-| Name                     | Type       | Description                                         |
-| ------------------------ | ---------- | --------------------------------------------------- |
-| -                        | `Object[]` | 職缺們                                              |
-| &ensp;\_id               | `String`   | mongodb \_id(for delete)                            |
-| &ensp;title              | `Object`   | 標題相關                                            |
-| &ensp;&ensp;title        | `String`   | 標題                                                |
-| &ensp;&ensp;company_name | `String`   | 公司名稱                                            |
-| &ensp;&ensp;work_type    | `String`   | 職位(ex.前端工程師)                                 |
-| &ensp;info               | `Object`   | 工作資訊                                            |
-| &ensp;&ensp;salary       | `String`   | 薪資                                                |
-| &ensp;&ensp;experience   | `String[]` | 經驗要求                                            |
-| &ensp;&ensp;diploma      | `String`   | 學院要求                                            |
-| &ensp;spec               | `Object`   | 詳細描述                                            |
-| &ensp;&ensp;requirement  | `String[]` | 技能要求                                            |
-| &ensp;&ensp;description  | `String[]` | 工作的其他描述                                      |
-| &ensp;image              | `String`   | 公司頭像(Ex. <code>&lt;img src={image}/&gt;</code>) |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
 ## show all recruitment
 
 [Back to top](#top)
@@ -966,55 +930,6 @@ GET /column/detail
 | description | `String` | 資料庫錯誤  |
 
 ## get column outline with id optional
-
-[Back to top](#top)
-
-拿 Outline 資料(含圖片)
-
-```
-GET /column/outline
-```
-
-### Parameters - `Parameter`
-
-| Name    | Type     | Description                  |
-| ------- | -------- | ---------------------------- |
-| id      | `String` | id(optional,若未給則送全部)  |
-| perpage | `String` | 一頁數量(optional,default 5) |
-| page    | `String` | 頁數(optional,default 1)     |
-
-### Success response example
-
-#### Success response example - `Success-Response:`
-
-```json
-	HTTP/1.1 200 OK
-{data:
-	[{
-    anno: [{ type: String }],
-      date: String,
-      title: [{ type: String }],
-      exp: [{ type: String }],
-      edu: [{ type: String }],
-      intro: [{ type: String }],
-      id: { type: String, unique: true },
-      columnImg: {
-        data: { type: Buffer },
-        contentType: { type: String },
-      }
-    },],
-maxPage:Number}
-```
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## get outline with id optional
 
 [Back to top](#top)
 
@@ -1452,66 +1367,6 @@ DELETE /recommendation
 | Name        | Type     | Description                      |
 | ----------- | -------- | -------------------------------- |
 | description | `String` | \_id not found or not authorized |
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## search by field
-
-[Back to top](#top)
-
-搜尋簡歷
-
-```
-GET /recommendation
-```
-
-### Parameters - `Parameter`
-
-| Name             | Type     | Description |
-| ---------------- | -------- | ----------- |
-| \_id             | `String` | \_id        |
-| account          | `String` | 學號        |
-| title            | `String` | 簡歷標題    |
-| name             | `String` | 姓名        |
-| desire_work_type | `String` | 想要職位    |
-| contact          | `String` | 電話        |
-| email            | `String` | 信箱        |
-| diploma          | `String` | 學位        |
-| experience       | `String` | 經驗        |
-| speciality       | `String` | 專長        |
-
-### Success response
-
-#### Success response - `201`
-
-| Name                         | Type       | Description                                     |
-| ---------------------------- | ---------- | ----------------------------------------------- |
-| -                            | `Object[]` | 簡歷們                                          |
-| &ensp;\_id                   | `String`   | mongodb \_id(for update,delete)                 |
-| &ensp;title                  | `Object`   | 標題相關                                        |
-| &ensp;&ensp;title            | `String`   | 標題                                            |
-| &ensp;&ensp;name             | `String`   | 名字                                            |
-| &ensp;&ensp;desire_work_type | `String`   | 想要職位                                        |
-| &ensp;info                   | `Object`   | 工作資訊                                        |
-| &ensp;&ensp;contact          | `String`   | 電話                                            |
-| &ensp;&ensp;email            | `String[]` | 信箱                                            |
-| &ensp;&ensp;diploma          | `String`   | 學院                                            |
-| &ensp;spec                   | `Object`   | 詳細描述                                        |
-| &ensp;&ensp;experience       | `String[]` | 經驗                                            |
-| &ensp;&ensp;speciality       | `String[]` | 專長                                            |
-| &ensp;image                  | `String`   | 頭像(Ex. <code>&lt;img src={image}/&gt;</code>) |
-
-### Error response
-
-#### Error response - `403`
-
-| Name | Type     | Description |
-| ---- | -------- | ----------- |
-| -    | `String` | not login   |
 
 #### Error response - `500`
 
@@ -2125,6 +1980,31 @@ config
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
+# Out/contact
+
+## get in touch
+
+[Back to top](#top)
+
+用 google 表單蒐集站內信，統整在<a href="https://docs.google.com/spreadsheets/d/13ryrmVkQtOvHjr5I-h1atrqpBgkDOeixp1mFKwAK3U0/edit?resourcekey#gid=1383126660">google sheet</a>
+
+```
+GET https://docs.google.com/forms/d/e/1FAIpQLSed-GXXBhqIRUBEX7-nMlwuQ3a22-Z51mtxVSlcyhWzG9TH2Q/formResponse
+```
+
+### Parameters examples
+
+`js` - Input-Example:
+
+```js
+axios.get(url, {
+  usp: 'pp_url',
+  'entry.1670134810': 'your name',
+  'entry.302205267': 'your email',
+  'entry.307115258': 'your message',
+})
+```
+
 # Out/forget
 
 ## activation
@@ -2204,3 +2084,148 @@ POST /forget
 | Name        | Type     | Description                                                     |
 | ----------- | -------- | --------------------------------------------------------------- |
 | description | `String` | <li>資料庫錯誤</li> <li>信件範本讀取失敗</li> <li>寄信失敗</li> |
+
+# Out/recent
+
+## get recent column
+
+[Back to top](#top)
+
+拿 Outline 資料(含圖片)
+
+```
+GET /column/recent
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type     | Description     |
+| ------ | -------- | --------------- |
+| number | `Number` | 篇數(default:5) |
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+	HTTP/1.1 200 OK
+{'data':
+	[{
+   'anno': ['String'],
+   'date': 'String',
+   'title': ['String'],
+   'exp': ['String'],
+   'edu': ['String'],
+   'intro': ['String'],
+   'id': 'String',
+   'columnImg': {
+     'data': 'Buffer',
+     'contentType': 'String',
+   }
+ }]
+}
+```
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## get recent recommendation
+
+[Back to top](#top)
+
+搜尋簡歷
+
+```
+GET /recommendation/recent
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type     | Description     |
+| ------ | -------- | --------------- |
+| number | `Number` | 篇數(default:5) |
+
+### Success response
+
+#### Success response - `201`
+
+| Name                         | Type       | Description                                     |
+| ---------------------------- | ---------- | ----------------------------------------------- |
+| -                            | `Object[]` | 簡歷們                                          |
+| &ensp;\_id                   | `String`   | mongodb \_id(for update,delete)                 |
+| &ensp;title                  | `Object`   | 標題相關                                        |
+| &ensp;&ensp;title            | `String`   | 標題                                            |
+| &ensp;&ensp;name             | `String`   | 名字                                            |
+| &ensp;&ensp;desire_work_type | `String`   | 想要職位                                        |
+| &ensp;info                   | `Object`   | 工作資訊                                        |
+| &ensp;&ensp;contact          | `String`   | 電話                                            |
+| &ensp;&ensp;email            | `String[]` | 信箱                                            |
+| &ensp;&ensp;diploma          | `String`   | 學院                                            |
+| &ensp;spec                   | `Object`   | 詳細描述                                        |
+| &ensp;&ensp;experience       | `String[]` | 經驗                                            |
+| &ensp;&ensp;speciality       | `String[]` | 專長                                            |
+| &ensp;image                  | `String`   | 頭像(Ex. <code>&lt;img src={image}/&gt;</code>) |
+
+### Error response
+
+#### Error response - `403`
+
+| Name | Type     | Description |
+| ---- | -------- | ----------- |
+| -    | `String` | not login   |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## get recent recruitment
+
+[Back to top](#top)
+
+顯示所有職缺(等價於不傳任何參數的 searchRecruitment)
+
+```
+POST /recruitment/recent
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type     | Description     |
+| ------ | -------- | --------------- |
+| number | `Number` | 篇數(default:5) |
+
+### Success response
+
+#### Success response - `201`
+
+| Name                     | Type       | Description                                         |
+| ------------------------ | ---------- | --------------------------------------------------- |
+| -                        | `Object[]` | 職缺們                                              |
+| &ensp;\_id               | `String`   | mongodb \_id(for delete)                            |
+| &ensp;title              | `Object`   | 標題相關                                            |
+| &ensp;&ensp;title        | `String`   | 標題                                                |
+| &ensp;&ensp;company_name | `String`   | 公司名稱                                            |
+| &ensp;&ensp;work_type    | `String`   | 職位(ex.前端工程師)                                 |
+| &ensp;info               | `Object`   | 工作資訊                                            |
+| &ensp;&ensp;salary       | `String`   | 薪資                                                |
+| &ensp;&ensp;experience   | `String[]` | 經驗要求                                            |
+| &ensp;&ensp;diploma      | `String`   | 學院要求                                            |
+| &ensp;spec               | `Object`   | 詳細描述                                            |
+| &ensp;&ensp;requirement  | `String[]` | 技能要求                                            |
+| &ensp;&ensp;description  | `String[]` | 工作的其他描述                                      |
+| &ensp;image              | `String`   | 公司頭像(Ex. <code>&lt;img src={image}/&gt;</code>) |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
