@@ -9,7 +9,6 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiDescription 拿留學資訊
  *
  * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
  * [{
  *     iconSrc:string
  *     title:string

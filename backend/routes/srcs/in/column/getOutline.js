@@ -14,7 +14,6 @@ const Column_Outline = require('../../../Schemas/column_outline')
  * 
  *
  * @apiSuccessExample {json} Success-Response:
- * 	HTTP/1.1 200 OK
  * {data:
  * 	[{
 *     anno: [{ type: String }],

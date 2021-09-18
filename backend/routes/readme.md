@@ -150,7 +150,6 @@ POST /getAbroadInfo
 #### Success response example - `Success-Response:`
 
 ```json
-HTTP/1.1 200 OK
 [{
     iconSrc:string
     title:string
@@ -883,7 +882,6 @@ GET /column/detail
 #### Success response example - `Success-Response:`
 
 ```json
-	HTTP/1.1 200 OK
 	{
 		top:{
          name:String,
@@ -952,7 +950,6 @@ GET /column/outline
 #### Success response example - `Success-Response:`
 
 ```json
-	HTTP/1.1 200 OK
 {data:
 	[{
     anno: [{ type: String }],
@@ -1002,7 +999,6 @@ GET /column/search
 #### Success response example - `Success-Response:`
 
 ```json
-	HTTP/1.1 200 OK
 {data:
 [{
 		top:{

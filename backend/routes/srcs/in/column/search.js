@@ -15,7 +15,6 @@ const { dbCatch } = require('../../../error')
  * @apiparam {String} page 頁數(optional,default 1)
  *
  * @apiSuccessExample {json} Success-Response:
- * 	HTTP/1.1 200 OK
  * {data:
  * [{
  * 		top:{

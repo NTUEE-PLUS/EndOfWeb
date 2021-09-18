@@ -11,7 +11,6 @@ const Column = require('../../../Schemas/column_detail')
  * @apiparam {String} id yymm(required)
  * 
  * @apiSuccessExample {json} Success-Response:
- * 	HTTP/1.1 200 OK
  * 	{
  * 		top:{
  *          name:String,
