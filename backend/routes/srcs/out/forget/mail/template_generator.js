@@ -19,6 +19,6 @@ module.exports = async (href, href_br) => {
   const $ = jquery(window)
   $('#reset_button').attr('href', href)
   $('#reset_blank').attr('href', href)
-  $('#reset_blank').innerHTML = href_br
+  $('#reset_blank').text(href_br)
   return window.document.documentElement.outerHTML
 }
