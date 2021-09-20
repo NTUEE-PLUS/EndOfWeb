@@ -61,7 +61,7 @@ const forget = async (req, res, next) => {
   const hylink = `${req.protocol}://${req.get('host')}/#/reset_password/${account}/${randomNum}`
   const hy_br = `${req.protocol}://${req.get(
     'host',
-  )}/#/<wbr/>reset_password/<wbr/>${account}/<wbr/>${randomNum}`
+  )}/#/<wbr>reset_password/<wbr>${account}/<wbr>${randomNum}`
   const htmlText = await template(hylink, hy_br)
   await sendmail(email, '重設密碼(一小時後到期)', htmlText)
   //   if (obj.publicEmail.show)
