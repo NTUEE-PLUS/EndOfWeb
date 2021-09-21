@@ -17,7 +17,7 @@ const updateColumn = async (req, res, next) => {
 }
 
 /**
- * @api {post} /column/update update column
+ * @api {patch} /column/update update column
  * @apiName updateColumn
  * @apiGroup In/column
  * @apiDescription 管理員更新文章

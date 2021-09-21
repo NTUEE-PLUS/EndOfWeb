@@ -11,7 +11,7 @@ const deletCol = async (req, res, next) => {
 }
 
 /**
- * @api {post} /column/delete delete column
+ * @api {delete} /column/delete delete column
  * @apiName deleteColumn
  * @apiGroup In/column
  * @apiDescription 管理員刪除文章
