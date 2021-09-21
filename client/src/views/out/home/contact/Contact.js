@@ -112,7 +112,7 @@ const Contact = () => {
                 <h3>Contact Info</h3>
                 <p>
                   <span>
-                    <i className="bi bi-alarm"></i> Address
+                    <CIcon name="cil-home" /> Address
                   </span>
                   台灣大學博理館 B1 系學會辦
                 </p>
@@ -120,7 +120,7 @@ const Contact = () => {
               <div className="contact-item">
                 <p>
                   <span>
-                    <i className="bi bi-alarm"></i> Email
+                    <CIcon name="cib-gmail" /> Email
                   </span>{' '}
                   eeplus2020@gmail.com
                 </p>
@@ -128,7 +128,7 @@ const Contact = () => {
               <div className="contact-item">
                 <p>
                   <span>
-                    <i className="bi bi-alarm"></i> Support
+                    <CIcon name="cil-dollar" /> Support
                   </span>{' '}
                   700-0001236-0553850(Taiwan)
                 </p>
