@@ -886,7 +886,7 @@ axios.post('/api/addColumn', input, { headers: { 'content-type': 'multipart/form
 管理員刪除文章
 
 ```
-POST /column/delete
+DELETE /column/delete
 ```
 
 ### Parameters - `Parameter`
@@ -1081,7 +1081,7 @@ GET /column/search
 管理員更新文章
 
 ```
-POST /column/update
+PATCH /column/update
 ```
 
 ### Parameters - `Parameter`
