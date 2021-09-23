@@ -4,6 +4,26 @@ const Login = require('../../../Schemas/user_login')
 const Visual = require('../../../Schemas/user_visual_new')
 const { ErrorHandler, dbCatch } = require('../../../error')
 
+/**
+ * @api {get} /regact/:account/:active accountActivate
+ * @apiName Register
+ * @apiGroup Out/account
+ * @apiDescription 註冊後用信箱寄這個連結，驗證。完成後自動導向
+ * 
+ * @apiHeaderExample {json} config
+                 { "content-type": "multipart/form-data" }
+ *
+ * @apiparam {String} account 學號
+ * @apiparam {String} active 驗證碼
+ * 
+ * @apiSuccess (201) {HTML} - - 
+ * 
+ * @apiError (400) {String} description 請添加照片
+ * @apiError (403) {String} description 帳號已存在
+ * 
+ * @apiError (500) {String} description 資料庫錯誤
+ */
+
 template = (success, link) => `<!DOCTYPE html>
 <html>
    <body>

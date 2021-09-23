@@ -21,12 +21,7 @@ const exportVersion = (v) => {
         account: { type: String, required: true, lowercase: true }, //學號
         userpsw: String, //密碼
         isAuth: { type: Boolean, default: false },
-        isActivated: { type: Boolean, default: false },
         visual: { type: Schema.Types.ObjectId, ref: 'User_visual' },
-        img: {
-          data: { type: Buffer },
-          contentType: { type: String },
-        },
       })
     default:
       return new Schema({

@@ -4,6 +4,7 @@ const Pending = require('../../../Schemas/user_pending')
 const Login = require('../../../Schemas/user_login')
 const Visual = require('../../../Schemas/user_visual_new')
 const asyncHandler = require('express-async-handler')
+const { parseImg } = require('../../../Schemas/query')
 const crypto = require('crypto')
 const { parseImg } = require('../../../Schemas/query')
 
@@ -30,7 +31,7 @@ async function insertFB(name, account, facebookID, file, user) {
  * @api {post} /registerFB registerFB
  * @apiName RegisterFB
  * @apiGroup Out/account
- * @apiDescription 註冊(by facebook ID)
+ * @apiDescription 註冊(by facebook ID)，在.env用newReg=version3
  * 
  * @apiHeaderExample {json} config
                  { "content-type": "multipart/form-data" }
@@ -40,7 +41,7 @@ async function insertFB(name, account, facebookID, file, user) {
  * @apiparam {String} username 使用者名字
  * @apiparam {File} file 身分證明的照片(optional)
  * @apiparam {File} avatar 大頭貼(optional)
- * @apiparam {String} Email Email
+ * @apiparam {String} Email Email(newRule=true,version3才需要)
  * 
  * @apiSuccess (201) {String} username 使用者名字
  * 
@@ -98,9 +99,50 @@ const secure_regFB = async (req, res) => {
   return res.status(201).send({ username })
 }
 
+const sendmail = require('../../../middleware/mail')
+const template = require('./mailTemplate/template_generator')
+const regFB_v3 = async (req, res) => {
+  const account = req.body.account.toLowerCase()
+  const isRegistered = await Login.exists({ account }).catch(dbCatch)
+  if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
+
+  const { username, facebookID, Email } = req.body
+  const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
+
+  const active = Math.random().toString(36).substr(2)
+  const data = {
+    username,
+    account,
+    facebookID: fbIdEnc,
+    email: Email,
+    active,
+    img: parseImg(req.file),
+  }
+
+  const email = `${account}@ntu.edu.tw`
+  await Pending.findOneAndUpdate({ account }, data, {
+    upsert: true,
+    useFindAndModify: false,
+  }).catch(dbCatch)
+
+  const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+  const htmlText = await template(link, link)
+  await sendmail(email, 'eeplus website account activation', htmlText)
+
+  res.send({ email })
+}
+
 const valid = require('../../../middleware/validation')
 const rules = [{ filename: 'required', field: 'username' }, 'account', 'facebookID']
-module.exports =
-  process.env.newReg === 'true'
-    ? [valid(rules), asyncHandler(secure_regFB)]
-    : [valid(rules), asyncHandler(registerFB)]
+
+const exportVersion = (v) => {
+  switch (v) {
+    case 'true':
+      return [valid([...rules, 'Email']), asyncHandler(secure_regFB)]
+    case 'version3':
+      return [valid([...rules, 'Email']), asyncHandler(regFB_v3)]
+    default:
+      return [valid(rules), asyncHandler(registerFB)]
+  }
+}
+module.exports = exportVersion(process.env.newReg)
