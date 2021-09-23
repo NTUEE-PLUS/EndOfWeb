@@ -48,12 +48,14 @@ EE+ api 文件
   - [寄配對通知](#寄配對通知)
   - [新增本年表單連結](#新增本年表單連結)
 - [Out/account](#outaccount)
+  - [accountActivate](#accountactivate)
   - [isLogin](#islogin)
   - [login](#login)
   - [loginFB](#loginfb)
   - [logout](#logout)
   - [register](#register)
   - [registerFB](#registerfb)
+  - [registerStep2](#registerstep2)
 - [Out/contact](#outcontact)
   - [get in touch](#get-in-touch)
 - [Out/forget](#outforget)
@@ -1737,6 +1739,59 @@ POST /study/addLink
 
 # Out/account
 
+## accountActivate
+
+[Back to top](#top)
+
+註冊後用信箱寄這個連結，驗證。完成後自動導向
+
+```
+GET /regact/:account/:active
+```
+
+### Header examples
+
+config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| account | `String` | 學號        |
+| active  | `String` | 驗證碼      |
+
+### Success response
+
+#### Success response - `201`
+
+| Name | Type   | Description |
+| ---- | ------ | ----------- |
+| -    | `HTML` | <li></li>   |
+
+### Error response
+
+#### Error response - `400`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 請添加照片  |
+
+#### Error response - `403`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 帳號已存在  |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
 ## isLogin
 
 [Back to top](#top)
@@ -1896,14 +1951,69 @@ config
 
 ### Parameters - `Parameter`
 
-| Name            | Type     | Description                       |
-| --------------- | -------- | --------------------------------- |
-| account         | `String` | 學號                              |
-| password        | `String` | 密碼(以後建議在前端加密)          |
-| ConfirmPassword | `String` | 二次密碼                          |
-| username        | `String` | 使用者名字                        |
-| Email           | `String` | 信箱                              |
-| file            | `File`   | 身分證明的照片(optional for beta) |
+| Name            | Type     | Description              |
+| --------------- | -------- | ------------------------ |
+| account         | `String` | 學號                     |
+| password        | `String` | 密碼(以後建議在前端加密) |
+| ConfirmPassword | `String` | 二次密碼                 |
+| username        | `String` | 使用者名字               |
+| Email           | `String` | 信箱                     |
+
+### Success response
+
+#### Success response - `201`
+
+| Name  | Type     | Description |
+| ----- | -------- | ----------- |
+| email | `String` | 學號的信箱  |
+
+### Error response
+
+#### Error response - `400`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 請添加照片  |
+
+#### Error response - `403`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 帳號已存在  |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## registerFB
+
+[Back to top](#top)
+
+註冊(by facebook ID)，在.env 用 newReg=version3
+
+```
+POST /registerFB
+```
+
+### Header examples
+
+config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name       | Type     | Description                         |
+| ---------- | -------- | ----------------------------------- |
+| facebookID | `String` | facebookID                          |
+| account    | `String` | 學號                                |
+| username   | `String` | 使用者名字                          |
+| file       | `File`   | 身分證明的照片                      |
+| Email      | `String` | Email(newRule=true,version3 才需要) |
 
 ### Success response
 
@@ -1933,14 +2043,14 @@ config
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
-## registerFB
+## registerStep2
 
 [Back to top](#top)
 
-註冊(by facebook ID)
+註冊，新增照片(供管理員檢視)
 
 ```
-POST /registerFB
+POST /register_step2
 ```
 
 ### Header examples
@@ -1953,35 +2063,32 @@ config
 
 ### Parameters - `Parameter`
 
-| Name       | Type     | Description                                                   |
-| ---------- | -------- | ------------------------------------------------------------- |
-| facebookID | `String` | facebookID                                                    |
-| account    | `String` | 學號                                                          |
-| username   | `String` | 使用者名字                                                    |
-| file       | `File`   | 身分證明的照片(如果 newRule=true 管理員認證好像可以不用照片?) |
-| Email      | `String` | Email(newRule=true 才需要)                                    |
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| account | `String` | 學號        |
+| file    | `File`   | 身分證明    |
 
 ### Success response
 
 #### Success response - `201`
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| username | `String` | 使用者名字  |
+| Name | Type     | Description |
+| ---- | -------- | ----------- |
+| -    | `String` | <li></li>   |
 
 ### Error response
 
 #### Error response - `400`
 
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 請添加照片  |
+| Name        | Type     | Description   |
+| ----------- | -------- | ------------- |
+| description | `String` | img not given |
 
-#### Error response - `403`
+#### Error response - `404`
 
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 帳號已存在  |
+| Name        | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| description | `String` | account not found |
 
 #### Error response - `500`
 
