@@ -45,9 +45,8 @@ async function insertVisual(name, account, email) {
  * @apiparam {String} ConfirmPassword 二次密碼
  * @apiparam {String} username 使用者名字
  * @apiparam {String} Email 信箱 
- * @apiparam {File} file 身分證明的照片(optional for beta)
  * 
- * @apiSuccess (201) {String} username 使用者名字
+ * @apiSuccess (201) {String} email 學號的信箱
  * 
  * @apiError (400) {String} description 請添加照片
  * @apiError (403) {String} description 帳號已存在
@@ -115,7 +114,7 @@ const reg_v3 = async (req, res) => {
     img: parseImg(req.file),
   }
 
-  const email = 'b07901029@ntu.edu.tw' //`${account}@ntu.edu.tw`
+  const email = `${account}@ntu.edu.tw`
   await Pending.findOneAndUpdate({ account }, data, {
     upsert: true,
     useFindAndModify: false,
