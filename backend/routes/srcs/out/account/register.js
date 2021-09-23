@@ -95,7 +95,38 @@ const secure_reg = async (req, res) => {
   return res.status(201).send({ username })
 }
 
-if (process.env.newReg === 'true') console.log('using new register rule')
+const sendmail = require('../../../middleware/mail')
+const template = require('./mailTemplate/template_generator')
+const reg_v3 = async (req, res) => {
+  const account = req.body.account.toLowerCase()
+  const isRegistered = await Login.exists({ account }).catch(dbCatch)
+  if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
+
+  const { username, password, Email } = req.body
+  const newPsw = crypto.createHash('md5').update(password).digest('hex')
+
+  const active = Math.random().toString(36).substr(2)
+  const data = {
+    username,
+    account,
+    userpsw: newPsw,
+    email: Email,
+    active,
+    img: parseImg(req.file),
+  }
+
+  const email = 'b07901029@ntu.edu.tw' //`${account}@ntu.edu.tw`
+  await Pending.findOneAndUpdate({ account }, data, {
+    upsert: true,
+    useFindAndModify: false,
+  }).catch(dbCatch)
+
+  const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+  const htmlText = await template(link, link)
+  await sendmail(email, 'eeplus website account activation', htmlText)
+
+  res.send({ email })
+}
 
 const valid = require('../../../middleware/validation')
 const rules = [
@@ -105,7 +136,15 @@ const rules = [
   'Email',
   'ConfirmPassword',
 ]
-module.exports =
-  process.env.newReg === 'true'
-    ? [valid(rules), asyncHandler(secure_reg)]
-    : [valid(rules), asyncHandler(register)]
+
+const exportVersion = (v) => {
+  switch (v) {
+    case 'true':
+      return [valid(rules), asyncHandler(secure_reg)]
+    case 'version3':
+      return [valid(rules), asyncHandler(reg_v3)]
+    default:
+      return [valid(rules), asyncHandler(register)]
+  }
+}
+module.exports = exportVersion(process.env.newReg)
