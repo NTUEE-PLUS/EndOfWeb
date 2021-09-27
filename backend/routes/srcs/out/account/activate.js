@@ -24,7 +24,7 @@ const { ErrorHandler, dbCatch } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 
-template = (success, link) => `<!DOCTYPE html>
+template = (msg, link) => `<!DOCTYPE html>
 <html>
    <body>
       <script>
@@ -40,32 +40,37 @@ template = (success, link) => `<!DOCTYPE html>
             }
          }, 1000);
       </script>
-      <h2>${
-  success ? 'account activate success' : 'activation code expire'
-}, redirecting to <a href='${link}'>${link}</a> after <strong id='counter'>5</strong> seconds</h2>
+      <h2>${msg}, redirecting to <a href='${link}'>${link}</a> after <strong id='counter'>5</strong> seconds</h2>
    </body>
 </html>`
 
 const main = async (req, res) => {
-  const { account, active } = req.params
-  if (!account || !active) throw new ErrorHandler(400, 'some params missing')
-  const doc = await Pending.findOneAndDelete({ account, active }).catch(dbCatch)
-  if (!doc) return res.send(template(false, '/#/register_entry'))
-  const { username, userpsw, facebookID, email } = doc
-
-  const { _id: visual } = await new Visual({
-    username,
-    account,
-    publicEmail: email,
-  })
-    .save()
-    .catch(dbCatch)
-  await new Login({ username, account, facebookID, userpsw, visual }).save().catch(async (e) => {
-    await Visual.findByIdAndRemove(visual).catch(dbCatch)
-    console.log(e)
-    throw new ErrorHandler(500, '資料庫錯誤')
-  })
-  res.send(template(true, '/#/login'))
+  try {
+    const { account, active } = req.params
+    if (!account || !active) throw new ErrorHandler(400, 'some params missing')
+    //check user validation
+    const doc = await Pending.findOneAndDelete({ account, active }).catch(dbCatch)
+    if (!doc) return res.send(template('activation code expire', '/#/register_entry'))
+    const userexist = await Login.exists({ account }).catch(dbCatch)
+    if (userexist) return res.send(template('already registered', '/#/login'))
+    //register
+    const { username, userpsw, facebookID, email } = doc
+    const { _id: visual } = await new Visual({
+      username,
+      account,
+      publicEmail: email,
+    })
+      .save()
+      .catch(dbCatch)
+    await new Login({ username, account, facebookID, userpsw, visual }).save().catch(async (e) => {
+      await Visual.findByIdAndRemove(visual).catch(dbCatch)
+      console.log(e)
+      throw new ErrorHandler(500, '資料庫錯誤')
+    })
+    res.send(template('account activate success', '/#/login'))
+  } catch (e) {
+    res.send(template(`error: ${e.message || e.description}`, '/#/login'))
+  }
 }
 
 const valid = require('../../../middleware/validation')
