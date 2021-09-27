@@ -56,10 +56,10 @@ const registerFB = async (req, res) => {
   const { username, facebookID, Email } = req.body
   const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
 
-  const avatar = parseImg(req.files['avatar'])
-  console.log(req.files)
+  const avatar = parseImg(req.files['avatar'] ? req.files['avatar'][0] : undefined)
+  console.log(req.files, req.files['avatar'], avatar)
 
-  const idFile = parseImg(req.files['file'])
+  const idFile = parseImg(req.files['file'] ? req.files['file'][0] : undefined)
 
   const user = await new Visual({
     username,
