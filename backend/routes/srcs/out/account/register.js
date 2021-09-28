@@ -44,9 +44,12 @@ async function insertVisual(name, account, email) {
  * @apiparam {String} password 密碼(以後建議在前端加密)
  * @apiparam {String} ConfirmPassword 二次密碼
  * @apiparam {String} username 使用者名字
- * @apiparam {String} Email 信箱 
+ * @apiparam {String} Email 信箱
+ * @apiparam {String} isGraduated false則寄送email給account@ntu.edu.tw(newRule=version3才需要)
  * 
- * @apiSuccess (201) {String} email 學號的信箱
+ * @apiSuccess (201) {String} username 姓名(newRule=false)
+ * @apiSuccess (201) {String} isGraduated isGraduated(newRule=version3)
+ * @apiSuccess (201) {String} email account@ntu.edu.tw(newRule=version3 && isGraduated=false)
  * 
  * @apiError (400) {String} description 請添加照片
  * @apiError (403) {String} description 帳號已存在
@@ -114,17 +117,25 @@ const reg_v3 = async (req, res) => {
     img: parseImg(req.file),
   }
 
-  const email = `${account}@ntu.edu.tw`
   await Pending.findOneAndUpdate({ account }, data, {
     upsert: true,
     useFindAndModify: false,
   }).catch(dbCatch)
 
-  const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
-  const htmlText = await template(link, link)
-  await sendmail(email, 'eeplus website account activation', htmlText)
-
-  res.send({ email })
+  const { isGraduated } = req.body
+  if (isGraduated) {
+    //畢業，不寄email
+    res.send({ isGraduated })
+  } else {
+    const email = `${account}@ntu.edu.tw`
+    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+    const htmlText = await template(link, link)
+    await sendmail(email, 'eeplus website account activation', htmlText).catch((e) => {
+      console.log(e)
+      throw new ErrorHandler(400, 'sendemail fail')
+    })
+    res.send({ email, isGraduated })
+  }
 }
 
 const valid = require('../../../middleware/validation')
@@ -141,7 +152,10 @@ const exportVersion = (v) => {
     case 'true':
       return [valid(rules), asyncHandler(secure_reg)]
     case 'version3':
-      return [valid(rules), asyncHandler(reg_v3)]
+      return [
+        valid([...rules, { filename: 'required', field: 'isGraduated' }]),
+        asyncHandler(reg_v3),
+      ]
     default:
       return [valid(rules), asyncHandler(register)]
   }

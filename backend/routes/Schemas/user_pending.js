@@ -13,6 +13,10 @@ const User_pending_Schema = new Schema({
     data: Buffer,
     contentType: String,
   },
+  avatar: {
+    data: Buffer,
+    contentType: String,
+  },
 })
 
 const { buf2url } = require('./query')

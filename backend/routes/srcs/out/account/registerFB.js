@@ -6,7 +6,6 @@ const Visual = require('../../../Schemas/user_visual_new')
 const asyncHandler = require('express-async-handler')
 const { parseImg } = require('../../../Schemas/query')
 const crypto = require('crypto')
-const { parseImg } = require('../../../Schemas/query')
 
 async function insertFB(name, account, facebookID, file, user) {
   await new Login({
@@ -42,8 +41,11 @@ async function insertFB(name, account, facebookID, file, user) {
  * @apiparam {File} file 身分證明的照片(optional)
  * @apiparam {File} avatar 大頭貼(optional)
  * @apiparam {String} Email Email(newRule=true,version3才需要)
+ * @apiparam {String} isGraduated false則寄送email給account@ntu.edu.tw(newRule=version3才需要)
  * 
- * @apiSuccess (201) {String} username 使用者名字
+ * @apiSuccess (201) {String} username 使用者名字(newRule=false)
+ * @apiSuccess (201) {String} isGraduated isGraduated(newRule=version3)
+ * @apiSuccess (201) {String} email account@ntu.edu.tw(newRule=version3 && isGraduated=false)
  * 
  * @apiError (400) {String} description 請添加照片
  * @apiError (403) {String} description 帳號已存在
@@ -58,8 +60,6 @@ const registerFB = async (req, res) => {
   const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
 
   const avatar = parseImg(req.files['avatar'] ? req.files['avatar'][0] : undefined)
-  console.log(req.files, req.files['avatar'], avatar)
-
   const idFile = parseImg(req.files['file'] ? req.files['file'][0] : undefined)
 
   const user = await new Visual({
@@ -110,26 +110,37 @@ const regFB_v3 = async (req, res) => {
   const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
 
   const active = Math.random().toString(36).substr(2)
+  const avatar = parseImg(req.files['avatar'] ? req.files['avatar'][0] : undefined)
+  const idFile = parseImg(req.files['file'] ? req.files['file'][0] : undefined)
+
   const data = {
     username,
     account,
     facebookID: fbIdEnc,
     email: Email,
     active,
-    img: parseImg(req.file),
+    img: idFile,
+    avatar,
   }
-
   await Pending.findOneAndUpdate({ account }, data, {
     upsert: true,
     useFindAndModify: false,
   }).catch(dbCatch)
 
-  const email = `${account}@ntu.edu.tw`
-  const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
-  const htmlText = await template(link, link)
-  await sendmail(email, 'eeplus website account activation', htmlText)
-
-  res.send({ email })
+  const { isGraduated } = req.body
+  if (isGraduated) {
+    //畢業，不寄email
+    res.send({ isGraduated })
+  } else {
+    const email = `${account}@ntu.edu.tw`
+    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+    const htmlText = await template(link, link)
+    await sendmail(email, 'eeplus website account activation', htmlText).catch((e) => {
+      console.log(e)
+      throw new ErrorHandler(400, 'sendemail fail')
+    })
+    res.send({ email, isGraduated })
+  }
 }
 
 const valid = require('../../../middleware/validation')
@@ -140,7 +151,10 @@ const exportVersion = (v) => {
     case 'true':
       return [valid([...rules, 'Email']), asyncHandler(secure_regFB)]
     case 'version3':
-      return [valid([...rules, 'Email']), asyncHandler(regFB_v3)]
+      return [
+        valid([...rules, 'Email', { filename: 'required', field: 'isGraduated' }]),
+        asyncHandler(regFB_v3),
+      ]
     default:
       return [valid(rules), asyncHandler(registerFB)]
   }

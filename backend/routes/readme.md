@@ -655,7 +655,7 @@ POST /showRecruitment
 
 | Name                     | Type       | Description                                         |
 | ------------------------ | ---------- | --------------------------------------------------- |
-| data                     | `Object[]` | 職缺們                                              |
+| -                        | `Object[]` | 職缺們                                              |
 | &ensp;\_id               | `String`   | mongodb \_id(for delete)                            |
 | &ensp;title              | `Object`   | 標題相關                                            |
 | &ensp;&ensp;title        | `String`   | 標題                                                |
@@ -669,7 +669,6 @@ POST /showRecruitment
 | &ensp;&ensp;requirement  | `String[]` | 技能要求                                            |
 | &ensp;&ensp;description  | `String[]` | 工作的其他描述                                      |
 | &ensp;image              | `String`   | 公司頭像(Ex. <code>&lt;img src={image}/&gt;</code>) |
-| maxPage                  | `Number`   | 總頁數                                              |
 
 ### Error response
 
@@ -1531,7 +1530,7 @@ GET /recommendation
 
 | Name                         | Type       | Description                                     |
 | ---------------------------- | ---------- | ----------------------------------------------- |
-| data                         | `Object[]` | 簡歷們                                          |
+| -                            | `Object[]` | 簡歷們                                          |
 | &ensp;\_id                   | `String`   | mongodb \_id(for update,delete)                 |
 | &ensp;title                  | `Object`   | 標題相關                                        |
 | &ensp;&ensp;title            | `String`   | 標題                                            |
@@ -1545,7 +1544,6 @@ GET /recommendation
 | &ensp;&ensp;experience       | `String[]` | 經驗                                            |
 | &ensp;&ensp;speciality       | `String[]` | 專長                                            |
 | &ensp;image                  | `String`   | 頭像(Ex. <code>&lt;img src={image}/&gt;</code>) |
-| maxPage                      | `Number`   | 總頁數                                          |
 
 ### Error response
 
@@ -1931,13 +1929,9 @@ POST /isLogin
 
 #### Success response - `201`
 
-| Name          | Type     | Description    |
-| ------------- | -------- | -------------- |
-| account       | `String` | 登入者學號     |
-| userimage     | `String` | 登入者頭貼     |
-| userCellphone | `String` | 登入者手機號碼 |
-| userName      | `String` | 登入者名字     |
-| userEmail     | `String` | 登入者信箱     |
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| account | `String` | 登入者學號  |
 
 ### Error response
 
@@ -2080,21 +2074,24 @@ config
 
 ### Parameters - `Parameter`
 
-| Name            | Type     | Description              |
-| --------------- | -------- | ------------------------ |
-| account         | `String` | 學號                     |
-| password        | `String` | 密碼(以後建議在前端加密) |
-| ConfirmPassword | `String` | 二次密碼                 |
-| username        | `String` | 使用者名字               |
-| Email           | `String` | 信箱                     |
+| Name            | Type     | Description                                                      |
+| --------------- | -------- | ---------------------------------------------------------------- |
+| account         | `String` | 學號                                                             |
+| password        | `String` | 密碼(以後建議在前端加密)                                         |
+| ConfirmPassword | `String` | 二次密碼                                                         |
+| username        | `String` | 使用者名字                                                       |
+| Email           | `String` | 信箱                                                             |
+| isGraduated     | `String` | false 則寄送 email 給account@ntu.edu.tw(newRule=version3 才需要) |
 
 ### Success response
 
 #### Success response - `201`
 
-| Name  | Type     | Description |
-| ----- | -------- | ----------- |
-| email | `String` | 學號的信箱  |
+| Name        | Type     | Description                                                       |
+| ----------- | -------- | ----------------------------------------------------------------- |
+| username    | `String` | 姓名(newRule=false)                                               |
+| isGraduated | `String` | isGraduated(newRule=version3)                                     |
+| email       | `String` | account@ntu.edu.tw(newRule=version3 &amp;&amp; isGraduated=false) |
 
 ### Error response
 
@@ -2136,21 +2133,25 @@ config
 
 ### Parameters - `Parameter`
 
-| Name       | Type     | Description                         |
-| ---------- | -------- | ----------------------------------- |
-| facebookID | `String` | facebookID                          |
-| account    | `String` | 學號                                |
-| username   | `String` | 使用者名字                          |
-| file       | `File`   | 身分證明的照片                      |
-| Email      | `String` | Email(newRule=true,version3 才需要) |
+| Name        | Type     | Description                                                      |
+| ----------- | -------- | ---------------------------------------------------------------- |
+| facebookID  | `String` | facebookID                                                       |
+| account     | `String` | 學號                                                             |
+| username    | `String` | 使用者名字                                                       |
+| file        | `File`   | 身分證明的照片(optional)                                         |
+| avatar      | `File`   | 大頭貼(optional)                                                 |
+| Email       | `String` | Email(newRule=true,version3 才需要)                              |
+| isGraduated | `String` | false 則寄送 email 給account@ntu.edu.tw(newRule=version3 才需要) |
 
 ### Success response
 
 #### Success response - `201`
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| username | `String` | 使用者名字  |
+| Name        | Type     | Description                                                       |
+| ----------- | -------- | ----------------------------------------------------------------- |
+| username    | `String` | 使用者名字(newRule=false)                                         |
+| isGraduated | `String` | isGraduated(newRule=version3)                                     |
+| email       | `String` | account@ntu.edu.tw(newRule=version3 &amp;&amp; isGraduated=false) |
 
 ### Error response
 
