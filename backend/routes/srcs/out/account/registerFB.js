@@ -119,12 +119,12 @@ const regFB_v3 = async (req, res) => {
     img: parseImg(req.file),
   }
 
-  const email = `${account}@ntu.edu.tw`
   await Pending.findOneAndUpdate({ account }, data, {
     upsert: true,
     useFindAndModify: false,
   }).catch(dbCatch)
 
+  const email = `${account}@ntu.edu.tw`
   const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
   const htmlText = await template(link, link)
   await sendmail(email, 'eeplus website account activation', htmlText)
