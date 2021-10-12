@@ -35,6 +35,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 ## 電二主機
 
 - 下載[.env](https://drive.google.com/drive/folders/1wruoEuM2yG2fNlA3i5pBeXH8IoKlr9cv?usp=sharing)，需要請求權限
+  - 請確認 newReg 的值，false 表示直接允許註冊，true 表示照片驗證(deprecated)，version3 表示寄信 or 照片驗證
 - 執行
 
 ```bash
