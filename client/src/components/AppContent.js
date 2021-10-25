@@ -47,7 +47,6 @@ const AppContent = () => {
         dispatch(clearStudentInfo())
       })
   }, [isLogin])
-
   return (
     <div style={ContentStyle}>
       <AppBackground />
