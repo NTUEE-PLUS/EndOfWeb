@@ -109,7 +109,11 @@ const Login = () => {
                       <p className="text-medium-emphasis">Sign In to your account</p>
                       <CInputGroup className="mb-3">
                         <CInputGroupText>
+<<<<<<< HEAD
                           <CIcon icon="cil-education" name="cil-education" />
+=======
+                          <CIcon icon="cil-education" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                         </CInputGroupText>
                         <CFormControl
                           placeholder="Student ID"
@@ -119,7 +123,11 @@ const Login = () => {
                       </CInputGroup>
                       <CInputGroup className="mb-2">
                         <CInputGroupText>
+<<<<<<< HEAD
                           <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
+=======
+                          <CIcon icon="cil-lock-locked" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                         </CInputGroupText>
                         <CFormControl
                           type="password"
