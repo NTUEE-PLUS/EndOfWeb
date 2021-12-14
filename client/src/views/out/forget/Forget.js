@@ -51,7 +51,11 @@ const Forget = () => {
                   <p>We{"'"}ll help you!</p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
+<<<<<<< HEAD
                       <CIcon icon="cil-education" name="cil-education" />
+=======
+                      <CIcon icon="cil-education" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                     </CInputGroupText>
                     <CFormControl
                       placeholder="Student ID"

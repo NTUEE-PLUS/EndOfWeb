@@ -42,22 +42,38 @@ const AppHeaderDropdown = () => {
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Settings</CDropdownHeader>
         <CDropdownItem component={Link} to={`/profile/${studentID}`}>
+<<<<<<< HEAD
           <CIcon icon="cil-user" name="cil-user" className="me-2" />
+=======
+          <CIcon icon="cil-user" className="me-2" />
+>>>>>>> 6713c7f (change CIcon name to icon)
           Profile
         </CDropdownItem>
 
         <CDropdownItem component={Link} to="/own_recruitment">
+<<<<<<< HEAD
           <CIcon icon="cil-user" name="cil-user" className="me-2" />
+=======
+          <CIcon icon="cil-user" className="me-2" />
+>>>>>>> 6713c7f (change CIcon name to icon)
           Your Recruitment
         </CDropdownItem>
 
         <CDropdownItem component={Link} to={`/own_recommendation`}>
+<<<<<<< HEAD
           <CIcon icon="cil-user" name="cil-user" className="me-2" />
+=======
+          <CIcon icon="cil-user" className="me-2" />
+>>>>>>> 6713c7f (change CIcon name to icon)
           Your Recommendation
         </CDropdownItem>
 
         <CDropdownItem href="#">
+<<<<<<< HEAD
           <CIcon icon="cil-settings" name="cil-settings" className="me-2" />
+=======
+          <CIcon icon="cil-settings" className="me-2" />
+>>>>>>> 6713c7f (change CIcon name to icon)
           Settings
         </CDropdownItem>
         {/* <CDropdownItem href="#">
@@ -69,7 +85,11 @@ const AppHeaderDropdown = () => {
         </CDropdownItem> */}
         <CDropdownDivider />
         <CDropdownItem onClick={handleLogOut}>
+<<<<<<< HEAD
           <CIcon icon="cil-lock-locked" name="cil-lock-locked" className="me-2" />
+=======
+          <CIcon icon="cil-lock-locked" className="me-2" />
+>>>>>>> 6713c7f (change CIcon name to icon)
           Logout
         </CDropdownItem>
       </CDropdownMenu>
