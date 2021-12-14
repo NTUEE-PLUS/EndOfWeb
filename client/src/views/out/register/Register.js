@@ -148,7 +148,11 @@ const Register = () => {
                     <p className="text-medium-emphasis">Create your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-user" name="cil-user" />
+=======
+                        <CIcon icon="cil-user" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         placeholder="Your Chinese Name"
@@ -158,7 +162,11 @@ const Register = () => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-education" name="cil-education" />
+=======
+                        <CIcon icon="cil-education" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         placeholder="Student ID"
@@ -168,7 +176,11 @@ const Register = () => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
+=======
+                        <CIcon icon="cil-lock-locked" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         type="password"
@@ -179,7 +191,11 @@ const Register = () => {
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
+=======
+                        <CIcon icon="cil-lock-locked" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         type="password"
@@ -199,7 +215,11 @@ const Register = () => {
                       onBlur={constract}
                     >
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-image" name="cil-image" />
+=======
+                        <CIcon icon="cil-image" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         id="formFile"
