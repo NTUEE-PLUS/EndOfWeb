@@ -45,7 +45,11 @@ const _navIn = [
     as: NavLink,
     anchor: 'MATCHING',
     to: '/matching',
+<<<<<<< HEAD
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
+=======
+    icon: <CIcon icon="sidebar_icon" customClassName="nav-icon" />,
+>>>>>>> 73db111 (fix CIcon bugs)
   },
   /* {
     _component: 'CNavItem',
