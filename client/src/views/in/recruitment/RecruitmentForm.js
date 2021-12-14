@@ -229,7 +229,11 @@ const CareerForm = ({ data }) => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-image" name="cil-image" />
+=======
+                        <CIcon icon="cil-image" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="image"
@@ -243,7 +247,11 @@ const CareerForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-layers" name="cil-layers" />
+=======
+                        <CIcon icon="cil-layers" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         className={requiredStyle.title}
@@ -258,7 +266,11 @@ const CareerForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-building" name="cil-building" />
+=======
+                        <CIcon icon="cil-building" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="companyName"
@@ -272,7 +284,11 @@ const CareerForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-braille" name="cil-braille" />
+=======
+                        <CIcon icon="cil-braille" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="workType"
@@ -286,7 +302,11 @@ const CareerForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-dollar" name="cil-dollar" />
+=======
+                        <CIcon icon="cil-dollar" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="salary"
@@ -300,7 +320,11 @@ const CareerForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-education" name="cil-education" />
+=======
+                        <CIcon icon="cil-education" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="diploma"
@@ -316,7 +340,11 @@ const CareerForm = ({ data }) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
+<<<<<<< HEAD
                             <CIcon icon="cil-address-book" name="cil-address-book" />
+=======
+                            <CIcon icon="cil-address-book" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                           </CInputGroupText>
                           <CFormControl
                             data-for="experience"
@@ -339,7 +367,11 @@ const CareerForm = ({ data }) => {
                     })}
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-address-book" name="cil-address-book" />
+=======
+                        <CIcon icon="cil-address-book" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CButton
                         type="button"
@@ -354,7 +386,11 @@ const CareerForm = ({ data }) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
+<<<<<<< HEAD
                             <CIcon icon="cil-thumb-up" name="cil-thumb-up" />
+=======
+                            <CIcon icon="cil-thumb-up" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                           </CInputGroupText>
                           <CFormControl
                             data-for="requirement"
@@ -377,7 +413,11 @@ const CareerForm = ({ data }) => {
                     })}
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-thumb-up" name="cil-thumb-up" />
+=======
+                        <CIcon icon="cil-thumb-up" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CButton
                         type="button"
