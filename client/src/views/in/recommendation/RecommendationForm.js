@@ -232,7 +232,11 @@ const RecommendationForm = ({ data }) => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-image" name="cil-image" />
+=======
+                        <CIcon icon="cil-image" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="image"
@@ -246,7 +250,11 @@ const RecommendationForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-user" name="cil-user" />
+=======
+                        <CIcon icon="cil-user" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         className={requiredStyle.title}
@@ -261,7 +269,11 @@ const RecommendationForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-user" name="cil-user" />
+=======
+                        <CIcon icon="cil-user" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         className={requiredStyle.name}
@@ -276,7 +288,11 @@ const RecommendationForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-braille" name="cil-braille" />
+=======
+                        <CIcon icon="cil-braille" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         className={requiredStyle.desireWorkType}
@@ -291,7 +307,11 @@ const RecommendationForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-phone" name="cil-phone" />
+=======
+                        <CIcon icon="cil-phone" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="phone"
@@ -317,7 +337,11 @@ const RecommendationForm = ({ data }) => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-education" name="cil-education" />
+=======
+                        <CIcon icon="cil-education" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CFormControl
                         data-for="diploma"
@@ -333,7 +357,11 @@ const RecommendationForm = ({ data }) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
+<<<<<<< HEAD
                             <CIcon icon="cil-address-book" name="cil-address-book" />
+=======
+                            <CIcon icon="cil-address-book" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                           </CInputGroupText>
                           <CFormControl
                             data-for="experience"
@@ -356,7 +384,11 @@ const RecommendationForm = ({ data }) => {
                     })}
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-address-book" name="cil-address-book" />
+=======
+                        <CIcon icon="cil-address-book" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CButton
                         type="button"
@@ -371,7 +403,11 @@ const RecommendationForm = ({ data }) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
+<<<<<<< HEAD
                             <CIcon icon="cil-thumb-up" name="cil-thumb-up" />
+=======
+                            <CIcon icon="cil-thumb-up" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                           </CInputGroupText>
                           <CFormControl
                             data-for="specialty"
@@ -394,7 +430,11 @@ const RecommendationForm = ({ data }) => {
                     })}
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
+<<<<<<< HEAD
                         <CIcon icon="cil-thumb-up" name="cil-thumb-up" />
+=======
+                        <CIcon icon="cil-thumb-up" />
+>>>>>>> 6713c7f (change CIcon name to icon)
                       </CInputGroupText>
                       <CButton
                         type="button"
