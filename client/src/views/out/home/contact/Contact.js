@@ -111,11 +111,7 @@ const Contact = () => {
                 <h3>Contact Info</h3>
                 <p>
                   <span>
-<<<<<<< HEAD
                     <CIcon icon="cil-home" name="cil-home" /> Address
-=======
-                    <CIcon icon="cil-home" /> Address
->>>>>>> 6713c7f (change CIcon name to icon)
                   </span>
                   台灣大學博理館 B1 系學會辦
                 </p>
@@ -123,11 +119,7 @@ const Contact = () => {
               <div className="contact-item">
                 <p>
                   <span>
-<<<<<<< HEAD
                     <CIcon icon="cib-gmail" name="cib-gmail" /> Email
-=======
-                    <CIcon icon="cib-gmail" /> Email
->>>>>>> 6713c7f (change CIcon name to icon)
                   </span>{' '}
                   eeplus2020@gmail.com
                 </p>
@@ -135,11 +127,7 @@ const Contact = () => {
               <div className="contact-item">
                 <p>
                   <span>
-<<<<<<< HEAD
                     <CIcon icon="cil-dollar" name="cil-dollar" /> Support
-=======
-                    <CIcon icon="cil-dollar" /> Support
->>>>>>> 6713c7f (change CIcon name to icon)
                   </span>{' '}
                   700-0001236-0553850(Taiwan)
                 </p>
@@ -150,7 +138,6 @@ const Contact = () => {
                 <div className="social">
                   <ul>
                     <li>
-<<<<<<< HEAD
                       <a
                         href="https://www.facebook.com/groups/ntueeplus"
                         target="_blank"
@@ -183,20 +170,6 @@ const Contact = () => {
                         rel="noreferrer"
                       >
                         <CIcon icon="cib-github" name="cib-github" customClassName="social-icon" />
-=======
-                      <a href="https://www.facebook.com/groups/ntueeplus" target="_blank">
-                        <CIcon icon="cib-facebook" customClassName="social-icon" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://www.instagram.com/ntueeplus/" target="_blank">
-                        <CIcon icon="cib-instagram" customClassName="social-icon" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://github.com/NTUEE-PLUS/EndOfWeb/" target="_blank">
-                        <CIcon icon="cib-github" customClassName="social-icon" />
->>>>>>> 6713c7f (change CIcon name to icon)
                       </a>
                     </li>
                   </ul>

@@ -151,11 +151,7 @@ const RegisterFB = () => {
                       <p className="text-medium-emphasis">Create your account</p>
                       <CInputGroup className="mb-3">
                         <CInputGroupText>
-<<<<<<< HEAD
                           <CIcon icon="cil-user" name="cil-user" />
-=======
-                          <CIcon icon="cil-user" />
->>>>>>> 6713c7f (change CIcon name to icon)
                         </CInputGroupText>
                         <CFormControl
                           placeholder="Your Chinese Name"
@@ -165,11 +161,7 @@ const RegisterFB = () => {
                       </CInputGroup>
                       <CInputGroup className="mb-3">
                         <CInputGroupText>
-<<<<<<< HEAD
                           <CIcon icon="cil-education" name="cil-education" />
-=======
-                          <CIcon icon="cil-education" />
->>>>>>> 6713c7f (change CIcon name to icon)
                         </CInputGroupText>
                         <CFormControl
                           placeholder="Student ID"
@@ -184,11 +176,7 @@ const RegisterFB = () => {
                         onBlur={constract}
                       >
                         <CInputGroupText>
-<<<<<<< HEAD
                           <CIcon icon="cil-image" name="cil-image" />
-=======
-                          <CIcon icon="cil-image" />
->>>>>>> 6713c7f (change CIcon name to icon)
                         </CInputGroupText>
                         <CFormControl
                           id="formFile1"

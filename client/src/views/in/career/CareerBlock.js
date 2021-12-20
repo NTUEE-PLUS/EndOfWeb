@@ -70,7 +70,6 @@ const CareerBlock = ({ post, setData, index }) => {
           {own ? (
             <>
               <Link to={`/edit_recruitment/${post._id}`}>
-<<<<<<< HEAD
                 <CIcon icon="cil-pencil" name="cil-pencil"></CIcon>
               </Link>
               <CAvatar className="hover-pointer">
@@ -79,12 +78,6 @@ const CareerBlock = ({ post, setData, index }) => {
                   name="cil-trash"
                   onClick={() => deleteCareer(post._id)}
                 ></CIcon>
-=======
-                <CIcon icon="cil-pencil"></CIcon>
-              </Link>
-              <CAvatar className="hover-pointer">
-                <CIcon icon="cil-trash" onClick={() => deleteCareer(post._id)}></CIcon>
->>>>>>> 6713c7f (change CIcon name to icon)
               </CAvatar>
             </>
           ) : (
@@ -126,7 +119,6 @@ const CareerBlock = ({ post, setData, index }) => {
           {own ? (
             <>
               <Link to={`/edit_recommendation/${post._id}`}>
-<<<<<<< HEAD
                 <CIcon icon="cil-pencil" name="cil-pencil"></CIcon>
               </Link>
               <CAvatar className="hover-pointer">
@@ -135,12 +127,6 @@ const CareerBlock = ({ post, setData, index }) => {
                   name="cil-trash"
                   onClick={() => deleteCareer(post._id)}
                 ></CIcon>
-=======
-                <CIcon icon="cil-pencil"></CIcon>
-              </Link>
-              <CAvatar className="hover-pointer">
-                <CIcon icon="cil-trash" onClick={() => deleteCareer(post._id)}></CIcon>
->>>>>>> 6713c7f (change CIcon name to icon)
               </CAvatar>
             </>
           ) : (
