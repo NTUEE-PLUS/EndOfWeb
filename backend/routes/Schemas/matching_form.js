@@ -3,18 +3,21 @@ const Schema = mongoose.Schema
 
 const sForm = new Schema({
   name: String,
+  degree: String,
   major: [{ type: String }],
+  gpa: Number,
   email: String,
   number: Number,
-  school: [{ type: String }],
-  admission: String,
+  admissiom: [{ type: String }],
+  school: String,
 })
 
 const jForm = new Schema({
   name: String,
   degree: String,
-  hasPaper: Boolean,
+  hasPaper: Number,
   major: [{ type: String }],
+  gpa: Number,
   email: String,
   account: String,
   school1: String,
