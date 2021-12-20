@@ -12,44 +12,28 @@ const _navIn = [
     as: NavLink,
     anchor: 'DASHBOARD',
     to: '/dashboard',
-<<<<<<< HEAD
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
-=======
-    icon: <CIcon icon="sidebar_icon" customClassName="nav-icon" />,
->>>>>>> 6713c7f (change CIcon name to icon)
   },
   {
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'CAREER',
     to: '/career',
-<<<<<<< HEAD
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
-=======
-    icon: <CIcon icon="sidebar_icon" customClassName="nav-icon" />,
->>>>>>> 6713c7f (change CIcon name to icon)
   },
   {
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'COLUMNS',
     to: '/column_summary',
-<<<<<<< HEAD
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
-=======
-    icon: <CIcon icon="sidebar_icon" customClassName="nav-icon" />,
->>>>>>> 6713c7f (change CIcon name to icon)
   },
   {
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'MATCHING',
     to: '/matching',
-<<<<<<< HEAD
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
-=======
-    icon: <CIcon icon="sidebar_icon" customClassName="nav-icon" />,
->>>>>>> 73db111 (fix CIcon bugs)
   },
   /* {
     _component: 'CNavItem',
