@@ -63,11 +63,7 @@ const AppHeader = () => {
           className="ms-md-3 d-md-none"
           onClick={() => (sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarOpen()))}
         >
-<<<<<<< HEAD
           <CIcon icon="cil-menu" name="cil-menu" size="lg" />
-=======
-          <CIcon icon="cil-menu" size="lg" />
->>>>>>> 6713c7f (change CIcon name to icon)
         </CHeaderToggler>
         <CHeaderToggler
           className="ms-md-3 d-none d-md-block"
@@ -76,11 +72,7 @@ const AppHeader = () => {
             unfoldable ? dispatch(squeezeSidebar()) : dispatch(stretchSidebar())
           }}
         >
-<<<<<<< HEAD
           <CIcon icon="cil-menu" name="cil-menu" size="lg" />
-=======
-          <CIcon icon="cil-menu" size="lg" />
->>>>>>> 6713c7f (change CIcon name to icon)
         </CHeaderToggler>
         <CHeaderBrand className="d-flex justify-content-center mx-auto d-md-none" to="/">
           <CImage src={logo_row} fluid width="50%" />
@@ -99,11 +91,7 @@ const AppHeader = () => {
                   onKeyPress={handleEnter}
                 ></CFormControl>
                 <CButton onClick={handleSearch}>
-<<<<<<< HEAD
                   <CIcon icon="cil-search" name="cil-search" />
-=======
-                  <CIcon icon="cil-search" />
->>>>>>> 6713c7f (change CIcon name to icon)
                 </CButton>
               </CInputGroup>
             </CNavItem>

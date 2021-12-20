@@ -77,11 +77,7 @@ const ResetPassword = () => {
                   <h1>Let&apos;s Reset Your Password!</h1>
                   <CInputGroup className="my-3">
                     <CInputGroupText>
-<<<<<<< HEAD
                       <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
-=======
-                      <CIcon icon="cil-lock-locked" />
->>>>>>> 6713c7f (change CIcon name to icon)
                     </CInputGroupText>
                     <CFormControl
                       type="password"
@@ -92,11 +88,7 @@ const ResetPassword = () => {
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupText>
-<<<<<<< HEAD
                       <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
-=======
-                      <CIcon icon="cil-lock-locked" />
->>>>>>> 6713c7f (change CIcon name to icon)
                     </CInputGroupText>
                     <CFormControl
                       type="password"
