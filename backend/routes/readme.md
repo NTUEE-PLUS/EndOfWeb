@@ -46,6 +46,8 @@ EE+ api 文件
   - [update recommendation](#update-recommendation)
 - [In/study](#instudy)
   - [填配對表單](#填配對表單)
+  - [拿取個人表單](#拿取個人表單)
+  - [清空表單資料庫](#清空表單資料庫)
   - [拿取本年表單連結](#拿取本年表單連結)
   - [配對](#配對)
   - [寄配對通知](#寄配對通知)
