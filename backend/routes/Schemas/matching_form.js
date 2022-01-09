@@ -2,24 +2,26 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const sForm = new Schema({
+  account: String,
   name: String,
   degree: String,
   major: [{ type: String }],
   gpa: Number,
   email: String,
   number: Number,
-  admissiom: [{ type: String }],
+  admission: [{ type: String }],
   school: String,
 })
 
 const jForm = new Schema({
+  account: String,
   name: String,
   degree: String,
   hasPaper: Number,
   major: [{ type: String }],
   gpa: Number,
   email: String,
-  account: String,
+  studentID: String,
   school1: String,
   school2: String,
   school3: String,

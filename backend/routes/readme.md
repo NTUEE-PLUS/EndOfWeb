@@ -1822,7 +1822,7 @@ GET /study/form
   | major | `String[]` | `["通信", "電磁"]` | 專長領域 |
   | gpa | `Number` | `4.3` | gpa (0 ~ 4.3) |
   | email | `String` | `example@gmail.com` | 電子信箱 |
-  | account | `String` | `"B12345678"` | 學號 |
+  | studentID | `String` | `"B12345678"` | 學號 |
   | school1 | `String` | `"MIT"` | 第一志願、夢幻學校(沒有填 "無") |
   | school2 | `String` | `"NTU"` | 第二志願、有把握的學校 |
   | school3 | `String` | `"無"` | 第三志願、保底學校 |
