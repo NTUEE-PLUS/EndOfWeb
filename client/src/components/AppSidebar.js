@@ -21,17 +21,17 @@ import { AppHeaderDropdown } from './header'
 // sidebar nav config
 import navOut from '../_navOut'
 import navIn from '../_navIn'
-import navAuth from '../_navAuth'
 
 //sidebar top icon
 import logo_row from '../assets/images/logo_row.png'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
-  const { isLogin, isAuth } = useSelector(selectLogin)
+  const { isLogin } = useSelector(selectLogin)
   const { sidebarShow, unfoldable } = useSelector(selectGlobal)
   const chNav = () => {
-    return isLogin ? (isAuth ? [...navAuth, ...navIn, ...navOut] : [...navIn, ...navOut]) : navOut
+    if (isLogin) return [...navIn, ...navOut]
+    else return navOut
   }
   return (
     <CSidebar
