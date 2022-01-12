@@ -2,18 +2,6 @@ const { seniorForm, juniorForm } = require('../../../../Schemas/matching_form')
 const xlsx = require('xlsx')
 const munkres = require('munkres-js')
 
-// const cmp3 = ([a,b,c])=>{
-//     if(a<=b){
-//         if(b<=c) return [0,1,2]//a<=b<=c
-//         if(c<a) return [2,0,1] //c<a<=b
-//         return [0,2,1]         //a<=c<=b
-//     }else{//a>b
-//         if(a<=c) return [1,0,2]//b<a<=c
-//         if(c<b) return [2,1,0] //c<b<a
-//         return [1,2,0]         //b<=c<a
-//     }
-// }
-
 const cmp2arr = (a1, a2) => a1.filter((e) => a2.indexOf(e) >= 0).length
 const matching = async (oPath) => {
   const seniorData = await seniorForm.find()
@@ -49,31 +37,11 @@ const matching = async (oPath) => {
       },
     )
   })
-  /*
-  //sheet0
-  const wb = xlsx.utils.book_new()
-  const ws5 = xlsx.utils.aoa_to_sheet([['學弟妹->'].concat(juniorData.map(({ name }) => name))])
-  score.forEach((j, ind) => {
-    const sName = seniorData[ind].name
-    xlsx.utils.sheet_add_aoa(ws5, [[sName].concat(j.map((abc) => abc.map((a) => a * -1).join()))], {
-      origin: -1,
-    })
-  })
-  xlsx.utils.book_append_sheet(wb, ws5, '分數')
-  score.forEach((e, i) => {
-    console.log(score[i][2])
-  })
-  // console.log('學長姊可接受總人數',numbers.reduce((a,b)=>a+b,0))
-  // const juniorMatched = []
-  // const juniorTotal = [...Array(score[0].length).keys()]
-  */
+
   const finalResult = []
   for (let i = 0; i < 3; i++) {
     //最多配對3次
     const seniorInv = numbers.map((e, i) => (e > 0 ? i : '')).filter(String)
-    // const juniorInv = juniorTotal.map((e, i) => juniorMatched.includes(e) ? '' : i).filter(String)
-    // console.log(seniorInv)
-    // console.log(juniorInv)
     const score1 = score
       .map((jus) => {
         return jus.map((abc) => Math.min(...abc)) //最小的score
@@ -109,23 +77,7 @@ const matching = async (oPath) => {
       return 0
     }),
   )
-  /*
-  //console.log(numbers)
 
-  //sheet1
-  const ws = xlsx.utils.aoa_to_sheet([
-    [
-      '學弟妹姓名',
-      '學弟妹學號',
-      '學弟妹信箱',
-      '學弟妹領域',
-      '學長姊姓名',
-      '學長姊學校',
-      '學長姊信箱',
-      '匹配分數',
-    ],
-  ])
-  */
   let matchedJunior = []
   let sjPair = []
   finalResult.forEach(([i, j, type, score], ind) => {
@@ -145,45 +97,8 @@ const matching = async (oPath) => {
     if (!junior.includes(jRow.id)) {
       await seniorForm.updateOne({ _id: sRow._id }, { junior: [...junior, jRow._id] })
     }
-    /*
-    xlsx.utils.sheet_add_aoa(
-      ws,
-      [
-        [
-          jRow.name,
-          jRow.account,
-          jRow.email,
-          jRow.major.join(),
-          sRow.name,
-          sRow.school,
-          sRow.email,
-          -score,
-        ],
-      ],
-      { origin: -1 },
-    ) //,{origin:`A${ind+2}`})
-    */
   })
-
   /*
-  xlsx.utils.book_append_sheet(wb, ws, '配對名單')
-
-  //sheet2
-  const ws2 = xlsx.utils.aoa_to_sheet([['學長姊姓名']])
-  extra.forEach((people) => {
-    xlsx.utils.sheet_add_aoa(ws2, [[people]], { origin: -1 }) //,{origin:`A${ind+2}`})
-  })
-  xlsx.utils.book_append_sheet(wb, ws2, '手動配對學長姊')
-  //sheet3
-  const ws3 = xlsx.utils.aoa_to_sheet([['學弟妹姓名']])
-  const juMatched = finalResult.map(([a, ju, b, c]) => ju)
-  const notIn = juniorData.filter((e, i) => !juMatched.includes(i))
-  console.log(juMatched, notIn)
-  notIn.forEach(({ name }) => {
-    xlsx.utils.sheet_add_aoa(ws3, [[name]], { origin: -1 })
-  })
-  xlsx.utils.book_append_sheet(wb, ws3, '沒被配對到的學弟妹')
-
   //sheet
   const ws4 = xlsx.utils.aoa_to_sheet([['分數規則']])
   xlsx.utils.sheet_add_aoa(ws4, [['a,b,c代表\n夢幻,有把握,保底']], { origin: -1 }) //,{origin:`A${ind+2}`})
