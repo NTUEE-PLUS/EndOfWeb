@@ -10,14 +10,14 @@ const getForm = async (req, res) => {
   try {
     savedForm = await seniorForm.findOne({ account })
     if (savedForm) {
-      if (savedForm._doc.degree.includes('0') && savedForm._doc.degree.includes('1'))
-        savedForm._doc.degree = '2'
-      else savedForm._doc.degree = savedForm._doc.degree[0]
       res.status(201).send({ identity: 'senior', ...savedForm._doc })
     } else {
       savedForm = await juniorForm.findOne({ account })
       if (savedForm) {
-        res.status(201).send({ identity: 'junior', ...savedForm._doc })
+        let degree
+        if (savedForm.degree.includes('0') && savedForm.degree.includes('1')) degree = '2'
+        else degree = savedForm.degree[0]
+        res.status(201).send({ identity: 'junior', ...savedForm._doc, degree })
       } else {
         res.status(200).send({})
       }
