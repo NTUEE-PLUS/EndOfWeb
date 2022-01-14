@@ -2017,7 +2017,7 @@ config
 
 | Name | Type   | Description |
 | ---- | ------ | ----------- |
-| -    | `File` | output.xlsx |
+| -    | `File` | result.xlsx |
 
 ## 寄配對通知
 
