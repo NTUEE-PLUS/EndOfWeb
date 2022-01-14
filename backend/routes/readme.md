@@ -2000,7 +2000,7 @@ GET /study/links
 給學長姊跟學弟妹留學配對的.xlsx 檔，幫他們配對
 
 ```
-POST /study_matching
+POST /study/matching
 ```
 
 ### Header examples
@@ -2010,13 +2010,6 @@ config
 ```json
 { "content-type": "multipart/form-data" }
 ```
-
-### Parameters - `Parameter`
-
-| Name   | Type   | Description          |
-| ------ | ------ | -------------------- |
-| senior | `File` | 學長姐的 senior.xlsx |
-| junior | `File` | 學弟妹的 junior.xlsx |
 
 ### Success response
 
