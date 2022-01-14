@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import { useHistory } from 'react-router'
-import PropTypes from 'prop-types'
+import PropTypes, { array, object } from 'prop-types'
 import { CButton } from '@coreui/react'
 import ResultBlock from './ResultBlock'
 import { useSelector } from 'react-redux'
