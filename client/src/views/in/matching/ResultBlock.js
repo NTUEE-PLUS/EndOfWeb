@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { default_male } from './index'
 
 const ResultBlock = ({ data }) => {
-  console.log(data.image)
   return data.identity === 'senior' ? (
     <div className="d-flex align-items-center m-4 justify-content-around p-2 result-block">
       <div className="col-3 d-flex flex-column justify-content-center align-items-center">

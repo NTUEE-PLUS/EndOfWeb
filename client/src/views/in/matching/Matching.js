@@ -57,7 +57,6 @@ const Matching = () => {
           setJdata(res.data)
         }
         setLoading(false)
-        console.log(res.data)
       })
       .catch((err) => {
         console.log('Error while fetching match results')
