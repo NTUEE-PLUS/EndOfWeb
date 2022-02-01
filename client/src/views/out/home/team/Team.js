@@ -13,7 +13,17 @@ const Team = () => {
           <div className="col-sm-3 col-xs-6 team">
             <div className="thumbnail">
               {' '}
-              <img src="https://i.imgur.com/x6Q9l52.png" alt="..." className="team-img img-fluid" />
+              <img src="https://i.imgur.com/eOWLfEO.png" alt="..." className="team-img img-fluid" />
+              <div className="caption">
+                <h4>卓昱辰</h4>
+                <p>留學採訪負責人</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-3 col-xs-6 team">
+            <div className="thumbnail">
+              {' '}
+              <img src="https://i.imgur.com/y6P3fTw.png" alt="..." className="team-img img-fluid" />
               <div className="caption">
                 <h4>王友廷</h4>
                 <p>網頁維護負責人</p>
@@ -37,16 +47,6 @@ const Team = () => {
               <div className="caption">
                 <h4>巫竑儒</h4>
                 <p>網頁維護負責人</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-3 col-xs-6 team">
-            <div className="thumbnail">
-              {' '}
-              <img src="https://i.imgur.com/eOWLfEO.png" alt="..." className="team-img img-fluid" />
-              <div className="caption">
-                <h4>卓昱辰</h4>
-                <p>留學採訪負責人</p>
               </div>
             </div>
           </div>
