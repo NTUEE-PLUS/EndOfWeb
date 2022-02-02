@@ -104,8 +104,8 @@ const reg_v3 = async (req, res) => {
   const isRegistered = await Login.exists({ account }).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
-  const { username, password, Email } = req.body
-  const newPsw = crypto.createHash('md5').update(password).digest('hex')
+  const { username, Email } = req.body
+  // const newPsw = crypto.createHash('md5').update(password).digest('hex')
 
   const active = Math.random().toString(36).substring(2)
   const data = {
