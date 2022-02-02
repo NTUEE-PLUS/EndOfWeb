@@ -67,11 +67,11 @@ const RegisterEntry = () => {
     return (
       <div className="min-vh-100 d-flex flex-row align-items-center">
         <CContainer className="align-items-center">
-          <CRow className="justify-content-center mt-5 mb-3">
+          {/* <CRow className="justify-content-center mt-5 mb-3">
             <p className="text-wrap text-center badge" style={{ fontSize: '1.5rem' }}>
               Please choose your identity to sign up by different method
             </p>
-          </CRow>
+          </CRow> */}
           {/* for desktop and ipad */}
           <CRow className="justify-content-between d-sm-none d-lg-flex">
             <CCol xs="4">
