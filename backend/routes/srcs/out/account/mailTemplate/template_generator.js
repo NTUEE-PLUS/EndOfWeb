@@ -17,7 +17,8 @@ module.exports = async (href, href_br) => {
   })
   const { window } = DOM
   const $ = jquery(window)
-  $('#reset_button').attr('href', href)
+  // $('#reset_button').attr('href', href)
+  $('#password').attr('color', 'blue')
   $('#reset_blank').attr('href', href)
   $('#reset_blank').text(href_br)
   return window.document.documentElement.outerHTML

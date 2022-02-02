@@ -128,9 +128,9 @@ const reg_v3 = async (req, res) => {
     res.send({ isGraduated })
   } else {
     const email = `${account}@ntu.edu.tw`
-    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}` //link應該要改(?
     const htmlText = await template(link, link)
-    await sendmail(email, 'eeplus website account activation', htmlText).catch((e) => {
+    await sendmail(email, 'password of eeplus website account', htmlText).catch((e) => {
       console.log(e)
       throw new ErrorHandler(400, 'sendemail fail')
     })
