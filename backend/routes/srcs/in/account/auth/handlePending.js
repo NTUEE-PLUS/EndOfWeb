@@ -43,7 +43,16 @@ const manage = async (req, res, next) => {
     })
   await Pending.deleteMany({ account }).catch(dbCatch)
 
-  return res.send({ account })
+  const template = require('../../mailTemplate/template_generator')
+  const email = `${account}@ntu.edu.tw`
+  const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+  const htmlText = await template(link, link)
+  await sendmail(email, 'eeplus website account activaiton', htmlText).catch((e) => {
+    console.log(e)
+    throw new ErrorHandler(400, 'sendemail fail')
+  })
+
+  return res.send({ email, account })
 }
 
 const valid = require('../../../../middleware/validation')
