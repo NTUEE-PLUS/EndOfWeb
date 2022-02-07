@@ -42,6 +42,7 @@ const manage = async (req, res, next) => {
       throw new ErrorHandler(500, '資料庫錯誤')
     })
   await Pending.deleteMany({ account }).catch(dbCatch)
+
   return res.send({ account })
 }
 

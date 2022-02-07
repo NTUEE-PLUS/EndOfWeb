@@ -104,8 +104,8 @@ const reg_v3 = async (req, res) => {
   const isRegistered = await Login.exists({ account }).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
-  const { username, Email } = req.body
-  const newPsw = crypto.createHash('md5').update(password).digest('hex') // 改成自動生成
+  const { username, password, Email } = req.body
+  const newPsw = crypto.createHash('md5').update(password).digest('hex')
 
   const active = Math.random().toString(36).substring(2)
   const data = {
@@ -128,9 +128,9 @@ const reg_v3 = async (req, res) => {
     res.send({ isGraduated })
   } else {
     const email = `${account}@ntu.edu.tw`
-    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}` //link應該要改(?
-    const htmlText = await template(newPsw, link, link)
-    await sendmail(email, 'password of eeplus website account', htmlText).catch((e) => {
+    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+    const htmlText = await template(link, link)
+    await sendmail(email, 'eeplus website account activaiton', htmlText).catch((e) => {
       console.log(e)
       throw new ErrorHandler(400, 'sendemail fail')
     })
