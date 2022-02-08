@@ -6,7 +6,7 @@ const { ErrorHandler } = require('../../../../error')
  * generate email with beautiful button
  * @return  {String} html text
  */
-module.exports = async () => {
+module.exports = async (link) => {
   const DOM = await JSDOM.fromFile(path.join(__dirname, './accountActivate.html'), {
     contentType: 'text/html',
   }).catch((e) => {
@@ -14,9 +14,7 @@ module.exports = async () => {
     throw new ErrorHandler(500, '信件範本讀取失敗')
   })
   const { window } = DOM
-  // const $ = jquery(window)
-  // $('#reset_button').attr('href', href)
-  // $('#reset_blank').attr('href', href)
-  // $('#reset_blank').text(href_br)
+  const $ = jquery(window)
+  $('#start').attr('href', href)
   return window.document.documentElement.outerHTML
 }
