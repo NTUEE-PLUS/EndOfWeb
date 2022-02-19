@@ -7,6 +7,9 @@ import { Link, Redirect } from 'react-router-dom'
 import { CCol, CContainer, CRow, CImage } from '@coreui/react'
 import FB from 'fb-react-sdk'
 
+import Alumni from './images/Alumni.png'
+import Student from './images/Student.png'
+
 const RegisterEntry = () => {
   const dispatch = useDispatch()
   const { isLogin } = useSelector(selectLogin)
@@ -76,22 +79,26 @@ const RegisterEntry = () => {
           <CRow className="justify-content-between d-sm-none d-lg-flex">
             <CCol xs="4">
               <Link to="register/student" className="display-3 text-white">
-                I am student now
+                <CImage src={Student} alt="Register as Student" className="img-fluid" />
               </Link>
             </CCol>
             <CCol xs="4">
               <Link to="register/alumni" className="display-3 text-white">
-                I am alumni now
+                <CImage src={Alumni} alt="Register as Alumni" className="img-fluid" />
               </Link>
             </CCol>
           </CRow>
           {/* for mobile */}
           <CRow className="justify-content-center d-sm-flex d-lg-none">
             <CRow className="justify-content-center mb-3">
-              <Link to="register/student">I am student now</Link>
+              <Link to="register/student" className="display-3 text-white">
+                <CImage src={Student} alt="Register as Student" className="img-fluid" />
+              </Link>
             </CRow>
             <CRow className="justify-content-center mt-3">
-              <Link to="register/alumni">I am alumni now</Link>
+              <Link to="register/alumni" className="display-3 text-white">
+                <CImage src={Alumni} alt="Register as Alumni" className="img-fluid" />
+              </Link>
             </CRow>
           </CRow>
         </CContainer>
