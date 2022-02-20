@@ -7,7 +7,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { CCol, CContainer, CRow, CImage } from '@coreui/react'
 import FB from 'fb-react-sdk'
 
-import Alumni from './images/Alumni.png'
+import Alumnus from './images/Alumnus.png'
 import Student from './images/Student.png'
 
 const RegisterEntry = () => {
@@ -84,7 +84,7 @@ const RegisterEntry = () => {
             </CCol>
             <CCol xs="4">
               <Link to="register/alumni" className="display-3 text-white">
-                <CImage src={Alumni} alt="Register as Alumni" className="img-fluid" />
+                <CImage src={Alumnus} alt="Register as Alumnus" className="img-fluid" />
               </Link>
             </CCol>
           </CRow>
@@ -97,7 +97,7 @@ const RegisterEntry = () => {
             </CRow>
             <CRow className="justify-content-center mt-3">
               <Link to="register/alumni" className="display-3 text-white">
-                <CImage src={Alumni} alt="Register as Alumni" className="img-fluid" />
+                <CImage src={Alumnus} alt="Register as Alumnus" className="img-fluid" />
               </Link>
             </CRow>
           </CRow>
