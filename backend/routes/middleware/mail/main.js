@@ -36,6 +36,5 @@ module.exports = async function (recipient, subject, text, attachment_filepath =
     console.log(e.message)
     throw new ErrorHandler(500, '寄信失敗')
   })
-  console.log(mail.to)
   console.log('mail sent:', info.envelope)
 }
