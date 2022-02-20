@@ -14,9 +14,7 @@ const toJunior = async (data) => {
 }
 
 const toAdmin = async (filepath) => {
-  // TODO mail content
-  const mail_to_admin = '<p>test XD</p>'
-  await sendmail('ntueeplus2020@gmail.com', '留學配對結果', mail_to_admin, filepath)
+  await sendmail('ntueeplus2020@gmail.com', '留學配對結果', '', filepath)
 }
 
 const sendmails = async (seniorData, juniorData, filepath) => {
@@ -41,7 +39,6 @@ const sendmails = async (seniorData, juniorData, filepath) => {
   })
   const promises3 = [1].map(async () => {
     try {
-      console.log('send to admin')
       await toAdmin(filepath)
     } catch {
       errors.push('admin')
