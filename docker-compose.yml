@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 services:
   mongodb:
     image: mongo
@@ -12,10 +12,11 @@ services:
       context: ./
       dockerfile: ee.Dockerfile
     ports:
-      - '3000:1993'
+      - '1993:3000'
     depends_on:
       - mongodb
     environment:
       MONGO_URI: mongodb://mongodb/eeplus
+      newReg: version3
     tty: true
     stdin_open: true

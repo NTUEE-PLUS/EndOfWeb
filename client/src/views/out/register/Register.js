@@ -94,8 +94,11 @@ const Register = () => {
       let data = new FormData()
       if (identity === 'student')
         for (let key in registerForm) {
-          if (key === 'Email') data.append(key, `${registerForm.account}@ntu.edu.tw`)
-          data.append(key, registerForm[key])
+          if (key === 'Email') {
+            data.append(key, `${registerForm.account}@ntu.edu.tw`)
+          } else {
+            data.append(key, registerForm[key])
+          }
         }
       else if (identity === 'alumni')
         for (let key in registerForm) {
