@@ -123,7 +123,7 @@ const reg_v3 = async (req, res) => {
   }).catch(dbCatch)
 
   const { isGraduated } = req.body
-  if (isGraduated) {
+  if (isGraduated === 'true') {
     //畢業，不寄email
     res.send({ isGraduated })
   } else {

@@ -11,8 +11,6 @@ services:
     build:
       context: ./
       dockerfile: ee.Dockerfile
-    volumes:
-      - ./:/app
     ports:
       - '3000:1993'
     depends_on:
