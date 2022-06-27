@@ -68,9 +68,9 @@ const main = async (req, res) => {
       console.log(e)
       throw new ErrorHandler(500, '資料庫錯誤')
     })
-    res.send(template('account activate success', `${process.env.WEB_DOMAIN}/login`))
+    res.send(template('account activate success', `/login`))
   } catch (e) {
-    res.send(template(`error: ${e.message || e.description}`, `${process.env.WEB_DOMAIN}/login`))
+    res.send(template(`error: ${e.message || e.description}`, `/login`))
   }
 }
 
