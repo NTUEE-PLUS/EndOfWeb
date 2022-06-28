@@ -34,11 +34,13 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 
 ## 電二主機
 
-- 下載[.env](https://drive.google.com/drive/folders/1wruoEuM2yG2fNlA3i5pBeXH8IoKlr9cv?usp=sharing)，需要請求權限
+- 下載[docker-compose.yml](https://drive.google.com/file/d/1isx7ZlhKorshtqkQ_Vci_utrzVSElBaK/view?usp=sharing)，需要請求權限
   - 請確認 newReg 的值，false 表示直接允許註冊，true 表示照片驗證(deprecated)，version3 表示寄信 or 照片驗證
 - 執行
 
+### Initialize
 ```bash
+$ docker-compose pull
 $ docker-compose up -d (噴error時取消-d可以看到完整錯誤訊息)
 $ docker-compose exec web npm run reset-db
 open http://localhost:1993
@@ -50,6 +52,11 @@ open http://localhost:1993
 $ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 ```
 
+### Update
+```bash
+$ docker-compose pull
+$ docker-compose up -d (噴error時取消-d可以看到完整錯誤訊息)
+```
 ## Heroku
 
 - visit the [website](https://eeplus.herokuapp.com/)
