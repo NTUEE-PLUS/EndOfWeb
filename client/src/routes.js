@@ -31,7 +31,7 @@ import {
   ChangePsw,
 } from './views/in'
 // auth pages
-import { AuthMatching, AuthRegister, AuthAnnounce } from './views/auth'
+import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce } from './views/auth'
 
 import Dashboard from './views/dashboard/Dashboard'
 
@@ -141,6 +141,12 @@ const routes_auth = [
     exact: true,
     name: 'AuthRegister',
     component: AuthRegister,
+  },
+  {
+    path: '/auth/column',
+    exact: true,
+    name: 'ColumnForm',
+    component: AuthColumn,
   },
   {
     path: '/auth/announce/:id',
