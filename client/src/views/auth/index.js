@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 const AuthMatching = React.lazy(() => import('./matching'))
-const AuthRegister=React.lazy(() => import('./register'))
-export { AuthMatching, AuthRegister }
+const AuthRegister = React.lazy(() => import('./register'))
+const AuthColumn = React.lazy(() => import('./column'))
+export { AuthMatching, AuthRegister, AuthColumn }
