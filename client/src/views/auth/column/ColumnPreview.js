@@ -5,7 +5,7 @@ import { CWidgetBrand } from '@coreui/react'
 import { eesa } from './index'
 import parser from 'html-react-parser'
 
-const ColumnPreview = ({ post, hashtags }) => {
+const ColumnPreview = ({ post, hashtags, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (post.file && typeof post.file === 'object') {
@@ -24,29 +24,26 @@ const ColumnPreview = ({ post, hashtags }) => {
   }
   if (typeof post.description === 'string') {
     return (
-      <div className="CareerBlock" key={post.id}>
+      <div className="columnBlock" key={post.id}>
         <CWidgetBrand
           className="pt-4 widgetbrand"
           headerChildren={
             <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
           }
-          values={[[`${post.companyName} 徵 ${post.workType}`]]}
+          values={post.title}
         />
         <hr></hr>
-        <div className="careercontent">
+        <div className="columnContent">
           <h3 style={{ fontWeight: '600' }}>{post.title}</h3>
           <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.salary}</h2>
-          <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
-          <h4 style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.diploma}</h4>
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
-              <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
-              <h4>{hashtags.map((hashtag) => spec(hashtag))}</h4>
-              {/* <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
-              <h4>{requirement.map((req) => spec(req))}</h4> */}
-              <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>說明：</h3>
-              <h4>{parser(post.description)}</h4>
+              {hashtags.map((hashtag) => spec(hashtag))}
+              {anno.map((anno) => spec(anno))}
+              {exp.map((exp) => spec(exp))}
+              {edu.map((edu) => spec(edu))}
+              {intro.map((intro) => spec(intro))}
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}
@@ -55,7 +52,7 @@ const ColumnPreview = ({ post, hashtags }) => {
     )
   } else {
     return (
-      <div className="CareerBlock" key={post.id}>
+      <div className="columnBlock" key={post.id}>
         <CWidgetBrand
           className="pt-4 widgetbrand"
           headerChildren={
@@ -64,19 +61,26 @@ const ColumnPreview = ({ post, hashtags }) => {
           values={[[post.title]]}
         />
         <hr></hr>
-        <div className="careercontent">
-          <h3>interviewee: {post.name}</h3>
+        <div className="columnContent">
+          <h1>
+            {post.name} {post.experience}
+          </h1>
           <div style={{ fontSize: '1.39rem' }}>
-            <span style={{ color: 'red', fontWeight: '500' }}>{post.diploma}</span> |{' '}
-            <nobr>{post.contact}</nobr> | <nobr>{post.email}</nobr>
+            <span style={{ color: 'blue', fontWeight: '500' }}>{post.date}</span>
           </div>
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>hashtags:</h3>
-              <h4>{hashtags.map((hashtag) => spec(hashtag))}</h4>
-              {/* <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
-              <h4>{requirement.map((speci) => spec(speci))}</h4> */}
+              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>Ｈashtag:</h3>
+              {hashtags.map((hashtag) => spec(hashtag))}
+              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>採訪人員:</h3>
+              {anno.map((anno) => spec(anno))}
+              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>職位:</h3>
+              {exp.map((exp) => spec(exp))}
+              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>學歷:</h3>
+              {edu.map((edu) => spec(edu))}
+              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>簡介:</h3>
+              {intro.map((intro) => spec(intro))}
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}
@@ -87,7 +91,6 @@ const ColumnPreview = ({ post, hashtags }) => {
 }
 ColumnPreview.propTypes = {
   post: PropTypes.object,
-  hashtags: PropTypes.array,
   requirement: PropTypes.array,
 }
 

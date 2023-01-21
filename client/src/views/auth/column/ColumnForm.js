@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
@@ -5,7 +6,7 @@ import { useHistory } from 'react-router'
 import ColumnImageEditor from './ColumnImageEditor'
 import ColumnPreview from './ColumnPreview'
 import ReactTooltip from 'react-tooltip'
-import PropTypes from 'prop-types'
+import PropTypes, { object } from 'prop-types'
 import {
   CButton,
   CCard,
@@ -25,30 +26,26 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
+// import { uuidv4 } from 'uuid'
 const ColumnForm = ({ data }) => {
   const add = data ? false : true
+  var d = new Date()
+  var year = d.getFullYear()
+  var month = d.getMonth() + 1
+  var day = d.getDate()
+  var hour = d.getHours()
+  var min = d.getMinutes()
+  var sec = d.getSeconds()
+  var _id = year + month + day + hour + min + sec
   const formTemplate = add
     ? {
         title: [''],
-        id: '',
-        // top: NULL,
-        name: '',
-        experience: '',
-        hashtags: [''],
-        // body: NULL,
-        bigtitle: '',
-        bigsections: '',
-        subtitle: '',
-        subsection: '',
-        annotation: [''],
-        job: [''],
-        contributer: [''],
-        anno: [''],
-        date: [''],
-        exp: [''],
-        edu: [''],
-        intro: [''],
-        // file: NULL,
+        id: _id.toString(),
+        top: { name: '', experience: '', hashtags: [''] },
+        body: { body: { bigtitle: '', bigsections: { subtitle: '', subsection: '' } } },
+        annotation: { annotation: [''], job: [''], contributer: [''] },
+        date: '',
+        file: '',
       }
     : {
         title: data.title,
@@ -56,7 +53,6 @@ const ColumnForm = ({ data }) => {
         top: data.top,
         name: data.top.name,
         experience: data.top.experience,
-        hashtags: data.top.hashtags,
         body: data.body.body,
         bigtitle: data.body.body.bigtitle,
         bigsections: data.body.body.bigsections,
@@ -65,28 +61,25 @@ const ColumnForm = ({ data }) => {
         annotation: data.annotation.annotation,
         job: data.annotation.annotation.job,
         contributer: data.annotation.annotation.contributer,
-        anno: data.anno,
         date: data.date,
-        exp: data.exp,
-        edu: data.edu,
-        intro: data.intro,
         file: data.columnImg,
       }
   const dispatch = useDispatch()
-  const history = useHistory()
   const { croppedFile } = useSelector(selectCareer)
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [originalImage, setOriginalImage] = useState(null)
-  const [hashtags, setHashtags] = useState(add ? [''] : data.spec.hashtags)
+
+  const [hashtag, setHashtag] = useState(add ? [''] : data.top.hashtags)
+  const [anno, setAnno] = useState(add ? [''] : data.anno)
+  const [exp, setExp] = useState(add ? [''] : data.exp)
+  const [edu, setEdu] = useState(add ? [''] : data.edu)
+  const [intro, setIntro] = useState(add ? [''] : data.intro)
+
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
   const [requiredStyle, setRequiredStyle] = useState({
     title: '',
-    name: '',
-    experience: '',
-    subtitle: '',
-    subsection: '',
   })
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
@@ -98,35 +91,71 @@ const ColumnForm = ({ data }) => {
   }
   const addArray = (e) => {
     if (e.target.name === 'hashtag') {
-      const newArray = hashtags.concat([''])
-      setHashtags(newArray)
-    } else if (e.target.name === 'speciality') {
-      // const newArray = speciality.concat([''])
-      // setSpeciality(newArray)
+      const newArray = hashtag.concat([''])
+      setHashtag(newArray)
+    } else if (e.target.name === 'anno') {
+      const newArray = anno.concat([''])
+      setAnno(newArray)
+    } else if (e.target.name === 'exp') {
+      const newArray = exp.concat([''])
+      setExp(newArray)
+    } else if (e.target.name === 'edu') {
+      const newArray = edu.concat([''])
+      setEdu(newArray)
+    } else if (e.target.name === 'intro') {
+      const newArray = intro.concat([''])
+      setIntro(newArray)
     }
   }
   const handleInputArray = (e, index) => {
     if (e.target.name === 'hashtag') {
-      const newArray = hashtags.map((hashtag, idx) => {
-        if (idx !== index) return hashtag
+      const newArray = hashtag.map((req, idx) => {
+        if (idx !== index) return req
         else return e.target.value
       })
-      setHashtags(newArray)
-    } else if (e.target.name === 'speciality') {
-      // const newArray = speciality.map((req, idx) => {
-      //   if (idx !== index) return req
-      //   else return e.target.value
-      // })
-      // setSpeciality(newArray)
+      setHashtag(newArray)
+    } else if (e.target.name === 'anno') {
+      const newArray = anno.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setAnno(newArray)
+    } else if (e.target.name === 'exp') {
+      const newArray = exp.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setExp(newArray)
+    } else if (e.target.name === 'edu') {
+      const newArray = edu.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setEdu(newArray)
+    } else if (e.target.name === 'intro') {
+      const newArray = intro.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setIntro(newArray)
     }
   }
   const handleDeleteArray = (e, index) => {
     if (e.target.name === 'hashtag') {
-      const newArray = hashtags.filter((hashtag, idx) => idx !== index)
-      setHashtags(newArray)
-    } else if (e.target.name === 'speciality') {
-      // const newArray = speciality.filter((spec, idx) => idx !== index)
-      // setSpeciality(newArray)
+      const newArray = hashtag.filter((hashtag, idx) => idx !== index)
+      setHashtag(newArray)
+    } else if (e.target.name === 'anno') {
+      const newArray = anno.filter((anno, idx) => idx !== index)
+      setAnno(newArray)
+    } else if (e.target.name === 'exp') {
+      const newArray = exp.filter((anno, idx) => idx !== index)
+      setAnno(newArray)
+    } else if (e.target.name === 'edu') {
+      const newArray = edu.filter((edu, idx) => idx !== index)
+      setAnno(newArray)
+    } else if (e.target.name === 'intro') {
+      const newArray = intro.filter((intro, idx) => idx !== index)
+      setAnno(newArray)
     }
   }
   const handleChangeImage = (e) => {
@@ -161,22 +190,38 @@ const ColumnForm = ({ data }) => {
   }
   const handleSubmit = () => {
     const data = new FormData()
-    data.append('title', dataForm.title)
-    data.append('name', dataForm.name)
-    data.append('experience', dataForm.experience)
-    data.append('hashtags', dataForm.hashtags)
-    data.append('bigtitle', dataForm.bigtitle)
-    data.append('bigsections', dataForm.bigsections)
-    for (let hashtag of hashtags) {
-      data.append('hashtag[]', hashtag)
+    for (let it of anno) {
+      data.append('anno', it)
     }
+    for (let it of exp) {
+      data.append('exp', it)
+    }
+    for (let it of edu) {
+      data.append('edu', it)
+    }
+    for (let it of intro) {
+      data.append('intro', it)
+    }
+    const top = { name: dataForm.name, experience: dataForm.experience, hashtags: hashtag }
+
+    data.append('id', dataForm.id)
+    data.append('date', dataForm.date)
+    data.append('top', JSON.stringify(top))
+    // data.append('anno', dataForm.anno)
+    // data.append('exp', dataForm.exp)
+    // data.append('edu', dataForm.edu)
+    // data.append('intro', dataForm.intro)
+
+    console.log(data.get('top'))
+
     if (croppedFile) {
       data.append('file', dataForm.file, '.png')
     }
     const config = { 'content-type': 'multipart/form-data' }
     if (add) {
       axios
-        .post('/api/addColumn', data, config)
+        .post('/api/column/add', data, config)
+        // .post('/api/addColumn', data, config)
         .then(() => {
           alert('已新增')
           // history.push('/own_recommendation') // should has one?
@@ -185,9 +230,9 @@ const ColumnForm = ({ data }) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
         })
     } else {
-      data.append('_id', dataForm._id)
+      data.append('id', dataForm.id)
       axios
-        .patch('/api/addColumn', data, config)
+        .patch('/api/column/add', data, config)
         .then(() => {
           alert('已更新')
           // history.push('/own_recommendation')
@@ -210,7 +255,7 @@ const ColumnForm = ({ data }) => {
           <CButton color="warning" onClick={clearImage}>
             Clear
           </CButton>
-          <CButton color="dark" onClick={saveEditImage}>
+          <CButton color="dark" onClick={saveEditImage} disabled={!croppedFile}>
             OK
           </CButton>
         </CModalFooter>
@@ -220,7 +265,14 @@ const ColumnForm = ({ data }) => {
           <CModalTitle>Preview New Post</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <ColumnPreview post={dataForm} hashtags={hashtags} description={[]} />
+          <ColumnPreview
+            post={dataForm}
+            hashtags={hashtag}
+            anno={anno}
+            exp={exp}
+            edu={edu}
+            intro={intro}
+          />
         </CModalBody>
         <CModalFooter>
           <CButton color="warning" onClick={() => setBlockModal(false)}>
@@ -247,7 +299,7 @@ const ColumnForm = ({ data }) => {
                       </CInputGroupText>
                       <CFormControl
                         data-for="image"
-                        data-tip="Put a picture that can represent the column!"
+                        data-tip="專欄照片"
                         id="formFile"
                         type="file"
                         onChange={handleChangeImage}
@@ -261,24 +313,9 @@ const ColumnForm = ({ data }) => {
                         <CIcon icon="cil-user" name="cil-user" />
                       </CInputGroupText>
                       <CFormControl
-                        data-for="title"
-                        data-tip="Use impressing title to get people's attention!"
-                        placeholder="Title*"
-                        value={dataForm.title}
-                        name="title"
-                        onChange={handleInputChange}
-                      />
-                      <ReactTooltip id="title" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
-
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-user" name="cil-user" />
-                      </CInputGroupText>
-                      <CFormControl
-                        className={requiredStyle.name}
+                        className={requiredStyle.title}
                         data-for="name"
-                        data-tip="Enter interviewee's name (xxxx 級 xxx)"
+                        data-tip="xxxx 級 xxx"
                         placeholder="Name*"
                         value={dataForm.name}
                         name="name"
@@ -289,12 +326,11 @@ const ColumnForm = ({ data }) => {
 
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-braille" name="cil-braille" />
+                        <CIcon icon="cil-location-pin" name="cil-location-pin" />
                       </CInputGroupText>
                       <CFormControl
-                        className={requiredStyle.experience}
                         data-for="experience"
-                        data-tip="What's the interviewee's experience?"
+                        data-tip="公司名稱與職位"
                         placeholder="Experience*"
                         value={dataForm.experience}
                         name="experience"
@@ -303,18 +339,18 @@ const ColumnForm = ({ data }) => {
                       <ReactTooltip id="experience" place="top" type="dark" effect="solid" />
                     </CInputGroup>
 
-                    {hashtags.map((hashtag, index) => {
+                    {hashtag.map((hashtag, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-address-book" name="cil-address-book" />
+                            <CIcon icon="cil-lightbulb" name="cil-lightbulb" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="hashtag"
-                            data-tip="Enter a hashtag"
-                            placeholder="Hashtags"
+                            data-tip="文章類別，訪問者姓名、級別、工作、相關組織與企業"
+                            placeholder="Hashtag*"
                             name="hashtag"
-                            value={hashtag}
+                            value={dataForm.hashtag}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <ReactTooltip id="hashtag" place="top" type="dark" effect="solid" />
@@ -328,45 +364,169 @@ const ColumnForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
+
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
-                        <CIcon icon="cil-address-book" name="cil-address-book" />
+                        <CIcon icon="cil-lightbulb" name="cil-lightbulb" />
                       </CInputGroupText>
                       <CButton type="button" name="hashtag" className="form-add" onClick={addArray}>
                         +
                       </CButton>
                     </CInputGroup>
 
-                    <CInputGroup className="mb-3">
+                    {anno.map((anno, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-address-book" name="cil-address-book" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="anno"
+                            data-tip="所有採訪人員姓名"
+                            placeholder="Anno*"
+                            name="anno"
+                            value={anno}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="anno" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="anno"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+
+                    <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
-                        <CIcon icon="cil-braille" name="cil-braille" />
+                        <CIcon icon="cil-address-book" name="cil-address-book" />
                       </CInputGroupText>
-                      <CFormControl
-                        className={requiredStyle.subtitle} //object輸入格式應為？
-                        data-for="subtitle"
-                        data-tip="What's the subtitle?"
-                        placeholder="Subtitle"
-                        value={dataForm.subtitle}
-                        name="subtitle"
-                        onChange={handleInputChange}
-                      />
-                      <ReactTooltip id="subtitle" place="top" type="dark" effect="solid" />
+                      <CButton type="button" name="anno" className="form-add" onClick={addArray}>
+                        +
+                      </CButton>
                     </CInputGroup>
 
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-braille" name="cil-braille" />
+                        <CIcon icon="cil-calendar" name="cil-calendar" />
                       </CInputGroupText>
                       <CFormControl
-                        className={requiredStyle.subsection}
-                        data-for="subsection"
-                        data-tip="What's the subsection?"
-                        placeholder="Subsection"
-                        value={dataForm.subsection}
-                        name="subsection"
+                        data-for="date"
+                        data-tip="yyyy/mm/dd 星期x"
+                        placeholder="Date*"
+                        value={dataForm.date}
+                        name="date"
                         onChange={handleInputChange}
                       />
-                      <ReactTooltip id="subsection" place="top" type="dark" effect="solid" />
+                      <ReactTooltip id="date" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+
+                    {exp.map((exp, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-bookmark" name="cil-bookmark" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="exp"
+                            data-tip="職位"
+                            placeholder="Exp*"
+                            name="exp"
+                            value={dataForm.exp}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="exp" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="exp"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon icon="cil-bookmark" name="cil-bookmark" />
+                      </CInputGroupText>
+                      <CButton type="button" name="exp" className="form-add" onClick={addArray}>
+                        +
+                      </CButton>
+                    </CInputGroup>
+
+                    {edu.map((edu, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-envelope-closed" name="cil-envelope-closed" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="edu"
+                            data-tip="學歷[學士:校系(畢業年分),碩士:校系(畢業年分),博士:校系(畢業年分)]"
+                            placeholder="Education*"
+                            name="edu"
+                            value={dataForm.edu}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="edu" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="edu"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon icon="cil-envelope-closed" name="cil-envelope-closed" />
+                      </CInputGroupText>
+                      <CButton type="button" name="edu" className="form-add" onClick={addArray}>
+                        +
+                      </CButton>
+                    </CInputGroup>
+
+                    {intro.map((intro, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-basket" name="cil-basket" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="intro"
+                            data-tip="簡介(1個element是一段)"
+                            placeholder="introduction*"
+                            name="intro"
+                            value={dataForm.intro}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="intro" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="intro"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon icon="cil-basket" name="cil-basket" />
+                      </CInputGroupText>
+                      <CButton type="button" name="intro" className="form-add" onClick={addArray}>
+                        +
+                      </CButton>
                     </CInputGroup>
 
                     <CRow className="justify-content-center mt-3">
