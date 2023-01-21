@@ -12,7 +12,7 @@ const asyncHandler = require('express-async-handler')
  *
  * @apiParam {String[]} title 文章標題 //要不要刪掉？而且應該沒有[]
  *    (xxxx 級 xxx (公司名稱與職位))(這邊看要不要和name,experience合併?)
- * @apiParam {String} id 文章的編號 //怎麼生成？uuidv4?
+ * @apiParam {String} id 文章的編號 //一個月超過兩次就要改編號
  *    (建議yymm)
  * @apiParam {Object} top
  * @apiParam {String} top.name 標題(xxxx 級 xxx)
@@ -20,11 +20,11 @@ const asyncHandler = require('express-async-handler')
  * @apiParam {String[]} top.hashtags 文章的hashtag
  *    (文章類別，訪問者姓名、級別、工作、相關組織與企業)
  * @apiParam {Object[]} body.body
- * @apiParam {String} body.body.bigtitle (一、標題，二、求學階段...)
+ * @apiParam {String} body.body.bigtitle (一、標題，二、求學階段...) //應該是String[]
  * @apiParam {Object[]} body.body.bigsections
  * @apiParam {String} body.body.bigsections.subtitle 子標題
  * @apiParam {String} body.body.bigsections.subsection (文章內容)
- * @apiParam {String[]} annotation.annotation 參與全人員
+ * @apiParam {String[]} annotation.annotation 參與全人員 //應該是Object[]
  * @apiParam {String[]} annotation.annotation.job 工作
  * @apiParam {String[]} annotation.annotation.contributer 人員
  *
@@ -47,7 +47,7 @@ const asyncHandler = require('express-async-handler')
  *    input.append("top[experience]", "當屆最年輕升遷副教授")
  *    input.append("top[hashtags][0]", 關鍵字1)
  *    input.append("annotation[annotation][0][job]", "撰寫")
- *    input.append("annotation[annotation][0][contributer]][]", "王曉明")
+ *    input.append("annotation[annotation][0][contributer]", "王曉明")
  *    input.append("anno[]", "作者1")
  *    input.append("date", "yyyy/mm/dd 星期x")
  *    input.append("exp[0]", "現任：國立臺灣科技大學電機系 副教授")
@@ -69,25 +69,20 @@ const asyncHandler = require('express-async-handler')
 const addCol = async (req, res) => {
   // const body = JSON.parse(req.body.body)
   // const annotation = JSON.parse(req.body.annotation)
-  const { body, annotation, id, anno, title, exp, edu, intro } = req.body
+  const { id, anno, exp, edu, intro } = req.body
   console.log('id', id)
 
   const top = JSON.parse(req.body.top)
+  const title = [top.name, top.experience]
+  const body = JSON.parse(req.body.body)
+  const annotation = JSON.parse(req.body.annotation)
   const date = req.body.date.toString()
   // const anno = JSON.parse(req.body.anno)
   // const exp = JSON.parse(req.body.exp)
   // const edu = JSON.parse(req.body.edu)
   // const intro = JSON.parse(req.body.intro)
 
-  console.log('top', top)
-  console.log('date', date)
-  console.log(typeof date)
-  console.log('anno', anno)
-  console.log(typeof anno)
-  console.log(typeof Array.from(anno))
-
   console.log(req.body)
-  console.dir(req.body)
 
   // const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
   const columnImg = parseImg(req.file)
