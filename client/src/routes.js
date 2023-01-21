@@ -154,5 +154,11 @@ const routes_auth = [
     name: 'AuthAnnounce',
     component: AuthAnnounce,
   },
+  {
+    path: '/auth/addColumn',
+    exact: true,
+    name: 'ColumnForm',
+    component: AddColumn,
+  },
 ]
 export { routes_out, routes_in, routes_auth }

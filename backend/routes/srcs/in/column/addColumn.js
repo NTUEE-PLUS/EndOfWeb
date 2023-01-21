@@ -10,9 +10,9 @@ const asyncHandler = require('express-async-handler')
  * @apiGroup In/column
  * @apiDescription 管理員新增文章
  *
- * @apiParam {String[]} title 文章標題
+ * @apiParam {String[]} title 文章標題 //要不要刪掉？而且應該沒有[]
  *    (xxxx 級 xxx (公司名稱與職位))(這邊看要不要和name,experience合併?)
- * @apiParam {String} id 文章的編號
+ * @apiParam {String} id 文章的編號 //怎麼生成？uuidv4?
  *    (建議yymm)
  * @apiParam {Object} top
  * @apiParam {String} top.name 標題(xxxx 級 xxx)
@@ -29,7 +29,7 @@ const asyncHandler = require('express-async-handler')
  * @apiParam {String[]} annotation.annotation.contributer 人員
  *
  * @apiParam {String[]} anno [所有採訪人員姓名]
- * @apiParam {String[]} date yyyy/mm/dd 星期x
+ * @apiParam {String} date yyyy/mm/dd 星期x //我先把[]拿掉
  * @apiparam {String[]} exp 職位
  * @apiParam {String[]} edu 學歷
  *    [學士:校系(畢業年分),碩士:校系(畢業年分),博士:校系(畢業年分)]
@@ -67,7 +67,29 @@ const asyncHandler = require('express-async-handler')
  */
 
 const addCol = async (req, res) => {
-  const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
+  // const body = JSON.parse(req.body.body)
+  // const annotation = JSON.parse(req.body.annotation)
+  const { body, annotation, id, anno, title, exp, edu, intro } = req.body
+  console.log('id', id)
+
+  const top = JSON.parse(req.body.top)
+  const date = req.body.date.toString()
+  // const anno = JSON.parse(req.body.anno)
+  // const exp = JSON.parse(req.body.exp)
+  // const edu = JSON.parse(req.body.edu)
+  // const intro = JSON.parse(req.body.intro)
+
+  console.log('top', top)
+  console.log('date', date)
+  console.log(typeof date)
+  console.log('anno', anno)
+  console.log(typeof anno)
+  console.log(typeof Array.from(anno))
+
+  console.log(req.body)
+  console.dir(req.body)
+
+  // const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
   const columnImg = parseImg(req.file)
 
   await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
@@ -79,17 +101,17 @@ const addCol = async (req, res) => {
 
 const valid = require('../../../middleware/validation')
 const rules = [
-  {
-    filename: 'optional',
-    field: ['top', 'body', 'annotation'],
-    type: 'object',
-  },
-  {
-    filename: 'optional',
-    field: ['date'],
-    type: 'string',
-  },
-  { filename: 'optional', field: ['anno', 'title', 'exp', 'edu', 'intro'], type: 'array' },
+  // {
+  //   filename: 'optional',
+  //   field: ['top', 'body', 'annotation'],
+  //   type: 'object',
+  // },
+  // {
+  //   filename: 'optional',
+  //   field: ['date'],
+  //   type: 'string',
+  // },
+  // { filename: 'optional', field: ['anno', 'title', 'exp', 'edu', 'intro'], type: 'array' },
   { filename: 'required', field: 'id' },
 ]
 module.exports = [valid(rules), asyncHandler(addCol)]

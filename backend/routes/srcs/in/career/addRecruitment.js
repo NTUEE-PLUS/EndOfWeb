@@ -29,6 +29,7 @@ const asyncHandler = require('express-async-handler')
  */
 const addRecru = async (req, res) => {
   const account = req.session.loginAccount
+  console.log(req.body)
 
   const { title, company_name, work_type, salary, experience, diploma, requirement, description } =
     req.body
