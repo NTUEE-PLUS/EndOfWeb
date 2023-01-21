@@ -36,14 +36,20 @@ const ColumnForm = ({ data }) => {
   var hour = d.getHours()
   var min = d.getMinutes()
   var sec = d.getSeconds()
-  var _id = year + month + day + hour + min + sec
+  var _id =
+    year.toString() +
+    month.toString() +
+    day.toString() +
+    hour.toString() +
+    min.toString() +
+    sec.toString()
   const formTemplate = add
     ? {
         title: [''],
         id: _id.toString(),
         top: { name: '', experience: '', hashtags: [''] },
-        body: { body: { bigtitle: '', bigsections: { subtitle: '', subsection: '' } } },
-        annotation: { annotation: [''], job: [''], contributer: [''] },
+        body: { body: [{ bigtitle: '', bigsections: { subtitle: '', subsection: '' } }] },
+        annotation: { job: [''], contributer: [''] },
         date: '',
         file: '',
       }
@@ -54,13 +60,8 @@ const ColumnForm = ({ data }) => {
         name: data.top.name,
         experience: data.top.experience,
         body: data.body.body,
-        bigtitle: data.body.body.bigtitle,
         bigsections: data.body.body.bigsections,
-        subtitle: data.body.body.bigsections.subtitle,
-        subsection: data.body.body.bigsections.subsection,
         annotation: data.annotation.annotation,
-        job: data.annotation.annotation.job,
-        contributer: data.annotation.annotation.contributer,
         date: data.date,
         file: data.columnImg,
       }
@@ -69,6 +70,15 @@ const ColumnForm = ({ data }) => {
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [originalImage, setOriginalImage] = useState(null)
+
+  const [bigtitle, setBigtitle] = useState(add ? [''] : data.body.body.bigtitle)
+  const [subtitle, setSubtitle] = useState(add ? [''] : data.body.body.bigsections.subtitle)
+  const [subsection, setSubsection] = useState(add ? [''] : data.body.body.bigsections.subsection)
+
+  const [job, setJob] = useState(add ? [''] : data.annotation.annotation.job)
+  const [contributor, setContributor] = useState(
+    add ? [''] : data.annotation.annotation.contributor,
+  )
 
   const [hashtag, setHashtag] = useState(add ? [''] : data.top.hashtags)
   const [anno, setAnno] = useState(add ? [''] : data.anno)
@@ -93,6 +103,19 @@ const ColumnForm = ({ data }) => {
     if (e.target.name === 'hashtag') {
       const newArray = hashtag.concat([''])
       setHashtag(newArray)
+    } else if (e.target.name === 'bigtitle') {
+      const newArray = bigtitle.concat([''])
+      setBigtitle(newArray)
+    } else if (e.target.name === 'subtitle') {
+      const newArray = subtitle.concat([''])
+      setSubtitle(newArray)
+      const newArray2 = subsection.concat([''])
+      setSubsection(newArray2)
+    } else if (e.target.name === 'job') {
+      const newArray = job.concat([''])
+      setJob(newArray)
+      const newArray2 = contributor.concat([''])
+      setContributor(newArray2)
     } else if (e.target.name === 'anno') {
       const newArray = anno.concat([''])
       setAnno(newArray)
@@ -114,6 +137,36 @@ const ColumnForm = ({ data }) => {
         else return e.target.value
       })
       setHashtag(newArray)
+    } else if (e.target.name === 'bigtitle') {
+      const newArray = bigtitle.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setBigtitle(newArray)
+    } else if (e.target.name === 'subtitle') {
+      const newArray = subtitle.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setSubtitle(newArray)
+    } else if (e.target.name === 'subsection') {
+      const newArray = subsection.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setSubsection(newArray)
+    } else if (e.target.name === 'job') {
+      const newArray = job.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setJob(newArray)
+    } else if (e.target.name === 'contributor') {
+      const newArray = contributor.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setContributor(newArray)
     } else if (e.target.name === 'anno') {
       const newArray = anno.map((req, idx) => {
         if (idx !== index) return req
@@ -144,11 +197,26 @@ const ColumnForm = ({ data }) => {
     if (e.target.name === 'hashtag') {
       const newArray = hashtag.filter((hashtag, idx) => idx !== index)
       setHashtag(newArray)
+    } else if (e.target.name === 'bigtitle') {
+      const newArray = bigtitle.filter((bigtitle, idx) => idx !== index)
+      setBigtitle(newArray)
+    } else if (e.target.name === 'subtitle') {
+      const newArray = subtitle.filter((subtitle, idx) => idx !== index)
+      setSubtitle(newArray)
+    } else if (e.target.name === 'subsection') {
+      const newArray = subsection.filter((subsection, idx) => idx !== index)
+      setSubsection(newArray)
+    } else if (e.target.name === 'job') {
+      const newArray = job.filter((job, idx) => idx !== index)
+      setJob(newArray)
+    } else if (e.target.name === 'contributor') {
+      const newArray = contributor.filter((contributor, idx) => idx !== index)
+      setContributor(newArray)
     } else if (e.target.name === 'anno') {
       const newArray = anno.filter((anno, idx) => idx !== index)
       setAnno(newArray)
     } else if (e.target.name === 'exp') {
-      const newArray = exp.filter((anno, idx) => idx !== index)
+      const newArray = exp.filter((exp, idx) => idx !== index)
       setAnno(newArray)
     } else if (e.target.name === 'edu') {
       const newArray = edu.filter((edu, idx) => idx !== index)
@@ -203,16 +271,33 @@ const ColumnForm = ({ data }) => {
       data.append('intro', it)
     }
     const top = { name: dataForm.name, experience: dataForm.experience, hashtags: hashtag }
+    // const body = {body: [{ bigtitle: bigtitle[0], bigsections: {subtitle: subtitle[0], subsection: subsection[0] } }]}
+    // const annotation = {annotation: [{ job: job[0], contributor: contributor[0]}]}
+    let body = { body: [] }
+    let annotation = { annotation: [] }
+    for (let i = 0; i < bigtitle.length; i++) {
+      body.body.push({
+        bigtitle: bigtitle[i],
+        bigsections: [{ subtitle: subtitle[i], subsection: subsection[i] }],
+      })
+    } // 其實有問題，subtitle應該是二維陣列，但是好麻煩，先這樣
+    for (let i = 0; i < annotation.length; i++) {
+      annotation.annotation.push({ job: job[i], contributor: contributor[i] })
+    }
 
     data.append('id', dataForm.id)
     data.append('date', dataForm.date)
     data.append('top', JSON.stringify(top))
-    // data.append('anno', dataForm.anno)
-    // data.append('exp', dataForm.exp)
-    // data.append('edu', dataForm.edu)
-    // data.append('intro', dataForm.intro)
+    data.append('body', JSON.stringify(body))
+    data.append('annotation', JSON.stringify(annotation))
+    data.append('anno', dataForm.anno)
+    data.append('exp', dataForm.exp)
+    data.append('edu', dataForm.edu)
+    data.append('intro', dataForm.intro)
 
     console.log(data.get('top'))
+    console.log(data.get('body'))
+    console.log(data.get('annotation'))
 
     if (croppedFile) {
       data.append('file', dataForm.file, '.png')
@@ -364,12 +449,173 @@ const ColumnForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
-
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
                         <CIcon icon="cil-lightbulb" name="cil-lightbulb" />
                       </CInputGroupText>
                       <CButton type="button" name="hashtag" className="form-add" onClick={addArray}>
+                        +
+                      </CButton>
+                    </CInputGroup>
+
+                    {bigtitle.map((bigtitle, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-bell" name="cil-bell" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="bigtitle"
+                            data-tip="工作"
+                            placeholder="Bigtitle*"
+                            name="bigtitle"
+                            value={bigtitle}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="bigtitle"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon icon="cil-bell" name="cil-bell" />
+                      </CInputGroupText>
+                      <CButton
+                        type="button"
+                        name="bigtitle"
+                        className="form-add"
+                        onClick={addArray}
+                      >
+                        +
+                      </CButton>
+                    </CInputGroup>
+
+                    {subtitle.map((subtitle, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-bell" name="cil-bell" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="subtitle"
+                            data-tip="工作"
+                            placeholder="Subtitle*"
+                            name="subtitle"
+                            value={subtitle}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="subtitle"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+                    {subsection.map((subsection, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-bell" name="cil-bell" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="subsection"
+                            data-tip="工作"
+                            placeholder="Subsection*"
+                            name="subsection"
+                            value={subsection}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="subsection" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="subsection"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon icon="cil-bell" name="cil-bell" />
+                      </CInputGroupText>
+                      <CButton
+                        type="button"
+                        name="subtitle"
+                        className="form-add"
+                        onClick={addArray}
+                      >
+                        +
+                      </CButton>
+                    </CInputGroup>
+
+                    {job.map((job, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-address-book" name="cil-address-book" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="job"
+                            data-tip="工作"
+                            placeholder="Job*"
+                            name="job"
+                            value={job}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="job"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+                    {contributor.map((contributor, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>
+                            <CIcon icon="cil-address-book" name="cil-address-book" />
+                          </CInputGroupText>
+                          <CFormControl
+                            data-for="contributor"
+                            data-tip="工作"
+                            placeholder="Contributor*"
+                            name="contributor"
+                            value={contributor}
+                            onChange={(e) => handleInputArray(e, index)}
+                          />
+                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
+                          <CButton
+                            type="button"
+                            name="contributor"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </CButton>
+                        </CInputGroup>
+                      )
+                    })}
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon icon="cil-address-book" name="cil-address-book" />
+                      </CInputGroupText>
+                      <CButton type="button" name="job" className="form-add" onClick={addArray}>
                         +
                       </CButton>
                     </CInputGroup>
@@ -399,7 +645,6 @@ const ColumnForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
-
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
                         <CIcon icon="cil-address-book" name="cil-address-book" />
@@ -449,7 +694,6 @@ const ColumnForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
-
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
                         <CIcon icon="cil-bookmark" name="cil-bookmark" />
@@ -484,7 +728,6 @@ const ColumnForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
-
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
                         <CIcon icon="cil-envelope-closed" name="cil-envelope-closed" />
@@ -519,7 +762,6 @@ const ColumnForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
-
                     <CInputGroup className="mb-4 d-flex flex-row">
                       <CInputGroupText>
                         <CIcon icon="cil-basket" name="cil-basket" />

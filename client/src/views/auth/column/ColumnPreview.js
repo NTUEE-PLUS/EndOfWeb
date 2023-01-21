@@ -71,7 +71,7 @@ const ColumnPreview = ({ post, hashtags, anno, exp, edu, intro }) => {
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>Ｈashtag:</h3>
+              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>Hashtag:</h3>
               {hashtags.map((hashtag) => spec(hashtag))}
               <h3 style={{ margin: '1.3rem 0 0.1rem' }}>採訪人員:</h3>
               {anno.map((anno) => spec(anno))}
