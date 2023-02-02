@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectLogin } from '../../../slices/loginSlice'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
-import CareerImageEditor from '../career/CareerImageEditor'
+import CareerImageEditor from '../../components/CareerImageEditor'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import {

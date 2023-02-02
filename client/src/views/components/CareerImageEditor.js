@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCareer, setCroppedFile, setCroppedDataUrl } from '../../../slices/careerSlice'
+import { selectCareer, setCroppedFile, setCroppedDataUrl } from '../../slices/careerSlice'
 import {
   CButton,
   CCol,
@@ -12,7 +12,7 @@ import {
   CInputGroup,
 } from '@coreui/react'
 import Cropper from 'react-easy-crop'
-import { getCroppedImg } from './'
+import { getCroppedImg } from '../in/career'
 
 const CareerImageEditor = ({ imgSrc }) => {
   const dispatch = useDispatch()
