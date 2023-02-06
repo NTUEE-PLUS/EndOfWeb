@@ -39,6 +39,8 @@ router.use('/study', require('./srcs/in/study/main').router)
 router.use(require('./srcs/in/abroadInfo/main').router)
 //announce
 router.use(require('./srcs/in/announcement/main').router)
+//abroadSharing
+router.use(require('./srcs/in/abroadSharing/main').router)
 
 //check is auth
 router.use(require('./srcs/in/auth/isAuth'))
@@ -54,6 +56,8 @@ router.use('/study', require('./srcs/in/study/main').router_auth)
 router.use(require('./srcs/in/abroadInfo/main').router_auth)
 // announcement auth
 router.use(require('./srcs/in/announcement/main').router_auth)
+//abroadSharing
+router.use(require('./srcs/in/abroadSharing/main').router_auth)
 
 //error handling, every error thrown by previous router will be catch by me
 router.use(require('./error').handleError)
