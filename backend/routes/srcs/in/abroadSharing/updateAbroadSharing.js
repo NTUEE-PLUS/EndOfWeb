@@ -12,7 +12,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiParam {String} _id _id
  * @apiParam {String} intro 介紹
  * @apiParam {String} YTlink youtube連結
- * @apiParam {String} otherlnks 其他連結
+ * @apiParam {String} otherLinks 其他連結
  *
  *
  * @apiSuccess (200) _id _id
@@ -22,12 +22,12 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const updateAbroadSharing = async (req, res, next) => {
-  const { _id, intro, YTlink, otherlinks } = req.body
+  const { _id, intro, YTlink, otherLinks } = req.body
   if (!_id) throw new ErrorHandler(403, '_id doesnot exist')
   const obj = await abroad_sharing.findOne({ _id }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
 
-  const toSet = updateQuery({ intro, YTlink, otherlinks })
+  const toSet = updateQuery({ intro, YTlink, otherLinks })
   await abroad_sharing.findByIdAndUpdate(_id, toSet).catch(dbCatch)
   return res.status(200).end()
 }
@@ -35,7 +35,7 @@ const updateAbroadSharing = async (req, res, next) => {
 const valid = require('../../../middleware/validation')
 const rules = [
   { filename: 'required', field: '_id' },
-  { filename: 'optional', field: ['intro', 'YTlink', 'otherlinks'], type: 'String' },
+  { filename: 'optional', field: ['intro', 'YTlink', 'otherLinks'], type: 'String' },
 ]
 
 module.exports = [valid(rules), asyncHandler(updateAbroadSharing)]
