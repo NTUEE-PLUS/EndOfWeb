@@ -9,7 +9,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  *
  * @apiSuccess (201) {String} intro  介紹
  * @apiSuccess (201) {String} YTlink youtube連結
- * @apiSuccess (201) {String} otherlinks 其他連結
+ * @apiSuccess (201) {String} otherLinks 其他連結
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
