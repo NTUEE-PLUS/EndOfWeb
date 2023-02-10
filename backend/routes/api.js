@@ -14,6 +14,8 @@ if (process.env.NODE_ENV === 'development') {
 router.use(require('./srcs/out/account'))
 //forget, activation
 router.use(require('./srcs/out/forget'))
+//history, teamData
+router.use(require('./srcs/out/publicData'))
 
 //in
 //check is user
