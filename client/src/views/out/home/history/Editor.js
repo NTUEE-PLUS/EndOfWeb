@@ -75,10 +75,6 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
         data.append('peopleImages', blob, `${name}.${blob.type.replace('image/', '')}`),
       ),
     )
-<<<<<<< HEAD
-=======
-    data.keys().forEach((k) => console.log(`${k}: ${data.get(k)}`))
->>>>>>> 5395233 (Editing history & team data at home)
 
     const config = { 'content-type': 'multipart/form-data' }
     if (add) {
@@ -170,13 +166,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                     </CButton>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-<<<<<<< HEAD
                     <CInputGroupText className={dataForm.people[index].img ? 'bg-info' : ''}>
-=======
-                    <CInputGroupText
-                      style={{ backgroundColor: dataForm.people[index].img ? '#B0FC93' : null }}
-                    >
->>>>>>> 5395233 (Editing history & team data at home)
                       <CIcon
                         icon="cil-image"
                         onMouseEnter={() => handleEnterImgIcon(index)}
@@ -184,24 +174,14 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                       />
                       <div
                         style={{
-<<<<<<< HEAD
                           top: '-250%',
-=======
-                          display:
-                            imgPreview[index] && dataForm.people[index].img ? 'inherit' : 'none',
-                          position: 'absolute',
-                          top: '-150%',
->>>>>>> 5395233 (Editing history & team data at home)
                           left: '30%',
                           maxWidth: '50%',
                           zIndex: 5,
                         }}
-<<<<<<< HEAD
                         className={'position-absolute '.concat(
                           imgPreview[index] && dataForm.people[index].img ? 'visible' : 'invisible',
                         )}
-=======
->>>>>>> 5395233 (Editing history & team data at home)
                       >
                         <CImage fluid src={dataForm.people[index].img} alt="img preview" />
                       </div>
@@ -212,14 +192,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                       id="formFile"
                       type="file"
                       onChange={(e) => handleChangeImage(e, index)}
-<<<<<<< HEAD
                       onClick={(e) => (e.target.value = null)}
-=======
-                      onClick={(e) => {
-                        console.log(Object.entries(e.target))
-                        e.target.value = null
-                      }}
->>>>>>> 5395233 (Editing history & team data at home)
                       disabled={pending}
                     ></CFormControl>
                     <ReactTooltip id="image" place="top" type="dark" effect="solid" />

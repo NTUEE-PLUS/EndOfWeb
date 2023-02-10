@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-<<<<<<< HEAD
 const HistImg = ({ alt, queryId, getImg }) => {
   const [pending, setPending] = useState(false)
   const [src, setSrc] = useState('')
@@ -16,13 +15,6 @@ const HistImg = ({ alt, queryId, getImg }) => {
   const pendingComponent = (
     <img style={imgStyle} src="https://i.imgur.com/0HIqjg0.gif" alt="pending" />
   )
-=======
-const HistImg = ({ alt, queryId, getImg, ...props }) => {
-  const [pending, setPending] = useState(false)
-  const [src, setSrc] = useState('')
-  const pendingComponent = <img {...props} src="https://i.imgur.com/0HIqjg0.gif" alt="pending" />
->>>>>>> 5395233 (Editing history & team data at home)
-
   const updateImg = useCallback(async () => {
     setPending(true)
     if (!queryId) return
@@ -36,15 +28,11 @@ const HistImg = ({ alt, queryId, getImg, ...props }) => {
     updateImg()
   }, [updateImg])
 
-<<<<<<< HEAD
   return (
     <div style={{ aspectRatio: '1', maxHeight: '10rem' }} className="img-fluid">
       {pending ? pendingComponent : <img style={imgStyle} src={src} alt={alt || 'avatar'} />}
     </div>
   )
-=======
-  return pending ? pendingComponent : <img {...props} src={src} alt={alt || 'histimg'} />
->>>>>>> 5395233 (Editing history & team data at home)
 }
 
 export default HistImg
