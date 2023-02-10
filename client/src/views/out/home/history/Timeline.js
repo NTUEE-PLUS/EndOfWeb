@@ -60,7 +60,7 @@ const Timeline = ({ data, refetch, getImg }) => {
             icon={<img src={history_icon} alt="O" className="img-fluid" />}
           >
             {canEdit ? (
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div className="d-flex justify-content-between">
                 <h3 className="vertical-timeline-element-title">{year.title}</h3>
                 <div>
                   <CButton
