@@ -164,9 +164,7 @@ const Editor = ({ visible, setVisible, dataForm, originData, setDataForm, refetc
                     <ReactTooltip id="job" place="top" type="dark" effect="solid" />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText
-                      style={{ backgroundColor: dataForm[index].img ? '#B0FC93' : null }}
-                    >
+                    <CInputGroupText className={dataForm[index].img ? 'bg-info' : ''}>
                       <CIcon
                         icon="cil-image"
                         onMouseEnter={() => handleEnterImgIcon(index)}
@@ -174,13 +172,14 @@ const Editor = ({ visible, setVisible, dataForm, originData, setDataForm, refetc
                       />
                       <div
                         style={{
-                          display: imgPreview[index] && dataForm[index].img ? 'inherit' : 'none',
-                          position: 'absolute',
                           top: index === dataForm.length - 1 ? '-330%' : '-250%',
                           left: '30%',
                           maxWidth: '50%',
                           zIndex: 5,
                         }}
+                        className={'position-absolute '.concat(
+                          imgPreview[index] && dataForm[index].img ? 'visible' : 'invisible',
+                        )}
                       >
                         <CImage fluid src={dataForm[index].img} alt="img preview" />
                       </div>

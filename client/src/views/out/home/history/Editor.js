@@ -167,9 +167,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                     </CButton>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
-                    <CInputGroupText
-                      style={{ backgroundColor: dataForm.people[index].img ? '#B0FC93' : null }}
-                    >
+                    <CInputGroupText className={dataForm.people[index].img ? 'bg-info' : ''}>
                       <CIcon
                         icon="cil-image"
                         onMouseEnter={() => handleEnterImgIcon(index)}
@@ -177,14 +175,14 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                       />
                       <div
                         style={{
-                          display:
-                            imgPreview[index] && dataForm.people[index].img ? 'inherit' : 'none',
-                          position: 'absolute',
-                          top: '-150%',
+                          top: '-250%',
                           left: '30%',
                           maxWidth: '50%',
                           zIndex: 5,
                         }}
+                        className={'position-absolute '.concat(
+                          imgPreview[index] && dataForm.people[index].img ? 'visible' : 'invisible',
+                        )}
                       >
                         <CImage fluid src={dataForm.people[index].img} alt="img preview" />
                       </div>
