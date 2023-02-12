@@ -159,11 +159,6 @@ const CareerForm = ({ data }) => {
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
     }
-    console.log(data.get('title'))
-    console.log(data.get('experience[]'))
-    console.log(data.getAll('experience[]'))
-    console.log(typeof data)
-    // console.log(data[experience])
     if (add) {
       axios
         .post('/api/addRecruitment', data, config)

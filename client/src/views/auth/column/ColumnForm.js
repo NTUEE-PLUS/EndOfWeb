@@ -4,7 +4,7 @@ import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../sl
 import ColumnImageEditor from './ColumnImageEditor'
 import ColumnPreview from './ColumnPreview'
 import ReactTooltip from 'react-tooltip'
-import PropTypes, { object } from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   CButton,
   CCard,
@@ -24,14 +24,17 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
-import { v4 as uuidv4 } from 'uuid'
 
 const ColumnForm = ({ data }) => {
+  const d = new Date()
+  const year = d.getFullYear().toString().slice(-2).toString()
+  const month = (d.getMonth() + 1).toString().padStart(2, '0')
+  const date = d.getDate().toString()
   const add = data ? false : true
   const formTemplate = add
     ? {
         title: [''],
-        id: uuidv4(),
+        id: year + month + date,
         name: '',
         experience: '',
         date: '',
@@ -648,20 +651,3 @@ ColumnForm.propTypes = {
   data: PropTypes.object,
 }
 export default ColumnForm
-// [
-//   ({
-//     bigtitle: bigtitle1,
-//     bigsections: [
-//       { subtitle: subtitle1, subsection: subsection1 },
-//       { subtitle: subtitle2, subsection: subsection2 },
-//     ],
-//   },
-//   {
-//     bigtitle: bigtitle2,
-//     bigsections: [
-//       { subtitle: subtitle3, subsection: subsection3 },
-//       { subtitle: subtitle4, subsection: subsection4 },
-//       { subtitle: subtitle5, subsection: subsection5 },
-//     ],
-//   })
-// ]

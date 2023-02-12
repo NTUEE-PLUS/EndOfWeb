@@ -24,7 +24,7 @@ const asyncHandler = require('express-async-handler')
  * @apiParam {Object[]} body.body.bigsections
  * @apiParam {String} body.body.bigsections.subtitle 子標題
  * @apiParam {String} body.body.bigsections.subsection (文章內容)
- * @apiParam {String[]} annotation.annotation 參與全人員 //應該是Object[]
+ * @apiParam {Object[]} annotation.annotation 參與全人員
  * @apiParam {String[]} annotation.annotation.job 工作 //這樣寫的話，就是一個工作對應很多人員
  * @apiParam {String[]} annotation.annotation.contributer 人員 //就直接打那個工作的所有人員名字，如“王曉明、陳小明、林小華“
  *
@@ -77,12 +77,6 @@ const addCol = async (req, res) => {
   const exp = JSON.parse(req.body.exp)
   const edu = JSON.parse(req.body.edu)
   const intro = JSON.parse(req.body.intro)
-
-  console.log(req.body)
-  console.log(top)
-  console.log(body)
-  console.log(annotation)
-
   const columnImg = parseImg(req.file)
 
   await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
@@ -94,17 +88,11 @@ const addCol = async (req, res) => {
 
 const valid = require('../../../middleware/validation')
 const rules = [
-  // {
-  //   filename: 'optional',
-  //   field: ['top', 'body', 'annotation'],
-  //   type: 'object',
-  // },
   {
     filename: 'optional',
     field: ['date'],
     type: 'string',
   },
-  // { filename: 'optional', field: ['anno', 'title', 'exp', 'edu', 'intro'], type: 'array' },
   { filename: 'required', field: 'id' },
 ]
 module.exports = [valid(rules), asyncHandler(addCol)]
