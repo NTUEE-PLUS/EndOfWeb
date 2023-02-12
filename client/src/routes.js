@@ -31,7 +31,7 @@ import {
   ChangePsw,
 } from './views/in'
 // auth pages
-import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce } from './views/auth'
+import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AddColumn } from './views/auth'
 
 import Dashboard from './views/dashboard/Dashboard'
 

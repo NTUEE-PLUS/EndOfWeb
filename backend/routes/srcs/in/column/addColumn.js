@@ -20,13 +20,13 @@ const asyncHandler = require('express-async-handler')
  * @apiParam {String[]} top.hashtags 文章的hashtag
  *    (文章類別，訪問者姓名、級別、工作、相關組織與企業)
  * @apiParam {Object[]} body.body
- * @apiParam {String} body.body.bigtitle (一、標題，二、求學階段...) //應該是String[]
+ * @apiParam {String[]} body.body.bigtitle (一、標題，二、求學階段...)
  * @apiParam {Object[]} body.body.bigsections
  * @apiParam {String} body.body.bigsections.subtitle 子標題
  * @apiParam {String} body.body.bigsections.subsection (文章內容)
  * @apiParam {String[]} annotation.annotation 參與全人員 //應該是Object[]
- * @apiParam {String[]} annotation.annotation.job 工作
- * @apiParam {String[]} annotation.annotation.contributer 人員
+ * @apiParam {String[]} annotation.annotation.job 工作 //這樣寫的話，就是一個工作對應很多人員
+ * @apiParam {String[]} annotation.annotation.contributer 人員 //就直接打那個工作的所有人員名字，如“王曉明、陳小明、林小華“
  *
  * @apiParam {String[]} anno [所有採訪人員姓名]
  * @apiParam {String} date yyyy/mm/dd 星期x //我先把[]拿掉
@@ -67,24 +67,22 @@ const asyncHandler = require('express-async-handler')
  */
 
 const addCol = async (req, res) => {
-  // const body = JSON.parse(req.body.body)
-  // const annotation = JSON.parse(req.body.annotation)
-  const { id, anno, exp, edu, intro } = req.body
-  console.log('id', id)
-
+  const id = req.body.id
+  const date = req.body.date
   const top = JSON.parse(req.body.top)
   const title = [top.name, top.experience]
   const body = JSON.parse(req.body.body)
   const annotation = JSON.parse(req.body.annotation)
-  const date = req.body.date.toString()
-  // const anno = JSON.parse(req.body.anno)
-  // const exp = JSON.parse(req.body.exp)
-  // const edu = JSON.parse(req.body.edu)
-  // const intro = JSON.parse(req.body.intro)
+  const anno = JSON.parse(req.body.anno)
+  const exp = JSON.parse(req.body.exp)
+  const edu = JSON.parse(req.body.edu)
+  const intro = JSON.parse(req.body.intro)
 
   console.log(req.body)
+  console.log(top)
+  console.log(body)
+  console.log(annotation)
 
-  // const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
   const columnImg = parseImg(req.file)
 
   await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
@@ -101,11 +99,11 @@ const rules = [
   //   field: ['top', 'body', 'annotation'],
   //   type: 'object',
   // },
-  // {
-  //   filename: 'optional',
-  //   field: ['date'],
-  //   type: 'string',
-  // },
+  {
+    filename: 'optional',
+    field: ['date'],
+    type: 'string',
+  },
   // { filename: 'optional', field: ['anno', 'title', 'exp', 'edu', 'intro'], type: 'array' },
   { filename: 'required', field: 'id' },
 ]

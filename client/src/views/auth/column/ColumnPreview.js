@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { CWidgetBrand } from '@coreui/react'
+import { CButton, CWidgetBrand } from '@coreui/react'
 import { eesa } from './index'
-import parser from 'html-react-parser'
 
-const ColumnPreview = ({ post, hashtags, anno, exp, edu, intro }) => {
+const ColumnPreview = ({ post, annotation, body, hashtags, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (post.file && typeof post.file === 'object') {
@@ -15,79 +13,94 @@ const ColumnPreview = ({ post, hashtags, anno, exp, edu, intro }) => {
     }
     reader.readAsDataURL(post.file)
   }
-  const spec = (li) => {
+  const title = (title) => {
     return (
-      <div key={li} style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
-        {li}
+      <h3 style={{ margin: '1.3rem 0 0.1rem' }} key={title}>
+        {title}
+      </h3>
+    )
+  }
+  const subtitle = (subtitle) => {
+    return (
+      <h4 style={{ margin: '1.3rem 0 0.1rem' }} key={subtitle}>
+        &nbsp;&nbsp;{subtitle}
+      </h4>
+    )
+  }
+  const section = (section) => {
+    return (
+      <div style={{ margin: '1rem 0', fontSize: '1.5rem' }} key={section}>
+        &nbsp;&nbsp;&nbsp;&nbsp;{section}
       </div>
     )
   }
-  if (typeof post.description === 'string') {
+  const content = (li) => {
     return (
-      <div className="columnBlock" key={post.id}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
-          headerChildren={
-            <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
-          }
-          values={post.title}
-        />
-        <hr></hr>
-        <div className="columnContent">
-          <h3 style={{ fontWeight: '600' }}>{post.title}</h3>
-          <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.salary}</h2>
-          {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
-          {isExpand && (
-            <>
-              {hashtags.map((hashtag) => spec(hashtag))}
-              {anno.map((anno) => spec(anno))}
-              {exp.map((exp) => spec(exp))}
-              {edu.map((edu) => spec(edu))}
-              {intro.map((intro) => spec(intro))}
-              <button onClick={() => setIsExpand(false)}>Show less...</button>
-            </>
-          )}
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="columnBlock" key={post.id}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
-          headerChildren={
-            <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
-          }
-          values={[[post.title]]}
-        />
-        <hr></hr>
-        <div className="columnContent">
-          <h1>
-            {post.name} {post.experience}
-          </h1>
-          <div style={{ fontSize: '1.39rem' }}>
-            <span style={{ color: 'blue', fontWeight: '500' }}>{post.date}</span>
-          </div>
-          {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
-          {isExpand && (
-            <>
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>Hashtag:</h3>
-              {hashtags.map((hashtag) => spec(hashtag))}
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>採訪人員:</h3>
-              {anno.map((anno) => spec(anno))}
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>職位:</h3>
-              {exp.map((exp) => spec(exp))}
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>學歷:</h3>
-              {edu.map((edu) => spec(edu))}
-              <h3 style={{ margin: '1.3rem 0 0.1rem' }}>簡介:</h3>
-              {intro.map((intro) => spec(intro))}
-              <button onClick={() => setIsExpand(false)}>Show less...</button>
-            </>
-          )}
-        </div>
+      <div key={li} style={{ fontSize: '1rem' }}>
+        &nbsp;&nbsp;&nbsp;&nbsp;{li}
       </div>
     )
   }
+  return (
+    <div className="columnBlock" key={post.id}>
+      <CWidgetBrand
+        className="pt-4 widgetbrand"
+        headerChildren={
+          <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
+        }
+        values={[[post.title]]}
+      />
+      <hr />
+      <div className="columnContent">
+        <h2 style={{ textAlign: 'center' }}>
+          {post.name}
+          {post.experience}
+        </h2>
+        <div style={{ fontSize: '1.39rem', textAlign: 'center' }}>
+          <span style={{ color: 'blue', fontWeight: '500' }}>{post.date}</span>
+        </div>
+        {!isExpand && <CButton onClick={() => setIsExpand(true)}>Show more...</CButton>}
+        {isExpand && (
+          <>
+            {title('標籤')}
+            {hashtags.map((hashtag) => section(`#${hashtag}`))}
+            <br />
+            {title('工作人員')}
+            {annotation.map((annotation) =>
+              section(`${annotation.job}: ${annotation.contributor}`),
+            )}
+            <br />
+            {title('採訪人員')}
+            {anno.map((anno) => section(anno))}
+            <br />
+            {title('職位')}
+            {exp.map((exp) => section(exp))}
+            <br />
+            {title('學歷')}
+            {edu.map((edu) => section(edu))}
+            <br />
+            {title('簡介')}
+            {intro.map((intro) => section(intro))}
+            <br />
+            {title('內容')}
+            {body.map((body, bodyIdx) => (
+              <div key={bodyIdx}>
+                {subtitle(body.bigtitle)}
+                {body.bigsections.map((bigsection, sectionIdx) => (
+                  <div key={sectionIdx}>
+                    {section(bigsection.subtitle)}
+                    {content(bigsection.subsection)}
+                  </div>
+                ))}
+              </div>
+            ))}
+            <br />
+            <CButton onClick={() => setIsExpand(false)}>Show less...</CButton>
+          </>
+        )}
+      </div>
+    </div>
+  )
 }
 ColumnPreview.propTypes = {
   post: PropTypes.object,

@@ -24,7 +24,7 @@ const Column_detail = new Schema({
     annotation: [
       {
         job: String,
-        contributer: String,
+        contributor: String,
       },
     ],
   },

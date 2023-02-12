@@ -53,7 +53,7 @@ const Contact = () => {
                     as soon as possible.
                   </p>
                 </div>
-                <form name="sentMessage" validate onSubmit={handleSubmit}>
+                <form name="sentMessage" onSubmit={handleSubmit}>
                   <CRow>
                     <div className="col-md-6">
                       <div className="form-group">

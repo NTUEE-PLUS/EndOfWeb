@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
-import { useHistory } from 'react-router'
 import ColumnImageEditor from './ColumnImageEditor'
 import ColumnPreview from './ColumnPreview'
 import ReactTooltip from 'react-tooltip'
@@ -26,42 +24,24 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
-// import { uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
+
 const ColumnForm = ({ data }) => {
   const add = data ? false : true
-  var d = new Date()
-  var year = d.getFullYear()
-  var month = d.getMonth() + 1
-  var day = d.getDate()
-  var hour = d.getHours()
-  var min = d.getMinutes()
-  var sec = d.getSeconds()
-  var _id =
-    year.toString() +
-    month.toString() +
-    day.toString() +
-    hour.toString() +
-    min.toString() +
-    sec.toString()
   const formTemplate = add
     ? {
         title: [''],
-        id: _id.toString(),
-        top: { name: '', experience: '', hashtags: [''] },
-        body: { body: [{ bigtitle: '', bigsections: { subtitle: '', subsection: '' } }] },
-        annotation: { job: [''], contributer: [''] },
+        id: uuidv4(),
+        name: '',
+        experience: '',
         date: '',
         file: '',
       }
     : {
         title: data.title,
         id: data.id,
-        top: data.top,
         name: data.top.name,
         experience: data.top.experience,
-        body: data.body.body,
-        bigsections: data.body.body.bigsections,
-        annotation: data.annotation.annotation,
         date: data.date,
         file: data.columnImg,
       }
@@ -70,161 +50,137 @@ const ColumnForm = ({ data }) => {
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [originalImage, setOriginalImage] = useState(null)
-
-  const [bigtitle, setBigtitle] = useState(add ? [''] : data.body.body.bigtitle)
-  const [subtitle, setSubtitle] = useState(add ? [''] : data.body.body.bigsections.subtitle)
-  const [subsection, setSubsection] = useState(add ? [''] : data.body.body.bigsections.subsection)
-
-  const [job, setJob] = useState(add ? [''] : data.annotation.annotation.job)
-  const [contributor, setContributor] = useState(
-    add ? [''] : data.annotation.annotation.contributor,
+  const [body, setBody] = useState(
+    add ? [{ bigtitle: '', bigsections: [{ subtitle: '', subsection: '' }] }] : data.body,
   )
-
+  const [annotation, setAnnotation] = useState(
+    add ? [{ job: '', contributor: '' }] : data.annotation.annotation,
+  )
   const [hashtag, setHashtag] = useState(add ? [''] : data.top.hashtags)
   const [anno, setAnno] = useState(add ? [''] : data.anno)
   const [exp, setExp] = useState(add ? [''] : data.exp)
   const [edu, setEdu] = useState(add ? [''] : data.edu)
   const [intro, setIntro] = useState(add ? [''] : data.intro)
-
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
-  const [requiredStyle, setRequiredStyle] = useState({
-    title: '',
-  })
+
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
-    if (requiredStyle.hasOwnProperty(e.target.name)) {
-      if (e.target.value === '')
-        setRequiredStyle({ ...requiredStyle, [e.target.name]: 'border-3 border-danger' })
-      else setRequiredStyle({ ...requiredStyle, [e.target.name]: '' })
-    }
   }
-  const addArray = (e) => {
-    if (e.target.name === 'hashtag') {
-      const newArray = hashtag.concat([''])
-      setHashtag(newArray)
-    } else if (e.target.name === 'bigtitle') {
-      const newArray = bigtitle.concat([''])
-      setBigtitle(newArray)
-    } else if (e.target.name === 'subtitle') {
-      const newArray = subtitle.concat([''])
-      setSubtitle(newArray)
-      const newArray2 = subsection.concat([''])
-      setSubsection(newArray2)
-    } else if (e.target.name === 'job') {
-      const newArray = job.concat([''])
-      setJob(newArray)
-      const newArray2 = contributor.concat([''])
-      setContributor(newArray2)
-    } else if (e.target.name === 'anno') {
-      const newArray = anno.concat([''])
-      setAnno(newArray)
-    } else if (e.target.name === 'exp') {
-      const newArray = exp.concat([''])
-      setExp(newArray)
-    } else if (e.target.name === 'edu') {
-      const newArray = edu.concat([''])
-      setEdu(newArray)
-    } else if (e.target.name === 'intro') {
-      const newArray = intro.concat([''])
-      setIntro(newArray)
+  const handleAddSection = (index) => {
+    const newBody = [...body]
+    newBody[index].bigsections.push({ subtitle: '', subsection: '' })
+    setBody(newBody)
+  }
+  const handleAddArray = (e) => {
+    switch (e.target.name) {
+      case 'hashtag':
+        setHashtag(hashtag.concat(['']))
+        break
+      case 'body':
+        setBody([...body, { bigtitle: '', bigsections: [{ subtitle: '', subsection: '' }] }])
+        break
+      case 'annotation':
+        setAnnotation([...annotation, { job: '', contributor: '' }])
+        break
+      case 'anno':
+        setAnno(anno.concat(['']))
+        break
+      case 'exp':
+        setExp(exp.concat(['']))
+        break
+      case 'edu':
+        setEdu(edu.concat(['']))
+        break
+      case 'intro':
+        setIntro(intro.concat(['']))
+        break
+      default:
+        break
     }
   }
   const handleInputArray = (e, index) => {
-    if (e.target.name === 'hashtag') {
-      const newArray = hashtag.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setHashtag(newArray)
-    } else if (e.target.name === 'bigtitle') {
-      const newArray = bigtitle.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setBigtitle(newArray)
-    } else if (e.target.name === 'subtitle') {
-      const newArray = subtitle.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setSubtitle(newArray)
-    } else if (e.target.name === 'subsection') {
-      const newArray = subsection.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setSubsection(newArray)
-    } else if (e.target.name === 'job') {
-      const newArray = job.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setJob(newArray)
-    } else if (e.target.name === 'contributor') {
-      const newArray = contributor.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setContributor(newArray)
-    } else if (e.target.name === 'anno') {
-      const newArray = anno.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setAnno(newArray)
-    } else if (e.target.name === 'exp') {
-      const newArray = exp.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setExp(newArray)
-    } else if (e.target.name === 'edu') {
-      const newArray = edu.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setEdu(newArray)
-    } else if (e.target.name === 'intro') {
-      const newArray = intro.map((req, idx) => {
-        if (idx !== index) return req
-        else return e.target.value
-      })
-      setIntro(newArray)
+    switch (e.target.name) {
+      case 'hashtag':
+        let newHashtag = [...hashtag]
+        newHashtag[index] = e.target.value
+        setHashtag(newHashtag)
+        break
+      case 'bigtitle':
+        let newBody = [...body]
+        newBody[index].bigtitle = e.target.value
+        setBody(newBody)
+        break
+      case 'job' || 'contributor':
+        const values = [...annotation]
+        values[index][e.target.name] = e.target.value
+        setAnnotation(values)
+        break
+      case 'anno':
+        let newAnno = [...anno]
+        newAnno[index] = e.target.value
+        setAnno(newAnno)
+        break
+      case 'exp':
+        let newExp = [...exp]
+        newExp[index] = e.target.value
+        setExp(newExp)
+        break
+      case 'edu':
+        let newEdu = [...edu]
+        newEdu[index] = e.target.value
+        setEdu(newEdu)
+        break
+      case 'intro':
+        let newIntro = [...intro]
+        newIntro[index] = e.target.value
+        setIntro(newIntro)
+        break
+      default:
+        break
+    }
+  }
+  const handleAnnotationChange = (event, index) => {
+    const values = [...annotation]
+    values[index][event.target.name] = event.target.value
+    setAnnotation(values)
+  }
+  const handleSubtitleChange = (event, bodyIndex, sectionIndex) => {
+    const newBody = [...body]
+    newBody[bodyIndex].bigsections[sectionIndex].subtitle = event.target.value
+    setBody(newBody)
+  }
+  const handleSubsectionChange = (event, bodyIndex, sectionIndex) => {
+    const newBody = [...body]
+    newBody[bodyIndex].bigsections[sectionIndex].subsection = event.target.value
+    setBody(newBody)
+  }
+  const handleDeleteBigsection = (bodyIndex, sectionIndex) => {
+    if (body[bodyIndex].bigsections.length > 1) {
+      const newBody = [...body]
+      newBody[bodyIndex].bigsections.splice(sectionIndex, 1)
+      setBody(newBody)
     }
   }
   const handleDeleteArray = (e, index) => {
-    if (e.target.name === 'hashtag') {
-      const newArray = hashtag.filter((hashtag, idx) => idx !== index)
-      setHashtag(newArray)
-    } else if (e.target.name === 'bigtitle') {
-      const newArray = bigtitle.filter((bigtitle, idx) => idx !== index)
-      setBigtitle(newArray)
-    } else if (e.target.name === 'subtitle') {
-      const newArray = subtitle.filter((subtitle, idx) => idx !== index)
-      setSubtitle(newArray)
-    } else if (e.target.name === 'subsection') {
-      const newArray = subsection.filter((subsection, idx) => idx !== index)
-      setSubsection(newArray)
-    } else if (e.target.name === 'job') {
-      const newArray = job.filter((job, idx) => idx !== index)
-      setJob(newArray)
-    } else if (e.target.name === 'contributor') {
-      const newArray = contributor.filter((contributor, idx) => idx !== index)
-      setContributor(newArray)
-    } else if (e.target.name === 'anno') {
-      const newArray = anno.filter((anno, idx) => idx !== index)
-      setAnno(newArray)
-    } else if (e.target.name === 'exp') {
-      const newArray = exp.filter((exp, idx) => idx !== index)
-      setAnno(newArray)
-    } else if (e.target.name === 'edu') {
-      const newArray = edu.filter((edu, idx) => idx !== index)
-      setAnno(newArray)
-    } else if (e.target.name === 'intro') {
-      const newArray = intro.filter((intro, idx) => idx !== index)
-      setAnno(newArray)
-    }
+    if (e.target.name === 'hashtag' && hashtag.length > 1)
+      setHashtag(hashtag.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'body' && body.length > 1)
+      setBody(body.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'bigsection' && body[index].bigsections.length > 1) {
+      let newBody = [...body]
+      newBody[index].bigsections = newBody[index].bigsections.filter((_, idx) => idx !== index)
+      setBody(newBody)
+    } else if (e.target.name === 'annotation' && annotation.length > 1)
+      setAnnotation(annotation.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'anno' && anno.length > 1)
+      setAnno(anno.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'exp' && exp.length > 1)
+      setExp(exp.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'edu' && edu.length > 1)
+      setEdu(edu.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'intro' && intro.length > 1)
+      setIntro(intro.filter((_, idx) => idx !== index))
   }
   const handleChangeImage = (e) => {
     let reader = new FileReader()
@@ -258,46 +214,18 @@ const ColumnForm = ({ data }) => {
   }
   const handleSubmit = () => {
     const data = new FormData()
-    for (let it of anno) {
-      data.append('anno', it)
-    }
-    for (let it of exp) {
-      data.append('exp', it)
-    }
-    for (let it of edu) {
-      data.append('edu', it)
-    }
-    for (let it of intro) {
-      data.append('intro', it)
-    }
     const top = { name: dataForm.name, experience: dataForm.experience, hashtags: hashtag }
-    // const body = {body: [{ bigtitle: bigtitle[0], bigsections: {subtitle: subtitle[0], subsection: subsection[0] } }]}
-    // const annotation = {annotation: [{ job: job[0], contributor: contributor[0]}]}
-    let body = { body: [] }
-    let annotation = { annotation: [] }
-    for (let i = 0; i < bigtitle.length; i++) {
-      body.body.push({
-        bigtitle: bigtitle[i],
-        bigsections: [{ subtitle: subtitle[i], subsection: subsection[i] }],
-      })
-    } // 其實有問題，subtitle應該是二維陣列，但是好麻煩，先這樣
-    for (let i = 0; i < annotation.length; i++) {
-      annotation.annotation.push({ job: job[i], contributor: contributor[i] })
-    }
-
+    let _body = { body: body }
+    let _annotation = { annotation: annotation }
     data.append('id', dataForm.id)
     data.append('date', dataForm.date)
     data.append('top', JSON.stringify(top))
-    data.append('body', JSON.stringify(body))
-    data.append('annotation', JSON.stringify(annotation))
-    data.append('anno', dataForm.anno)
-    data.append('exp', dataForm.exp)
-    data.append('edu', dataForm.edu)
-    data.append('intro', dataForm.intro)
-
-    console.log(data.get('top'))
-    console.log(data.get('body'))
-    console.log(data.get('annotation'))
+    data.append('body', JSON.stringify(_body))
+    data.append('annotation', JSON.stringify(_annotation))
+    data.append('anno', JSON.stringify(anno))
+    data.append('exp', JSON.stringify(exp))
+    data.append('edu', JSON.stringify(edu))
+    data.append('intro', JSON.stringify(intro))
 
     if (croppedFile) {
       data.append('file', dataForm.file, '.png')
@@ -306,10 +234,8 @@ const ColumnForm = ({ data }) => {
     if (add) {
       axios
         .post('/api/column/add', data, config)
-        // .post('/api/addColumn', data, config)
         .then(() => {
           alert('已新增')
-          // history.push('/own_recommendation') // should has one?
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -320,7 +246,6 @@ const ColumnForm = ({ data }) => {
         .patch('/api/column/add', data, config)
         .then(() => {
           alert('已更新')
-          // history.push('/own_recommendation')
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -352,6 +277,8 @@ const ColumnForm = ({ data }) => {
         <CModalBody>
           <ColumnPreview
             post={dataForm}
+            body={body}
+            annotation={annotation}
             hashtags={hashtag}
             anno={anno}
             exp={exp}
@@ -380,7 +307,7 @@ const ColumnForm = ({ data }) => {
 
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-image" name="cil-image" />
+                        <CIcon icon="cil-image" />
                       </CInputGroupText>
                       <CFormControl
                         data-for="image"
@@ -395,10 +322,9 @@ const ColumnForm = ({ data }) => {
 
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-user" name="cil-user" />
+                        <CIcon icon="cil-user" />
                       </CInputGroupText>
                       <CFormControl
-                        className={requiredStyle.title}
                         data-for="name"
                         data-tip="xxxx 級 xxx"
                         placeholder="Name*"
@@ -411,7 +337,7 @@ const ColumnForm = ({ data }) => {
 
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-location-pin" name="cil-location-pin" />
+                        <CIcon icon="cil-location-pin" />
                       </CInputGroupText>
                       <CFormControl
                         data-for="experience"
@@ -424,18 +350,18 @@ const ColumnForm = ({ data }) => {
                       <ReactTooltip id="experience" place="top" type="dark" effect="solid" />
                     </CInputGroup>
 
-                    {hashtag.map((hashtag, index) => {
+                    {hashtag.map((_, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-lightbulb" name="cil-lightbulb" />
+                            <CIcon icon="cil-lightbulb" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="hashtag"
                             data-tip="文章類別，訪問者姓名、級別、工作、相關組織與企業"
                             placeholder="Hashtag*"
                             name="hashtag"
-                            value={dataForm.hashtag}
+                            value={hashtag[index]}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <ReactTooltip id="hashtag" place="top" type="dark" effect="solid" />
@@ -446,192 +372,136 @@ const ColumnForm = ({ data }) => {
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="hashtag" onClick={handleAddArray}>
+                            +
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-lightbulb" name="cil-lightbulb" />
-                      </CInputGroupText>
-                      <CButton type="button" name="hashtag" className="form-add" onClick={addArray}>
-                        +
-                      </CButton>
-                    </CInputGroup>
 
-                    {bigtitle.map((bigtitle, index) => {
+                    {body.map((body, bodyIndex) => {
                       return (
-                        <CInputGroup className="mb-3" key={index}>
+                        <CInputGroup className="mb-3" key={bodyIndex}>
                           <CInputGroupText>
-                            <CIcon icon="cil-bell" name="cil-bell" />
+                            <CIcon icon="cil-bell" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="bigtitle"
-                            data-tip="工作"
+                            data-tip="文章內容"
                             placeholder="Bigtitle*"
                             name="bigtitle"
-                            value={bigtitle}
-                            onChange={(e) => handleInputArray(e, index)}
+                            value={body.bigtitle}
+                            onChange={(e) => handleInputArray(e, bodyIndex)}
                           />
-                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
+                          <ReactTooltip id="bigtitle" place="top" type="dark" effect="solid" />
                           <CButton
                             type="button"
-                            name="bigtitle"
-                            onClick={(e) => handleDeleteArray(e, index)}
+                            name="body"
+                            onClick={(e) => handleDeleteArray(e, bodyIndex)}
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="body" onClick={handleAddArray}>
+                            +
+                          </CButton>
+                          {body.bigsections.map((section, sectionIndex) => (
+                            <CInputGroup key={sectionIndex}>
+                              <CInputGroupText>
+                                <CIcon />
+                              </CInputGroupText>
+                              <CFormControl
+                                data-for="subtitle"
+                                data-tip="子段落標題"
+                                placeholder="Subtitle*"
+                                name="subtitle"
+                                value={section.subtitle}
+                                onChange={(e) => handleSubtitleChange(e, bodyIndex, sectionIndex)}
+                              />
+                              <ReactTooltip id="subtitle" place="top" type="dark" effect="solid" />
+                              <CFormControl
+                                data-for="subsection"
+                                data-tip="子段落"
+                                placeholder="Subsection*"
+                                name="subsection"
+                                value={section.subsection}
+                                onChange={(e) => handleSubsectionChange(e, bodyIndex, sectionIndex)}
+                              />
+                              <ReactTooltip
+                                id="subsection"
+                                place="top"
+                                type="dark"
+                                effect="solid"
+                              />
+                              <CButton
+                                type="button"
+                                name="bigsection"
+                                onClick={(e) => handleDeleteBigsection(bodyIndex, sectionIndex)}
+                              >
+                                x
+                              </CButton>
+                              <CButton
+                                type="button"
+                                name="bigsection"
+                                onClick={(e) => handleAddSection(bodyIndex)}
+                              >
+                                +
+                              </CButton>
+                            </CInputGroup>
+                          ))}
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-bell" name="cil-bell" />
-                      </CInputGroupText>
-                      <CButton
-                        type="button"
-                        name="bigtitle"
-                        className="form-add"
-                        onClick={addArray}
-                      >
-                        +
-                      </CButton>
-                    </CInputGroup>
 
-                    {subtitle.map((subtitle, index) => {
+                    {annotation.map((annotation, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-bell" name="cil-bell" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="subtitle"
-                            data-tip="工作"
-                            placeholder="Subtitle*"
-                            name="subtitle"
-                            value={subtitle}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="subtitle"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-                    {subsection.map((subsection, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-bell" name="cil-bell" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="subsection"
-                            data-tip="工作"
-                            placeholder="Subsection*"
-                            name="subsection"
-                            value={subsection}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="subsection" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="subsection"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-bell" name="cil-bell" />
-                      </CInputGroupText>
-                      <CButton
-                        type="button"
-                        name="subtitle"
-                        className="form-add"
-                        onClick={addArray}
-                      >
-                        +
-                      </CButton>
-                    </CInputGroup>
-
-                    {job.map((job, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-address-book" name="cil-address-book" />
+                            <CIcon icon="cil-address-book" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="job"
                             data-tip="工作"
                             placeholder="Job*"
                             name="job"
-                            value={job}
-                            onChange={(e) => handleInputArray(e, index)}
+                            value={annotation.job}
+                            onChange={(e) => handleAnnotationChange(e, index)}
                           />
-                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="job"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-                    {contributor.map((contributor, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-address-book" name="cil-address-book" />
-                          </CInputGroupText>
+                          <ReactTooltip id="job" place="top" type="dark" effect="solid" />
                           <CFormControl
                             data-for="contributor"
-                            data-tip="工作"
+                            data-tip="人員"
                             placeholder="Contributor*"
                             name="contributor"
-                            value={contributor}
-                            onChange={(e) => handleInputArray(e, index)}
+                            value={annotation.contributor}
+                            onChange={(e) => handleAnnotationChange(e, index)}
                           />
                           <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
                           <CButton
                             type="button"
-                            name="contributor"
+                            name="annotation"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="annotation" onClick={handleAddArray}>
+                            +
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-address-book" name="cil-address-book" />
-                      </CInputGroupText>
-                      <CButton type="button" name="job" className="form-add" onClick={addArray}>
-                        +
-                      </CButton>
-                    </CInputGroup>
 
-                    {anno.map((anno, index) => {
+                    {anno.map((_, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-address-book" name="cil-address-book" />
+                            <CIcon icon="cil-address-book" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="anno"
                             data-tip="所有採訪人員姓名"
                             placeholder="Anno*"
                             name="anno"
-                            value={anno}
+                            value={anno[index]}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <ReactTooltip id="anno" place="top" type="dark" effect="solid" />
@@ -642,21 +512,16 @@ const ColumnForm = ({ data }) => {
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="anno" onClick={handleAddArray}>
+                            +
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-address-book" name="cil-address-book" />
-                      </CInputGroupText>
-                      <CButton type="button" name="anno" className="form-add" onClick={addArray}>
-                        +
-                      </CButton>
-                    </CInputGroup>
 
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-calendar" name="cil-calendar" />
+                        <CIcon icon="cil-calendar" />
                       </CInputGroupText>
                       <CFormControl
                         data-for="date"
@@ -669,18 +534,18 @@ const ColumnForm = ({ data }) => {
                       <ReactTooltip id="date" place="top" type="dark" effect="solid" />
                     </CInputGroup>
 
-                    {exp.map((exp, index) => {
+                    {exp.map((_, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-bookmark" name="cil-bookmark" />
+                            <CIcon icon="cil-bookmark" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="exp"
                             data-tip="職位"
                             placeholder="Exp*"
                             name="exp"
-                            value={dataForm.exp}
+                            value={exp[index]}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <ReactTooltip id="exp" place="top" type="dark" effect="solid" />
@@ -691,30 +556,25 @@ const ColumnForm = ({ data }) => {
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="exp" onClick={handleAddArray}>
+                            +
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-bookmark" name="cil-bookmark" />
-                      </CInputGroupText>
-                      <CButton type="button" name="exp" className="form-add" onClick={addArray}>
-                        +
-                      </CButton>
-                    </CInputGroup>
 
-                    {edu.map((edu, index) => {
+                    {edu.map((_, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-envelope-closed" name="cil-envelope-closed" />
+                            <CIcon icon="cil-envelope-closed" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="edu"
                             data-tip="學歷[學士:校系(畢業年分),碩士:校系(畢業年分),博士:校系(畢業年分)]"
                             placeholder="Education*"
                             name="edu"
-                            value={dataForm.edu}
+                            value={edu[index]}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <ReactTooltip id="edu" place="top" type="dark" effect="solid" />
@@ -725,30 +585,25 @@ const ColumnForm = ({ data }) => {
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="edu" onClick={handleAddArray}>
+                            +
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-envelope-closed" name="cil-envelope-closed" />
-                      </CInputGroupText>
-                      <CButton type="button" name="edu" className="form-add" onClick={addArray}>
-                        +
-                      </CButton>
-                    </CInputGroup>
 
-                    {intro.map((intro, index) => {
+                    {intro.map((_, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
-                            <CIcon icon="cil-basket" name="cil-basket" />
+                            <CIcon icon="cil-basket" />
                           </CInputGroupText>
                           <CFormControl
                             data-for="intro"
                             data-tip="簡介(1個element是一段)"
                             placeholder="introduction*"
                             name="intro"
-                            value={dataForm.intro}
+                            value={intro[index]}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <ReactTooltip id="intro" place="top" type="dark" effect="solid" />
@@ -759,39 +614,20 @@ const ColumnForm = ({ data }) => {
                           >
                             x
                           </CButton>
+                          <CButton type="button" name="intro" onClick={handleAddArray}>
+                            +
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup className="mb-4 d-flex flex-row">
-                      <CInputGroupText>
-                        <CIcon icon="cil-basket" name="cil-basket" />
-                      </CInputGroupText>
-                      <CButton type="button" name="intro" className="form-add" onClick={addArray}>
-                        +
-                      </CButton>
-                    </CInputGroup>
 
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton
                           color="dark"
                           onClick={() => {
-                            let miss = []
-                            for (let info in requiredStyle) {
-                              if (!dataForm[info]) {
-                                miss.push(info)
-                              }
-                            }
-                            if (miss.length !== 0) {
-                              let missStyle = requiredStyle
-                              for (let m of miss) {
-                                missStyle[m] = 'border-3 border-danger'
-                              }
-                              alert(`You have to fill out ${miss}`)
-                              setRequiredStyle({ ...requiredStyle, ...missStyle })
-                              return
-                            }
                             setBlockModal(true)
+                            console.log(dataForm)
                           }}
                         >
                           Preview
@@ -812,3 +648,20 @@ ColumnForm.propTypes = {
   data: PropTypes.object,
 }
 export default ColumnForm
+// [
+//   ({
+//     bigtitle: bigtitle1,
+//     bigsections: [
+//       { subtitle: subtitle1, subsection: subsection1 },
+//       { subtitle: subtitle2, subsection: subsection2 },
+//     ],
+//   },
+//   {
+//     bigtitle: bigtitle2,
+//     bigsections: [
+//       { subtitle: subtitle3, subsection: subsection3 },
+//       { subtitle: subtitle4, subsection: subsection4 },
+//       { subtitle: subtitle5, subsection: subsection5 },
+//     ],
+//   })
+// ]
