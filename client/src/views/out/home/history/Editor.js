@@ -75,7 +75,6 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
         data.append('peopleImages', blob, `${name}.${blob.type.replace('image/', '')}`),
       ),
     )
-    data.keys().forEach((k) => console.log(`${k}: ${data.get(k)}`))
 
     const config = { 'content-type': 'multipart/form-data' }
     if (add) {
@@ -193,10 +192,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                       id="formFile"
                       type="file"
                       onChange={(e) => handleChangeImage(e, index)}
-                      onClick={(e) => {
-                        console.log(Object.entries(e.target))
-                        e.target.value = null
-                      }}
+                      onClick={(e) => (e.target.value = null)}
                       disabled={pending}
                     ></CFormControl>
                     <ReactTooltip id="image" place="top" type="dark" effect="solid" />
