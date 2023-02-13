@@ -14,7 +14,7 @@ import {
 import Cropper from 'react-easy-crop'
 import { getCroppedImg } from '../in/career'
 
-const CareerImageEditor = ({ imgSrc }) => {
+const ImageCropper = ({ imgSrc }) => {
   const dispatch = useDispatch()
   const { croppedDataUrl } = useSelector(selectCareer)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
@@ -39,7 +39,7 @@ const CareerImageEditor = ({ imgSrc }) => {
     <>
       {croppedDataUrl === '' ? (
         <>
-          <CContainer style={{ position: 'relative', width: '100%', height: 600 }}>
+          <CContainer style={{ position: 'relative', width: '90%', height: 400 }}>
             <Cropper
               image={imgSrc}
               crop={crop}
@@ -81,4 +81,4 @@ const CareerImageEditor = ({ imgSrc }) => {
   )
 }
 
-export default CareerImageEditor
+export default ImageCropper
