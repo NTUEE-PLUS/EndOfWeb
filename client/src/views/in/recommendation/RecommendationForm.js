@@ -193,7 +193,12 @@ const RecommendationForm = ({ data }) => {
           <CButton color="warning" onClick={clearImage}>
             Clear
           </CButton>
-          <CButton color="dark" onClick={saveEditImage} disabled={!croppedFile}>
+          <CButton
+            color="dark"
+            onClick={saveEditImage}
+            style={{ display: croppedFile ? 'block' : 'none' }}
+            disabled={!croppedFile}
+          >
             OK
           </CButton>
         </CModalFooter>
