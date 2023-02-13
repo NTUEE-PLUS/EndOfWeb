@@ -26,15 +26,10 @@ import axios from 'axios'
 import CIcon from '@coreui/icons-react'
 
 const ColumnForm = ({ data }) => {
-  const d = new Date()
-  const year = d.getFullYear().toString().slice(-2).toString()
-  const month = (d.getMonth() + 1).toString().padStart(2, '0')
-  const date = d.getDate().toString()
   const add = data ? false : true
   const formTemplate = add
     ? {
         title: [''],
-        id: year + month + date,
         name: '',
         experience: '',
         date: '',
@@ -42,7 +37,6 @@ const ColumnForm = ({ data }) => {
       }
     : {
         title: data.title,
-        id: data.id,
         name: data.top.name,
         experience: data.top.experience,
         date: data.date,
@@ -220,8 +214,10 @@ const ColumnForm = ({ data }) => {
     const top = { name: dataForm.name, experience: dataForm.experience, hashtags: hashtag }
     let _body = { body: body }
     let _annotation = { annotation: annotation }
-    data.append('id', dataForm.id)
-    data.append('date', dataForm.date)
+    const _date = dataForm.date
+    const _id = _date.substr(2, 8).split('/').join('')
+    data.append('id', _id)
+    data.append('date', _date)
     data.append('top', JSON.stringify(top))
     data.append('body', JSON.stringify(_body))
     data.append('annotation', JSON.stringify(_annotation))
