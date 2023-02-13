@@ -52,14 +52,19 @@ const Team = () => {
               <div className="col-sm-3 col-xs-6 team" key={index}>
                 <div className="thumbnail">
                   {' '}
-                  <img
-                    src={imgSrc}
-                    alt="..."
-                    className="team-img img-fluid"
-                    style={{
-                      borderRadius: '50%',
-                    }}
-                  />
+                  <div style={{ aspectRatio: '1' }} className="img-fluid">
+                    <img
+                      src={imgSrc}
+                      alt="..."
+                      className="team-img"
+                      style={{
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        height: '100%',
+                        width: '100%',
+                      }}
+                    />
+                  </div>
                   <div className="caption">
                     <h4>{name}</h4>
                     <p>{job}</p>

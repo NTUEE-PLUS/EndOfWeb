@@ -5,9 +5,6 @@ const fetchImg = async (_id) =>
   axios
     .get('/api/history/img', {
       params: { _id },
-      // headers: {
-      //   'Cache-Control': 'no-cache', // *for Debugging(no cache)
-      // },
     })
     .then((res) => {
       return res.data

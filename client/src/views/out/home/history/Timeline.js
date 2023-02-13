@@ -90,18 +90,7 @@ const Timeline = ({ data, refetch, getImg }) => {
                     key={person.name}
                     className="col d-flex flex-column align-items-center justify-content-between mt-2"
                   >
-                    <HistImg
-                      getImg={getImg}
-                      queryId={person.queryId}
-                      alt=""
-                      className="img-fluid"
-                      style={{
-                        boxShadow: '3px 3px 12px gray',
-                        padding: '2px',
-                        borderRadius: '50%',
-                        maxHeight: '10rem',
-                      }}
-                    />
+                    <HistImg getImg={getImg} queryId={person.queryId} alt="" />
                     <h4 className="mt-2">{person.name}</h4>
                   </div>
                 )

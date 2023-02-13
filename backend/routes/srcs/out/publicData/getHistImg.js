@@ -17,11 +17,9 @@ const asyncHandler = require('express-async-handler')
 
 const getHistImg = async (req, res) => {
   const { _id } = req.query
-  const start = Date.now()
   const img = await HistImg.findById(_id).catch(dbCatch)
   if (!img) throw new ErrorHandler(404, '_id not found')
   res.set({ 'Cache-Control': 'private, max-age=604800' })
-  // res.set({ 'Cache-Control': 'private, no-cache' }) //for debugging
   return res.status(200).send(img.getPublic())
 }
 const valid = require('../../../middleware/validation')
