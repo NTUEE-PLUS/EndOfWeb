@@ -22,6 +22,6 @@ const deletAnn = async (req, res, next) => {
  * @apiError (400) {String} description id is required
  */
 
-const valid = require('../../../middleware/validation/main')
+const valid = require('../../../middleware/validation')
 const rules = [{ filename: 'required', field: '_id' }]
 module.exports = [valid(rules), asyncHandler(deletAnn)]
