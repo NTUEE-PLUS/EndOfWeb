@@ -29,7 +29,6 @@ const asyncHandler = require('express-async-handler')
  */
 const addRecru = async (req, res) => {
   const account = req.session.loginAccount
-
   const { title, company_name, work_type, salary, experience, diploma, requirement, description } =
     req.body
   const img = parseImg(req.file)
