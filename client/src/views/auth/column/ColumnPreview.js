@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CButton, CWidgetBrand } from '@coreui/react'
-import { eesa } from './index'
+import { eesa } from '../../../assets/images/eesa-icon.png'
 
 const ColumnPreview = ({ post, annotation, body, hashtags, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
