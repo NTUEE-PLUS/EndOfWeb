@@ -22,6 +22,13 @@ const _navAuth = [
     to: '/auth/register',
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
   },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
+    anchor: 'COLUMN',
+    to: '/auth/column',
+    icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
+  },
 ]
 
 export default _navAuth

@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 const Column_detail = new Schema({
   top: {
     name: String,
-    experience: [String],
+    experience: String,
     hashtags: [String],
   },
   body: {
@@ -24,7 +24,7 @@ const Column_detail = new Schema({
     annotation: [
       {
         job: String,
-        contributer: String,
+        contributor: String,
       },
     ],
   },
