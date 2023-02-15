@@ -11,49 +11,49 @@ if (process.env.NODE_ENV === 'development') {
 
 //out
 //login, loginFB, register, registerFB
-router.use(require('./srcs/out/account/main'))
+router.use(require('./srcs/out/account'))
 //forget, activation
-router.use(require('./srcs/out/forget/main'))
+router.use(require('./srcs/out/forget'))
 
 //in
 //check is user
 router.use(require('./srcs/in/auth/isUser'))
 //showVisual, chVisual, searchVisual
-// router.use(require('./srcs/in/profile/main'))
+// router.use(require('./srcs/in/profile'))
 //dashboard
-router.use(require('./srcs/in/dashboard/main'))
+router.use(require('./srcs/in/dashboard'))
 //time
-router.use('/time', require('./srcs/in/time/main').router)
+router.use('/time', require('./srcs/in/time').router)
 //profile, searchProfile
-router.use(require('./srcs/in/profile_new/main'))
+router.use(require('./srcs/in/profile_new'))
 //showPerson, chLogin, isLogin, logout
-router.use(require('./srcs/in/account/main').router)
+router.use(require('./srcs/in/account').router)
 //column
-router.use('/column', require('./srcs/in/column/main').router)
+router.use('/column', require('./srcs/in/column').router)
 //searchJob, addJob, addRecruitment
-router.use(require('./srcs/in/career/main'))
-router.use(require('./srcs/in/recommendation/main'))
+router.use(require('./srcs/in/career'))
+router.use(require('./srcs/in/recommendation'))
 //study
-router.use('/study', require('./srcs/in/study/main').router)
+router.use('/study', require('./srcs/in/study').router)
 //abroadInfo
-router.use(require('./srcs/in/abroadInfo/main').router)
+router.use(require('./srcs/in/abroadInfo').router)
 //announce
-router.use(require('./srcs/in/announcement/main').router)
+router.use(require('./srcs/in/announcement').router)
 
 //check is auth
 router.use(require('./srcs/in/auth/isAuth'))
 //column
-router.use('/column', require('./srcs/in/column/main').router_auth)
+router.use('/column', require('./srcs/in/column').router_auth)
 //auth
-// router.use(require('./srcs/in/auth/main'))
+// router.use(require('./srcs/in/auth'))
 //account
-router.use(require('./srcs/in/account/main').router_auth)
+router.use(require('./srcs/in/account').router_auth)
 //study auth
-router.use('/study', require('./srcs/in/study/main').router_auth)
+router.use('/study', require('./srcs/in/study').router_auth)
 //abroadInfo
-router.use(require('./srcs/in/abroadInfo/main').router_auth)
+router.use(require('./srcs/in/abroadInfo').router_auth)
 // announcement auth
-router.use(require('./srcs/in/announcement/main').router_auth)
+router.use(require('./srcs/in/announcement').router_auth)
 
 //error handling, every error thrown by previous router will be catch by me
 router.use(require('./error').handleError)

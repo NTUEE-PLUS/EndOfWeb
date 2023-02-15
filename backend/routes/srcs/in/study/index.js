@@ -8,8 +8,8 @@ router.post('/fillForm', require('./runMatch/fillForm'))
 router.get('/form', require('./runMatch/getForm').GetForm)
 router_auth.get('/allForms', require('./runMatch/getForm').GetAllForms)
 router.get('/result', require('./runMatch/getForm').MatchResult)
-router_auth.get('/matching', require('./runMatch/main'))
-router_auth.post('/sendmail', require('./storeMatch/main'))
+router_auth.get('/matching', require('./runMatch'))
+router_auth.post('/sendmail', require('./storeMatch'))
 router_auth.delete('/form', require('./runMatch/clearForm'))
 
 module.exports = { router, router_auth }
