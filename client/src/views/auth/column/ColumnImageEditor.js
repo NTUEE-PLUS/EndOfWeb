@@ -39,7 +39,7 @@ const ColumnImageEditor = ({ imgSrc }) => {
     <>
       {croppedDataUrl === '' ? (
         <>
-          <CContainer style={{ position: 'relative', width: '100%', height: 600 }}>
+          <CContainer style={{ position: 'relative', width: '90%', height: 400 }}>
             <Cropper
               image={imgSrc}
               crop={crop}
