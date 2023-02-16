@@ -2,7 +2,9 @@ const express = require('express')
 const router_auth = express.Router()
 const router = express.Router()
 
-router.get('/getAbroadSharing', require('./getAbroadSharing'))
+router.get('/getallAbroadSharing', require('./getallAbroadSharing'))
+
+router.get('/getoneAbroadSharing', require('./getoneAbroadSharing'))
 
 router_auth.post('/addAbroadSharing', require('./addAbroadSharing'))
 

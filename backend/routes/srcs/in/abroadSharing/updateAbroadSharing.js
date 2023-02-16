@@ -19,8 +19,8 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  *
  * @apiSuccess (200) _id _id
  *
- * @apiError (404) {String} description 資料不存在
  * @apiError (403) {String} description please provide _id
+ * @apiError (404) {String} description 資料不存在
  * @apiError (500) {String} description 資料庫錯誤
  */
 const updateAbroadSharing = async (req, res, next) => {
@@ -38,7 +38,8 @@ const updateAbroadSharing = async (req, res, next) => {
 const valid = require('../../../middleware/validation')
 const rules = [
   { filename: 'required', field: '_id' },
-  { filename: 'optional', field: ['intro', 'title', 'YTlink', 'otherLinks'], type: 'String' },
+  { filename: 'optional', field: ['intro', 'title'], type: 'String' },
+  { filename: 'Url', field: ['YTlink', 'otherLinks'], type: 'URL' },
 ]
 
 module.exports = [valid(rules), asyncHandler(updateAbroadSharing)]

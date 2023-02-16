@@ -30,7 +30,8 @@ const addAbroadSharing = async (req, res) => {
 
 const valid = require('../../../middleware/validation')
 const rules = [
-  { filename: 'optional', field: ['title', 'intro', 'YTlink', 'otherLinks'], type: 'String' },
+  { filename: 'optional', field: ['title', 'intro'], type: 'String' },
+  { filename: 'Url', field: ['YTlink', 'otherLinks'], type: 'URL' },
 ]
 
 module.exports = [valid(rules), asyncHandler(addAbroadSharing)]
