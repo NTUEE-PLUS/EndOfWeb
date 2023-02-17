@@ -29,11 +29,10 @@ import {
   Matching,
   MatchForm,
   ChangePsw,
+  Dashboard,
 } from './views/in'
 // auth pages
 import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AddColumn } from './views/auth'
-
-import Dashboard from './views/dashboard/Dashboard'
 
 // out routes
 const routes_out = [

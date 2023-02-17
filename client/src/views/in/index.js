@@ -24,6 +24,8 @@ const Matching = React.lazy(() => import('./matching'))
 const MatchForm = React.lazy(() => import('./matching/matchForm'))
 
 const ChangePsw = React.lazy(() => import('./changePsw'))
+const Dashboard = React.lazy(() => import('./dashboard'))
+
 export {
   ColumnSummary,
   Column,
@@ -43,4 +45,5 @@ export {
   Matching,
   MatchForm,
   ChangePsw,
+  Dashboard,
 }
