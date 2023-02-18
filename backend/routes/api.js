@@ -41,7 +41,6 @@ router.use('/study', require('./srcs/in/study').router)
 router.use(require('./srcs/in/abroadInfo').router)
 //announce
 router.use(require('./srcs/in/announcement').router)
-router.use(require('./srcs/in/announcement/main').router)
 //abroadSharing
 router.use(require('./srcs/in/abroadSharing').router)
 
@@ -59,7 +58,6 @@ router.use('/study', require('./srcs/in/study').router_auth)
 router.use(require('./srcs/in/abroadInfo').router_auth)
 // announcement auth
 router.use(require('./srcs/in/announcement').router_auth)
-router.use(require('./srcs/in/announcement/main').router_auth)
 //abroadSharing
 router.use(require('./srcs/in/abroadSharing').router_auth)
 
