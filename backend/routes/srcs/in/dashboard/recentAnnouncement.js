@@ -5,11 +5,12 @@ const Announcement = require('../../../Schemas/announcement')
 /**
  * @api {get} /announcement/recent get recent announcement
  * @apiName RecentAnnouncement
- * @apiGroup Out/recent
+ * @apiGroup In/recent
  * @apiDescription 拿Announcement資料
  *
- * @apiParam {Number} number 篇數(default:5)
+ * @apiParam {Number} amount=5
  *
+ * @apiSuccess (201) {Object[]} announcements array of announcements
  * @apiError (500) {String} description 資料庫錯誤
  */
 module.exports = asyncHandler(async (req, res, next) => {

@@ -5,10 +5,10 @@ const Column_Outline = require('../../../Schemas/column_outline')
 /**
  * @api {get} /column/recent get recent column
  * @apiName RecentColumn
- * @apiGroup Out/recent
+ * @apiGroup In/recent
  * @apiDescription 拿Outline資料(含圖片)
  *
- * @apiParam {Number} number 篇數(default:5)
+ * @apiParam {Number} number=5 篇數
  *
  * @apiSuccessExample {json} Success-Response:
  * {'data':

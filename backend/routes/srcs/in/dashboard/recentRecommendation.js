@@ -5,10 +5,10 @@ const asyncHandler = require('express-async-handler')
 /**
  * @api {get} /recommendation/recent get recent recommendation
  * @apiName RecentRecommendation
- * @apiGroup Out/recent
+ * @apiGroup In/recent
  * @apiDescription 搜尋簡歷
  *
- * @apiParam {Number} number 篇數(default:5)
+ * @apiParam {Number} number=5 篇數
  *
  * @apiSuccess (201) {Object[]} - 簡歷們
  * @apiSuccess (201) {String} -._id mongodb _id(for update,delete)

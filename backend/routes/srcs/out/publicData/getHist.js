@@ -8,8 +8,6 @@ const asyncHandler = require('express-async-handler')
  * @apiGroup In/auth
  * @apiDescription 獲取部長歷史清單
  *
- * @apiparam {} - -
- *
  * @apiSuccess (200) {Object[]} - 歷史資料們
  * @apiSuccess (200) {String} -._id mongodb _id(for update, delete)
  * @apiSuccess (200) {String} -.grade 年級

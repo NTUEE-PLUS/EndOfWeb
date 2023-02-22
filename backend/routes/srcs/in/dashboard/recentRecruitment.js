@@ -9,7 +9,7 @@ const asyncHandler = require('express-async-handler')
  * @apiGroup Out/recent
  * @apiDescription 顯示所有職缺(等價於不傳任何參數的searchRecruitment)
  *
- * @apiParam {Number} number 篇數(default:5)
+ * @apiParam {Number} number=5 篇數
  *
  * @apiSuccess (201) {Object[]} - 職缺們
  * @apiSuccess (201) {String} -._id mongodb _id(for delete)
