@@ -3,7 +3,7 @@ const { History } = require('../../../Schemas/history')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {get} /history 獲取部長歷史清單
+ * @api {get} /history get list of heads
  * @apiName GetHistory
  * @apiGroup In/auth
  * @apiDescription 獲取部長歷史清單

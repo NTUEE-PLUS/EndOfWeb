@@ -3,9 +3,9 @@ const TeamData = require('../../../Schemas/team_data')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {get} /teamData 獲取負責人清單
+ * @api {get} /teamData get list of persons in charge
  * @apiName GetTeamData
- * @apiGroup In/auth
+ * @apiGroup In/account
  * @apiDescription 獲取負責人清單
  *
  * @apiparam {x} x x

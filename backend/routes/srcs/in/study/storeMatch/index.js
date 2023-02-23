@@ -3,7 +3,7 @@ const parseExcel = require('./parseExcel')
 const post = require('./mail')
 
 /**
- * @api {post} /study/sendmail 寄配對通知
+ * @api {post} /study/sendmail sent pairing notification
  * @apiName Study_matching
  * @apiGroup In/study
  * @apiDescription 給/study/matching拿到的output.xlsx檔，並寄信

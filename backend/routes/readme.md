@@ -16,6 +16,7 @@ EE+ api 文件
   - [del member in charge](#del-member-in-charge)
   - [delete grade](#delete-grade)
   - [delete user](#delete-user)
+  - [get list of persons in charge](#get-list-of-persons-in-charge)
   - [reset password](#reset-password)
   - [show private personal info](#show-private-personal-info)
   - [update grade](#update-grade)
@@ -30,9 +31,8 @@ EE+ api 文件
   - [search announcement by keywords](#search-announcement-by-keywords)
   - [update announcement](#update-announcement)
 - [In/auth](#inauth)
-  - [獲取負責人清單](#獲取負責人清單)
-  - [獲取部長(歷史清單中的)圖片](<#獲取部長(歷史清單中的)圖片>)
-  - [獲取部長歷史清單](#獲取部長歷史清單)
+  - [get head&#39;s image](#get-head's-image)
+  - [get list of heads](#get-list-of-heads)
 - [In/career](#incareer)
   - [add recruitment](#add-recruitment)
   - [delete recruitment](#delete-recruitment)
@@ -65,10 +65,10 @@ EE+ api 文件
   - [show my recommendation](#show-my-recommendation)
   - [update recommendation](#update-recommendation)
 - [In/study](#instudy)
-  - [拿取本年表單連結](#拿取本年表單連結)
-  - [配對](#配對)
-  - [寄配對通知](#寄配對通知)
-  - [新增本年表單連結](#新增本年表單連結)
+  - [add form link](#add-form-link)
+  - [get form link](#get-form-link)
+  - [pairing](#pairing)
+  - [sent pairing notification](#sent-pairing-notification)
 - [Out/account](#outaccount)
   - [accountActivate](#accountactivate)
   - [isLogin](#islogin)
@@ -453,6 +453,42 @@ POST /delUser
 | Name    | Type     | Description |
 | ------- | -------- | ----------- |
 | account | `String` | account     |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## get list of persons in charge
+
+[Back to top](#top)
+
+獲取負責人清單
+
+```
+GET /teamData
+```
+
+### Parameters - `Parameter`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| x    | `x`  | x           |
+
+### Success response
+
+#### Success response - `200`
+
+| Name       | Type       | Description                      |
+| ---------- | ---------- | -------------------------------- |
+| -          | `Object[]` | 負責人資料們                     |
+| &ensp;\_id | `String`   | mongodb \_id(for update, delete) |
+| &ensp;name | `String`   | 姓名                             |
+| &ensp;job  | `String`   | 職稱                             |
+| &ensp;img  | `Object[]` | 檔案(頭像)                       |
 
 ### Error response
 
@@ -919,43 +955,7 @@ PATCH /announcement
 
 # In/auth
 
-## 獲取負責人清單
-
-[Back to top](#top)
-
-獲取負責人清單
-
-```
-GET /teamData
-```
-
-### Parameters - `Parameter`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| x    | `x`  | x           |
-
-### Success response
-
-#### Success response - `200`
-
-| Name       | Type       | Description                      |
-| ---------- | ---------- | -------------------------------- |
-| -          | `Object[]` | 負責人資料們                     |
-| &ensp;\_id | `String`   | mongodb \_id(for update, delete) |
-| &ensp;name | `String`   | 姓名                             |
-| &ensp;job  | `String`   | 職稱                             |
-| &ensp;img  | `Object[]` | 檔案(頭像)                       |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 獲取部長(歷史清單中的)圖片
+## get head&#39;s image
 
 [Back to top](#top)
 
@@ -987,7 +987,7 @@ GET /history/img
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
-## 獲取部長歷史清單
+## get list of heads
 
 [Back to top](#top)
 
@@ -2443,7 +2443,41 @@ header-config
 
 # In/study
 
-## 拿取本年表單連結
+## add form link
+
+[Back to top](#top)
+
+設定本年表單 (新增本年表單連結)
+
+```
+POST /study/addLink
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type     | Description          |
+| ------ | -------- | -------------------- |
+| senior | `String` | 學長姊表單連結       |
+| junior | `String` | 學弟妹表單連結       |
+| note   | `String` | 備註(截止時間之類的) |
+
+### Success response
+
+#### Success response - `201`
+
+| Name | Type     | Description |
+| ---- | -------- | ----------- |
+| x    | `String` | data stored |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## get form link
 
 [Back to top](#top)
 
@@ -2483,7 +2517,7 @@ GET /study/links
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
-## 配對
+## pairing
 
 [Back to top](#top)
 
@@ -2516,7 +2550,7 @@ config
 | ---- | ------ | ----------- |
 | -    | `File` | output.xlsx |
 
-## 寄配對通知
+## sent pairing notification
 
 [Back to top](#top)
 
@@ -2547,40 +2581,6 @@ config
 | Name   | Type       | Description          |
 | ------ | ---------- | -------------------- |
 | errors | `String[]` | 發生錯誤的寄件者姓名 |
-
-## 新增本年表單連結
-
-[Back to top](#top)
-
-設定本年表單
-
-```
-POST /study/addLink
-```
-
-### Parameters - `Parameter`
-
-| Name   | Type     | Description          |
-| ------ | -------- | -------------------- |
-| senior | `String` | 學長姊表單連結       |
-| junior | `String` | 學弟妹表單連結       |
-| note   | `String` | 備註(截止時間之類的) |
-
-### Success response
-
-#### Success response - `201`
-
-| Name | Type     | Description |
-| ---- | -------- | ----------- |
-| x    | `String` | data stored |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
 
 # Out/account
 

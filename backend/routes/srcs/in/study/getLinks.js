@@ -3,7 +3,7 @@ const Study_Link = require('../../../Schemas/googlesheet_link')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {get} /study/links 拿取本年表單連結
+ * @api {get} /study/links get form link
  * @apiName getLink
  * @apiGroup In/study
  * @apiDescription 拿取本年表單連結

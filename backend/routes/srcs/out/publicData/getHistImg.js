@@ -3,7 +3,7 @@ const { HistImg } = require('../../../Schemas/history')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {get} /history/img 獲取部長(歷史清單中的)圖片
+ * @api {get} /history/img get head's image
  * @apiName GetHistoryImage
  * @apiGroup In/auth
  * @apiDescription 獲取部長(歷史清單中的)圖片

@@ -3,10 +3,10 @@ const Study_Link = require('../../../Schemas/googlesheet_link')
 const asyncHandle = require('express-async-handler')
 
 /**
- * @api {post} /study/addLink 新增本年表單連結
+ * @api {post} /study/addLink add form link
  * @apiName addLink
  * @apiGroup In/study
- * @apiDescription 設定本年表單
+ * @apiDescription 設定本年表單 (新增本年表單連結)
  *
  * @apiparam {String} senior 學長姊表單連結
  * @apiparam {String} junior 學弟妹表單連結

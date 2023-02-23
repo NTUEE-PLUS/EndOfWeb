@@ -3,7 +3,7 @@ const parseExcel = require('./parseExcel')
 const matching = require('./matching')
 
 /**
- * @api {post} /study_matching 配對
+ * @api {post} /study_matching pairing
  * @apiName Study_matching
  * @apiGroup In/study
  * @apiDescription 給學長姊跟學弟妹留學配對的.xlsx檔，幫他們配對
