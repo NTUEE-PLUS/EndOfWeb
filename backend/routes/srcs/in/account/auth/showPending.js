@@ -3,7 +3,7 @@ const Pending = require('../../../../Schemas/user_pending')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {post} /showPending 查看待核可帳號
+ * @api {post} /showPending view pending accounts
  * @apiName showPending
  * @apiGroup In/account
  * @apiDescription 查看待核可帳號

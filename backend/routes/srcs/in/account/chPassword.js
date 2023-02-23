@@ -5,7 +5,7 @@ const Login = require('../../../Schemas/user_login')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {post} /chPassword change password
+ * @api {post} /chPassword reset password
  * @apiName chPassword
  * @apiGroup In/account
  * @apiDescription 重設密碼

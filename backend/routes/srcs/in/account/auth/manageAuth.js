@@ -3,7 +3,7 @@ const Login = require('../../../../Schemas/user_login')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {post} /manageAuth 新增或刪除管理員
+ * @api {post} /manageAuth add or del admin
  * @apiName manageAuth
  * @apiGroup In/account
  * @apiDescription 新增、刪除管理員

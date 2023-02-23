@@ -4,7 +4,7 @@ const Login = require('../../../Schemas/user_login')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {post} /showPersonal show personal info
+ * @api {post} /showPersonal show private personal info
  * @apiName ShowPersonal
  * @apiGroup In/account
  * @apiDescription 顯示機密資料(不想被別人看到的部份，暫無)

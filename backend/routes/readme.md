@@ -10,15 +10,18 @@ EE+ api 文件
   - [get abroadInfo](#get-abroadinfo)
   - [update abroadInfo](#update-abroadinfo)
 - [In/account](#inaccount)
-  - [查看待核可帳號](#查看待核可帳號)
-  - [新增或刪除管理員](#新增或刪除管理員)
   - [add grade](#add-grade)
-  - [change password](#change-password)
+  - [add member in charge](#add-member-in-charge)
+  - [add or del admin](#add-or-del-admin)
+  - [del member in charge](#del-member-in-charge)
   - [delete grade](#delete-grade)
   - [delete user](#delete-user)
-  - [show personal info](#show-personal-info)
+  - [reset password](#reset-password)
+  - [show private personal info](#show-private-personal-info)
   - [update grade](#update-grade)
+  - [update member in charge](#update-member-in-charge)
   - [validating identity](#validating-identity)
+  - [view pending accounts](#view-pending-accounts)
 - [In/announcement](#inannouncement)
   - [add announcement](#add-announcement)
   - [delete announcement](#delete-announcement)
@@ -27,9 +30,6 @@ EE+ api 文件
   - [search announcement by keywords](#search-announcement-by-keywords)
   - [update announcement](#update-announcement)
 - [In/auth](#inauth)
-  - [刪除負責人清單成員](#刪除負責人清單成員)
-  - [更新負責人清單成員](#更新負責人清單成員)
-  - [新增負責人清單成員](#新增負責人清單成員)
   - [獲取負責人清單](#獲取負責人清單)
   - [獲取部長(歷史清單中的)圖片](<#獲取部長(歷史清單中的)圖片>)
   - [獲取部長歷史清單](#獲取部長歷史清單)
@@ -234,75 +234,6 @@ POST /updateAbroadInfo
 
 # In/account
 
-## 查看待核可帳號
-
-[Back to top](#top)
-
-查看待核可帳號
-
-```
-POST /showPending
-```
-
-### Parameters - `Parameter`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| x    | `x`  | x           |
-
-### Success response
-
-#### Success response - `200`
-
-| Name           | Type       | Description |
-| -------------- | ---------- | ----------- |
-| pendings       | `Object[]` | 各個帳號    |
-| &ensp;username | `String`   | 名字        |
-| &ensp;account  | `String`   | 學號        |
-| &ensp;email    | `String`   | 信箱        |
-| &ensp;imgSrc   | `String`   | 證件照      |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 新增或刪除管理員
-
-[Back to top](#top)
-
-新增、刪除管理員
-
-```
-POST /manageAuth
-```
-
-### Parameters - `Parameter`
-
-| Name    | Type      | Description                                       |
-| ------- | --------- | ------------------------------------------------- |
-| account | `String`  | 學號                                              |
-| setAuth | `Boolean` | true:加成管理員；false:從管理員移除(可以移除自己) |
-
-### Success response
-
-#### Success response - `204`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| -    |      |             |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
 ## add grade
 
 [Back to top](#top)
@@ -347,22 +278,65 @@ header-config
 | ----------- | -------- | ------------------- |
 | description | `String` | 資料庫/資料格式錯誤 |
 
-## change password
+## add member in charge
 
 [Back to top](#top)
 
-重設密碼
+新增負責人清單成員
 
 ```
-POST /chPassword
+POST /teamData
+```
+
+### Header examples
+
+header-config
+
+```json
+{ "content-type": "multipart/form-data" }
 ```
 
 ### Parameters - `Parameter`
 
-| Name   | Type     | Description |
-| ------ | -------- | ----------- |
-| oldPsw | `String` | 原本密碼    |
-| newPsw | `String` | 新密碼      |
+| Name  | Type     | Description        |
+| ----- | -------- | ------------------ |
+| name  | `String` | 姓名               |
+| job   | `String` | 職稱               |
+| index | `String` | 順序(非負整數字串) |
+| img   | `File`   | 檔案(頭像)         |
+
+### Success response
+
+#### Success response - `201`
+
+| Name | Type | Description    |
+| ---- | ---- | -------------- |
+| \_id |      | mongoDB 的\_id |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description         |
+| ----------- | -------- | ------------------- |
+| description | `String` | 資料庫/資料格式錯誤 |
+
+## add or del admin
+
+[Back to top](#top)
+
+新增、刪除管理員
+
+```
+POST /manageAuth
+```
+
+### Parameters - `Parameter`
+
+| Name    | Type      | Description                                       |
+| ------- | --------- | ------------------------------------------------- |
+| account | `String`  | 學號                                              |
+| setAuth | `Boolean` | true:加成管理員；false:從管理員移除(可以移除自己) |
 
 ### Success response
 
@@ -374,17 +348,43 @@ POST /chPassword
 
 ### Error response
 
-#### Error response - `401`
-
-| Name        | Type     | Description  |
-| ----------- | -------- | ------------ |
-| description | `String` | 原始密碼錯誤 |
-
-#### Error response - `404`
+#### Error response - `500`
 
 | Name        | Type     | Description |
 | ----------- | -------- | ----------- |
-| description | `String` | 帳號不存在  |
+| description | `String` | 資料庫錯誤  |
+
+## del member in charge
+
+[Back to top](#top)
+
+刪除負責人清單成員
+
+```
+DELETE /teamData
+```
+
+### Parameters - `Parameter`
+
+| Name | Type     | Description             |
+| ---- | -------- | ----------------------- |
+| \_id | `String` | get 或 add 時回傳的\_id |
+
+### Success response
+
+#### Success response - `200`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name |      | name        |
+
+### Error response
+
+#### Error response - `404`
+
+| Name        | Type     | Description    |
+| ----------- | -------- | -------------- |
+| description | `String` | not valid \_id |
 
 #### Error response - `500`
 
@@ -462,7 +462,52 @@ POST /delUser
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
-## show personal info
+## reset password
+
+[Back to top](#top)
+
+重設密碼
+
+```
+POST /chPassword
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type     | Description |
+| ------ | -------- | ----------- |
+| oldPsw | `String` | 原本密碼    |
+| newPsw | `String` | 新密碼      |
+
+### Success response
+
+#### Success response - `204`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    |      |             |
+
+### Error response
+
+#### Error response - `401`
+
+| Name        | Type     | Description  |
+| ----------- | -------- | ------------ |
+| description | `String` | 原始密碼錯誤 |
+
+#### Error response - `404`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 帳號不存在  |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## show private personal info
 
 [Back to top](#top)
 
@@ -539,6 +584,56 @@ header-config
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
+## update member in charge
+
+[Back to top](#top)
+
+更新負責人清單成員
+
+```
+PATCH /teamData
+```
+
+### Header examples
+
+header-config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name  | Type     | Description             |
+| ----- | -------- | ----------------------- |
+| \_id  | `String` | get 或 add 時回傳的\_id |
+| name  | `String` | 姓名                    |
+| job   | `String` | 職稱                    |
+| index | `String` | 順序(非負整數字串)      |
+| img   | `File`   | 檔案(頭像)              |
+
+### Success response
+
+#### Success response - `201`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    |      | <li></li>   |
+
+### Error response
+
+#### Error response - `404`
+
+| Name        | Type     | Description    |
+| ----------- | -------- | -------------- |
+| description | `String` | not valid \_id |
+
+#### Error response - `500`
+
+| Name        | Type     | Description         |
+| ----------- | -------- | ------------------- |
+| description | `String` | 資料庫/資料格式錯誤 |
+
 ## validating identity
 
 [Back to top](#top)
@@ -571,6 +666,42 @@ POST /handlePending
 | Name        | Type     | Description    |
 | ----------- | -------- | -------------- |
 | description | `String` | user not found |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## view pending accounts
+
+[Back to top](#top)
+
+查看待核可帳號
+
+```
+POST /showPending
+```
+
+### Parameters - `Parameter`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| x    | `x`  | x           |
+
+### Success response
+
+#### Success response - `200`
+
+| Name           | Type       | Description |
+| -------------- | ---------- | ----------- |
+| pendings       | `Object[]` | 各個帳號    |
+| &ensp;username | `String`   | 名字        |
+| &ensp;account  | `String`   | 學號        |
+| &ensp;email    | `String`   | 信箱        |
+| &ensp;imgSrc   | `String`   | 證件照      |
+
+### Error response
 
 #### Error response - `500`
 
@@ -787,137 +918,6 @@ PATCH /announcement
 | description | `String` | 資料庫錯誤  |
 
 # In/auth
-
-## 刪除負責人清單成員
-
-[Back to top](#top)
-
-刪除負責人清單成員
-
-```
-DELETE /teamData
-```
-
-### Parameters - `Parameter`
-
-| Name | Type     | Description             |
-| ---- | -------- | ----------------------- |
-| \_id | `String` | get 或 add 時回傳的\_id |
-
-### Success response
-
-#### Success response - `200`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| name |      | name        |
-
-### Error response
-
-#### Error response - `404`
-
-| Name        | Type     | Description    |
-| ----------- | -------- | -------------- |
-| description | `String` | not valid \_id |
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 更新負責人清單成員
-
-[Back to top](#top)
-
-更新負責人清單成員
-
-```
-PATCH /teamData
-```
-
-### Header examples
-
-header-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name  | Type     | Description             |
-| ----- | -------- | ----------------------- |
-| \_id  | `String` | get 或 add 時回傳的\_id |
-| name  | `String` | 姓名                    |
-| job   | `String` | 職稱                    |
-| index | `String` | 順序(非負整數字串)      |
-| img   | `File`   | 檔案(頭像)              |
-
-### Success response
-
-#### Success response - `201`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| -    |      | <li></li>   |
-
-### Error response
-
-#### Error response - `404`
-
-| Name        | Type     | Description    |
-| ----------- | -------- | -------------- |
-| description | `String` | not valid \_id |
-
-#### Error response - `500`
-
-| Name        | Type     | Description         |
-| ----------- | -------- | ------------------- |
-| description | `String` | 資料庫/資料格式錯誤 |
-
-## 新增負責人清單成員
-
-[Back to top](#top)
-
-新增負責人清單成員
-
-```
-POST /teamData
-```
-
-### Header examples
-
-header-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name  | Type     | Description        |
-| ----- | -------- | ------------------ |
-| name  | `String` | 姓名               |
-| job   | `String` | 職稱               |
-| index | `String` | 順序(非負整數字串) |
-| img   | `File`   | 檔案(頭像)         |
-
-### Success response
-
-#### Success response - `201`
-
-| Name | Type | Description    |
-| ---- | ---- | -------------- |
-| \_id |      | mongoDB 的\_id |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description         |
-| ----------- | -------- | ------------------- |
-| description | `String` | 資料庫/資料格式錯誤 |
 
 ## 獲取負責人清單
 

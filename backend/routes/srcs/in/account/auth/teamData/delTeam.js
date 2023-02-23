@@ -3,9 +3,9 @@ const TeamData = require('../../../../../Schemas/team_data')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {delete} /teamData 刪除負責人清單成員
+ * @api {delete} /teamData del member in charge
  * @apiName DeleteTeamData
- * @apiGroup In/auth
+ * @apiGroup In/account
  * @apiDescription 刪除負責人清單成員
  *
  * @apiparam {String} _id get或add時回傳的_id
