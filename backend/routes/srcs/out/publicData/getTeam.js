@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 /**
  * @api {get} /teamData get list of persons in charge
  * @apiName GetTeamData
- * @apiGroup In/account
+ * @apiGroup Out/publicData
  * @apiDescription 獲取負責人清單
  *
  * @apiparam {x} x x

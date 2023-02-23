@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 /**
  * @api {get} /history get list of heads
  * @apiName GetHistory
- * @apiGroup In/auth
+ * @apiGroup Out/publicData
  * @apiDescription 獲取部長歷史清單
  *
  * @apiSuccess (200) {Object[]} - 歷史資料們

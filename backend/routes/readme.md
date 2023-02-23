@@ -16,7 +16,6 @@ EE+ api 文件
   - [del member in charge](#del-member-in-charge)
   - [delete grade](#delete-grade)
   - [delete user](#delete-user)
-  - [get list of persons in charge](#get-list-of-persons-in-charge)
   - [reset password](#reset-password)
   - [show private personal info](#show-private-personal-info)
   - [update grade](#update-grade)
@@ -30,9 +29,6 @@ EE+ api 文件
   - [search announcement by field](#search-announcement-by-field)
   - [search announcement by keywords](#search-announcement-by-keywords)
   - [update announcement](#update-announcement)
-- [In/auth](#inauth)
-  - [get head&#39;s image](#get-head's-image)
-  - [get list of heads](#get-list-of-heads)
 - [In/career](#incareer)
   - [add recruitment](#add-recruitment)
   - [delete recruitment](#delete-recruitment)
@@ -83,6 +79,10 @@ EE+ api 文件
 - [Out/forget](#outforget)
   - [activation](#activation)
   - [forget](#forget)
+- [Out/publicData](#outpublicdata)
+  - [get head&#39;s image](#get-head's-image)
+  - [get list of heads](#get-list-of-heads)
+  - [get list of persons in charge](#get-list-of-persons-in-charge)
 - [Out/recent](#outrecent)
   - [get recent recruitment](#get-recent-recruitment)
 
@@ -453,42 +453,6 @@ POST /delUser
 | Name    | Type     | Description |
 | ------- | -------- | ----------- |
 | account | `String` | account     |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## get list of persons in charge
-
-[Back to top](#top)
-
-獲取負責人清單
-
-```
-GET /teamData
-```
-
-### Parameters - `Parameter`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| x    | `x`  | x           |
-
-### Success response
-
-#### Success response - `200`
-
-| Name       | Type       | Description                      |
-| ---------- | ---------- | -------------------------------- |
-| -          | `Object[]` | 負責人資料們                     |
-| &ensp;\_id | `String`   | mongodb \_id(for update, delete) |
-| &ensp;name | `String`   | 姓名                             |
-| &ensp;job  | `String`   | 職稱                             |
-| &ensp;img  | `Object[]` | 檔案(頭像)                       |
 
 ### Error response
 
@@ -946,72 +910,6 @@ PATCH /announcement
 | Name        | Type     | Description     |
 | ----------- | -------- | --------------- |
 | description | `String` | \_id not exists |
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-# In/auth
-
-## get head&#39;s image
-
-[Back to top](#top)
-
-獲取部長(歷史清單中的)圖片
-
-```
-GET /history/img
-```
-
-### Parameters - `Parameter`
-
-| Name | Type     | Description      |
-| ---- | -------- | ---------------- |
-| \_id | `String` | ? mongodb 的\_id |
-
-### Success response
-
-#### Success response - `200`
-
-| Name | Type   | Description   |
-| ---- | ------ | ------------- |
-| -    | `File` | 照片(dataURL) |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## get list of heads
-
-[Back to top](#top)
-
-獲取部長歷史清單
-
-```
-GET /history
-```
-
-### Success response
-
-#### Success response - `200`
-
-| Name             | Type       | Description                                         |
-| ---------------- | ---------- | --------------------------------------------------- |
-| -                | `Object[]` | 歷史資料們                                          |
-| &ensp;\_id       | `String`   | mongodb \_id(for update, delete)                    |
-| &ensp;grade      | `String`   | 年級                                                |
-| &ensp;title      | `String`   | 標題                                                |
-| &ensp;people     | `Object[]` | 人                                                  |
-| &ensp;&ensp;name | `String`   | 名字                                                |
-| &ensp;&ensp;img  | `String`   | 照片的 mongodb \_id(作為 GET /history/img 的 param) |
-
-### Error response
 
 #### Error response - `500`
 
@@ -3052,6 +2950,108 @@ POST /forget
 | Name        | Type     | Description                                                     |
 | ----------- | -------- | --------------------------------------------------------------- |
 | description | `String` | <li>資料庫錯誤</li> <li>信件範本讀取失敗</li> <li>寄信失敗</li> |
+
+# Out/publicData
+
+## get head&#39;s image
+
+[Back to top](#top)
+
+獲取部長(歷史清單中的)圖片
+
+```
+GET /history/img
+```
+
+### Parameters - `Parameter`
+
+| Name | Type     | Description      |
+| ---- | -------- | ---------------- |
+| \_id | `String` | ? mongodb 的\_id |
+
+### Success response
+
+#### Success response - `200`
+
+| Name | Type   | Description   |
+| ---- | ------ | ------------- |
+| -    | `File` | 照片(dataURL) |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## get list of heads
+
+[Back to top](#top)
+
+獲取部長歷史清單
+
+```
+GET /history
+```
+
+### Success response
+
+#### Success response - `200`
+
+| Name             | Type       | Description                                         |
+| ---------------- | ---------- | --------------------------------------------------- |
+| -                | `Object[]` | 歷史資料們                                          |
+| &ensp;\_id       | `String`   | mongodb \_id(for update, delete)                    |
+| &ensp;grade      | `String`   | 年級                                                |
+| &ensp;title      | `String`   | 標題                                                |
+| &ensp;people     | `Object[]` | 人                                                  |
+| &ensp;&ensp;name | `String`   | 名字                                                |
+| &ensp;&ensp;img  | `String`   | 照片的 mongodb \_id(作為 GET /history/img 的 param) |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## get list of persons in charge
+
+[Back to top](#top)
+
+獲取負責人清單
+
+```
+GET /teamData
+```
+
+### Parameters - `Parameter`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| x    | `x`  | x           |
+
+### Success response
+
+#### Success response - `200`
+
+| Name       | Type       | Description                      |
+| ---------- | ---------- | -------------------------------- |
+| -          | `Object[]` | 負責人資料們                     |
+| &ensp;\_id | `String`   | mongodb \_id(for update, delete) |
+| &ensp;name | `String`   | 姓名                             |
+| &ensp;job  | `String`   | 職稱                             |
+| &ensp;img  | `Object[]` | 檔案(頭像)                       |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
 
 # Out/recent
 
