@@ -67,7 +67,7 @@ const ImageCropper = ({ imgSrc }) => {
               />
 
               <CButton onClick={showCroppedImage} color="primary">
-                Show Result
+                Preview Cropped Image
               </CButton>
             </CInputGroup>
           </CRow>
