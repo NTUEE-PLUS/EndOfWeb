@@ -10,8 +10,15 @@ EE+ api 文件
   - [get abroadInfo](#get-abroadinfo)
   - [update abroadInfo](#update-abroadinfo)
 - [In/account](#inaccount)
+  - [查看待核可帳號](#查看待核可帳號)
+  - [新增或刪除管理員](#新增或刪除管理員)
+  - [add grade](#add-grade)
   - [change password](#change-password)
+  - [delete grade](#delete-grade)
+  - [delete user](#delete-user)
   - [show personal info](#show-personal-info)
+  - [update grade](#update-grade)
+  - [validating identity](#validating-identity)
 - [In/announcement](#inannouncement)
   - [add announcement](#add-announcement)
   - [delete announcement](#delete-announcement)
@@ -20,19 +27,12 @@ EE+ api 文件
   - [search announcement by keywords](#search-announcement-by-keywords)
   - [update announcement](#update-announcement)
 - [In/auth](#inauth)
-  - [刪除年級(部長歷史清單)](<#刪除年級(部長歷史清單)>)
-  - [刪除用戶](#刪除用戶)
   - [刪除負責人清單成員](#刪除負責人清單成員)
-  - [新增一年資料(部長歷史清單)](<#新增一年資料(部長歷史清單)>)
-  - [新增或刪除管理員](#新增或刪除管理員)
-  - [新增負責人清單成員](#新增負責人清單成員)
-  - [更新一年資料(部長歷史清單)](<#更新一年資料(部長歷史清單)>)
   - [更新負責人清單成員](#更新負責人清單成員)
-  - [查看待核可帳號](#查看待核可帳號)
+  - [新增負責人清單成員](#新增負責人清單成員)
   - [獲取負責人清單](#獲取負責人清單)
   - [獲取部長(歷史清單中的)圖片](<#獲取部長(歷史清單中的)圖片>)
   - [獲取部長歷史清單](#獲取部長歷史清單)
-  - [身分驗證](#身分驗證)
 - [In/career](#incareer)
   - [add recruitment](#add-recruitment)
   - [delete recruitment](#delete-recruitment)
@@ -65,10 +65,10 @@ EE+ api 文件
   - [show my recommendation](#show-my-recommendation)
   - [update recommendation](#update-recommendation)
 - [In/study](#instudy)
-  - [寄配對通知](#寄配對通知)
   - [拿取本年表單連結](#拿取本年表單連結)
-  - [新增本年表單連結](#新增本年表單連結)
   - [配對](#配對)
+  - [寄配對通知](#寄配對通知)
+  - [新增本年表單連結](#新增本年表單連結)
 - [Out/account](#outaccount)
   - [accountActivate](#accountactivate)
   - [isLogin](#islogin)
@@ -234,6 +234,119 @@ POST /updateAbroadInfo
 
 # In/account
 
+## 查看待核可帳號
+
+[Back to top](#top)
+
+查看待核可帳號
+
+```
+POST /showPending
+```
+
+### Parameters - `Parameter`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| x    | `x`  | x           |
+
+### Success response
+
+#### Success response - `200`
+
+| Name           | Type       | Description |
+| -------------- | ---------- | ----------- |
+| pendings       | `Object[]` | 各個帳號    |
+| &ensp;username | `String`   | 名字        |
+| &ensp;account  | `String`   | 學號        |
+| &ensp;email    | `String`   | 信箱        |
+| &ensp;imgSrc   | `String`   | 證件照      |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## 新增或刪除管理員
+
+[Back to top](#top)
+
+新增、刪除管理員
+
+```
+POST /manageAuth
+```
+
+### Parameters - `Parameter`
+
+| Name    | Type      | Description                                       |
+| ------- | --------- | ------------------------------------------------- |
+| account | `String`  | 學號                                              |
+| setAuth | `Boolean` | true:加成管理員；false:從管理員移除(可以移除自己) |
+
+### Success response
+
+#### Success response - `204`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    |      |             |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## add grade
+
+[Back to top](#top)
+
+新增一年資料(部長歷史清單)
+
+```
+POST /history
+```
+
+### Header examples
+
+header-config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name               | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| grade              | `String` | 年級                                 |
+| title              | `String` | 標題                                 |
+| peopleImages       | `File[]` | 檔案(頭像)                           |
+| &ensp;originalname | `String` | ${姓名}.${file extension}(file name) |
+
+### Success response
+
+#### Success response - `201`
+
+| Name  | Type | Description    |
+| ----- | ---- | -------------- |
+| grade |      | 年級           |
+| \_id  |      | mongoDB 的\_id |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description         |
+| ----------- | -------- | ------------------- |
+| description | `String` | 資料庫/資料格式錯誤 |
+
 ## change password
 
 [Back to top](#top)
@@ -279,6 +392,76 @@ POST /chPassword
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
+## delete grade
+
+[Back to top](#top)
+
+刪除年級(部長歷史清單)
+
+```
+DELETE /history
+```
+
+### Parameters - `Parameter`
+
+| Name | Type     | Description             |
+| ---- | -------- | ----------------------- |
+| \_id | `String` | get 或 add 時回傳的\_id |
+
+### Success response
+
+#### Success response - `200`
+
+| Name  | Type | Description |
+| ----- | ---- | ----------- |
+| grade |      | grade       |
+
+### Error response
+
+#### Error response - `404`
+
+| Name        | Type     | Description    |
+| ----------- | -------- | -------------- |
+| description | `String` | not valid \_id |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## delete user
+
+[Back to top](#top)
+
+刪除使用者
+
+```
+POST /delUser
+```
+
+### Parameters - `Parameter`
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| account | `String` | 帳號        |
+
+### Success response
+
+#### Success response - `200`
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| account | `String` | account     |
+
+### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
 ## show personal info
 
 [Back to top](#top)
@@ -299,6 +482,95 @@ POST /showPersonal
 | account  |      | 使用者學號  |
 
 ### Error response
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## update grade
+
+[Back to top](#top)
+
+更新一年資料(部長歷史清單)
+
+```
+PATCH /history
+```
+
+### Header examples
+
+header-config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name               | Type     | Description                          |
+| ------------------ | -------- | ------------------------------------ |
+| \_id               | `String` | get 或 add 時回傳的\_id              |
+| grade              | `String` | 年級                                 |
+| title              | `String` | 標題                                 |
+| peopleImages       | `File[]` | 檔案(頭像)                           |
+| &ensp;originalname | `String` | ${姓名}.${file extension}(file name) |
+
+### Success response
+
+#### Success response - `201`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    |      | <li></li>   |
+
+### Error response
+
+#### Error response - `404`
+
+| Name        | Type     | Description    |
+| ----------- | -------- | -------------- |
+| description | `String` | not valid \_id |
+
+#### Error response - `500`
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| description | `String` | 資料庫錯誤  |
+
+## validating identity
+
+[Back to top](#top)
+
+身分驗證
+
+```
+POST /handlePending
+```
+
+### Parameters - `Parameter`
+
+| Name       | Type      | Description      |
+| ---------- | --------- | ---------------- |
+| account    | `String`  | 學號             |
+| acceptUser | `Boolean` | 是否接受此使用者 |
+
+### Success response
+
+#### Success response - `204`
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    |      |             |
+
+### Error response
+
+#### Error response - `404`
+
+| Name        | Type     | Description    |
+| ----------- | -------- | -------------- |
+| description | `String` | user not found |
 
 #### Error response - `500`
 
@@ -516,76 +788,6 @@ PATCH /announcement
 
 # In/auth
 
-## 刪除年級(部長歷史清單)
-
-[Back to top](#top)
-
-刪除年級(部長歷史清單)
-
-```
-DELETE /history
-```
-
-### Parameters - `Parameter`
-
-| Name | Type     | Description             |
-| ---- | -------- | ----------------------- |
-| \_id | `String` | get 或 add 時回傳的\_id |
-
-### Success response
-
-#### Success response - `200`
-
-| Name  | Type | Description |
-| ----- | ---- | ----------- |
-| grade |      | grade       |
-
-### Error response
-
-#### Error response - `404`
-
-| Name        | Type     | Description    |
-| ----------- | -------- | -------------- |
-| description | `String` | not valid \_id |
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 刪除用戶
-
-[Back to top](#top)
-
-刪除用戶
-
-```
-POST /delUser
-```
-
-### Parameters - `Parameter`
-
-| Name    | Type     | Description |
-| ------- | -------- | ----------- |
-| account | `String` | 帳號        |
-
-### Success response
-
-#### Success response - `200`
-
-| Name    | Type     | Description |
-| ------- | -------- | ----------- |
-| account | `String` | account     |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
 ## 刪除負責人清單成員
 
 [Back to top](#top)
@@ -609,176 +811,6 @@ DELETE /teamData
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | name |      | name        |
-
-### Error response
-
-#### Error response - `404`
-
-| Name        | Type     | Description    |
-| ----------- | -------- | -------------- |
-| description | `String` | not valid \_id |
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 新增一年資料(部長歷史清單)
-
-[Back to top](#top)
-
-新增一年資料(部長歷史清單)
-
-```
-POST /history
-```
-
-### Header examples
-
-header-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name               | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| grade              | `String` | 年級                                 |
-| title              | `String` | 標題                                 |
-| peopleImages       | `File[]` | 檔案(頭像)                           |
-| &ensp;originalname | `String` | ${姓名}.${file extension}(file name) |
-
-### Success response
-
-#### Success response - `201`
-
-| Name  | Type | Description    |
-| ----- | ---- | -------------- |
-| grade |      | 年級           |
-| \_id  |      | mongoDB 的\_id |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description         |
-| ----------- | -------- | ------------------- |
-| description | `String` | 資料庫/資料格式錯誤 |
-
-## 新增或刪除管理員
-
-[Back to top](#top)
-
-新增、刪除管理員
-
-```
-POST /manageAuth
-```
-
-### Parameters - `Parameter`
-
-| Name    | Type      | Description                                       |
-| ------- | --------- | ------------------------------------------------- |
-| account | `String`  | 學號                                              |
-| setAuth | `Boolean` | true:加成管理員；false:從管理員移除(可以移除自己) |
-
-### Success response
-
-#### Success response - `204`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| -    |      |             |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 新增負責人清單成員
-
-[Back to top](#top)
-
-新增負責人清單成員
-
-```
-POST /teamData
-```
-
-### Header examples
-
-header-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name  | Type     | Description        |
-| ----- | -------- | ------------------ |
-| name  | `String` | 姓名               |
-| job   | `String` | 職稱               |
-| index | `String` | 順序(非負整數字串) |
-| img   | `File`   | 檔案(頭像)         |
-
-### Success response
-
-#### Success response - `201`
-
-| Name | Type | Description    |
-| ---- | ---- | -------------- |
-| \_id |      | mongoDB 的\_id |
-
-### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description         |
-| ----------- | -------- | ------------------- |
-| description | `String` | 資料庫/資料格式錯誤 |
-
-## 更新一年資料(部長歷史清單)
-
-[Back to top](#top)
-
-更新一年資料(部長歷史清單)
-
-```
-PATCH /history
-```
-
-### Header examples
-
-header-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name               | Type     | Description                          |
-| ------------------ | -------- | ------------------------------------ |
-| \_id               | `String` | get 或 add 時回傳的\_id              |
-| grade              | `String` | 年級                                 |
-| title              | `String` | 標題                                 |
-| peopleImages       | `File[]` | 檔案(頭像)                           |
-| &ensp;originalname | `String` | ${姓名}.${file extension}(file name) |
-
-### Success response
-
-#### Success response - `201`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| -    |      | <li></li>   |
 
 ### Error response
 
@@ -844,41 +876,48 @@ header-config
 | ----------- | -------- | ------------------- |
 | description | `String` | 資料庫/資料格式錯誤 |
 
-## 查看待核可帳號
+## 新增負責人清單成員
 
 [Back to top](#top)
 
-查看待核可帳號
+新增負責人清單成員
 
 ```
-POST /showPending
+POST /teamData
+```
+
+### Header examples
+
+header-config
+
+```json
+{ "content-type": "multipart/form-data" }
 ```
 
 ### Parameters - `Parameter`
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| x    | `x`  | x           |
+| Name  | Type     | Description        |
+| ----- | -------- | ------------------ |
+| name  | `String` | 姓名               |
+| job   | `String` | 職稱               |
+| index | `String` | 順序(非負整數字串) |
+| img   | `File`   | 檔案(頭像)         |
 
 ### Success response
 
-#### Success response - `200`
+#### Success response - `201`
 
-| Name           | Type       | Description |
-| -------------- | ---------- | ----------- |
-| pendings       | `Object[]` | 各個帳號    |
-| &ensp;username | `String`   | 名字        |
-| &ensp;account  | `String`   | 學號        |
-| &ensp;email    | `String`   | 信箱        |
-| &ensp;imgSrc   | `String`   | 證件照      |
+| Name | Type | Description    |
+| ---- | ---- | -------------- |
+| \_id |      | mongoDB 的\_id |
 
 ### Error response
 
 #### Error response - `500`
 
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
+| Name        | Type     | Description         |
+| ----------- | -------- | ------------------- |
+| description | `String` | 資料庫/資料格式錯誤 |
 
 ## 獲取負責人清單
 
@@ -973,45 +1012,6 @@ GET /history
 | &ensp;&ensp;img  | `String`   | 照片的 mongodb \_id(作為 GET /history/img 的 param) |
 
 ### Error response
-
-#### Error response - `500`
-
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| description | `String` | 資料庫錯誤  |
-
-## 身分驗證
-
-[Back to top](#top)
-
-身分驗證
-
-```
-POST /handlePending
-```
-
-### Parameters - `Parameter`
-
-| Name       | Type      | Description    |
-| ---------- | --------- | -------------- |
-| account    | `String`  | 學號           |
-| acceptUser | `Boolean` | 是否接受此用戶 |
-
-### Success response
-
-#### Success response - `204`
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| -    |      |             |
-
-### Error response
-
-#### Error response - `404`
-
-| Name        | Type     | Description    |
-| ----------- | -------- | -------------- |
-| description | `String` | user not found |
 
 #### Error response - `500`
 
@@ -2443,38 +2443,6 @@ header-config
 
 # In/study
 
-## 寄配對通知
-
-[Back to top](#top)
-
-給/study/matching 拿到的 output.xlsx 檔，並寄信
-
-```
-POST /study/sendmail
-```
-
-### Header examples
-
-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name   | Type   | Description              |
-| ------ | ------ | ------------------------ |
-| result | `File` | /study/match 產生的.xlsx |
-
-### Success response
-
-#### Success response - `203`
-
-| Name   | Type       | Description          |
-| ------ | ---------- | -------------------- |
-| errors | `String[]` | 發生錯誤的寄件者姓名 |
-
 ## 拿取本年表單連結
 
 [Back to top](#top)
@@ -2515,6 +2483,71 @@ GET /study/links
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
 
+## 配對
+
+[Back to top](#top)
+
+給學長姊跟學弟妹留學配對的.xlsx 檔，幫他們配對
+
+```
+POST /study_matching
+```
+
+### Header examples
+
+config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type   | Description          |
+| ------ | ------ | -------------------- |
+| senior | `File` | 學長姐的 senior.xlsx |
+| junior | `File` | 學弟妹的 junior.xlsx |
+
+### Success response
+
+#### Success response - `200`
+
+| Name | Type   | Description |
+| ---- | ------ | ----------- |
+| -    | `File` | output.xlsx |
+
+## 寄配對通知
+
+[Back to top](#top)
+
+給/study/matching 拿到的 output.xlsx 檔，並寄信
+
+```
+POST /study/sendmail
+```
+
+### Header examples
+
+config
+
+```json
+{ "content-type": "multipart/form-data" }
+```
+
+### Parameters - `Parameter`
+
+| Name   | Type   | Description              |
+| ------ | ------ | ------------------------ |
+| result | `File` | /study/match 產生的.xlsx |
+
+### Success response
+
+#### Success response - `203`
+
+| Name   | Type       | Description          |
+| ------ | ---------- | -------------------- |
+| errors | `String[]` | 發生錯誤的寄件者姓名 |
+
 ## 新增本年表單連結
 
 [Back to top](#top)
@@ -2548,39 +2581,6 @@ POST /study/addLink
 | Name        | Type     | Description |
 | ----------- | -------- | ----------- |
 | description | `String` | 資料庫錯誤  |
-
-## 配對
-
-[Back to top](#top)
-
-給學長姊跟學弟妹留學配對的.xlsx 檔，幫他們配對
-
-```
-POST /study_matching
-```
-
-### Header examples
-
-config
-
-```json
-{ "content-type": "multipart/form-data" }
-```
-
-### Parameters - `Parameter`
-
-| Name   | Type   | Description          |
-| ------ | ------ | -------------------- |
-| senior | `File` | 學長姐的 senior.xlsx |
-| junior | `File` | 學弟妹的 junior.xlsx |
-
-### Success response
-
-#### Success response - `200`
-
-| Name | Type   | Description |
-| ---- | ------ | ----------- |
-| -    | `File` | output.xlsx |
 
 # Out/account
 

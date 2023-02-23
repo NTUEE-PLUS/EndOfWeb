@@ -4,9 +4,9 @@ const { parseImg } = require('../../../../..//Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {patch} /history 更新一年資料(部長歷史清單)
+ * @api {patch} /history update grade
  * @apiName UpdateHistory
- * @apiGroup In/auth
+ * @apiGroup In/account
  * @apiDescription 更新一年資料(部長歷史清單)
  *
  * @apiHeaderExample {json} header-config

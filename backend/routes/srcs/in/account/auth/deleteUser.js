@@ -4,10 +4,10 @@ const Login = require('../../../../Schemas/user_login')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {post} /delUser 刪除用戶
+ * @api {post} /delUser delete user
  * @apiName delUser
- * @apiGroup In/auth
- * @apiDescription 刪除用戶
+ * @apiGroup In/account
+ * @apiDescription 刪除使用者
  *
  * @apiparam {String} account 帳號
  *

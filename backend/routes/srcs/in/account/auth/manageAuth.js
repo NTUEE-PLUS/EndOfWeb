@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 /**
  * @api {post} /manageAuth 新增或刪除管理員
  * @apiName manageAuth
- * @apiGroup In/auth
+ * @apiGroup In/account
  * @apiDescription 新增、刪除管理員
  *
  * @apiparam {String} account 學號

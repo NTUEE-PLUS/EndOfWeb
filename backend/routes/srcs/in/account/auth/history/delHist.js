@@ -3,9 +3,9 @@ const { History, HistImg } = require('../../../../../Schemas/history')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {delete} /history 刪除年級(部長歷史清單)
+ * @api {delete} /history delete grade
  * @apiName DeleteHistory
- * @apiGroup In/auth
+ * @apiGroup In/account
  * @apiDescription 刪除年級(部長歷史清單)
  *
  * @apiparam {String} _id get或add時回傳的_id
