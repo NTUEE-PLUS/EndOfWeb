@@ -20,6 +20,6 @@ const deleteAbroadSharing = async (req, res, next) => {
   res.status(200).end()
 }
 
-const valid = require('../../../middleware/validation/main')
+const valid = require('../../../middleware/validation')
 const rules = [{ filename: 'required', field: '_id' }]
 module.exports = [valid(rules), asyncHandler(deleteAbroadSharing)]
