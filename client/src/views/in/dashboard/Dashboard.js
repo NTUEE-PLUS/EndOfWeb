@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectLogin } from '../../slices/loginSlice'
+import { selectLogin } from '../../../slices/loginSlice'
 import { Link, Redirect } from 'react-router-dom'
 import {
   CButton,
