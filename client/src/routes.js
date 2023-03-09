@@ -30,6 +30,7 @@ import {
   MatchForm,
   ChangePsw,
   Dashboard,
+  AboardSession,
 } from './views/in'
 // auth pages
 import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AddColumn } from './views/auth'
@@ -126,6 +127,12 @@ const routes_in = [
     exact: true,
     name: 'ChangePsw',
     component: ChangePsw,
+  },
+  {
+    path: '/aboard_session',
+    exact: true,
+    name: 'AboardSession',
+    component: AboardSession,
   },
 ]
 const routes_auth = [
