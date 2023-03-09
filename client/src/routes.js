@@ -32,7 +32,7 @@ import {
   Dashboard,
 } from './views/in'
 // auth pages
-import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AddColumn } from './views/auth'
+import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AuthManage } from './views/auth'
 
 // out routes
 const routes_out = [
@@ -152,6 +152,12 @@ const routes_auth = [
     exact: false,
     name: 'AuthAnnounce',
     component: AuthAnnounce,
+  },
+  {
+    path: '/auth/manage',
+    exact: true,
+    name: 'AuthManage',
+    component: AuthManage,
   },
 ]
 export { routes_out, routes_in, routes_auth }

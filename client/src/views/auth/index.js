@@ -4,4 +4,5 @@ const AuthMatching = React.lazy(() => import('./matching'))
 const AuthRegister = React.lazy(() => import('./register'))
 const AuthAnnounce = React.lazy(() => import('./announce'))
 const AuthColumn = React.lazy(() => import('./column'))
-export { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce }
+const AuthManage = React.lazy(() => import('./manage'))
+export { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AuthManage }

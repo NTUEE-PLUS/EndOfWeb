@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectSearch } from '../../../../slices/searchSlice'
 import default_male from '../../../../assets/images/default_male.png'
 import { CAvatar, CCallout, CContainer, CImage } from '@coreui/react'
-import { makeStyles } from '@material-ui/core/styles'
+import Styles from './Styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Divider from '@material-ui/core/Divider'
@@ -13,29 +13,8 @@ import Avatar from '@material-ui/core/Avatar'
 import { Link } from 'react-router-dom'
 import { no_result } from '.'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: '10px',
-  },
-  fontColor: {
-    color: 'black',
-  },
-  large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
-  },
-  primary: {
-    paddingBottom: '1rem',
-    fontSize: '1.3rem',
-  },
-  secondary: {
-    fontSize: '1rem',
-  },
-}))
-
 const SearchProfile = () => {
-  const classes = useStyles()
+  const classes = Styles()
   const { resultProfiles } = useSelector(selectSearch)
   return resultProfiles.length === 0 ? (
     <>
