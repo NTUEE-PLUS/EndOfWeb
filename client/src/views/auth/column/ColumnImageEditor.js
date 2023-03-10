@@ -35,6 +35,11 @@ const ColumnImageEditor = ({ imgSrc }) => {
     }
   }, [imgSrc, croppedAreaPixels])
 
+  const handleReturn = useCallback(() => {
+    dispatch(setCroppedFile(null))
+    dispatch(setCroppedDataUrl(''))
+  }, [dispatch])
+
   return (
     <>
       {croppedDataUrl === '' ? (
@@ -75,6 +80,11 @@ const ColumnImageEditor = ({ imgSrc }) => {
       ) : (
         <>
           <CImage src={croppedDataUrl} style={{ width: '90%' }} />
+          <CRow className="p-3">
+            <CButton onClick={handleReturn} color="secondary" style={{ width: '100px' }}>
+              Return
+            </CButton>
+          </CRow>
         </>
       )}
     </>

@@ -261,10 +261,19 @@ const ColumnForm = ({ data }) => {
           <ColumnImageEditor imgSrc={originalImage} />
         </CModalBody>
         <CModalFooter>
-          <CButton color="warning" onClick={clearImage}>
+          <CButton
+            color="warning"
+            onClick={clearImage}
+            style={{ display: croppedFile ? 'none' : 'block' }}
+          >
             Clear
           </CButton>
-          <CButton color="dark" onClick={saveEditImage} disabled={!croppedFile}>
+          <CButton
+            color="dark"
+            onClick={saveEditImage}
+            style={{ display: croppedFile ? 'block' : 'none' }}
+            disabled={!croppedFile}
+          >
             OK
           </CButton>
         </CModalFooter>

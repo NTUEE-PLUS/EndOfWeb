@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectLogin } from '../../../slices/loginSlice'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
-import CareerImageEditor from '../career/CareerImageEditor'
+import CareerImageEditor from '../../components/CareerImageEditor'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import {
@@ -190,10 +190,19 @@ const RecommendationForm = ({ data }) => {
           <CareerImageEditor imgSrc={originalImage} />
         </CModalBody>
         <CModalFooter>
-          <CButton color="warning" onClick={clearImage}>
+          <CButton
+            color="warning"
+            onClick={clearImage}
+            style={{ display: croppedFile ? 'none' : 'block' }}
+          >
             Clear
           </CButton>
-          <CButton color="dark" onClick={saveEditImage} disabled={!croppedFile}>
+          <CButton
+            color="dark"
+            onClick={saveEditImage}
+            style={{ display: croppedFile ? 'block' : 'none' }}
+            disabled={!croppedFile}
+          >
             OK
           </CButton>
         </CModalFooter>

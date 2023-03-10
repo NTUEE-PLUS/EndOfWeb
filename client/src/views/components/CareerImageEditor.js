@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCareer, setCroppedFile, setCroppedDataUrl } from '../../../slices/careerSlice'
+import { selectCareer, setCroppedFile, setCroppedDataUrl } from '../../slices/careerSlice'
 import {
   CButton,
   CCol,
@@ -12,7 +12,7 @@ import {
   CInputGroup,
 } from '@coreui/react'
 import Cropper from 'react-easy-crop'
-import { getCroppedImg } from './'
+import { getCroppedImg } from '../in/career'
 
 const CareerImageEditor = ({ imgSrc }) => {
   const dispatch = useDispatch()
@@ -34,6 +34,11 @@ const CareerImageEditor = ({ imgSrc }) => {
       console.error(e)
     }
   }, [imgSrc, croppedAreaPixels])
+
+  const handleReturn = useCallback(() => {
+    dispatch(setCroppedFile(null))
+    dispatch(setCroppedDataUrl(''))
+  }, [dispatch])
 
   return (
     <>
@@ -75,6 +80,11 @@ const CareerImageEditor = ({ imgSrc }) => {
       ) : (
         <>
           <CImage src={croppedDataUrl} style={{ width: '90%' }} />
+          <CRow className="p-3">
+            <CButton onClick={handleReturn} color="secondary" style={{ width: '100px' }}>
+              Return
+            </CButton>
+          </CRow>
         </>
       )}
     </>

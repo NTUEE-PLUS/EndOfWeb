@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
-import CareerImageEditor from '../career/CareerImageEditor'
+import CareerImageEditor from '../../components/CareerImageEditor'
 import JoditEditor from 'jodit-react'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
@@ -192,10 +192,19 @@ const CareerForm = ({ data }) => {
           <CareerImageEditor imgSrc={originalImage} />
         </CModalBody>
         <CModalFooter>
-          <CButton color="warning" onClick={clearImage}>
+          <CButton
+            color="warning"
+            onClick={clearImage}
+            style={{ display: croppedFile ? 'none' : 'block' }}
+          >
             Clear
           </CButton>
-          <CButton color="dark" onClick={saveEditImage} disabled={!croppedFile}>
+          <CButton
+            color="dark"
+            onClick={saveEditImage}
+            style={{ display: croppedFile ? 'block' : 'none' }}
+            disabled={!croppedFile}
+          >
             OK
           </CButton>
         </CModalFooter>
