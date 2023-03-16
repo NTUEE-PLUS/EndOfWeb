@@ -3,9 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import ColumnImageEditor from './ColumnImageEditor'
 import ColumnPreview from './ColumnPreview'
+import Page1 from './Page1'
+import Page2 from './Page2'
+import Page3 from './Page3'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
+// import { NavHashLink } from 'react-router-hash-link'
 import {
+  // CFormTextarea,
   CButton,
   CCard,
   CCardBody,
@@ -24,10 +29,14 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
+// import  CDatePicker  from '@coreui/react-pro'
+
+// import packagename.classname;
+// import java.lang.Math;
 
 const ColumnForm = ({ data }) => {
-  const add = data ? false : true
-  const formTemplate = add
+  const add = data ? false : true //有資料:data=true add=false,反之則新增
+  const formTemplate = add //add=true:前者，否則後者(更新資料)
     ? {
         title: [''],
         name: '',
@@ -53,6 +62,7 @@ const ColumnForm = ({ data }) => {
   const [annotation, setAnnotation] = useState(
     add ? [{ job: '', contributor: '' }] : data.annotation.annotation,
   )
+  const [page, setPage] = useState('1')
   const [hashtag, setHashtag] = useState(add ? [''] : data.top.hashtags)
   const [anno, setAnno] = useState(add ? [''] : data.anno)
   const [exp, setExp] = useState(add ? [''] : data.exp)
@@ -60,6 +70,7 @@ const ColumnForm = ({ data }) => {
   const [intro, setIntro] = useState(add ? [''] : data.intro)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
+  // const calendarDate = new Date(2022, 2, 1)
 
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
@@ -251,6 +262,17 @@ const ColumnForm = ({ data }) => {
         })
     }
   }
+
+  // const button1 = document.getElementById("1");
+  // const button2 = document.getElementById("2");
+  // const line = document.querySelector(".line");
+  //const button1Rect = button1.getBoundingClientRect();
+  // const button2Rect = button2.getBoundingClientRect();
+  //line.style.left = 30 + 40 / 2 + "px";
+  // line.style.top = button1Rect.top + button1Rect.height / 2 + "px";
+  // line.style.width = button2Rect.left - button1Rect.left - button1Rect.width + "px";
+  //line.style.transform = "rotate(" + Math.atan2(button2Rect.top - button1Rect.top, button2Rect.left - button1Rect.left) + "rad)";
+
   return (
     <>
       <CModal size="xl" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
@@ -308,327 +330,62 @@ const ColumnForm = ({ data }) => {
           <CRow className="justify-content-center">
             <CCol md="11" lg="9" xl="8">
               <CCard className="mx-4">
-                <CCardBody className="p-4">
+                <CCardBody className="p-4 columnbg">
                   <CForm>
-                    <h1>{add ? 'Ready to post' : 'Want to edit'} a column?</h1>
+                    <h1>
+                      <font color="#fff">{add ? 'Ready to post' : 'Want to edit'} a column?</font>
+                    </h1>
                     <p className="text-medium-emphasis">{add ? 'Create' : 'Edit'} a column</p>
 
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-image" />
-                      </CInputGroupText>
-                      <CFormControl
-                        data-for="image"
-                        data-tip="專欄照片"
-                        id="formFile"
-                        type="file"
-                        onChange={handleChangeImage}
-                        onClick={(e) => (e.target.value = null)}
-                      ></CFormControl>
-                      <ReactTooltip id="image" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
+                    <CButton className="btn-column1" id="1" onClick={(e) => setPage(e.target.id)}>
+                      About Respondent
+                    </CButton>
+                    <CButton className="btn-column2" id="2" onClick={(e) => setPage(e.target.id)}>
+                      Interview Content
+                    </CButton>
+                    <CButton className="btn-column3" id="3" onClick={(e) => setPage(e.target.id)}>
+                      About Interview
+                    </CButton>
 
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-user" />
-                      </CInputGroupText>
-                      <CFormControl
-                        data-for="name"
-                        data-tip="xxxx 級 xxx"
-                        placeholder="Name*"
-                        value={dataForm.name}
-                        name="name"
-                        onChange={handleInputChange}
+                    {page != '3' ? (
+                      page != '2' ? (
+                        <Page1
+                          dataForm={dataForm}
+                          exp={exp}
+                          edu={edu}
+                          hashtag={hashtag}
+                          intro={intro}
+                          handleInputChange={handleInputChange}
+                          handleInputArray={handleInputArray}
+                          handleAddArray={handleAddArray}
+                          handleDeleteArray={handleDeleteArray}
+                        />
+                      ) : (
+                        <Page2
+                          dataForm={dataForm}
+                          body={body}
+                          handleAddSection={handleAddSection}
+                          handleDeleteBigsection={handleDeleteBigsection}
+                          handleSubtitleChange={handleSubtitleChange}
+                          handleSubsectionChange={handleSubsectionChange}
+                          handleInputArray={handleInputArray}
+                          handleAddArray={handleAddArray}
+                          handleDeleteArray={handleDeleteArray}
+                        />
+                      )
+                    ) : (
+                      <Page3
+                        dataForm={dataForm}
+                        annotation={annotation}
+                        anno={anno}
+                        handleInputChange={handleInputChange}
+                        handleInputArray={handleInputArray}
+                        handleAnnotationChange={handleAnnotationChange}
+                        handleAddArray={handleAddArray}
+                        handleDeleteArray={handleDeleteArray}
+                        handleChangeImage={handleChangeImage}
                       />
-                      <ReactTooltip id="name" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
-
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-location-pin" />
-                      </CInputGroupText>
-                      <CFormControl
-                        data-for="experience"
-                        data-tip="公司名稱與職位"
-                        placeholder="Experience*"
-                        value={dataForm.experience}
-                        name="experience"
-                        onChange={handleInputChange}
-                      />
-                      <ReactTooltip id="experience" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
-
-                    {hashtag.map((_, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-lightbulb" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="hashtag"
-                            data-tip="文章類別，訪問者姓名、級別、工作、相關組織與企業"
-                            placeholder="Hashtag*"
-                            name="hashtag"
-                            value={hashtag[index]}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="hashtag" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="hashtag"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="hashtag" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-
-                    {body.map((body, bodyIndex) => {
-                      return (
-                        <CInputGroup className="mb-3" key={bodyIndex}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-bell" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="bigtitle"
-                            data-tip="文章內容"
-                            placeholder="Bigtitle*"
-                            name="bigtitle"
-                            value={body.bigtitle}
-                            onChange={(e) => handleInputArray(e, bodyIndex)}
-                          />
-                          <ReactTooltip id="bigtitle" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="body"
-                            onClick={(e) => handleDeleteArray(e, bodyIndex)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="body" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                          {body.bigsections.map((section, sectionIndex) => (
-                            <CInputGroup key={sectionIndex}>
-                              <CInputGroupText>
-                                <CIcon />
-                              </CInputGroupText>
-                              <CFormControl
-                                data-for="subtitle"
-                                data-tip="子段落標題"
-                                placeholder="Subtitle*"
-                                name="subtitle"
-                                value={section.subtitle}
-                                onChange={(e) => handleSubtitleChange(e, bodyIndex, sectionIndex)}
-                              />
-                              <ReactTooltip id="subtitle" place="top" type="dark" effect="solid" />
-                              <CFormControl
-                                data-for="subsection"
-                                data-tip="子段落"
-                                placeholder="Subsection*"
-                                name="subsection"
-                                value={section.subsection}
-                                onChange={(e) => handleSubsectionChange(e, bodyIndex, sectionIndex)}
-                              />
-                              <ReactTooltip
-                                id="subsection"
-                                place="top"
-                                type="dark"
-                                effect="solid"
-                              />
-                              <CButton
-                                type="button"
-                                name="bigsection"
-                                onClick={(e) => handleDeleteBigsection(bodyIndex, sectionIndex)}
-                              >
-                                x
-                              </CButton>
-                              <CButton
-                                type="button"
-                                name="bigsection"
-                                onClick={(e) => handleAddSection(bodyIndex)}
-                              >
-                                +
-                              </CButton>
-                            </CInputGroup>
-                          ))}
-                        </CInputGroup>
-                      )
-                    })}
-
-                    {annotation.map((annotation, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-address-book" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="job"
-                            data-tip="工作"
-                            placeholder="Job*"
-                            name="job"
-                            value={annotation.job}
-                            onChange={(e) => handleAnnotationChange(e, index)}
-                          />
-                          <ReactTooltip id="job" place="top" type="dark" effect="solid" />
-                          <CFormControl
-                            data-for="contributor"
-                            data-tip="人員"
-                            placeholder="Contributor*"
-                            name="contributor"
-                            value={annotation.contributor}
-                            onChange={(e) => handleAnnotationChange(e, index)}
-                          />
-                          <ReactTooltip id="contributor" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="annotation"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="annotation" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-
-                    {anno.map((_, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-address-book" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="anno"
-                            data-tip="所有採訪人員姓名"
-                            placeholder="Anno*"
-                            name="anno"
-                            value={anno[index]}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="anno" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="anno"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="anno" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-calendar" />
-                      </CInputGroupText>
-                      <CFormControl
-                        data-for="date"
-                        data-tip="yyyy/mm/dd 星期x"
-                        placeholder="Date*"
-                        value={dataForm.date}
-                        name="date"
-                        onChange={handleInputChange}
-                      />
-                      <ReactTooltip id="date" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
-
-                    {exp.map((_, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-bookmark" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="exp"
-                            data-tip="職位"
-                            placeholder="Exp*"
-                            name="exp"
-                            value={exp[index]}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="exp" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="exp"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="exp" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-
-                    {edu.map((_, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-envelope-closed" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="edu"
-                            data-tip="學歷[學士:校系(畢業年分),碩士:校系(畢業年分),博士:校系(畢業年分)]"
-                            placeholder="Education*"
-                            name="edu"
-                            value={edu[index]}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="edu" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="edu"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="edu" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-
-                    {intro.map((_, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon icon="cil-basket" />
-                          </CInputGroupText>
-                          <CFormControl
-                            data-for="intro"
-                            data-tip="簡介(1個element是一段)"
-                            placeholder="introduction*"
-                            name="intro"
-                            value={intro[index]}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <ReactTooltip id="intro" place="top" type="dark" effect="solid" />
-                          <CButton
-                            type="button"
-                            name="intro"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </CButton>
-                          <CButton type="button" name="intro" onClick={handleAddArray}>
-                            +
-                          </CButton>
-                        </CInputGroup>
-                      )
-                    })}
-
+                    )}
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton
@@ -655,4 +412,5 @@ const ColumnForm = ({ data }) => {
 ColumnForm.propTypes = {
   data: PropTypes.object,
 }
+
 export default ColumnForm

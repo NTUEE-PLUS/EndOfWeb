@@ -517,3 +517,97 @@ label {
     margin: 50px 0;
   }
 }
+
+.btn-column1 {
+  width: 155px;
+  height: 155px;
+  white-space: normal;
+  word-wrap: break-word;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #5ca9fb;
+  background-image: linear-gradient(to right, #96fed1 0%, #65b3fe 100%);
+  padding: 14px 14px;
+  letter-spacing: 1px;
+  margin: 8px 6% 50px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all 0.5s linear;
+  border: 0;
+}
+
+.btn-column2 {
+  width: 155px;
+  height: 155px;
+  white-space: normal;
+  word-wrap: break-word;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #5ca9fb;
+  background-image: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  padding: 14px 14px;
+  letter-spacing: 1px;
+  margin: 8px 6% 50px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all 0.5s linear;
+  border: 0;
+  left: 100px;
+}
+
+.btn-column3 {
+  width: 155px;
+  height: 155px;
+  white-space: normal;
+  word-wrap: break-word;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #5ca9fb;
+  background-image: linear-gradient(
+    to right,
+    rgba(106, 114, 226, 0.8) 0%,
+    rgba(17, 29, 134, 0.568) 100%
+  );
+  padding: 14px 14px;
+  letter-spacing: 1px;
+  margin: 8px 6% 50px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all 0.5s linear;
+  border: 0;
+  left: 100;
+}
+.columnbg {
+  background-color: #003f67;
+  box-shadow: 0px 0px 15px #2d9dff;
+}
+.btn-delete {
+  font-family: 'Raleway', sans-serif;
+  color: #000000;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  letter-spacing: 1px;
+  margin: 0px 5px 0px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  border: 2px solid #cc0033;
+}
+.btn-add {
+  font-family: 'Raleway', sans-serif;
+  color: #000000;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  letter-spacing: 1px;
+  margin: 0px 5px 0px 5px;
+  font-size: 20px;
+  font-weight: 500;
+  border: 2px solid #00db00;
+}
