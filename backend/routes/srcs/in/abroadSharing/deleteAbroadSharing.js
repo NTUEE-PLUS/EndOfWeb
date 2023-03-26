@@ -15,11 +15,11 @@ const asyncHandler = require('express-async-handler')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const deleteAbroadSharing = async (req, res, next) => {
-  const { _id } = req.body
+  const { _id } = req.query
   await AbroadSharing.findByIdAndDelete(_id).catch(dbCatch)
   res.status(200).end()
 }
 
 const valid = require('../../../middleware/validation')
-const rules = [{ filename: 'required', field: '_id' }]
+const rules = [{ filename: 'required', field: '_id', method: 'delete' }]
 module.exports = [valid(rules), asyncHandler(deleteAbroadSharing)]

@@ -1,7 +1,7 @@
 //check the string to be URL
 function judgeURL(str) {
   const pattern = /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/.*)?$/
-  return str.match(pattern)
+  return typeof str === 'string' && str.match(pattern)
 }
 
 module.exports = ({ field = [], type = 'URL' }) => {
@@ -20,7 +20,7 @@ module.exports = ({ field = [], type = 'URL' }) => {
           return true
         } else {
           if (!judgeURL(req.body[q])) {
-            throw new Error(`${q} must be URL`)
+            throw new Error(`${q} must be URL, but receive ${req.body[q]}`)
           }
         }
       })
