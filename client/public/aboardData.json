@@ -1,20 +1,32 @@
 [
   {
     "title": "OOO sharing session",
-    "keywords": ["k1", "k2"],
-    "video": "https://youtu.be/ioceNo0c-38",
-    "cover": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-    "links": [
-      {
-        "type": "medium",
-        "link": "https://blog.medium.com/what-were-reading-to-meet-or-not-to-meet-a13d068dc11c",
-        "description": "about his history!"
-      },
-      {
-        "description": "personal website",
-        "link": "https://www.google.com/",
-        "favicon": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png?20150901215638"
-      }
-    ]
+    "intro": "sharing hisabpard sdfjkl s;fjksl;af",
+    "YTlink": "https://youtu.be/ioceNo0c-38",
+    "otherLinks": [
+      "https://blog.medium.com/what-were-reading-to-meet-or-not-to-meet-a13d068dc11c",
+      "https://www.google.com/"
+    ],
+    "img": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+  },
+  {
+    "title": "OOO sharing session",
+    "intro": "sharing hisabpard sdfjkl s;fjksl;af",
+    "YTlink": "https://youtu.be/ioceNo0c-38",
+    "otherLinks": [
+      "https://blog.medium.com/what-were-reading-to-meet-or-not-to-meet-a13d068dc11c",
+      "https://www.google.com/"
+    ],
+    "img": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+  },
+  {
+    "title": "OOO sharing session",
+    "intro": "sharing hisabpard sdfjkl s;fjksl;af",
+    "YTlink": "https://youtu.be/ioceNo0c-38",
+    "otherLinks": [
+      "https://blog.medium.com/what-were-reading-to-meet-or-not-to-meet-a13d068dc11c",
+      "https://www.google.com/"
+    ],
+    "img": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
   }
 ]
