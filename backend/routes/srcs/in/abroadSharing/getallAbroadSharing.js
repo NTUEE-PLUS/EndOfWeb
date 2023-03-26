@@ -19,6 +19,6 @@ const { dbCatch, ErrorHandler } = require('../../../error')
 const getallAbroadSharing = async (req, res, next) => {
   const sharing = await abroad_sharing.find({}).catch(dbCatch)
   if (!sharing) throw new ErrorHandler(404, '資料不存在')
-  res.status(201).send(sharing)
+  res.status(201).send(sharing.map((v) => v.getPublic()))
 }
 module.exports = asyncHandler(getallAbroadSharing)
