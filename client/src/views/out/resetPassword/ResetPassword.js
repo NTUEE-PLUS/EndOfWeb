@@ -14,6 +14,8 @@ import {
   CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 const ResetPasswordFormTemplate = {
   account: '',
@@ -26,8 +28,11 @@ const ResetPassword = () => {
   const [toLogin, setToLogin] = useState(false)
 
   const { account, active } = useParams()
-  const [resetPasswordForm, setResetPasswordForm] = useState(ResetPasswordFormTemplate)
-
+  // const [resetPasswordForm, setResetPasswordForm] = useState(ResetPasswordFormTemplate)
+  const [resetPasswordForm, setResetPasswordForm] = useState({
+    ...ResetPasswordFormTemplate,
+    showPwd: false,
+  })
   useEffect(() => {
     setResetPasswordForm({ ...resetPasswordForm, account: account, active: active })
   }, [])
@@ -64,6 +69,19 @@ const ResetPassword = () => {
     }
   }
 
+  const handleShowPwd = (e) => {
+    setResetPasswordForm({ ...resetPasswordForm, showPwd: !resetPasswordForm.showPwd })
+    const inputPwd = document.querySelector('input[name="password"]')
+    const inputConfirmPwd = document.querySelector('input[name="ConfirmPassword"]')
+    if (inputPwd.type === 'password') {
+      inputPwd.type = 'text'
+      inputConfirmPwd.type = 'text'
+    } else {
+      inputPwd.type = 'password'
+      inputConfirmPwd.type = 'password'
+    }
+  }
+
   return toLogin ? (
     <Redirect to="/login" />
   ) : (
@@ -96,6 +114,9 @@ const ResetPassword = () => {
                       name="ConfirmPassword"
                       onChange={handleInputChange}
                     />
+                    <CButton color="transparent" onClick={handleShowPwd}>
+                      {resetPasswordForm.showPwd ? <Visibility /> : <VisibilityOff />}
+                    </CButton>
                   </CInputGroup>
                   <CRow className="justify-content-center mt-3">
                     <div className="d-flex justify-content-center">
