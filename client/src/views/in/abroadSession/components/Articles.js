@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import {
   Grid,
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Box,
@@ -34,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     width: '40%',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
+    backgroundImage: (props) => `url(${props.article?.img || 'https://i.imgur.com/LdKoYeE.png'})`,
   },
   leftContainer: {
     display: 'flex',
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
+    marginRight: '4%',
     '& > .hovertext': {
       display: 'None',
     },
@@ -62,16 +63,35 @@ const useStyles = makeStyles((theme) => ({
     color: '#9b23a8',
     marginLeft: '0.2em',
   },
+  bottomInfo: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  editingButton: {
+    width: 'min-content',
+    margin: '0 0.1em 0 0.1em',
+  },
 }))
-const Article = ({ index, article, canEdit, startDelete }) => {
-  const classes = useStyles()
+function getDateExp(dateStr) {
+  let date
+  try {
+    date = new Date(dateStr)
+  } catch (e) {
+    return ''
+  }
+  return `last updated: ${date.getFullYear()}/${
+    date.getMonth() + 1
+  }/${date.getDate()} ${date.getHours()}:${
+    date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+  }`
+}
+const Article = ({ index, article, canEdit, startDelete, startUpdate }) => {
+  const classes = useStyles({ article })
   return (
     <Grid className="my-4" item xs={12} md={12} key={index}>
       <Card className={classes.card}>
-        <div
-          className={classes.image}
-          style={{ backgroundImage: `url(${article?.img || 'https://i.imgur.com/LdKoYeE.png'})` }} // not efficient?
-        ></div>
+        <div className={classes.image}></div>
         <Box className={classes.leftContainer}>
           <Link to={'/abroad_session/' + article._id.toString()}>
             <CardContent>
@@ -89,41 +109,57 @@ const Article = ({ index, article, canEdit, startDelete }) => {
             </CardContent>
           </Link>
           {canEdit && (
-            <CButton
-              color="danger"
-              onClick={() => {
-                console.log('delete')
-                startDelete()
-              }}
-              style={{ width: 'min-content' }}
-            >
-              delete
-            </CButton>
+            <div style={{ display: 'flex' }}>
+              <CButton
+                color="info"
+                onClick={() => {
+                  console.log('update')
+                  startUpdate()
+                }}
+                style={{ width: 'min-content' }}
+                className={classes.editingButton}
+              >
+                update
+              </CButton>
+              <CButton
+                color="danger"
+                onClick={() => {
+                  console.log('delete')
+                  startDelete()
+                }}
+                className={classes.editingButton}
+              >
+                delete
+              </CButton>
+            </div>
           )}
-          <CardActions className={classes.links}>
-            {article.otherLinks &&
-              article.otherLinks.map((link, i) => {
-                return (
-                  <Tooltip placement="top" key={i} title={'Link to more info!'}>
-                    <Box className={classes.link} key={i}>
-                      <a
-                        href={link.match('//') ? link : '//' + link}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {getFavicon(link) ? (
-                          <Avatar src={getFavicon(link)} />
-                        ) : (
-                          <LinkIcon className={classes.linkIcon} />
-                        )}
-                      </a>
-                    </Box>
-                  </Tooltip>
-                )
-              })}
+          <CardActions className={classes.bottomInfo}>
+            <Box className={classes.links}>
+              {article.otherLinks &&
+                article.otherLinks.map(({ link, desc }, i) => {
+                  return (
+                    <Tooltip placement="top" key={i} title={desc || 'Link to more info!'}>
+                      <Box className={classes.link} key={i}>
+                        <a
+                          href={link.match('//') ? link : '//' + link}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {getFavicon(link) ? (
+                            <Avatar src={getFavicon(link)} />
+                          ) : (
+                            <LinkIcon className={classes.linkIcon} />
+                          )}
+                        </a>
+                      </Box>
+                    </Tooltip>
+                  )
+                })}
+            </Box>
             <Box>
               <Typography variant="subtitle2" color="textSecondary" component="p">
-                {/* {article.date} &emsp; */}
+                {getDateExp(article.updatedAt)}
+                {/* &emsp*/}
               </Typography>
             </Box>
           </CardActions>
@@ -137,8 +173,9 @@ Article.propTypes = {
   article: PropTypes.object,
   canEdit: PropTypes.bool,
   startDelete: PropTypes.func,
+  startUpdate: PropTypes.func,
 }
-const Articles = ({ data, canEdit, deleteArticle }) => {
+const Articles = ({ data, canEdit, deleteArticle, updateArticle }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [idForDel, setIdForDel] = useState('')
   const startDelete = (_id) => {
@@ -155,6 +192,7 @@ const Articles = ({ data, canEdit, deleteArticle }) => {
           key={index}
           canEdit={canEdit}
           startDelete={() => startDelete(art._id)}
+          startUpdate={() => updateArticle(art)}
         />
       ))}
       <ConfirmModal
@@ -169,5 +207,6 @@ Articles.propTypes = {
   data: PropTypes.array,
   canEdit: PropTypes.bool,
   deleteArticle: PropTypes.func,
+  updateArticle: PropTypes.func,
 }
 export default Articles

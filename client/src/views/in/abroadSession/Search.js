@@ -1,5 +1,13 @@
 import React from 'react'
-import { Grid, Box, CircularProgress } from '@material-ui/core'
+import {
+  Grid,
+  Box,
+  CircularProgress,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  Typography,
+} from '@material-ui/core'
 import Pagination from '@material-ui/lab/Pagination'
 import { makeStyles } from '@material-ui/core'
 import { useState } from 'react'
@@ -10,7 +18,6 @@ import { useSelector } from 'react-redux'
 import { selectLogin } from '../../../slices/loginSlice'
 import PropTypes from 'prop-types'
 import axios from 'axios'
-
 const useStyles = makeStyles((theme) => ({
   progress: {
     width: '20%',
@@ -20,15 +27,29 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     marginTop: '15%',
   },
+  titleSearchContainer: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/airplane.jpg')`, //https://unsplash.com/photos/rf6ywHVkrlY
+    backgroundSize: 'cover',
+    backgroundPosition: '0% 50%',
+    margin: '0.2em',
+    padding: '1em',
+    borderRadius: '1em',
+  },
   title: {
-    color: '#cdf7d1',
+    color: '#a4c0de',
     marginBottom: '0.2em',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    textShadow:
+      '-0.01em -0.01em 0 #3847cf, 0.01em -0.01em 0 #3847cf, -0.01em 0.01em 0 #3847cf, 0.01em 0.01em 0 #3847cf',
   },
   paginationContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  controlLabelText: { color: 'silver', textShadow: 'none' },
 }))
 
 const formTemplate = {
@@ -38,7 +59,17 @@ const formTemplate = {
   otherLinks: [],
   img: '',
 }
-const Search = ({ data, parPageNum, searchFor, isPending, rootRoute, maxPage, refresh }) => {
+const Search = ({
+  data,
+  parPageNum,
+  searchFor,
+  isPending,
+  rootRoute,
+  maxPage,
+  refresh,
+  setAscTime,
+  ascTime,
+}) => {
   const classes = useStyles()
   const history = useHistory()
   const [modalOpen, setModalOpen] = useState(false)
@@ -55,6 +86,10 @@ const Search = ({ data, parPageNum, searchFor, isPending, rootRoute, maxPage, re
     setForEdit(formTemplate)
     setModalOpen(true)
   }
+  const handleUpdateData = (data) => {
+    setForEdit(data)
+    setModalOpen(true)
+  }
   const deleteArticle = (_id) => {
     axios
       .delete('/api/deleteAbroadSharing', { params: { _id } })
@@ -65,10 +100,28 @@ const Search = ({ data, parPageNum, searchFor, isPending, rootRoute, maxPage, re
 
   return (
     <div className="d-flex flex-column justify-content-center m-auto w-75">
-      <Box>
+      <Box className={classes.titleSearchContainer}>
         <Box className={`display-1 ${classes.title}`}>
           <strong>Abroad Sharing Sessions</strong>
-          {canEdit && <CButton onClick={handleAddData}>Add New Data</CButton>}
+          <Typography variant="subtitle1" className={classes.controlLabelText}>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={ascTime}
+                    onChange={(e) => setAscTime(e.target.checked)}
+                    inputProps={{ 'aria-label': 'Switch Sorting Order' }}
+                  />
+                }
+                label="Ascending"
+              ></FormControlLabel>
+            </FormGroup>
+          </Typography>
+          {canEdit && (
+            <CButton onClick={handleAddData} style={{ height: 'min-content' }}>
+              Add New Data
+            </CButton>
+          )}
         </Box>
         <SearchBar rootRoute={rootRoute} keywords={keywords} setKeywords={setKeywords} />
       </Box>
@@ -99,7 +152,12 @@ const Search = ({ data, parPageNum, searchFor, isPending, rootRoute, maxPage, re
           {data && (
             <div className={classes.blogsContainer}>
               <Grid container spacing={1}>
-                <Articles data={data} canEdit={canEdit} deleteArticle={deleteArticle} />
+                <Articles
+                  data={data}
+                  canEdit={canEdit}
+                  deleteArticle={deleteArticle}
+                  updateArticle={handleUpdateData}
+                />
               </Grid>
             </div>
           )}
@@ -135,6 +193,8 @@ Search.propTypes = {
   rootRoute: PropTypes.string,
   maxPage: PropTypes.number,
   refresh: PropTypes.func,
+  setAscTime: PropTypes.func,
+  ascTime: PropTypes.bool,
 }
 
 export default Search

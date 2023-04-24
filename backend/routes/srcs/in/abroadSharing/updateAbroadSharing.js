@@ -13,7 +13,8 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiParam {String} title 標題
  * @apiParam {String} intro 介紹
  * @apiParam {URL} YTlink youtube連結
- * @apiParam {URL} otherLinks 其他連結
+ * @apiParam {URL[]} otherLinks 其他連結
+ * @apiParam {URL[]} otherLinksDesc 其他連結說明
  * @apiParam {File} file 留學分享照片
  *
  *
@@ -24,13 +25,26 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const updateAbroadSharing = async (req, res, next) => {
-  const { _id, title, intro, YTlink, otherLinks } = req.body
+  const { _id, title, intro, YTlink, otherLinks, otherLinksDesc } = req.body
   if (!_id) throw new ErrorHandler(403, 'please provide _id')
   const obj = await abroad_sharing.findOne({ _id }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
 
+  if (!otherLinks?.length === otherLinksDesc?.length)
+    throw new ErrorHandler(
+      `length of otherLinks should be the same as descriptions, but is ${otherLinks?.length} and ${otherLinksDesc?.length}`,
+    )
+
   const img = parseImg(req.file)
-  const toSet = updateQuery({ title, intro, YTlink, otherLinks, img })
+  const toSet = updateQuery({
+    title,
+    intro,
+    YTlink,
+    otherLinks: otherLinks?.length
+      ? otherLinks.map((v, i) => ({ link: v, desc: otherLinksDesc[i] }))
+      : [],
+    img,
+  })
   await abroad_sharing.findByIdAndUpdate(_id, toSet).catch(dbCatch)
   return res.status(200).end()
 }

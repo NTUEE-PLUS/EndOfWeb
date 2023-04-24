@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    background: 'radial-gradient(#04104f, rgba(0, 63, 103,0.95) 110%)',
+    border: 'solid silver',
+    height: '100%',
+    borderRadius: '3%',
   },
   title: {
     display: 'flex',
@@ -106,7 +110,7 @@ const AbroadSessionPage = ({ data, isPending }) => {
               <strong>Other Links:</strong>
             </Typography>
             <ul style={{ padding: 0 }}>
-              {data.otherLinks.map((link, i) => (
+              {data.otherLinks.map(({ link, desc }, i) => (
                 <li key={i} className={classes.link}>
                   {getFavicon(link) ? (
                     <Avatar src={getFavicon(link)} className={classes.linkAvatar} />
@@ -120,7 +124,7 @@ const AbroadSessionPage = ({ data, isPending }) => {
                     className={classes.linkText}
                   >
                     <Typography variant="h6" component="h6" sx={{ mb: 4 }}>
-                      {link}
+                      {desc || link}
                     </Typography>
                   </a>
                 </li>

@@ -20,9 +20,7 @@ const SearchBar = ({ rootRoute, keywords, setKeywords }) => {
         type="search"
         placeholder={keywords === '' ? 'search for...' : keywords}
         onChange={(e) => setKeywords(e.target.value)}
-        onKeyDown={(e) => {
-          e.code === 'Enter' && handleSearch()
-        }}
+        onKeyDown={(e) => (e.code === 'Enter' || e.code === 'NumpadEnter') && handleSearch()}
         value={keywords ? keywords : ''}
       ></CFormControl>
       <CButton color="light" onClick={handleSearch}>

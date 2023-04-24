@@ -83,19 +83,33 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
     const blob = await fetch(data.img).then((res) => res.blob())
     form.append('img', blob, '.' + blob.type.replace('image/', ''))
     const config = { 'content-type': 'multipart/form-data' }
-    if (data.otherLinks.length) data.otherLinks.forEach((v) => form.append('otherLinks[]', v.link))
-    else {
-      form.append('otherLinks[]', 'https://eeplus.ntuee.org/') // *to avoid error in URL validation
+    if (data.otherLinks.length) {
+      data.otherLinks.forEach((v) => form.append('otherLinks[]', v.link))
+      data.otherLinks.forEach((v) => form.append('otherLinksDesc[]', v.desc))
+    } else {
+      // ? Add a default url(NTUEE+ website) when there's no URL?
+      form.append('otherLinks[]', 'https://eeplus.ntuee.org/')
+      form.append('otherLinksDesc[]', 'WebSite of NTUEE+')
     }
-    console.log(form.getAll('otherLinks'))
-    await axios
-      .post('/api/addAbroadSharing', form, config)
-      .then(() => alert('已更新'))
-      .then(() => refresh())
-      .catch((err) => {
-        err.response.data.description && alert('錯誤\n' + err.response.data.description)
-      })
-    // refetch(true)
+    console.log(form.getAll('otherLinks'), form.getAll('otherLinksDesc'))
+    if (!data._id) {
+      await axios
+        .post('/api/addAbroadSharing', form, config)
+        .then(() => alert('已新增'))
+        .then(() => refresh())
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } else {
+      form.append('_id', data._id)
+      await axios
+        .patch('/api/updateAbroadSharing', form, { ...config })
+        .then(() => alert('已更新'))
+        .then(() => refresh())
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    }
     setPending(false)
     setVisible(false)
   }

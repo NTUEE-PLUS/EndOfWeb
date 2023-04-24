@@ -13,6 +13,7 @@ const AbroadSession = () => {
   const [searchData, setSearchData] = useState([])
   const [maxPage, setMaxPage] = useState(1)
   const [pageData, setPageData] = useState({})
+  const [ascTime, setAscTime] = useState(false)
   const { id, pageNum, searchFor } = useParams()
   const isSearchPage = id === 'search' || !id
   const getImage = (_id) =>
@@ -30,6 +31,7 @@ const AbroadSession = () => {
             numPerPage,
             pageNum: pageNum || 1,
             keywords: (searchFor ? decodeURIComponent(searchFor) : '').split(' '),
+            reversedOrder: ascTime ? 1 : 0,
           },
           headers: refresh ? { 'Cache-Control': 'no-cache' } : {},
         })
@@ -53,7 +55,7 @@ const AbroadSession = () => {
         .then((dataWithImg) => setSearchData(dataWithImg))
         .catch((e) => console.error('error:', e.message))
     },
-    [searchFor, pageNum],
+    [searchFor, pageNum, ascTime],
   )
 
   const getPageData = useCallback(() => {
@@ -85,7 +87,12 @@ const AbroadSession = () => {
         isPending={isPending}
         rootRoute={`${rootRoute}/search`}
         maxPage={+maxPage}
-        refresh={() => getSearchData(true)}
+        refresh={() => {
+          getSearchData(true)
+          console.log('refreshed called')
+        }}
+        setAscTime={setAscTime}
+        ascTime={ascTime}
       />
     ) : (
       <AbroadSessionPage data={pageData} isPending={isPending} />

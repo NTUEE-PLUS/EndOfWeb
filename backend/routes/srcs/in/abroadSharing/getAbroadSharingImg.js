@@ -18,7 +18,7 @@ const getAbroadSharingImg = async (req, res, next) => {
   if (!_id) throw new ErrorHandler(403, 'please provide _id')
   const sharing = await abroad_sharing.findOne({ _id }).select('img').catch(dbCatch)
   if (!sharing) throw new ErrorHandler(404, '資料不存在')
-  res.set({ 'cache-control': 'private, max-age=2592000' })
+  res.set({ 'Cache-Control': 'private, max-age=2592000' })
   res.status(201).send(sharing.getPublic())
 }
 const valid = require('../../../middleware/validation')
