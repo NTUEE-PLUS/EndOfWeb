@@ -10,7 +10,7 @@ module.exports = ({ field = [], type = 'URL' }) => {
       field.map((q) => {
         // judge if it's an array, need to check every element in the array
         if (Array.isArray(req.body[q])) {
-          if (req.body[q]) {
+          if (req.body[q]?.length) {
             req.body[q].map((f) => {
               if (!judgeURL(f)) {
                 throw new Error(`${f} in ${q} should be URL`)

@@ -16,7 +16,9 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiSuccess (201) {String} -.title  標題
  * @apiSuccess (201) {String} -.intro  介紹
  * @apiSuccess (201) {URL} -.YTlink youtube連結
- * @apiSuccess (201) {URL} -.otherLinks 其他連結
+ * @apiSuccess (201) {Object[]} -.otherLinks 其他連結
+ * @apiSuccess (201) {URL} -.-.link 連結
+ * @apiSuccess (201) {String} -.-.desc 連結內容說明
  *
  * @apiError (404) {String} description 資料不存在
  * @apiError (500) {String} description 資料庫錯誤
@@ -45,14 +47,18 @@ function getPageData(pageNum, numPerPage, data) {
 }
 
 const getSearchedAbroadSharing = async (req, res, next) => {
-  const { keywords, pageNum, numPerPage } = req.query
+  const { keywords, pageNum, numPerPage, reversedOrder } = req.query
   const regExpKeywords =
     keywords?.length && keywords.map((keyword) => getValidRegexp(keyword)).filter((v) => !!v)
   const unionRegex = getUnionRegex(regExpKeywords)
   const query = regExpKeywords?.length
     ? { $or: [{ title: unionRegex }, { intro: unionRegex }] }
     : {}
-  const sharing = await abroad_sharing.find(query).select('-img').catch(dbCatch)
+  const sharing = await abroad_sharing
+    .find(query)
+    .select('-img')
+    .sort({ updatedAt: +reversedOrder ? 1 : -1 })
+    .catch(dbCatch)
   const maxPage = Math.ceil(sharing.length / (numPerPage || 5))
   const toSend = getPageData(pageNum || 1, numPerPage || 5, sharing)
   res.set({ 'cache-control': 'private, max-age=600' })
