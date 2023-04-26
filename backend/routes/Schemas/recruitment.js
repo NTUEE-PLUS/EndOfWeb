@@ -3,8 +3,8 @@ const mongoose = require('mongoose'),
 
 const Recruitment_Schema = new Schema({
   account: String,
-
   title: {
+    type: { type: String, enum: ['intern', 'fulltime', 'both'], required: true },
     title: String,
     company_name: String,
     work_type: String,

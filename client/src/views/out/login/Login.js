@@ -16,6 +16,7 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CFormInput,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import Visibility from '@material-ui/icons/Visibility'
@@ -37,7 +38,6 @@ const Login = () => {
   const handleInputChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value })
   }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     // connect with backend
@@ -135,11 +135,12 @@ const Login = () => {
                         <CInputGroupText>
                           <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
                         </CInputGroupText>
-                        <CFormControl
+                        <input
                           type="password"
                           placeholder="Password"
                           name="password"
                           onChange={handleInputChange}
+                          className="form-control"
                         />
                         <CButton color="transparent" onClick={handleShowPwd}>
                           {loginForm.showPwd ? <Visibility /> : <VisibilityOff />}

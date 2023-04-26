@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Announcement = require('../../../Schemas/announcement')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 const updateAnnouncement = async (req, res, next) => {

@@ -10,7 +10,7 @@ const upload = multer({
     fileSize: 100000000,
   },
   fileFilter: function (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|JPG|PNG|JPEG)$/)) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|JPG|PNG|JPEG|pdf|PDF)$/)) {
       req.fileValidationError = '檔案格式錯誤'
       return cb(new Error('檔案格式錯誤'), false)
     }
@@ -26,16 +26,22 @@ const upload = multer({
 module.exports = (filename) => {
   let doUpload
   if (typeof filename === 'string') {
-    doUpload = upload.single(filename)
+    if (filename.slice(-2) === '[]') doUpload = upload.array(filename)
+    else doUpload = upload.single(filename)
   } else {
     doUpload = upload.fields(filename)
   }
   return (req, res, next) => {
     doUpload(req, res, (err) => {
-      if (req.fileValidationError) return res.status(400).send(req.fileValidationError)
+      if (req.fileValidationError) {
+        console.log('fileValidationError', req.fileValidationError)
+        return res.status(400).send(req.fileValidationError)
+      }
       //throw new ErrorHandler(400,req.fileValidationError)
-      else if (err instanceof multer.MulterError) return res.status(400).send(err.message)
-      else if (err) return res.status(400).send('檔案讀取發生錯誤')
+      else if (err instanceof multer.MulterError) {
+        console.log('multer error', err)
+        return res.status(400).send(err.message)
+      } else if (err) return res.status(400).send('檔案讀取發生錯誤')
       next()
     })
   }

@@ -1,7 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Recommendation = require('../../../Schemas/recommendation')
 const asyncHandler = require('express-async-handler')
-const { findWithLimit } = require('../../../Schemas/query')
 
 /**
  * @api {get} /recommendation/mine show my recommendation
@@ -9,10 +8,7 @@ const { findWithLimit } = require('../../../Schemas/query')
  * @apiGroup In/recommendation
  * @apiDescription 顯示我建立的簡歷
  *
- * @apiparam {Number} page default 1
- * @apiparam {Number} perpage default 20
- *
- * @apiSuccess (201) {Object[]} - 簡歷們
+ * @apiSuccess (201) {Object} - 簡歷
  * @apiSuccess (201) {String} -._id mongodb _id(for update,delete)
  * @apiSuccess (201) {Object} -.title 標題相關
  * @apiSuccess (201) {String} -.title.title 標題
@@ -32,7 +28,7 @@ const { findWithLimit } = require('../../../Schemas/query')
  */
 module.exports = asyncHandler(async (req, res, next) => {
   const account = req.session.loginAccount
-  const { page, perpage } = req.query
-  const [recs, maxPage] = await findWithLimit(Recommendation, { account }, page, perpage || 20)
-  res.status(200).send(recs.map((obj) => obj.getPublic()).reverse())
+  const rec = await Recommendation.findOne({ account })
+  if (!rec) throw new ErrorHandler(404, '找不到簡歷')
+  res.status(200).send(rec.getPublic())
 })

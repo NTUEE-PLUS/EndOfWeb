@@ -1,7 +1,7 @@
 const { dbCatch } = require('../../../error')
 const AbroadSharing = require('../../../Schemas/abroad_sharing')
 const asyncHandler = require('express-async-handler')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 
 /**
  * @api {post} /addAbroadSharing add abroadsharing
@@ -21,7 +21,7 @@ const { parseImg } = require('../../../Schemas/query')
  */
 const addAbroadSharing = async (req, res) => {
   const { title, intro, YTlink, otherLinks } = req.body
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   const { _id } = await new AbroadSharing({ title, intro, YTlink, otherLinks, img })
     .save()
     .catch(dbCatch)

@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Recommendation = require('../../../Schemas/recommendation')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /** 
@@ -29,17 +29,29 @@ const asyncHandler = require('express-async-handler')
  */
 const addRec = async (req, res) => {
   const account = req.session.loginAccount
+  const check = await Recommendation.findOne({ account })
+  if (check) res.status(403).send({ description: 'already have recommendation' })
+  const {
+    title,
+    type,
+    name,
+    desire_work_type,
+    contact,
+    email,
+    diploma,
+    experience,
+    speciality,
+    resume,
+  } = req.body
 
-  const { title, name, desire_work_type, contact, email, diploma, experience, speciality } =
-    req.body
-
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   const recomd = await new Recommendation({
     account,
-    title: { title, name, desire_work_type },
+    title: { title, type, name, desire_work_type },
     info: { contact, email, diploma },
     spec: { experience, speciality },
     img,
+    resume,
   })
     .save()
     .catch(dbCatch)
@@ -51,7 +63,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma'],
+    field: ['title', 'type', 'name', 'desire_work_type', 'contact', 'diploma', 'resume'],
     type: 'string',
   },
   {

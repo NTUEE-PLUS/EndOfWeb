@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../../../error')
 const { History, HistImg } = require('../../../../../Schemas/history')
-const { parseImg } = require('../../../../..//Schemas/query')
+const { parseFile } = require('../../../../..//Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -34,7 +34,7 @@ const updateHist = async (req, res) => {
   await Promise.all(data.people.map(({ img }) => HistImg.findByIdAndDelete(img)))
   const people = await Promise.all(
     req.files.peopleImages.map(async (img) => {
-      const mongoImg = await new HistImg(parseImg(img)).save()
+      const mongoImg = await new HistImg(parseFile(img)).save()
       return {
         name: img.originalname.replace(/\.(jpg|jpeg|png|JPG|PNG|JPEG)$/, ''),
         img: mongoImg._id,

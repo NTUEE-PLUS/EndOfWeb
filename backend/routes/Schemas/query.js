@@ -55,7 +55,7 @@ const findWithLimit = async (Collection, query, page, perpage) => {
  * @param {File} file format: {buffer,mimetype}
  * @returns
  */
-const parseImg = (file) => {
+const parseFile = (file) => {
   if (!file) return undefined
   return {
     data: file.buffer,
@@ -80,4 +80,4 @@ const buf2url = (key = 'img') => {
   }
 }
 
-module.exports = { updateQuery, searchQuery, parseImg, buf2url, findWithLimit }
+module.exports = { updateQuery, searchQuery, parseFile, buf2url, findWithLimit }

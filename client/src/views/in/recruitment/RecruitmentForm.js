@@ -15,6 +15,7 @@ import {
   CContainer,
   CForm,
   CFormControl,
+  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
@@ -32,6 +33,7 @@ const CareerForm = ({ data }) => {
   const formTemplate = add
     ? {
         title: '',
+        type: 'intern',
         companyName: '',
         workType: '',
         salary: '',
@@ -41,6 +43,7 @@ const CareerForm = ({ data }) => {
       }
     : {
         title: data.title.title,
+        type: data.title.type,
         companyName: data.title.company_name,
         workType: data.title.work_type,
         salary: data.info.salary,
@@ -147,6 +150,7 @@ const CareerForm = ({ data }) => {
     data.append('salary', dataForm.salary)
     data.append('diploma', dataForm.diploma)
     data.append('description', dataForm.description)
+    data.append('type', dataForm.type)
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
@@ -184,7 +188,7 @@ const CareerForm = ({ data }) => {
   }
   return (
     <>
-      <CModal size="xl" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
+      <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}>
           <CModalTitle>Edit Your Photo</CModalTitle>
         </CModalHeader>
@@ -209,7 +213,12 @@ const CareerForm = ({ data }) => {
           </CButton>
         </CModalFooter>
       </CModal>
-      <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
+      <CModal
+        size="xl"
+        visible={blockModal}
+        onDismiss={() => setBlockModal(false)}
+        alignment="center"
+      >
         <CModalHeader onDismiss={() => setBlockModal(false)}>
           <CModalTitle>Preview New Post</CModalTitle>
         </CModalHeader>
@@ -245,6 +254,7 @@ const CareerForm = ({ data }) => {
                         data-tip="Put your company's brand!"
                         id="formFile"
                         type="file"
+                        accept="image/*"
                         onChange={handleChangeImage}
                         onClick={(e) => (e.target.value = null)}
                       ></CFormControl>
@@ -264,6 +274,25 @@ const CareerForm = ({ data }) => {
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="title" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-user" name="cil-user" />
+                      </CInputGroupText>
+                      <CFormSelect
+                        className={requiredStyle.type}
+                        data-for="type"
+                        data-tip="Want to recruit an intern or a full-time?"
+                        placeholder="Type*"
+                        value={dataForm.type}
+                        name="type"
+                        onChange={handleInputChange}
+                      >
+                        <option value="intern">Intern</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="both">Both</option>
+                      </CFormSelect>
+                      <ReactTooltip id="type" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -397,7 +426,28 @@ const CareerForm = ({ data }) => {
                         +
                       </CButton>
                     </CInputGroup>
-                    <div
+                    <CInputGroup
+                      className="mb-3 mw-100 d-flex"
+                      data-for="description"
+                      data-tip="Some description for this job"
+                    >
+                      <CInputGroupText>
+                        <CIcon icon="cil-building" name="cil-building" />
+                      </CInputGroupText>
+                      <textarea
+                        data-for="description"
+                        data-tip="Some description for this job"
+                        rows={5}
+                        placeholder="Description of this job"
+                        name="description"
+                        className="form-control"
+                        // style={{ width: 'inherit' }}
+                        value={dataForm.description}
+                        onChange={handleInputChange}
+                      />
+                      <ReactTooltip id="description" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    {/* <div
                       className="mb-3 mw-100"
                       data-for="description"
                       data-tip="Some description for this job"
@@ -413,7 +463,7 @@ const CareerForm = ({ data }) => {
                         } // preferred to use only this option to update the content for performance reasons
                       />
                       <ReactTooltip id="description" place="top" type="dark" effect="solid" />
-                    </div>
+                    </div> */}
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton

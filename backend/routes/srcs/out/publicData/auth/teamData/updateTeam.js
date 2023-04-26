@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../../../error')
 const TeamData = require('../../../../../Schemas/team_data')
-const { parseImg } = require('../../../../..//Schemas/query')
+const { parseFile } = require('../../../../..//Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -33,7 +33,7 @@ const updateTeam = async (req, res) => {
   if (!Number.isFinite(index) || index < 0 || !Math.floor(index) === index)
     throw new ErrorHandler(500, "index's form is wrong")
 
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   if (!img) throw new ErrorHandler(500, 'image not found')
   const teamData = await TeamData.findByIdAndUpdate(_id, { name, job, img, index }).catch((e) => {
     throw new ErrorHandler(500, '資料格式錯誤')

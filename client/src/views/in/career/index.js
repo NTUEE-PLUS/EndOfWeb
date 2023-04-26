@@ -71,3 +71,8 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
     }, 'image/png')
   })
 }
+
+export const urlsToLinks = (text) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g
+  return text.replace(urlRegex, '<a href="$1">$1</a>')
+}

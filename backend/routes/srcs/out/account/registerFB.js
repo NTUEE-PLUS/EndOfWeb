@@ -4,7 +4,7 @@ const Pending = require('../../../Schemas/user_pending')
 const Login = require('../../../Schemas/user_login')
 const Visual = require('../../../Schemas/user_visual_new')
 const asyncHandler = require('express-async-handler')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const crypto = require('crypto')
 
 async function insertFB(name, account, facebookID, file, user) {
@@ -59,8 +59,8 @@ const registerFB = async (req, res) => {
   const { username, facebookID, Email } = req.body
   const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
 
-  const avatar = parseImg(req.files['avatar'] ? req.files['avatar'][0] : undefined)
-  const idFile = parseImg(req.files['file'] ? req.files['file'][0] : undefined)
+  const avatar = parseFile(req.files['avatar'] ? req.files['avatar'][0] : undefined)
+  const idFile = parseFile(req.files['file'] ? req.files['file'][0] : undefined)
 
   const user = await new Visual({
     username,
@@ -92,7 +92,7 @@ const secure_regFB = async (req, res) => {
     account,
     facebookID,
     email,
-    img: parseImg(req.file),
+    img: parseFile(req.file),
   }
   await Pending.findOneAndUpdate({ account }, data, { upsert: true }).catch(dbCatch)
 
@@ -110,8 +110,8 @@ const regFB_v3 = async (req, res) => {
   const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
 
   const active = Math.random().toString(36).substr(2)
-  const avatar = parseImg(req.files['avatar'] ? req.files['avatar'][0] : undefined)
-  const idFile = parseImg(req.files['file'] ? req.files['file'][0] : undefined)
+  const avatar = parseFile(req.files['avatar'] ? req.files['avatar'][0] : undefined)
+  const idFile = parseFile(req.files['file'] ? req.files['file'][0] : undefined)
 
   const data = {
     username,

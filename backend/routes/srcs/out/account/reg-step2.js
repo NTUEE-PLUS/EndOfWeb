@@ -1,5 +1,5 @@
 const Pending = require('../../../Schemas/user_pending')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const { ErrorHandler, dbCatch } = require('../../../error')
 const asyncHandler = require('express-async-handler')
 
@@ -30,7 +30,7 @@ const main = async (req, res) => {
   if (!isPending) throw new ErrorHandler(404, 'account not found')
   await Pending.findOneAndUpdate(
     { account },
-    { img: parseImg(req.file) },
+    { img: parseFile(req.file) },
     {
       useFindAndModify: false,
     },

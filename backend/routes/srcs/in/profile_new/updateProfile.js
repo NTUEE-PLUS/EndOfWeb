@@ -2,7 +2,7 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Visual = require('../../../Schemas/user_visual_new')
 const Login = require('../../../Schemas/user_login')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -62,7 +62,7 @@ const updateProfile = async (req, res, next) => {
     doctor,
     Occupation,
   } = req.body)
-  query['userimage'] = parseImg(req.file)
+  query['userimage'] = parseFile(req.file)
   const toSet = updateQuery(query)
   console.log('toSet', toSet)
   await Visual.updateOne({ account: session_account }, toSet).catch(dbCatch)

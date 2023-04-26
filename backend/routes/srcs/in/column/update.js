@@ -1,12 +1,12 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const ColOut = require('../../../Schemas/column_outline')
 const ColDet = require('../../../Schemas/column_detail')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 const updateColumn = async (req, res, next) => {
   const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
-  const columnImg = parseImg(req.file)
+  const columnImg = parseFile(req.file)
 
   const detailUpdate = updateQuery({ top, body, annotation })
   const outlineUpdate = updateQuery({ anno, date, title, exp, edu, intro, columnImg })

@@ -1,7 +1,7 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Column_detail = require('../../../Schemas/column_detail')
 const Column_outline = require('../../../Schemas/column_outline')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -77,7 +77,7 @@ const addCol = async (req, res) => {
   const exp = JSON.parse(req.body.exp)
   const edu = JSON.parse(req.body.edu)
   const intro = JSON.parse(req.body.intro)
-  const columnImg = parseImg(req.file)
+  const columnImg = parseFile(req.file)
 
   await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
   await new Column_outline({ anno, date, title, exp, edu, intro, id, columnImg })

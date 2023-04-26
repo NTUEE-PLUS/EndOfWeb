@@ -1,12 +1,12 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { CWidgetBrand, CAvatar } from '@coreui/react'
+import { CButton, CAvatar } from '@coreui/react'
 import { eesa } from './index'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 import parser from 'html-react-parser'
+import { urlsToLinks } from './index'
 
 const CareerBlock = ({ post, setData, index }) => {
   const location = useLocation()
@@ -45,6 +45,25 @@ const CareerBlock = ({ post, setData, index }) => {
         })
     }
   }
+  const handleDownload = (fileURL) => {
+    fetch(fileURL)
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create a new URL object
+        const url = window.URL.createObjectURL(new Blob([blob]))
+
+        // Create a new anchor element to download the file
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', `resume.pdf`)
+
+        // Trigger a click on the anchor element to initiate download
+        link.click()
+
+        // Clean up the URL object after the download is finished
+        window.URL.revokeObjectURL(url)
+      })
+  }
   const spec = (li) => {
     return (
       <div key={li} style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
@@ -55,27 +74,44 @@ const CareerBlock = ({ post, setData, index }) => {
   return recru ? (
     <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
-          headerChildren={
-            <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
-          }
-          values={[[`${post.title.company_name} 徵 ${post.title.work_type}`]]}
-        />
+        <div className="d-flex p-3 shadow">
+          <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid col-4" />
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+            {post.title.title ? (
+              <>
+                <h5 className="col-7 d-flex justify-content-center align-items-center">
+                  <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                </h5>
+                <h2 className="d-flex justify-content-center align-items-center px-3">
+                  {post.title.title} <br />
+                </h2>
+              </>
+            ) : (
+              <h2 className="col-7 d-flex justify-content-center align-items-center">
+                <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+              </h2>
+            )}
+          </div>
+        </div>
       </Link>
       <hr></hr>
       <div className="careercontent">
         <h3 style={{ fontWeight: '600' }}>
-          {post.title.title}
+          <nobr>{post.title.company_name}</nobr> 徵 <nobr>{post.title.work_type}</nobr>
           {own ? (
             <>
               <Link to={`/edit_recruitment/${post._id}`}>
-                <CIcon icon="cil-pencil" name="cil-pencil"></CIcon>
+                <CIcon
+                  icon="cil-pencil"
+                  name="cil-pencil"
+                  style={{ scale: '1.7', marginLeft: '1rem' }}
+                ></CIcon>
               </Link>
               <CAvatar className="hover-pointer">
                 <CIcon
                   icon="cil-trash"
                   name="cil-trash"
+                  style={{ scale: '1.7' }}
                   onClick={() => deleteCareer(post._id)}
                 ></CIcon>
               </CAvatar>
@@ -95,7 +131,7 @@ const CareerBlock = ({ post, setData, index }) => {
             <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
             <h3 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-            <h4>{parser(post.spec.description)}</h4>
+            <h4>{parser(urlsToLinks(post.spec.description))}</h4>
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}
@@ -104,27 +140,44 @@ const CareerBlock = ({ post, setData, index }) => {
   ) : (
     <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
-          headerChildren={
-            <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
-          }
-          values={[[post.title.title]]}
-        />
+        <div className="d-flex p-3">
+          <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid col-4" />
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+            {post.title.title ? (
+              <>
+                <h5 className="col-7 d-flex justify-content-center align-items-center">
+                  <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                </h5>
+                <h3 className="col-7 d-flex justify-content-center align-items-center">
+                  {post.title.title}
+                </h3>
+              </>
+            ) : (
+              <h2 className="col-7 d-flex justify-content-center align-items-center">
+                <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+              </h2>
+            )}
+          </div>
+        </div>
       </Link>
       <hr></hr>
       <div className="careercontent">
         <h3>
-          {post.title.name} asking for <nobr>{post.title.desire_work_type}</nobr>
+          {post.title.name} 求內推 <nobr>{post.title.desire_work_type}</nobr>
           {own ? (
             <>
               <Link to={`/edit_recommendation/${post._id}`}>
-                <CIcon icon="cil-pencil" name="cil-pencil"></CIcon>
+                <CIcon
+                  icon="cil-pencil"
+                  name="cil-pencil"
+                  style={{ scale: '1.7', marginLeft: '1rem' }}
+                ></CIcon>
               </Link>
               <CAvatar className="hover-pointer">
                 <CIcon
                   icon="cil-trash"
                   name="cil-trash"
+                  style={{ scale: '1.7', marginLeft: '1rem' }}
                   onClick={() => deleteCareer(post._id)}
                 ></CIcon>
               </CAvatar>
@@ -144,6 +197,17 @@ const CareerBlock = ({ post, setData, index }) => {
             <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
             <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
             <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
+            {post.resume && (
+              <h3>
+                <CButton
+                  color="success"
+                  className="text-white"
+                  onClick={() => handleDownload(post.resume)}
+                >
+                  Download Resume
+                </CButton>
+              </h3>
+            )}
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}

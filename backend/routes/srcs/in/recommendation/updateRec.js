@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Recommendation = require('../../../Schemas/recommendation')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -31,15 +31,27 @@ const asyncHandler = require('express-async-handler')
 const updateRec = async (req, res) => {
   const account = req.session.loginAccount
 
-  const { _id, title, name, desire_work_type, contact, email, diploma, experience, speciality } =
-    req.body
-
+  const {
+    _id,
+    title,
+    type,
+    name,
+    desire_work_type,
+    contact,
+    email,
+    diploma,
+    experience,
+    speciality,
+  } = req.body
+  const resume = req.files.filter((file) => file.originalname === '.pdf')[0]
+  const img = req.files.filter((file) => file.originalname === '.png')[0]
   const data = await Recommendation.findById(_id, 'account').catch(dbCatch)
   if (!data || data.account !== account)
     throw new ErrorHandler(403, 'not valid _id or account not match')
 
   const keys = {
     'title.title': title,
+    'title.type': type,
     'title.name': name,
     'title.desire_work_type': desire_work_type,
     'info.contact': contact,
@@ -47,7 +59,8 @@ const updateRec = async (req, res) => {
     'info.diploma': diploma,
     'spec.experience': experience,
     'spec.speciality': speciality,
-    img: parseImg(req.file),
+    img: parseFile(img),
+    resume: parseFile(resume),
   }
   const toSet = updateQuery(keys)
   await Recommendation.findByIdAndUpdate(_id, toSet).catch((e) => {
@@ -61,7 +74,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma'],
+    field: ['title', 'type', 'name', 'desire_work_type', 'contact', 'diploma'],
     type: 'string',
   },
   {

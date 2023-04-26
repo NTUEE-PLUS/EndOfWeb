@@ -17,7 +17,13 @@ const Career = () => {
                 className="career_img img-fluid"
               />
             </Link>
-            <h3 className="text-light text-center mt-4">來看看各家公司的徵才貼文！</h3>
+            <h3 className="text-light text-center mt-4">來看看各家公司的內推機會！</h3>
+            <h3 className="text-light text-center mt-4">
+              或
+              <Link to="/add_recruitment" className="text-warning">
+                <u>新增內推機會！</u>
+              </Link>
+            </h3>
           </CCol>
           <CCol md="4" sm="8">
             <Link className="d-flex justify-content-center" to="/recommendation">
@@ -28,6 +34,13 @@ const Career = () => {
               />
             </Link>
             <h3 className="text-light text-center mt-4">電機系人才都在這！</h3>
+            <h3 className="text-light text-center mt-4">
+              或
+              <Link to="/own_recommendation" className="text-warning">
+                <u>上傳自己的簡歷</u>
+              </Link>
+              ！
+            </h3>
           </CCol>
         </CRow>
       </CContainer>

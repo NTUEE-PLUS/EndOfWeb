@@ -1,5 +1,5 @@
 const abroad_sharing = require('../../../Schemas/abroad_sharing')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 const { dbCatch, ErrorHandler } = require('../../../error')
 
@@ -29,7 +29,7 @@ const updateAbroadSharing = async (req, res, next) => {
   const obj = await abroad_sharing.findOne({ _id }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
 
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   const toSet = updateQuery({ title, intro, YTlink, otherLinks, img })
   await abroad_sharing.findByIdAndUpdate(_id, toSet).catch(dbCatch)
   return res.status(200).end()

@@ -1,5 +1,5 @@
 const Abroad_info = require('../../../Schemas/abroad_info')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 const { dbCatch, ErrorHandler } = require('../../../error')
 
@@ -28,7 +28,7 @@ const updateAbroadInfo = async (req, res) => {
   const obj = await Abroad_info.findOne({ _id }, 'title').catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
 
-  const icon = parseImg(req.file)
+  const icon = parseFile(req.file)
   const toSet = updateQuery({ title, info, icon })
   await Abroad_info.findByIdAndUpdate(_id, toSet).catch(dbCatch)
   return res.status(200).end()

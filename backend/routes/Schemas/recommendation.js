@@ -2,8 +2,9 @@ const mongoose = require('mongoose'),
   Schema = mongoose.Schema
 
 const Recommendation_Schema = new Schema({
-  account: { type: String, required: true },
+  account: { type: String, required: true, unique: true },
   title: {
+    type: { type: String, enum: ['intern', 'fulltime', 'both'], required: true },
     title: String,
     name: String,
     desire_work_type: String,
@@ -22,11 +23,15 @@ const Recommendation_Schema = new Schema({
     data: { type: Buffer },
     contentType: { type: String },
   },
-  //image:eesa_icon,
+  resume: {
+    data: { type: Buffer },
+    contentType: { type: String },
+  },
 })
 
 const { buf2url } = require('./query')
 Recommendation_Schema.virtual('imgSrc').get(buf2url())
+Recommendation_Schema.virtual('resumeSrc').get(buf2url('resume'))
 
 Recommendation_Schema.methods.getPublic = function () {
   return {
@@ -36,6 +41,7 @@ Recommendation_Schema.methods.getPublic = function () {
     info: this.info,
     spec: this.spec,
     image: this.imgSrc,
+    resume: this.resumeSrc,
   }
 }
 

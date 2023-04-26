@@ -1,6 +1,6 @@
 const { dbCatch } = require('../../../error')
 const Abroad_info = require('../../../Schemas/abroad_info')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -20,7 +20,7 @@ const asyncHandler = require('express-async-handler')
  */
 const addAbroadInfo = async (req, res) => {
   const { title, info } = req.body
-  const icon = parseImg(req.file)
+  const icon = parseFile(req.file)
   const { _id } = await new Abroad_info({ title, info, icon }).save().catch(dbCatch)
   res.status(201).send({ title, _id })
 }

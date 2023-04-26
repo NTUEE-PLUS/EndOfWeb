@@ -5,20 +5,22 @@ import { selectCareer, setKeywords, clearKeywords } from '../career/index'
 import CareerBlock from '../career/CareerBlock'
 import Masonry from 'react-masonry-css'
 import { Spinner } from './index'
-import { CButton, CFormControl, CInputGroup } from '@coreui/react'
+import { CButton, CFormControl, CFormSelect, CInputGroup } from '@coreui/react'
 import Pagination from '@material-ui/lab/Pagination'
 import CIcon from '@coreui/icons-react'
 
+let datas = []
 const Recommendation = () => {
-  const [data, setData] = useState({ data: [], maxPage: 1 })
+  const [showData, setShowData] = useState({ data: [], maxPage: 1 })
   const dispatch = useDispatch()
   const { keywords } = useSelector(selectCareer)
   const [isPending, setIsPending] = useState()
   const [isSearch, setIsSearch] = useState(false)
   const [page, setPage] = useState(1)
-  const postsPerPage = 9
+  const [targetType, setTargetType] = useState('both')
+  const postsPerPage = 8
   const breakpointColumnsObj = {
-    default: 3,
+    default: 2,
     1100: 2,
     500: 1,
   }
@@ -30,7 +32,8 @@ const Recommendation = () => {
       axios
         .post('/api/smartsearchrecommendation', { keyword: keywords, perpage: 99 })
         .then((res) => {
-          setData(res.data)
+          datas = res.data.data
+          switchType(targetType)
           setIsPending(false)
         })
         .catch((err) => {
@@ -47,13 +50,25 @@ const Recommendation = () => {
     axios
       .get('/api/recommendation', { params: { page, perpage: postsPerPage } })
       .then((res) => {
-        setData(res.data)
+        datas = res.data.data
+        setShowData(res.data)
         setIsPending(false)
       })
       .catch((err) => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
   }
+
+  const switchType = (e) => {
+    let tt = e.target.value
+    setTargetType(tt)
+    if (tt === 'both') {
+      setShowData({ ...showData, data: datas })
+    } else {
+      setShowData({ ...showData, data: datas.filter((data) => data.title.type === tt) })
+    }
+  }
+
   useEffect(() => {
     getData()
   }, [page])
@@ -72,34 +87,50 @@ const Recommendation = () => {
         }}
       >
         <div className="display-1">Recommendations</div>
-        <form className="text-light py-2 my-2 w-75" onSubmit={(e) => searchData(e)}>
-          <CInputGroup>
-            <CButton
-              onClick={() => {
-                clearKeywords()
-                getData()
-              }}
-              color="light"
-            >
-              <CIcon icon="cil-home" name="cil-home" />
-            </CButton>
-            <CFormControl
-              type="search"
-              placeholder={keywords === '' ? 'search for...' : keywords}
-              value={keywords}
-              onChange={(e) => {
-                dispatch(setKeywords(e.target.value))
-              }}
-            ></CFormControl>
-            <CButton color="light" onClick={(e) => searchData(e)}>
-              <CIcon icon="cil-search" name="cil-search" />
-            </CButton>
+
+        <div className="d-flex justify-content-center">
+          <form className="text-light py-2 my-2 col-9" onSubmit={(e) => searchData(e)}>
+            <CInputGroup>
+              <CButton
+                onClick={() => {
+                  clearKeywords()
+                  getData()
+                }}
+                color="light"
+              >
+                <CIcon icon="cil-home" name="cil-home" />
+              </CButton>
+              <CFormControl
+                type="search"
+                placeholder={keywords === '' ? 'search for...' : keywords}
+                value={keywords}
+                onChange={(e) => {
+                  dispatch(setKeywords(e.target.value))
+                }}
+              ></CFormControl>
+              <CButton color="light" onClick={(e) => searchData(e)}>
+                <CIcon icon="cil-search" name="cil-search" />
+              </CButton>
+            </CInputGroup>
+          </form>
+          <CInputGroup className="col-2 my-auto">
+            <CFormSelect>
+              <option value="both" onClick={switchType}>
+                Both
+              </option>
+              <option value="intern" onClick={switchType}>
+                Intern
+              </option>
+              <option value="fulltime" onClick={switchType}>
+                Fulltime
+              </option>
+            </CFormSelect>
           </CInputGroup>
-        </form>
+        </div>
       </div>
       <Pagination
         className="my-4 d-flex justify-content-center"
-        count={data.maxPage}
+        count={showData.maxPage}
         defaultPage={page}
         page={page}
         color="secondary"
@@ -110,7 +141,7 @@ const Recommendation = () => {
       />
       {isPending ? (
         <Spinner />
-      ) : isSearch && data.data.length === 0 ? (
+      ) : isSearch && showData.data.length === 0 ? (
         <div className="display-2 d-flex justify-content-center mt-3 text-white">
           Result not found
         </div>
@@ -127,13 +158,13 @@ const Recommendation = () => {
             }}
             style={{ display: 'flex' }}
           >
-            {data.data.map((post) => (
+            {showData.data.map((post) => (
               <CareerBlock post={post} key={post._id} />
             ))}
           </Masonry>
           <Pagination
             className="my-4 d-flex justify-content-center"
-            count={data.maxPage}
+            count={showData.maxPage}
             defaultPage={page}
             page={page}
             color="secondary"

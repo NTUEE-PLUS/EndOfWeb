@@ -2,7 +2,7 @@ const Login = require('../../../Schemas/user_login')
 const Pending = require('../../../Schemas/user_pending')
 const crypto = require('crypto')
 const Visual = require('../../../Schemas/user_visual_new')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const { ErrorHandler, dbCatch } = require('../../../error')
 const asyncHandler = require('express-async-handler')
 const env = require('dotenv')
@@ -67,7 +67,7 @@ const register = async (req, res) => {
   const isRegistered = await Login.exists(query).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
   const user = await insertVisual(username, account, Email)
-  await insert(username, account, newPsw, parseImg(req.file), user)
+  await insert(username, account, newPsw, parseFile(req.file), user)
   req.session.loginName = username
   req.session.loginAccount = account
   return res.status(201).send({ username })
@@ -114,7 +114,7 @@ const reg_v3 = async (req, res) => {
     userpsw: newPsw,
     email: Email,
     active,
-    img: parseImg(req.file),
+    img: parseFile(req.file),
   }
 
   await Pending.findOneAndUpdate({ account }, data, {
