@@ -30,6 +30,7 @@ import {
   MatchForm,
   ChangePsw,
   Dashboard,
+  AbroadSession,
 } from './views/in'
 // auth pages
 import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AuthManage } from './views/auth'
@@ -126,6 +127,12 @@ const routes_in = [
     exact: true,
     name: 'ChangePsw',
     component: ChangePsw,
+  },
+  {
+    path: '/abroad_session/:id?/:pageNum?/:searchFor?',
+    exact: true,
+    name: 'AbroadSession',
+    component: AbroadSession,
   },
 ]
 const routes_auth = [
