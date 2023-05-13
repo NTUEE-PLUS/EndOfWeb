@@ -1,19 +1,20 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import background from '../../../assets/images/background.png'
 
 const Testimonials = ({ data }) => {
   const annotations = data.annotation.map((annotation) => {
     return (
       <li key={annotation.contributor}>
         <blockquote>
-          <p>{annotation.job}</p>
-          <cite>{annotation.contributor}</cite>
+          <p style={{ color: 'black' }}>{annotation.job}</p>
+          <cite style={{ color: 'black' }}>{annotation.contributor}</cite>
         </blockquote>
       </li>
     )
   })
   return (
-    <section id="testimonials">
+    <section id="testimonials" style={{ backgroundImage: `url(${background})` }}>
       <div className="text-container">
         <div className="row">
           <div className="ten columns flex-container">

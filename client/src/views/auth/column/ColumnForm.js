@@ -29,12 +29,6 @@ import {
   CModalFooter,
 } from '@coreui/react'
 import axios from 'axios'
-import CIcon from '@coreui/icons-react'
-import { useParams, useLocation } from 'react-router-dom'
-// import  CDatePicker  from '@coreui/react-pro'
-
-// import packagename.classname;
-// import java.lang.Math;
 
 const ColumnForm = ({ data }) => {
   let history = useHistory()

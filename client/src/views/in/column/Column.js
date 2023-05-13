@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import Title from './Title'
-import { selectLogin } from '../../../slices/loginSlice'
-import { useSelector } from 'react-redux'
 import Resume from './Resume'
 import Testimonials from './Testimonials'
-import { useParams, useHistory, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { CButton } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
 const Column = () => {
   const id = useParams().id
-  const History = useHistory()
   const [data, setData] = useState({})
-  const { isAuth, isLogin } = useSelector(selectLogin)
 
   const getData = () => {
     if (id.includes('interview')) {
