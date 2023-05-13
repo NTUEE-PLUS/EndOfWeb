@@ -40,7 +40,6 @@ const ColumnForm = ({ data }) => {
   let history = useHistory()
 
   const add = data ? false : true //有資料:data=true add=false,反之則新增
-
   const formTemplate = add //add=true:前者，否則後者(更新資料)
     ? {
         name: '',
@@ -203,8 +202,6 @@ const ColumnForm = ({ data }) => {
       setEdu(edu.filter((_, idx) => idx !== index))
     else if (e.target.name === 'intro' && intro.length > 1)
       setIntro(intro.filter((_, idx) => idx !== index))
-    else if (e.target.name === 'title' && title.length > 1)
-      setTitle(title.filter((_, idx) => idx !== index))
   }
   const handleChangeImage = (e) => {
     let reader = new FileReader()

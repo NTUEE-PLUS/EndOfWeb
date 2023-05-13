@@ -70,7 +70,7 @@ const addCol = async (req, res) => {
   const id = req.body.id
   const date = req.body.date
   const top = JSON.parse(req.body.top)
-  const title = [top.name, top.experience]
+  const title = JSON.parse(req.body.title)
   const body = JSON.parse(req.body.body)
   const annotation = JSON.parse(req.body.annotation)
   const anno = JSON.parse(req.body.anno)
