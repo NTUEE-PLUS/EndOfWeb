@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { CButton, CWidgetBrand } from '@coreui/react'
 import { eesa } from './index'
 
-const ColumnPreview = ({ post, annotation, body, hashtags, anno, exp, edu, intro }) => {
+const ColumnPreview = ({ post, annotation, title, body, hashtags, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (post.file && typeof post.file === 'object') {
@@ -13,7 +13,7 @@ const ColumnPreview = ({ post, annotation, body, hashtags, anno, exp, edu, intro
     }
     reader.readAsDataURL(post.file)
   }
-  const title = (title) => {
+  const titles = (title) => {
     return (
       <h3 style={{ margin: '1.3rem 0 0.1rem' }} key={title}>
         {title}
@@ -48,7 +48,7 @@ const ColumnPreview = ({ post, annotation, body, hashtags, anno, exp, edu, intro
         headerChildren={
           <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
         }
-        values={[[post.title]]}
+        values={[[title]]}
       />
       <hr />
       <div className="columnContent">
@@ -62,27 +62,27 @@ const ColumnPreview = ({ post, annotation, body, hashtags, anno, exp, edu, intro
         {!isExpand && <CButton onClick={() => setIsExpand(true)}>Show more...</CButton>}
         {isExpand && (
           <>
-            {title('標籤')}
+            {titles('標籤')}
             {hashtags.map((hashtag) => section(`#${hashtag}`))}
             <br />
-            {title('工作人員')}
+            {titles('工作人員')}
             {annotation.map((annotation) =>
               section(`${annotation.job}: ${annotation.contributor}`),
             )}
             <br />
-            {title('採訪人員')}
+            {titles('採訪人員')}
             {anno.map((anno) => section(anno))}
             <br />
-            {title('職位')}
+            {titles('職位')}
             {exp.map((exp) => section(exp))}
             <br />
-            {title('學歷')}
+            {titles('學歷')}
             {edu.map((edu) => section(edu))}
             <br />
-            {title('簡介')}
+            {titles('簡介')}
             {intro.map((intro) => section(intro))}
             <br />
-            {title('內容')}
+            {titles('內容')}
             {body.map((body, bodyIdx) => (
               <div key={bodyIdx}>
                 {subtitle(body.bigtitle)}

@@ -18,6 +18,7 @@ import { Spinner, default_male } from './index'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
+import { selectLogin } from '../../../slices/loginSlice'
 import {
   selectColumnSummary,
   setPage,
@@ -78,6 +79,7 @@ const ColumnSummary = () => {
   const [data, setData] = useState({ maxPage: undefined, data: [] })
   const { page, keywords, isSearch } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
+  const { isAuth, isLogin } = useSelector(selectLogin)
   const getData = () => {
     setIsPending(true)
     axios
@@ -110,6 +112,21 @@ const ColumnSummary = () => {
         })
     } else {
       getData()
+    }
+  }
+  const deleteColumn = (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete?')
+    if (confirmDelete) {
+      axios
+        .delete('/api/column/delete', { data: { id: id } })
+        .then(() => {
+          alert('delete ')
+        })
+        .then(() => refresh())
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+      window.location.reload(false)
     }
   }
   useEffect(() => {
@@ -163,6 +180,24 @@ const ColumnSummary = () => {
                 )
               })}
               <Box>
+                {isAuth && isLogin && (
+                  <div>
+                    <CButton
+                      color="danger"
+                      className="text-white"
+                      onClick={() => deleteColumn(art.id)}
+                    >
+                      Delete
+                    </CButton>
+                    <Link to={`/auth/edit_column/${art.id}`}>
+                      <CIcon
+                        icon="cil-pencil"
+                        name="cil-pencil"
+                        style={{ scale: '1.7', marginLeft: '1rem' }}
+                      ></CIcon>
+                    </Link>
+                  </div>
+                )}
                 <Typography variant="subtitle2" color="textSecondary" component="p">
                   {art.date} &emsp;
                   <BookmarkBorderIcon />

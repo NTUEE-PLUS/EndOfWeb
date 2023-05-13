@@ -33,7 +33,7 @@ import {
   AbroadSession,
 } from './views/in'
 // auth pages
-import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AuthManage } from './views/auth'
+import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AuthManage, EditColumn } from './views/auth'
 
 // out routes
 const routes_out = [
@@ -153,6 +153,12 @@ const routes_auth = [
     exact: true,
     name: 'ColumnForm',
     component: AuthColumn,
+  },
+  {
+    path: '/auth/edit_column/:id',
+    exact: false,
+    name: 'EditColumn',
+    component: EditColumn,
   },
   {
     path: '/auth/announce/:id',
