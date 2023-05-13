@@ -2,7 +2,6 @@
 import React from 'react'
 
 const Testimonials = ({ data }) => {
-  console.log(data)
   const annotations = data.annotation.map((annotation) => {
     return (
       <li key={annotation.contributor}>

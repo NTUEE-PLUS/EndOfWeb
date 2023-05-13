@@ -30,6 +30,7 @@ const Page1 = ({
   dataForm,
   exp,
   edu,
+  title,
   hashtag,
   intro,
   handleInputChange,
@@ -39,6 +40,35 @@ const Page1 = ({
 }) => {
   return (
     <div>
+      {title.map((t, index) => {
+        return (
+          <CInputGroup className="mb-3" key={index}>
+            <CInputGroupText>
+              <i class="bi bi-briefcase-fill"></i>
+            </CInputGroupText>
+            <CFormControl
+              data-for="title"
+              data-tip="從事過的職位"
+              placeholder="title*"
+              name="title"
+              value={t}
+              onChange={(e) => handleInputArray(e, index)}
+            />
+            <ReactTooltip id="title" place="top" type="dark" effect="solid" />
+            <CButton
+              type="button"
+              name="title"
+              onClick={(e) => handleDeleteArray(e, index)}
+              className="btn-delete"
+            >
+              x
+            </CButton>
+            <CButton type="button" name="title" className="btn-add" onClick={handleAddArray}>
+              +
+            </CButton>
+          </CInputGroup>
+        )
+      })}
       {/* 1-1 Name */}
       <CInputGroup className="mb-3">
         <CInputGroupText>
@@ -46,7 +76,7 @@ const Page1 = ({
         </CInputGroupText>
         <CFormControl
           data-for="name"
-          data-tip="xxxx 級 xxx"
+          data-tip="xxx"
           placeholder="Name*"
           value={dataForm.name}
           name="name"
@@ -101,7 +131,7 @@ const Page1 = ({
       })}
 
       {/* 1-4 */}
-      {edu.map((_, index) => {
+      {edu.map((t, index) => {
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
@@ -112,7 +142,7 @@ const Page1 = ({
               data-tip="學歷[學士:校系(畢業年分),碩士:校系(畢業年分),博士:校系(畢業年分)]"
               placeholder="Education*"
               name="edu"
-              value={edu[index]}
+              value={t}
               onChange={(e) => handleInputArray(e, index)}
             />
             <ReactTooltip id="edu" place="top" type="dark" effect="solid" />
@@ -131,7 +161,7 @@ const Page1 = ({
         )
       })}
       {/* 1-5 */}
-      {hashtag.map((_, index) => {
+      {hashtag.map((t, index) => {
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
@@ -142,7 +172,7 @@ const Page1 = ({
               data-tip="文章類別，訪問者姓名、級別、工作、相關組織與企業"
               placeholder="Hashtag*"
               name="hashtag"
-              value={hashtag[index]}
+              value={t}
               onChange={(e) => handleInputArray(e, index)}
             />
             <ReactTooltip id="hashtag" place="top" type="dark" effect="solid" />
@@ -162,7 +192,7 @@ const Page1 = ({
       })}
 
       {/* 1-6 */}
-      {intro.map((_, index) => {
+      {intro.map((ii, index) => {
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
@@ -173,7 +203,7 @@ const Page1 = ({
               data-tip="簡介(1個element是一段)"
               placeholder="introduction*"
               name="intro"
-              value={intro[index]}
+              value={ii}
               cols="85"
               rows="7"
               onChange={(e) => handleInputArray(e, index)}

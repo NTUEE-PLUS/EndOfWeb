@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import ColumnImageEditor from './ColumnImageEditor'
 import ColumnPreview from './ColumnPreview'
@@ -29,23 +30,25 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
+import { useParams, useLocation } from 'react-router-dom'
 // import  CDatePicker  from '@coreui/react-pro'
 
 // import packagename.classname;
 // import java.lang.Math;
 
 const ColumnForm = ({ data }) => {
+  let history = useHistory()
+
   const add = data ? false : true //有資料:data=true add=false,反之則新增
+
   const formTemplate = add //add=true:前者，否則後者(更新資料)
     ? {
-        title: [''],
         name: '',
         experience: '',
         date: '',
         file: '',
       }
     : {
-        title: data.title,
         name: data.top.name,
         experience: data.top.experience,
         date: data.date,
@@ -68,6 +71,7 @@ const ColumnForm = ({ data }) => {
   const [exp, setExp] = useState(add ? [''] : data.exp)
   const [edu, setEdu] = useState(add ? [''] : data.edu)
   const [intro, setIntro] = useState(add ? [''] : data.intro)
+  const [title, setTitle] = useState(add ? [''] : data.title)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
   // const calendarDate = new Date(2022, 2, 1)
@@ -82,6 +86,9 @@ const ColumnForm = ({ data }) => {
   }
   const handleAddArray = (e) => {
     switch (e.target.name) {
+      case 'title':
+        setTitle(title.concat(['']))
+        break
       case 'hashtag':
         setHashtag(hashtag.concat(['']))
         break
@@ -109,6 +116,11 @@ const ColumnForm = ({ data }) => {
   }
   const handleInputArray = (e, index) => {
     switch (e.target.name) {
+      case 'title':
+        let newTitle = [...title]
+        newTitle[index] = e.target.value
+        setTitle(newTitle)
+        break
       case 'hashtag':
         let newHashtag = [...hashtag]
         newHashtag[index] = e.target.value
@@ -173,6 +185,8 @@ const ColumnForm = ({ data }) => {
   const handleDeleteArray = (e, index) => {
     if (e.target.name === 'hashtag' && hashtag.length > 1)
       setHashtag(hashtag.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'title' && title.length > 1)
+      setTitle(title.filter((_, idx) => idx !== index))
     else if (e.target.name === 'body' && body.length > 1)
       setBody(body.filter((_, idx) => idx !== index))
     else if (e.target.name === 'bigsection' && body[index].bigsections.length > 1) {
@@ -189,6 +203,8 @@ const ColumnForm = ({ data }) => {
       setEdu(edu.filter((_, idx) => idx !== index))
     else if (e.target.name === 'intro' && intro.length > 1)
       setIntro(intro.filter((_, idx) => idx !== index))
+    else if (e.target.name === 'title' && title.length > 1)
+      setTitle(title.filter((_, idx) => idx !== index))
   }
   const handleChangeImage = (e) => {
     let reader = new FileReader()
@@ -229,6 +245,7 @@ const ColumnForm = ({ data }) => {
     const _id = _date.substr(2, 8).split('/').join('')
     data.append('id', _id)
     data.append('date', _date)
+    data.append('title', JSON.stringify(title))
     data.append('top', JSON.stringify(top))
     data.append('body', JSON.stringify(_body))
     data.append('annotation', JSON.stringify(_annotation))
@@ -246,6 +263,7 @@ const ColumnForm = ({ data }) => {
         .post('/api/column/add', data, config)
         .then(() => {
           alert('已新增')
+          window.location.reload(true)
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -253,9 +271,10 @@ const ColumnForm = ({ data }) => {
     } else {
       data.append('id', dataForm.id)
       axios
-        .patch('/api/column/add', data, config)
+        .patch('/api/column/update', data, config)
         .then(() => {
           alert('已更新')
+          history.push('/column_summary')
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -307,6 +326,7 @@ const ColumnForm = ({ data }) => {
         <CModalBody>
           <ColumnPreview
             post={dataForm}
+            title={title}
             body={body}
             annotation={annotation}
             hashtags={hashtag}
@@ -354,6 +374,7 @@ const ColumnForm = ({ data }) => {
                           exp={exp}
                           edu={edu}
                           hashtag={hashtag}
+                          title={title}
                           intro={intro}
                           handleInputChange={handleInputChange}
                           handleInputArray={handleInputArray}

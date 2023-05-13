@@ -5,7 +5,16 @@ const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 const updateColumn = async (req, res, next) => {
-  const { id, top, body, annotation, anno, date, title, exp, edu, intro } = req.body
+  const id = req.body.id
+  const date = req.body.date
+  const top = JSON.parse(req.body.top)
+  const title = JSON.parse(req.body.title)
+  const body = JSON.parse(req.body.body)
+  const annotation = JSON.parse(req.body.annotation)
+  const anno = JSON.parse(req.body.anno)
+  const exp = JSON.parse(req.body.exp)
+  const edu = JSON.parse(req.body.edu)
+  const intro = JSON.parse(req.body.intro)
   const columnImg = parseFile(req.file)
 
   const detailUpdate = updateQuery({ top, body, annotation })
@@ -82,15 +91,8 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['top', 'body', 'annotation'],
-    type: 'object',
-  },
-  {
-    filename: 'optional',
-    field: ['date'],
+    field: ['top', 'body', 'annotation', 'date', 'anno', 'title', 'exp', 'edu', 'intro'],
     type: 'string',
   },
-  { filename: 'optional', field: ['anno', 'title', 'exp', 'edu', 'intro'], type: 'array' },
-  { filename: 'required', field: 'id' },
 ]
 module.exports = [valid(rules), asyncHandler(updateColumn)]
