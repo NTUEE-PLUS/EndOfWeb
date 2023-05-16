@@ -15,12 +15,13 @@ const Title = ({ data }) => {
   })
   return (
     <header>
-      <div className="row banner">
+      <div className="banner">
         <div className="banner-text">
           <h1 className="responsive-headline">{name}</h1>
-          {exp}
+          <h1></h1>
+          <div className="exp-text">{exp}</div>
+          <h1></h1>
           {hashtags}
-          <hr />
         </div>
       </div>
     </header>

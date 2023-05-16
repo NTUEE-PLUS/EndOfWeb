@@ -46,6 +46,7 @@ const Column = () => {
   return (
     <div className="column">
       {data.top && <Title data={data.top} />}
+      <br></br>
       {data.body && <Resume data={data} />}
       {data.annotation && <Testimonials data={data.annotation} />}
     </div>

@@ -14,8 +14,15 @@ const Testimonials = ({ data }) => {
     )
   })
   return (
-    <section id="testimonials" style={{ backgroundImage: `url(${background})` }}>
-      <div className="text-container">
+    <section id="testimonials">
+      <div
+        className="text-container"
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundPosition: 'bottom',
+          backgroundSize: 'cover',
+        }}
+      >
         <div className="row">
           <div className="ten columns flex-container">
             <ul className="slides">{annotations}</ul>
