@@ -31,27 +31,18 @@ const addRec = async (req, res) => {
   const account = req.session.loginAccount
   const check = await Recommendation.findOne({ account })
   if (check) res.status(403).send({ description: 'already have recommendation' })
-  const {
-    title,
-    type,
-    name,
-    desire_work_type,
-    contact,
-    email,
-    diploma,
-    experience,
-    speciality,
-    resume,
-  } = req.body
+  const { title, type, name, desire_work_type, contact, email, diploma, experience, speciality } =
+    req.body
 
-  const img = parseFile(req.file)
+  const resume = req.files.filter((file) => file.originalname === '.pdf')[0]
+  const img = req.files.filter((file) => file.originalname === '.png')[0]
   const recomd = await new Recommendation({
     account,
     title: { title, type, name, desire_work_type },
     info: { contact, email, diploma },
     spec: { experience, speciality },
-    img,
-    resume,
+    img: parseFile(img),
+    resume: parseFile(resume),
   })
     .save()
     .catch(dbCatch)

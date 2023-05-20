@@ -65,7 +65,7 @@ const OwnRecruitment = () => {
             style={{ display: 'flex' }}
           >
             {data.map((post, i) => (
-              <CareerBlock post={post} setData={setData} index={i} key={i} />
+              <CareerBlock post={post} key={i} />
             ))}
           </Masonry>
         </>

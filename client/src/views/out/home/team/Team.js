@@ -47,7 +47,7 @@ const Team = () => {
               <h2>Meet the Team</h2>
             )}
           </CRow>
-          <CRow>
+          <CRow className="d-flex justify-content-around">
             {data.map(({ img: imgSrc, name, job }, index) => (
               <div className="col-sm-3 col-xs-6 team" key={index}>
                 <div className="thumbnail">

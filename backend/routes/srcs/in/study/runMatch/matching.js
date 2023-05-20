@@ -20,7 +20,7 @@ const matching = async () => {
           if (js3.includes(ss)) s3 += 2
           // if(cmp2arr(sm,jm)) score += 1 //領域
           // console.log(cmp2arr(sm, jm))
-          score += cmp2arr(sm, jm) * 1
+          score += cmp2arr(sm, jm) * 178
         }
         if (jd.includes('1') && sd === '1') {
           //PhD

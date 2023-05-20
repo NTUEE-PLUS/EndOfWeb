@@ -22,7 +22,7 @@ const updateRecruitment = async (req, res, next) => {
   } = req.body
   const keys = {
     'title.title': title,
-    'title.ype': type,
+    'title.type': type,
     'title.company_name': company_name,
     'title.work_type': work_type,
     'info.salary': salary,

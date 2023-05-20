@@ -8,14 +8,15 @@ import { Spinner } from './index'
 import { CButton, CFormControl, CFormSelect, CInputGroup } from '@coreui/react'
 import Pagination from '@material-ui/lab/Pagination'
 import CIcon from '@coreui/icons-react'
+import { selectLogin } from '../../../slices/loginSlice'
 
 let datas = []
 const Recommendation = () => {
-  const [showData, setShowData] = useState({ data: [], maxPage: 1 })
   const dispatch = useDispatch()
+  const { isAuth } = useSelector(selectLogin)
+  const [showData, setShowData] = useState({ data: [], maxPage: 1 })
   const { keywords } = useSelector(selectCareer)
-  const [isPending, setIsPending] = useState()
-  const [isSearch, setIsSearch] = useState(false)
+  const [isPending, setIsPending] = useState(true)
   const [page, setPage] = useState(1)
   const [targetType, setTargetType] = useState('both')
   const postsPerPage = 8
@@ -28,7 +29,6 @@ const Recommendation = () => {
     e.preventDefault()
     if (keywords) {
       setIsPending(true)
-      setIsSearch(true)
       axios
         .post('/api/smartsearchrecommendation', { keyword: keywords, perpage: 99 })
         .then((res) => {
@@ -45,7 +45,6 @@ const Recommendation = () => {
   }
   const getData = () => {
     setIsPending(true)
-    setIsSearch(false)
     dispatch(clearKeywords())
     axios
       .get('/api/recommendation', { params: { page, perpage: postsPerPage } })
@@ -142,7 +141,7 @@ const Recommendation = () => {
       />
       {isPending ? (
         <Spinner />
-      ) : isSearch && showData.data.length === 0 ? (
+      ) : showData.data.length === 0 ? (
         <div className="display-2 d-flex justify-content-center mt-3 text-white">
           Result not found
         </div>
@@ -160,7 +159,7 @@ const Recommendation = () => {
             style={{ display: 'flex' }}
           >
             {showData.data.map((post) => (
-              <CareerBlock post={post} key={post._id} />
+              <CareerBlock post={post} key={post._id} isAuth={isAuth} />
             ))}
           </Masonry>
           <Pagination

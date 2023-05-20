@@ -290,7 +290,7 @@ const MatchForm = () => {
                     />
                   </CInputGroup>
                   <h5 className="text-medium-emphasis">
-                    {senior ? '入學時持有的最高學位' : '想申請的學位'}
+                    {senior ? '你申請到的學位' : '想申請的學位'}
                   </h5>
                   <CInputGroup className="mb-4">
                     <div className="d-flex justify-content-around">

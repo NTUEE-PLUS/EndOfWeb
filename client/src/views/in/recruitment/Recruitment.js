@@ -8,15 +8,15 @@ import { Spinner } from './index'
 import { CButton, CFormControl, CInputGroup, CFormSelect } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import Pagination from '@material-ui/lab/Pagination'
+import { selectLogin } from '../../../slices/loginSlice'
 let datas = []
 const Recruitment = () => {
-  const [showData, setShowData] = useState({ data: [], maxPage: 0 })
   const dispatch = useDispatch()
+  const { isAuth } = useSelector(selectLogin)
+  const [showData, setShowData] = useState({ data: [], maxPage: 0 })
   const { keywords } = useSelector(selectCareer)
-  const [isPending, setIsPending] = useState()
-  const [isSearch, setIsSearch] = useState(false)
+  const [isPending, setIsPending] = useState(true)
   const [page, setPage] = useState(1)
-  const [targetType, setTargetType] = useState('both')
   const postsPerPage = 9
   const breakpointColumnsObj = {
     default: 2,
@@ -25,23 +25,24 @@ const Recruitment = () => {
   }
   const switchType = (e) => {
     let tt = e.target.value
-    setTargetType(tt)
     if (tt === 'both') {
-      setShowData({ ...showData, data: datas })
+      setShowData({ maxPage: showData.maxPage, data: datas })
     } else {
-      setShowData({ ...showData, data: datas.filter((data) => data.title.type === tt) })
+      setShowData({
+        maxPage: showData.maxPage,
+        data: datas.filter((data) => data.title.type === tt),
+      })
     }
   }
   const searchData = (e) => {
     e.preventDefault()
     if (keywords) {
       setIsPending(true)
-      setIsSearch(true)
       axios
         .post('/api/smartsearchRecruitment', { keyword: keywords, perpage: 99 })
         .then((res) => {
           datas = res.data.data
-          switchType(targetType)
+          setShowData({ maxPage: showData.maxPage, data: datas })
           setIsPending(false)
         })
         .catch((err) => {
@@ -53,14 +54,13 @@ const Recruitment = () => {
   }
   const getData = () => {
     setIsPending(true)
-    setIsSearch(false)
     dispatch(clearKeywords())
     axios
       .post('/api/showRecruitment', { page, perpage: postsPerPage })
       .then((res) => {
-        if (res.data.length !== 0) {
+        if (res.data.data.length !== 0) {
           datas = res.data.data
-          switchType(targetType)
+          setShowData({ maxPage: showData.maxPage, data: datas })
         }
         setIsPending(false)
       })
@@ -85,7 +85,7 @@ const Recruitment = () => {
           color: 'white',
         }}
       >
-        <div className="display-1">Recruitments</div>
+        <div className="display-1">Recruitment</div>
         <div className="d-flex justify-content-center">
           <form className="text-light py-2 my-2 col-9" onSubmit={(e) => searchData(e)}>
             <CInputGroup>
@@ -111,17 +111,11 @@ const Recruitment = () => {
               </CButton>
             </CInputGroup>
           </form>
-          <CInputGroup className="col-2 my-auto">
+          <CInputGroup className="col-2 my-auto" onChange={switchType}>
             <CFormSelect>
-              <option value="both" onClick={switchType}>
-                Both
-              </option>
-              <option value="intern" onClick={switchType}>
-                Intern
-              </option>
-              <option value="fulltime" onClick={switchType}>
-                Fulltime
-              </option>
+              <option value="both">Both</option>
+              <option value="intern">Intern</option>
+              <option value="fulltime">Fulltime</option>
             </CFormSelect>
           </CInputGroup>
         </div>
@@ -139,7 +133,7 @@ const Recruitment = () => {
       />
       {isPending ? (
         <Spinner />
-      ) : isSearch && showData.data.length === 0 ? (
+      ) : showData.data.length === 0 ? (
         <div className="display-2 d-flex justify-content-center mt-3 text-white">
           Result not found
         </div>
@@ -156,7 +150,7 @@ const Recruitment = () => {
           style={{ display: 'flex' }}
         >
           {showData.data.map((post) => (
-            <CareerBlock post={post} key={post._id} />
+            <CareerBlock post={post} key={post._id} isAuth={isAuth} />
           ))}
         </Masonry>
       )}

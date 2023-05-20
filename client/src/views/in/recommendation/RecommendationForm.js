@@ -5,6 +5,7 @@ import { selectLogin } from '../../../slices/loginSlice'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
 import CareerImageEditor from '../../components/CareerImageEditor'
+import { Spinner } from '.'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import {
@@ -30,7 +31,6 @@ import axios from 'axios'
 import CIcon from '@coreui/icons-react'
 import CareerPreview from '../career/CareerPreview'
 const RecommendationForm = ({ data }) => {
-  console.log('data in rec form: ', data)
   const add = data ? false : true
   const { cellphone: userPhone, email: userEmail, name: userName } = useSelector(selectLogin)
   const formTemplate = add
@@ -59,6 +59,7 @@ const RecommendationForm = ({ data }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { croppedFile } = useSelector(selectCareer)
+  const [isPending, setIsPending] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [imageButton, setImageButton] = useState(null)
@@ -68,7 +69,6 @@ const RecommendationForm = ({ data }) => {
   const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
   const [dataForm, setDataForm] = useState(formTemplate)
   const [requiredStyle, setRequiredStyle] = useState({
-    title: '',
     name: '',
     desireWorkType: '',
   })
@@ -148,6 +148,8 @@ const RecommendationForm = ({ data }) => {
     setResumeURL(URL.createObjectURL(uploadedFile))
   }
   const handleSubmit = () => {
+    setIsPending(true)
+    console.log('dataForm=', dataForm)
     const data = new FormData()
     data.append('title', dataForm.title)
     data.append('name', dataForm.name)
@@ -171,6 +173,7 @@ const RecommendationForm = ({ data }) => {
       axios
         .post('/api/recommendation', data, config)
         .then(() => {
+          setIsPending(false)
           alert('已新增')
           history.push('/own_recommendation')
         })
@@ -182,6 +185,7 @@ const RecommendationForm = ({ data }) => {
       axios
         .patch('/api/recommendation', data, config)
         .then(() => {
+          setIsPending(false)
           alert('已更新')
           history.push('/own_recommendation')
         })
@@ -190,7 +194,9 @@ const RecommendationForm = ({ data }) => {
         })
     }
   }
-  return (
+  return isPending ? (
+    <Spinner />
+  ) : (
     <>
       <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}>
@@ -283,7 +289,7 @@ const RecommendationForm = ({ data }) => {
                         onChange={handleInputChange}
                       >
                         <option value="intern">Intern</option>
-                        <option value="fulltime">Full-time</option>
+                        <option value="fulltime">Fulltime</option>
                         <option value="both">Both</option>
                       </CFormSelect>
                       <ReactTooltip id="type" place="top" type="dark" effect="solid" />

@@ -29,9 +29,6 @@ const asyncHandler = require('express-async-handler')
 module.exports = asyncHandler(async (req, res, next) => {
   const account = req.session.loginAccount
   const rec = await Recommendation.findOne({ account })
-  if (!rec) {
-    res.status(200).send(null)
-    return
-  }
-  res.status(200).send(rec.getPublic())
+  if (!rec) res.status(203).send(null)
+  else res.status(200).send(rec.getPublic())
 })

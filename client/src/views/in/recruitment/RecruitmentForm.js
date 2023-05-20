@@ -146,6 +146,7 @@ const CareerForm = ({ data }) => {
     data.append('diploma', dataForm.diploma)
     data.append('description', dataForm.description)
     data.append('type', dataForm.type)
+    console.log('append type:', dataForm.type)
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
@@ -268,7 +269,7 @@ const CareerForm = ({ data }) => {
                         onChange={handleInputChange}
                       >
                         <option value="intern">Intern</option>
-                        <option value="full-time">Full-time</option>
+                        <option value="fulltime">Fulltime</option>
                         <option value="both">Both</option>
                       </CFormSelect>
                       <ReactTooltip id="type" place="top" type="dark" effect="solid" />
