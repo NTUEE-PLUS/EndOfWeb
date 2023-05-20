@@ -13,7 +13,6 @@ import {
   CListGroup,
   CListGroupItem,
   CRow,
-  CCollapse,
   CModal,
   CModalHeader,
   CModalBody,
@@ -38,7 +37,6 @@ const Register = () => {
     isGraduated: identity === 'alumni',
   }
   // for web control
-  const [isExpand, setIsExpand] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
   const [fileButton, setFileButton] = useState(null)
@@ -49,15 +47,6 @@ const Register = () => {
     ...RegisterFormTemplate,
     showPwd: false,
   })
-  const expand = (e) => {
-    e.preventDefault()
-    setIsExpand(true)
-  }
-  const constract = (e) => {
-    e.preventDefault()
-    setIsExpand(false)
-  }
-
   const openModal = (e) => {
     setIsModal(true)
   }
@@ -233,54 +222,49 @@ const Register = () => {
                             onChange={handleInputChange}
                           />
                         </CInputGroup>
-                        <CInputGroup
-                          className="mb-3"
-                          onMouseEnter={expand}
-                          onFocus={expand}
-                          onBlur={constract}
-                        >
+                        <CInputGroup className="mb-3">
                           <CInputGroupText>
                             <CIcon icon="cil-image" name="cil-image" />
                           </CInputGroupText>
                           <CFormControl
                             id="formFile"
                             type="file"
+                            accept="image/*"
                             onChange={handleChangeImage}
                           ></CFormControl>
                         </CInputGroup>
-                        <CCollapse visible={isExpand} onMouseLeave={constract}>
-                          <CListGroup>
-                            <CListGroupItem color="info">
-                              Please go to{' '}
-                              <a
-                                href="https://my.ntu.edu.tw/alumnusJobManage/cst01-1.aspx"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-warning fw-bold"
-                              >
-                                this website
-                              </a>{' '}
-                              and <b>take a screenshot</b> to prove your identity of alumni of NTUEE
-                              <br /> It should contain your <b>full name</b> and <b>studentID</b>.
-                            </CListGroupItem>
-                            <CListGroupItem color="success">
-                              Screenshot is used to confirm your identity, and will be auto deleted
-                              after account is activated
-                            </CListGroupItem>
-                            <CListGroupItem color="warning">
-                              The size of screenshot is at most <b>1MB</b>.
-                            </CListGroupItem>
-                          </CListGroup>
-                          <div className="d-flex justify-content-end">
-                            {previewURL ? (
-                              <CLink color="link" onClick={openModal} style={{ cursor: 'pointer' }}>
-                                Preview Again?
-                              </CLink>
-                            ) : (
-                              <></>
-                            )}
-                          </div>
-                        </CCollapse>
+                        <CListGroup>
+                          <CListGroupItem color="info">
+                            Please go to{' '}
+                            <a
+                              href="https://my.ntu.edu.tw/alumnusJobManage/cst01-1.aspx"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-warning fw-bold"
+                            >
+                              this website
+                            </a>{' '}
+                            , <b>take a screenshot</b> and upload to prove your identity of alumni
+                            of NTUEE
+                            <br /> It should contain your <b>full name</b> and <b>studentID</b>.
+                          </CListGroupItem>
+                          <CListGroupItem color="success">
+                            Screenshot is used to confirm your identity, and will be auto deleted
+                            after account is activated
+                          </CListGroupItem>
+                          <CListGroupItem color="warning">
+                            The size of screenshot is at most <b>1MB</b>.
+                          </CListGroupItem>
+                        </CListGroup>
+                        <div className="d-flex justify-content-end">
+                          {previewURL ? (
+                            <CLink color="link" onClick={openModal} style={{ cursor: 'pointer' }}>
+                              Preview Again?
+                            </CLink>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       </>
                     )}
                     <CRow className="justify-content-center mt-3">

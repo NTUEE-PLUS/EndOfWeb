@@ -31,7 +31,6 @@ const ChangePsw = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // connect with backend
     axios
       .post('/api/chPassword', changeForm)
       .then((res) => {

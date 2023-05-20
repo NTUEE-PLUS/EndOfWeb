@@ -18,6 +18,7 @@ import {
   CFormSelect,
   CInputGroup,
   CInputGroupText,
+  CFormLabel,
   CRow,
   CModal,
   CModalHeader,
@@ -256,27 +257,13 @@ const RecommendationForm = ({ data }) => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-image" name="cil-image" />
-                      </CInputGroupText>
-                      <CFormControl
-                        data-for="image"
-                        data-tip="Put a picture that can represent you!"
-                        type="file"
-                        onChange={handleChangeImage}
-                        onClick={(e) => (e.target.value = null)}
-                        accept="image/*"
-                      ></CFormControl>
-                      <ReactTooltip id="image" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-user" name="cil-user" />
+                        <CIcon icon="cil-layers" name="cil-layers" />
                       </CInputGroupText>
                       <CFormControl
                         className={requiredStyle.title}
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
-                        placeholder="Title*"
+                        placeholder="Attractive Title*"
                         value={dataForm.title}
                         name="title"
                         onChange={handleInputChange}
@@ -291,7 +278,6 @@ const RecommendationForm = ({ data }) => {
                         className={requiredStyle.type}
                         data-for="type"
                         data-tip="Want to apply for intern or full-time?"
-                        placeholder="Type*"
                         value={dataForm.type}
                         name="type"
                         onChange={handleInputChange}
@@ -310,7 +296,7 @@ const RecommendationForm = ({ data }) => {
                         className={requiredStyle.name}
                         data-for="name"
                         data-tip="Enter your name"
-                        placeholder="Name*"
+                        placeholder="Your Name*"
                         value={dataForm.name}
                         name="name"
                         onChange={handleInputChange}
@@ -325,7 +311,7 @@ const RecommendationForm = ({ data }) => {
                         className={requiredStyle.desireWorkType}
                         data-for="workType"
                         data-tip="What's your desired work?"
-                        placeholder="Desired Work Type*"
+                        placeholder="Desired Job Position*"
                         value={dataForm.desireWorkType}
                         name="desireWorkType"
                         onChange={handleInputChange}
@@ -339,7 +325,7 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="phone"
                         data-tip="Let others can call you!"
-                        placeholder="Phone"
+                        placeholder="Your Phone"
                         value={dataForm.contact}
                         name="contact"
                         onChange={handleInputChange}
@@ -351,7 +337,7 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="mail"
                         data-tip="Let others can email you!"
-                        placeholder="Email"
+                        placeholder="Your Email"
                         value={dataForm.email}
                         name="email"
                         onChange={handleInputChange}
@@ -365,7 +351,7 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="diploma"
                         data-tip="Enter your highest education level"
-                        placeholder="Diploma"
+                        placeholder="Your Highest Diploma"
                         value={dataForm.diploma}
                         name="diploma"
                         onChange={handleInputChange}
@@ -380,8 +366,8 @@ const RecommendationForm = ({ data }) => {
                           </CInputGroupText>
                           <CFormControl
                             data-for="experience"
-                            data-tip="Enter your experience"
-                            placeholder="Experience"
+                            data-tip="Enter your special experience"
+                            placeholder="Your Special Experiences"
                             name="experience"
                             value={exp}
                             onChange={(e) => handleInputArray(e, index)}
@@ -419,7 +405,7 @@ const RecommendationForm = ({ data }) => {
                           <CFormControl
                             data-for="specialty"
                             data-tip="Enter your strength or other specialty"
-                            placeholder="Speciality"
+                            placeholder="Your Strengths Or Other Specialty"
                             name="speciality"
                             value={req}
                             onChange={(e) => handleInputArray(e, index)}
@@ -448,20 +434,32 @@ const RecommendationForm = ({ data }) => {
                         +
                       </CButton>
                     </CInputGroup>
+                    <h5 className="text-medium-emphasis">Put a picture of you!</h5>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-image" name="cil-image" />
+                      </CInputGroupText>
+                      <CFormControl
+                        type="file"
+                        onChange={handleChangeImage}
+                        onClick={(e) => (e.target.value = null)}
+                        accept="image/*"
+                      ></CFormControl>
+                    </CInputGroup>
+                    <h5 className="text-medium-emphasis">
+                      Please upload your resume in pdf format
+                    </h5>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon="cil-address-book" name="cil-address-book" />
                       </CInputGroupText>
                       <CFormControl
-                        data-for="resume-link"
-                        data-tip="Please upload your resume in pdf format"
                         placeholder="Your Resume"
                         onChange={handleResumeChange}
                         name="resume"
                         type="file"
                         accept=".pdf"
                       />
-                      <ReactTooltip id="resume-link" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">

@@ -5,6 +5,7 @@ import Resume from './Resume'
 import Testimonials from './Testimonials'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Spinner } from '.'
 
 const Column = () => {
   const id = useParams().id
@@ -45,10 +46,20 @@ const Column = () => {
   }, [])
   return (
     <div className="column">
-      {data.top && <Title data={data.top} />}
+      {data.top && data.body && data.annotation ? (
+        <>
+          <Title data={data.top} />
+          <br></br>
+          <Resume data={data} />
+          <Testimonials data={data.annotation} />
+        </>
+      ) : (
+        <Spinner />
+      )}
+      {/* {data.top && <Title data={data.top} />}
       <br></br>
       {data.body && <Resume data={data} />}
-      {data.annotation && <Testimonials data={data.annotation} />}
+      {data.annotation && <Testimonials data={data.annotation} />} */}
     </div>
   )
 }

@@ -3,29 +3,30 @@ import React from 'react'
 import background from '../../../assets/images/background.png'
 
 const Testimonials = ({ data }) => {
-  const annotations = data.annotation.map((annotation) => {
-    return (
-      <li key={annotation.contributor}>
-        <blockquote>
-          <p style={{ color: 'black' }}>{annotation.job}</p>
-          <cite style={{ color: 'black' }}>{annotation.contributor}</cite>
-        </blockquote>
-      </li>
-    )
-  })
   return (
     <section id="testimonials">
       <div
-        className="text-container"
         style={{
           backgroundImage: `url(${background})`,
           backgroundPosition: 'bottom',
           backgroundSize: 'cover',
+          padding: '8rem 0',
         }}
       >
         <div className="row">
           <div className="ten columns flex-container">
-            <ul className="slides">{annotations}</ul>
+            <ul className="slides">
+              {data.annotation.map((annotation) => {
+                return (
+                  <li key={annotation.contributor}>
+                    <blockquote>
+                      <p className="text-dark">{annotation.job}</p>
+                      <cite className="text-dark">{annotation.contributor}</cite>
+                    </blockquote>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
       </div>

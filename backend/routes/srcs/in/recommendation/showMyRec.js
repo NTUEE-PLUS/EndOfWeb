@@ -29,6 +29,9 @@ const asyncHandler = require('express-async-handler')
 module.exports = asyncHandler(async (req, res, next) => {
   const account = req.session.loginAccount
   const rec = await Recommendation.findOne({ account })
-  if (!rec) throw new ErrorHandler(404, '找不到簡歷')
+  if (!rec) {
+    res.status(200).send(null)
+    return
+  }
   res.status(200).send(rec.getPublic())
 })

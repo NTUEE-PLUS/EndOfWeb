@@ -70,7 +70,7 @@ const OwnRecruitment = () => {
           </Masonry>
         </>
       ) : (
-        <div className="display-4 d-flex justify-content-center mt-3 text-white">
+        <div className="display-4 d-flex text-center mt-3 text-white">
           You have not post your recruitment yet
         </div>
       )}

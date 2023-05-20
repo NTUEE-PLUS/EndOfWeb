@@ -236,7 +236,7 @@ const MatchForm = () => {
                       className={requiredStyle.name}
                       data-for="name"
                       data-tip="Please fill in your name"
-                      placeholder="Name*"
+                      placeholder="Your Name*"
                       value={dataForm.name}
                       name="name"
                       onChange={handleInputChange}
@@ -251,7 +251,7 @@ const MatchForm = () => {
                       <CFormControl
                         data-for="studentID"
                         data-tip="Please fill in your student number"
-                        placeholder="Student number"
+                        placeholder="Your Student ID"
                         name="studentID"
                         value={dataForm.studentID}
                         onChange={handleInputChange}
@@ -267,7 +267,7 @@ const MatchForm = () => {
                       className={requiredStyle.email}
                       data-for="email"
                       data-tip="Please fill in your email"
-                      placeholder="Email*"
+                      placeholder="Your Email*"
                       value={dataForm.email}
                       name="email"
                       onChange={handleInputChange}
@@ -283,9 +283,7 @@ const MatchForm = () => {
                     </CInputGroupText>
                     <CFormControl
                       className={requiredStyle.major}
-                      data-for="major"
-                      data-tip="What subjects or fields are you majar?"
-                      placeholder="Major"
+                      placeholder="Your Major"
                       value={dataForm.major}
                       name="major"
                       onChange={senior ? handleInputChange : handleInputArray}
@@ -333,20 +331,19 @@ const MatchForm = () => {
                       )}
                     </div>
                   </CInputGroup>
-                  <h5 className="text-medium-emphasis">請填入之前的在校GPA</h5>
+                  <h5 className="text-medium-emphasis">
+                    請填入{senior ? '之前' : '目前'}的在校GPA
+                  </h5>
                   <CInputGroup className="mb-4">
                     <CInputGroupText>
                       <CIcon icon="cil-education" />
                     </CInputGroupText>
                     <CFormControl
-                      data-for="gpa"
-                      data-tip="GPA(in 4.3 scale)"
-                      placeholder="gpa"
+                      placeholder="Overall GPA(in 4.3 scale)"
                       value={dataForm.gpa}
                       name="gpa"
                       onChange={handleInputChange}
                     />
-                    <ReactTooltip id="gpa" place="top" type="dark" effect="solid" />
                   </CInputGroup>
                   {senior ? (
                     <>
@@ -357,14 +354,11 @@ const MatchForm = () => {
                         </CInputGroupText>
                         <CFormControl
                           className={requiredStyle.school}
-                          data-for="school"
-                          data-tip="your current school"
-                          placeholder="School"
+                          placeholder="Your School"
                           name="school"
                           value={dataForm.school}
                           onChange={handleInputChange}
                         />
-                        <ReactTooltip id="school" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                       <h5 className="text-medium-emphasis">請問您想接收幾位學弟妹呢?</h5>
                       <CInputGroup className="mb-4">
@@ -372,14 +366,11 @@ const MatchForm = () => {
                           <CIcon icon="cil-education" />
                         </CInputGroupText>
                         <CFormControl
-                          data-for="number"
-                          data-tip="Number of juniors you'd like to receive"
-                          placeholder="number"
+                          placeholder="Number of juniors you'd like to mentor"
                           value={dataForm.number}
                           name="number"
                           onChange={handleInputChange}
                         />
-                        <ReactTooltip id="number" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                       <h5 className="text-medium-emphasis">
                         填入您之前有錄取的學校(若有多個請用 , 分開)
@@ -389,14 +380,11 @@ const MatchForm = () => {
                           <CIcon icon="cil-braille" />
                         </CInputGroupText>
                         <CFormControl
-                          data-for="admission"
-                          data-tip="What schools do you get admitted?"
-                          placeholder="Admissions"
+                          placeholder="Your Admissions"
                           value={dataForm.admission}
                           name="admission"
                           onChange={handleInputArray}
                         />
-                        <ReactTooltip id="admission" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                     </>
                   ) : (
@@ -457,14 +445,11 @@ const MatchForm = () => {
                         </CInputGroupText>
                         <CFormControl
                           className={requiredStyle.school1}
-                          data-for="school1"
-                          data-tip="Please fill in your dream schools"
-                          placeholder="Dream college"
+                          placeholder="Your Dream College"
                           name="school1"
                           value={dataForm.school1}
                           onChange={handleInputArray}
                         />
-                        <ReactTooltip id="school1" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                       <h5 className="text-medium-emphasis">稍有把握的學校(若有多個請用 , 分開)</h5>
                       <CInputGroup className="mb-4">
@@ -473,14 +458,11 @@ const MatchForm = () => {
                         </CInputGroupText>
                         <CFormControl
                           className={requiredStyle.school2}
-                          data-for="school2"
-                          data-tip="Please fill in your confident colleges"
-                          placeholder="Confident colleges"
+                          placeholder="Your Confident Colleges"
                           name="school2"
                           value={dataForm.school2}
                           onChange={handleInputArray}
                         />
-                        <ReactTooltip id="school2" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                       <h5 className="text-medium-emphasis">你的保底學校(若有多個請用 , 分開)</h5>
                       <CInputGroup className="mb-4">
@@ -488,14 +470,11 @@ const MatchForm = () => {
                           <CIcon icon="cil-dollar" />
                         </CInputGroupText>
                         <CFormControl
-                          data-for="school3"
-                          data-tip="Please fill your guaranteed colleges"
-                          placeholder="Guaranteed colleges"
+                          placeholder="Your Guaranteed Colleges"
                           name="school3"
                           value={dataForm.school3}
                           onChange={handleInputArray}
                         />
-                        <ReactTooltip id="school3" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                     </>
                   )}

@@ -111,13 +111,13 @@ const Profile = () => {
             <CCardBody>
               <CRow>
                 <CCol sm="3">
-                  <h6 className="mb-0">Nick Name</h6>
+                  <h6 className="mb-0">Nickname</h6>
                 </CCol>
                 <CCol sm="9" className="text-secondary">
                   {data.nickname}
                 </CCol>
               </CRow>
-              <hr />
+              <hr className="mt-1 mb-3" />
               <CRow>
                 <CCol sm="3">
                   <h6 className="mb-0">Student ID</h6>
@@ -126,7 +126,7 @@ const Profile = () => {
                   {data.account}
                 </CCol>
               </CRow>
-              <hr />
+              <hr className="mt-1 mb-3" />
               <CRow>
                 <CCol sm="3">
                   <h6 className="mb-0">Email</h6>
@@ -135,7 +135,7 @@ const Profile = () => {
                   {data.publicEmail}
                 </CCol>
               </CRow>
-              <hr />
+              <hr className="mt-1 mb-3" />
               <CRow>
                 <CCol sm="3">
                   <h6 className="mb-0">Mobile</h6>
@@ -144,7 +144,7 @@ const Profile = () => {
                   {data.cellphone}
                 </CCol>
               </CRow>
-              <hr />
+              <hr className="mt-1 mb-3" />
             </CCardBody>
           </CCard>
           <CRow>
@@ -154,8 +154,8 @@ const Profile = () => {
                   <h6 className="d-flex align-items-center mb-3">
                     <i className="material-icons text-info mr-2">Education</i>
                   </h6>
-                  <hr />
-                  <CRow>
+                  <hr className="mt-1 mb-3" />
+                  <CRow className="d-none d-lg-block">
                     <CCol sm="3">
                       <h6 className="mb-0">Bachelor</h6>
                     </CCol>
@@ -163,8 +163,14 @@ const Profile = () => {
                       {data.major}
                     </CCol>
                   </CRow>
-                  <hr />
-                  <CRow>
+                  <CRow className="d-block d-lg-none">
+                    <CRow sm="3">
+                      <h6 className="mb-0">Bachelor</h6>
+                    </CRow>
+                    <div className="text-secondary px-3 mt-2">{data.major}</div>
+                  </CRow>
+                  <hr className="mt-1 mb-3" />
+                  <CRow className="d-none d-lg-block">
                     <CCol sm="3">
                       <h6 className="mb-0">Master</h6>
                     </CCol>
@@ -172,8 +178,14 @@ const Profile = () => {
                       {data.master}
                     </CCol>
                   </CRow>
-                  <hr />
-                  <CRow>
+                  <CRow className="d-block d-lg-none">
+                    <CRow sm="3">
+                      <h6 className="mb-0">Master</h6>
+                    </CRow>
+                    <div className="text-secondary px-3 mt-2">{data.master}</div>
+                  </CRow>
+                  <hr className="mt-1 mb-3" />
+                  <CRow className="d-none d-lg-block">
                     <CCol sm="3">
                       <h6 className="mb-0">Doctor</h6>
                     </CCol>
@@ -181,7 +193,13 @@ const Profile = () => {
                       {data.doctor}
                     </CCol>
                   </CRow>
-                  <hr />
+                  <CRow className="d-block d-lg-none">
+                    <CRow sm="3">
+                      <h6 className="mb-0">Doctor</h6>
+                    </CRow>
+                    <div className="text-secondary px-3 mt-2">{data.doctor}</div>
+                  </CRow>
+                  <hr className="mt-1 mb-3" />
                 </CCardBody>
               </CCard>
             </CCol>
@@ -191,8 +209,8 @@ const Profile = () => {
                   <h6 className="d-flex align-items-center mb-3">
                     <i className="material-icons text-info mr-2">Current Occupation</i>
                   </h6>
-                  <hr />
-                  <CRow>
+                  <hr className="mt-1 mb-3" />
+                  <CRow className="d-none d-lg-block">
                     <CCol sm="3">
                       <h6 className="mb-0">Company</h6>
                     </CCol>
@@ -200,8 +218,16 @@ const Profile = () => {
                       {data.Occupation.length != 0 ? data.Occupation[0].C : ''}
                     </CCol>
                   </CRow>
-                  <hr />
-                  <CRow>
+                  <CRow className="d-block d-lg-none">
+                    <CRow sm="3">
+                      <h6 className="mb-0">Company</h6>
+                    </CRow>
+                    <div className="text-secondary px-3 mt-2">
+                      {data.Occupation.length != 0 ? data.Occupation[0].C : ''}
+                    </div>
+                  </CRow>
+                  <hr className="mt-1 mb-3" />
+                  <CRow className="d-none d-lg-block">
                     <CCol sm="3">
                       <h6 className="mb-0">Division</h6>
                     </CCol>
@@ -209,8 +235,16 @@ const Profile = () => {
                       {data.Occupation.length != 0 ? data.Occupation[0].O : ''}
                     </CCol>
                   </CRow>
-                  <hr />
-                  <CRow>
+                  <CRow className="d-block d-lg-none">
+                    <CRow sm="3">
+                      <h6 className="mb-0">Division</h6>
+                    </CRow>
+                    <div className="text-secondary px-3 mt-2">
+                      {data.Occupation.length != 0 ? data.Occupation[0].O : ''}
+                    </div>
+                  </CRow>
+                  <hr className="mt-1 mb-3" />
+                  <CRow className="d-none d-lg-block">
                     <CCol sm="3">
                       <h6 className="mb-0">Position</h6>
                     </CCol>
@@ -218,7 +252,15 @@ const Profile = () => {
                       {data.Occupation.length != 0 ? data.Occupation[0].P : ''}
                     </CCol>
                   </CRow>
-                  <hr />
+                  <CRow className="d-block d-lg-none">
+                    <CRow sm="3">
+                      <h6 className="mb-0">Position</h6>
+                    </CRow>
+                    <div className="text-secondary px-3 mt-2">
+                      {data.Occupation.length != 0 ? data.Occupation[0].P : ''}
+                    </div>
+                  </CRow>
+                  <hr className="mt-1 mb-3" />
                 </CCardBody>
               </CCard>
             </CCol>

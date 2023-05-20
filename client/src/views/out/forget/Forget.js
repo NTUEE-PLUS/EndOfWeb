@@ -27,8 +27,6 @@ const Forget = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // connect with backend
-    // and send email to user
     axios
       .post('/api/forget', forgetForm)
       .then((res) => {
@@ -47,8 +45,8 @@ const Forget = () => {
             <CCard className="mx-4">
               <CCardBody className="p-4">
                 <CForm>
-                  <h1>Forget Password? Don{"'"}t Worry!</h1>
-                  <p>We{"'"}ll help you!</p>
+                  <h1>Forget Password? Don't Worry!</h1>
+                  <p>We'll help you!</p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon="cil-education" name="cil-education" />

@@ -56,6 +56,7 @@ const Recommendation = () => {
       })
       .catch((err) => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        setIsPending(false)
       })
   }
 

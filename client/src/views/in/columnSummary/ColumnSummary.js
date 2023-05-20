@@ -15,7 +15,6 @@ import Avatar from '@material-ui/core/Avatar'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import Pagination from '@material-ui/lab/Pagination'
 import { Spinner, default_male } from './index'
-import 'bootstrap-icons/font/bootstrap-icons.css'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogin } from '../../../slices/loginSlice'
@@ -47,7 +46,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
   },
   media: {
-    height: '680px',
+    height: '25rem',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    position: 'relative',
   },
   cardActions: {
     display: 'flex',

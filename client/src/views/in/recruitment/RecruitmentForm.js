@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
 import CareerImageEditor from '../../components/CareerImageEditor'
-import JoditEditor from 'jodit-react'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 import {
@@ -54,7 +53,6 @@ const CareerForm = ({ data }) => {
       }
   const dispatch = useDispatch()
   const history = useHistory()
-  const editor = useRef(null)
   const { croppedFile } = useSelector(selectCareer)
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
@@ -66,9 +64,6 @@ const CareerForm = ({ data }) => {
   const [requiredStyle, setRequiredStyle] = useState({
     title: '',
   })
-  const config = {
-    readonly: false, // all options from https://xdsoft.net/jodit/doc/
-  }
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
     if (requiredStyle[e.target.name] !== undefined) {
@@ -247,28 +242,13 @@ const CareerForm = ({ data }) => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-image" name="cil-image" />
-                      </CInputGroupText>
-                      <CFormControl
-                        data-for="image"
-                        data-tip="Put your company's brand!"
-                        id="formFile"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleChangeImage}
-                        onClick={(e) => (e.target.value = null)}
-                      ></CFormControl>
-                      <ReactTooltip id="image" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
                         <CIcon icon="cil-layers" name="cil-layers" />
                       </CInputGroupText>
                       <CFormControl
                         className={requiredStyle.title}
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
-                        placeholder="Title*"
+                        placeholder="Attractive Title*"
                         value={dataForm.title}
                         name="title"
                         onChange={handleInputChange}
@@ -283,7 +263,6 @@ const CareerForm = ({ data }) => {
                         className={requiredStyle.type}
                         data-for="type"
                         data-tip="Want to recruit an intern or a full-time?"
-                        placeholder="Type*"
                         value={dataForm.type}
                         name="type"
                         onChange={handleInputChange}
@@ -301,7 +280,7 @@ const CareerForm = ({ data }) => {
                       <CFormControl
                         data-for="companyName"
                         data-tip="Enter your company's name"
-                        placeholder="Company name"
+                        placeholder="Company Name"
                         value={dataForm.companyName}
                         name="companyName"
                         onChange={handleInputChange}
@@ -314,8 +293,8 @@ const CareerForm = ({ data }) => {
                       </CInputGroupText>
                       <CFormControl
                         data-for="workType"
-                        data-tip="The position you are recruiting"
-                        placeholder="Work Type"
+                        data-tip="The job position you are recruiting"
+                        placeholder="Job Position"
                         value={dataForm.workType}
                         name="workType"
                         onChange={handleInputChange}
@@ -329,7 +308,7 @@ const CareerForm = ({ data }) => {
                       <CFormControl
                         data-for="salary"
                         data-tip="Salary paid (/month or /year)"
-                        placeholder="Salary"
+                        placeholder="Salary(/month or /year)"
                         name="salary"
                         value={dataForm.salary}
                         onChange={handleInputChange}
@@ -342,8 +321,8 @@ const CareerForm = ({ data }) => {
                       </CInputGroupText>
                       <CFormControl
                         data-for="diploma"
-                        data-tip="Prefered education degree or major"
-                        placeholder="Diploma"
+                        data-tip="Preferred education degree or major"
+                        placeholder="Preferred Diploma"
                         value={dataForm.diploma}
                         name="diploma"
                         onChange={handleInputChange}
@@ -397,7 +376,7 @@ const CareerForm = ({ data }) => {
                           <CFormControl
                             data-for="requirement"
                             data-tip="Any requirement for this job"
-                            placeholder="Required skills"
+                            placeholder="Required Skills Or Other Requirements"
                             name="requirement"
                             value={req}
                             onChange={(e) => handleInputArray(e, index)}
@@ -426,6 +405,19 @@ const CareerForm = ({ data }) => {
                         +
                       </CButton>
                     </CInputGroup>
+                    <h5 className="text-medium-emphasis">Upload your company's brand image</h5>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-image" name="cil-image" />
+                      </CInputGroupText>
+                      <CFormControl
+                        id="formFile"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleChangeImage}
+                        onClick={(e) => (e.target.value = null)}
+                      ></CFormControl>
+                    </CInputGroup>
                     <CInputGroup
                       className="mb-3 mw-100 d-flex"
                       data-for="description"
@@ -441,29 +433,11 @@ const CareerForm = ({ data }) => {
                         placeholder="Description of this job"
                         name="description"
                         className="form-control"
-                        // style={{ width: 'inherit' }}
                         value={dataForm.description}
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="description" place="top" type="dark" effect="solid" />
                     </CInputGroup>
-                    {/* <div
-                      className="mb-3 mw-100"
-                      data-for="description"
-                      data-tip="Some description for this job"
-                    >
-                      <JoditEditor
-                        name="description"
-                        ref={editor}
-                        value={dataForm.description}
-                        config={config}
-                        tabIndex={1} // tabIndex of textarea
-                        onBlur={(newContent) =>
-                          setDataForm({ ...dataForm, description: newContent })
-                        } // preferred to use only this option to update the content for performance reasons
-                      />
-                      <ReactTooltip id="description" place="top" type="dark" effect="solid" />
-                    </div> */}
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton

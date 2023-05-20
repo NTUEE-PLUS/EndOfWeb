@@ -28,7 +28,6 @@ const ResetPassword = () => {
   const [toLogin, setToLogin] = useState(false)
 
   const { account, active } = useParams()
-  // const [resetPasswordForm, setResetPasswordForm] = useState(ResetPasswordFormTemplate)
   const [resetPasswordForm, setResetPasswordForm] = useState({
     ...ResetPasswordFormTemplate,
     showPwd: false,
