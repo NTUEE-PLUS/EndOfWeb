@@ -113,7 +113,7 @@ const Register = () => {
         .then((res) => {
           alert(
             identity === 'student'
-              ? '請至學校信箱接收開通信，您的帳號就會被激活！'
+              ? '請至學校信箱接收開通信，您的帳號就會被啟動！'
               : '等待管理員確認您的身分後就會寄開通信至您的信箱，請耐心等候！',
           )
           setToLogin(true)

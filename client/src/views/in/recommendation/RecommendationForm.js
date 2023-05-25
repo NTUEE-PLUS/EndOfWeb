@@ -159,6 +159,7 @@ const RecommendationForm = ({ data }) => {
     data.append('email', dataForm.email)
     data.append('diploma', dataForm.diploma)
     if (resumeBtn) {
+      console.log('resumeBtn=', resumeBtn)
       data.append('files[]', resumeBtn, '.pdf')
     }
     for (let exp of experience) {
@@ -167,7 +168,10 @@ const RecommendationForm = ({ data }) => {
     for (let spec of speciality) {
       data.append('speciality[]', spec)
     }
-    if (croppedFile) data.append('files[]', dataForm.file, '.png')
+    if (imageButton) {
+      console.log('croppedFile=', dataForm.file)
+      data.append('files[]', dataForm.file, '.png')
+    }
     const config = { 'content-type': 'multipart/form-data' }
     if (add) {
       axios
