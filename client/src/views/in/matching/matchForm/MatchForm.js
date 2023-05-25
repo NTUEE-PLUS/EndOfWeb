@@ -19,6 +19,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
+import Spinner from '../../../components/Spinner'
 
 const strToArray = (str) => {
   let ad = [str]
@@ -39,6 +40,8 @@ const MatchForm = () => {
   const { email: userEmail, name: userName, studentID } = useSelector(selectLogin)
   const [degrees, setDegrees] = useState([false, false, false])
   const [hasPapers, setHasPapers] = useState([false, false, false, false])
+  const [endTime, setEndTime] = useState(['', '', '', ''])
+  const [loading, setLoading] = useState(true)
 
   const formTemplate = senior
     ? {
@@ -103,36 +106,15 @@ const MatchForm = () => {
   }
   const handleInputRadio = (e) => {
     if (e.target.name === 'hasPaper') {
-      switch (e.target.value) {
-        case '0':
-          setHasPapers([true, false, false, false])
-          break
-        case '1':
-          setHasPapers([false, true, false, false])
-          break
-        case '2':
-          setHasPapers([false, false, true, false])
-          break
-        case '3':
-          setHasPapers([false, false, false, true])
-          break
-        default:
-          break
-      }
+      let hp = Number(e.target.value)
+      let hps = Array(4).fill(false)
+      hps[hp] = true
+      setHasPapers(hps)
     } else if (e.target.name === 'degree') {
-      switch (e.target.value) {
-        case '0':
-          setDegrees([true, false, false])
-          break
-        case '1':
-          setDegrees([false, true, false])
-          break
-        case '2':
-          setDegrees([false, false, true])
-          break
-        default:
-          break
-      }
+      let deg = Number(e.target.value)
+      let degs = Array(3).fill(false)
+      degs[deg] = true
+      setDegrees(degs)
     }
   }
   const handleSubmit = (e) => {
@@ -141,6 +123,7 @@ const MatchForm = () => {
       alert('please fill in correct gpa')
       return
     }
+    console.log('dataForm=', dataForm)
     axios
       .post('/api/study/fillForm', dataForm)
       .then(() => {
@@ -151,64 +134,40 @@ const MatchForm = () => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
   }
-  const handleBack = (e) => {
-    e.preventDefault()
-    history.push('/matching')
-  }
-  const getPrevForm = () => {
-    axios
+  const getPrevForm = async () => {
+    await axios
       .get('/api/study/form')
       .then((res) => {
         console.log('degree', res.data)
-        if (res.data.degree) {
-          setDataForm({ ...res.data, ['degree']: res.data.degree[0] })
-          switch (res.data.degree[0]) {
-            case '0':
-              setDegrees([true, false, false])
-              console.log('degree0')
-              break
-            case '1':
-              setDegrees([false, true, false])
-              console.log('degree1')
-              break
-            case '2':
-              setDegrees([false, false, true])
-              console.log('degree2')
-              break
-
-            default:
-              break
-          }
+        const { degree: deg, hasPaper: hp, endTime: et } = res.data
+        if (et) {
+          const [year, month, day, h_m] = et.split('-')
+          const [hour, min] = h_m.split(':')
+          setEndTime(() => [year, month, day, hour, min])
         }
-        if (res.data.hasPaper) {
-          switch (res.data.hasPaper) {
-            case '0':
-              setHasPapers([true, false, false, false])
-              break
-            case '1':
-              setHasPapers([false, true, false, false])
-              break
-            case '2':
-              setHasPapers([false, false, true, false])
-              break
-            case '3':
-              setHasPapers([false, false, false, true])
-              break
-
-            default:
-              break
-          }
+        if (deg) {
+          setDataForm({ ...res.data, ['degree']: deg[0] })
+          let degg = Number(deg[0])
+          let degs = Array(3).fill(false)
+          degs[degg] = true
+          setDegrees(degs)
+        }
+        if (hp) {
+          const hp = Number(hp)
+          let hps = Array(4).fill(false)
+          hps[hp] = true
+          setHasPapers(hps)
         }
       })
-      .then(() => console.log('hp', dataForm.hasPaper))
-      .catch(
-        (err) => err.response.data.description && alert('錯誤\n' + err.response.data.description),
-      )
+      .then(() => setLoading(false))
+      .catch((err) => alert('錯誤\n' + err))
   }
   useEffect(() => {
     getPrevForm()
   }, [studentID])
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="matching-form">
       <div className="d-flex flex-row align-items-center text-color-black">
         <CRow className="justify-content-center">
@@ -217,13 +176,14 @@ const MatchForm = () => {
               <CCardBody className="px-5">
                 <button
                   className="align-self-baseline btn btn-ghost-info my-3"
-                  onClick={handleBack}
+                  onClick={(e) => history.push('/matching')}
                 >
                   <CIcon name="cil-arrow-left" size="lg" />
                 </button>
                 <CForm>
                   <h2>
-                    {senior ? '學長姐' : '學弟妹'}您好，請於2/1前填妥以下表單，我們才會幫您配對
+                    {senior ? '學長姐' : '學弟妹'}您好，請於{endTime[1]}/{endTime[2]} {endTime[3]}:
+                    {endTime[4]}前填妥以下表單，我們才會幫您配對
                     {senior ? '您的學弟妹' : '輔導您的學長姐'}喔！
                   </h2>
                   <p className="text-medium-emphasis">開通EEChain</p>

@@ -185,7 +185,8 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
           <br />
           請在截止日後配對學長姐與學弟妹
           <br />
-          {pass ? `目前共有${jnumber}名學弟妹以及${snumber}名學長姐在等待您的配對結果` : ''}
+          目前共有{jnumber}名學弟妹以及{snumber}名學長姐
+          {pass ? `在等待您的配對結果` : '參與本次配對'}
         </h2>
         <button className="btn btn-primary" disabled={!pass} onClick={() => match()}>
           <h5 className="m-0">點我{setHasMatched ? '重新' : '開始'}配對並下載結果</h5>

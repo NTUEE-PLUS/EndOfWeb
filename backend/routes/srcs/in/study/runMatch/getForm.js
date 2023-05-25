@@ -1,4 +1,5 @@
 const { seniorForm, juniorForm } = require('../../../../Schemas/matching_form')
+const Time = require('../../../../Schemas/time')
 const asyncHandler = require('express-async-handler')
 const user_login = require('../../../../Schemas/user_visual_new')
 
@@ -6,21 +7,23 @@ const getForm = async (req, res) => {
   if (!req.session) {
     res.status(403).send('Not logged in')
   }
+  const { time } = await Time.findOne({ target: 'matching_end' })
+  const endTime = time.toISOString().substring(0, 10) + '-' + time.toISOString().substring(11, 16)
   const account = req.session.loginAccount
   let savedForm
   try {
     savedForm = await seniorForm.findOne({ account })
     if (savedForm) {
-      res.status(201).send({ identity: 'senior', ...savedForm._doc })
+      res.status(201).send({ identity: 'senior', ...savedForm._doc, endTime })
     } else {
       savedForm = await juniorForm.findOne({ account })
       if (savedForm) {
         let degree
         if (savedForm.degree.includes('0') && savedForm.degree.includes('1')) degree = '2'
         else degree = savedForm.degree[0]
-        res.status(201).send({ identity: 'junior', ...savedForm._doc, degree })
+        res.status(201).send({ identity: 'junior', ...savedForm._doc, degree, endTime })
       } else {
-        res.status(200).send({})
+        res.status(200).send({ endTime })
       }
     }
   } catch (err) {
@@ -31,11 +34,14 @@ const getForm = async (req, res) => {
 const getAllForms = async (_, res) => {
   const juniorForms = await juniorForm.find()
   const seniorForms = await seniorForm.find()
+  const { time } = await Time.findOne({ target: 'matching_end' })
+  const endTime = time.toISOString().substring(0, 10) + '-' + time.toISOString().substring(11, 16)
   res.status(201).send({
     junior: juniorForms,
     senior: seniorForms,
     juniorCount: juniorForms.length,
     seniorCount: seniorForms.length,
+    endTime,
   })
 } //
 
