@@ -86,16 +86,8 @@ const Editor = ({ visible, setVisible, dataForm, originData, setDataForm, refetc
             data.append('img', blob, '.' + blob.type.replace('image/', ''))
             const config = { 'content-type': 'multipart/form-data' }
             if (!person._id) {
-              console.log(`add data{title: ${data.get('name')}, job: ${data.get('job')}}`)
-
               await axios.post('/api/teamData', data, config)
             } else {
-              console.log(
-                `update data{title: ${data.get('name')}, job: ${data.get('job')}, _id:${data.get(
-                  '_id',
-                )}`,
-              )
-
               await axios.patch('/api/teamData', data, config)
             }
           })(),
@@ -104,8 +96,6 @@ const Editor = ({ visible, setVisible, dataForm, originData, setDataForm, refetc
     })
     originData.forEach(({ _id }) => {
       if (!dataForm.some((person) => _id === person._id)) {
-        console.log(`delete data{_id: ${_id}}`)
-
         pList.push(axios.delete('/api/teamData', { params: { _id } }))
       }
     })

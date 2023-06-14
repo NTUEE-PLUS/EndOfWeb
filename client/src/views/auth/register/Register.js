@@ -19,7 +19,6 @@ const Register = () => {
     axios
       .post('/api/showPending')
       .then((res) => {
-        console.log('pendings:', res.data.pendings.length)
         setApplicants(res.data.pendings)
         setIsPending(false)
       })
@@ -32,16 +31,18 @@ const Register = () => {
         alert('已發送驗證信至對方信箱！')
         setIsModal(false)
         getPendings()
-      }).catch(err=>console.log(err))
-    }
-    const reject = () => {
+      })
+      .catch((err) => console.log(err))
+  }
+  const reject = () => {
     axios
       .post('/api/handlePending', { account: modalPerson.account, acceptUser: false })
       .then((res) => {
         alert('已發送拒絕申請信至對方信箱！')
         setIsModal(false)
         getPendings()
-      }).catch(err=>console.log(err))
+      })
+      .catch((err) => console.log(err))
   }
   useEffect(() => {
     getPendings()
@@ -65,10 +66,10 @@ const Register = () => {
           <img src={modalPerson.imgSrc} alt="" style={{ width: '48rem', margin: '1rem' }} />
         </CModalBody>
         <CModalFooter>
-          <CButton color="warning" onClick={()=>reject()}>
+          <CButton color="warning" onClick={() => reject()}>
             拒絕申請
           </CButton>
-          <CButton color="dark" onClick={()=>verify()}>
+          <CButton color="dark" onClick={() => verify()}>
             同意申請
           </CButton>
         </CModalFooter>

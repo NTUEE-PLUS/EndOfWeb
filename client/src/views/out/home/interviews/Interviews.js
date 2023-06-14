@@ -20,7 +20,8 @@ const Interviews = () => {
               <div className="hover-bg">
                 {' '}
                 <Link
-                  to="/interview/interview_1"
+                  style={{ pointerEvents: 'none' }}
+                  to="/"
                   title="Project Title"
                   data-lightbox-gallery="gallery1"
                 >
@@ -41,7 +42,8 @@ const Interviews = () => {
               <div className="hover-bg">
                 {' '}
                 <Link
-                  to="/interview/interview_2"
+                  style={{ pointerEvents: 'none' }}
+                  to="/"
                   title="Project Title"
                   data-lightbox-gallery="gallery1"
                 >
@@ -63,7 +65,8 @@ const Interviews = () => {
               <div className="hover-bg">
                 {' '}
                 <Link
-                  to="/interview/interview_3"
+                  style={{ pointerEvents: 'none' }}
+                  to="/"
                   title="Project Title"
                   data-lightbox-gallery="gallery1"
                 >

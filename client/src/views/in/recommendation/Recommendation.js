@@ -19,7 +19,7 @@ const Recommendation = () => {
   const [isPending, setIsPending] = useState(true)
   const [page, setPage] = useState(1)
   const [targetType, setTargetType] = useState('both')
-  const postsPerPage = 8
+  const postsPerPage = 5
   const breakpointColumnsObj = {
     default: 2,
     1100: 2,

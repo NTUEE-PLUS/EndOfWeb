@@ -46,9 +46,8 @@ const Announce = () => {
   const handleSubmit = (e) => {
     if (add === 'add') {
       axios
-        .post('api/addAnnouncement', { ...ann, date: (new Date()).toISOString().substring(0,10) })
+        .post('api/addAnnouncement', { ...ann, date: new Date().toISOString().substring(0, 10) })
         .then((res) => {
-          console.log('add ann!')
           history.go(-1)
         })
         .catch((err) => {
@@ -58,7 +57,6 @@ const Announce = () => {
       axios
         .patch('/api/editAnnouncement', { ...ann, _id: add })
         .then((res) => {
-          console.log('edit ann!')
           history.go(-1)
         })
         .catch((err) => {

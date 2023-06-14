@@ -88,17 +88,23 @@ const Register = () => {
           if (key === 'Email') {
             data.append(key, `${registerForm.account}@ntu.edu.tw`)
           } else {
+            if (key === 'account' && registerForm.account.substring(3, 6) !== '901') {
+              return alert(
+                '學號須為電機系學號格式，若您是雙轉輔系生，請用至系友身分註冊，並附上雙轉輔證明截圖',
+              )
+            }
             data.append(key, registerForm[key])
           }
         }
-      else if (identity === 'alumni')
+      else if (identity === 'alumni') {
         for (let key in registerForm) {
-          if (!registerForm[key]) {
-            console.log(key)
-            return alert('請填寫完整資料。您可能沒有上傳系友證明，詳見下方說明')
-          }
+          //   if (!registerForm[key]) {
+          //     console.log(key)
+          //     return alert('請填寫完整資料。您可能沒有上傳系友證明，詳見下方說明')
+          //   }
           data.append(key, registerForm[key])
         }
+      }
 
       const config = {
         headers: {
@@ -219,7 +225,7 @@ const Register = () => {
                         <CInputGroup className="mb-3">
                           <CInputGroupText>@</CInputGroupText>
                           <CFormControl
-                            placeholder="Email"
+                            placeholder="Your commonly used Email"
                             name="Email"
                             onChange={handleInputChange}
                           />

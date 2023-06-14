@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ColumnSummary = () => {
-  const postsPerPage = 5
+  const postsPerPage = 3
   const classes = useStyles()
   const dispatch = useDispatch()
   const [data, setData] = useState({ maxPage: undefined, data: [] })

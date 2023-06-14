@@ -76,7 +76,6 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
     if (!checkFormData(data)) return
     setPending(true)
     const form = new FormData()
-    console.log(data)
     form.append('title', data.title)
     form.append('intro', data.intro)
     form.append('YTlink', data.YTlink)
@@ -91,7 +90,6 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
       form.append('otherLinks[]', 'https://eeplus.ntuee.org/')
       form.append('otherLinksDesc[]', 'WebSite of NTUEE+')
     }
-    console.log(form.getAll('otherLinks'), form.getAll('otherLinksDesc'))
     if (!data._id) {
       await axios
         .post('/api/addAbroadSharing', form, config)

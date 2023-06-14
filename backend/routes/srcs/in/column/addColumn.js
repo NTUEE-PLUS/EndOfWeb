@@ -79,9 +79,11 @@ const addCol = async (req, res) => {
   const intro = JSON.parse(req.body.intro)
   const columnImg = parseFile(req.file)
 
-  await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
   await new Column_outline({ anno, date, title, exp, edu, intro, id, columnImg })
     .save()
+    .then(async () => {
+      await new Column_detail({ id, top, body, annotation }).save().catch(dbCatch)
+    })
     .catch(dbCatch)
   res.status(201).send({ id })
 }

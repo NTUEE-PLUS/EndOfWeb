@@ -155,45 +155,21 @@ const Profile = () => {
                     <i className="material-icons text-info mr-2">Education</i>
                   </h6>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-none d-lg-block">
-                    <CCol sm="3">
-                      <h6 className="mb-0">Bachelor</h6>
-                    </CCol>
-                    <CCol sm="9" className="text-secondary">
-                      {data.major}
-                    </CCol>
-                  </CRow>
-                  <CRow className="d-block d-lg-none">
+                  <CRow className="d-block">
                     <CRow sm="3">
                       <h6 className="mb-0">Bachelor</h6>
                     </CRow>
                     <div className="text-secondary px-3 mt-2">{data.major}</div>
                   </CRow>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-none d-lg-block">
-                    <CCol sm="3">
-                      <h6 className="mb-0">Master</h6>
-                    </CCol>
-                    <CCol sm="9" className="text-secondary">
-                      {data.master}
-                    </CCol>
-                  </CRow>
-                  <CRow className="d-block d-lg-none">
+                  <CRow className="d-block">
                     <CRow sm="3">
                       <h6 className="mb-0">Master</h6>
                     </CRow>
                     <div className="text-secondary px-3 mt-2">{data.master}</div>
                   </CRow>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-none d-lg-block">
-                    <CCol sm="3">
-                      <h6 className="mb-0">Doctor</h6>
-                    </CCol>
-                    <CCol sm="9" className="text-secondary">
-                      {data.doctor}
-                    </CCol>
-                  </CRow>
-                  <CRow className="d-block d-lg-none">
+                  <CRow className="d-block">
                     <CRow sm="3">
                       <h6 className="mb-0">Doctor</h6>
                     </CRow>
@@ -210,15 +186,7 @@ const Profile = () => {
                     <i className="material-icons text-info mr-2">Current Occupation</i>
                   </h6>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-none d-lg-block">
-                    <CCol sm="3">
-                      <h6 className="mb-0">Company</h6>
-                    </CCol>
-                    <CCol sm="9" className="text-secondary">
-                      {data.Occupation.length != 0 ? data.Occupation[0].C : ''}
-                    </CCol>
-                  </CRow>
-                  <CRow className="d-block d-lg-none">
+                  <CRow className="d-block">
                     <CRow sm="3">
                       <h6 className="mb-0">Company</h6>
                     </CRow>
@@ -227,15 +195,7 @@ const Profile = () => {
                     </div>
                   </CRow>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-none d-lg-block">
-                    <CCol sm="3">
-                      <h6 className="mb-0">Division</h6>
-                    </CCol>
-                    <CCol sm="9" className="text-secondary">
-                      {data.Occupation.length != 0 ? data.Occupation[0].O : ''}
-                    </CCol>
-                  </CRow>
-                  <CRow className="d-block d-lg-none">
+                  <CRow className="d-block">
                     <CRow sm="3">
                       <h6 className="mb-0">Division</h6>
                     </CRow>
@@ -244,15 +204,7 @@ const Profile = () => {
                     </div>
                   </CRow>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-none d-lg-block">
-                    <CCol sm="3">
-                      <h6 className="mb-0">Position</h6>
-                    </CCol>
-                    <CCol sm="9" className="text-secondary">
-                      {data.Occupation.length != 0 ? data.Occupation[0].P : ''}
-                    </CCol>
-                  </CRow>
-                  <CRow className="d-block d-lg-none">
+                  <CRow className="d-block">
                     <CRow sm="3">
                       <h6 className="mb-0">Position</h6>
                     </CRow>

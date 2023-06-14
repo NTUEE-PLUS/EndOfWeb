@@ -29,17 +29,14 @@ const RegisterEntry = () => {
         url,
         { redirect: false, height: 720 }, //type:"large"},
         function (err, res) {
-          console.log(res)
           if (err) {
             console.log('error occurred', err)
             return reject(false)
           }
-          console.log(res.data.url)
           resolve({ url: res.data.url })
         },
       )
     })
-    console.log('img', imgUrl.url)
     // try to loginFB
     // check if login success
     // if no redirect to registerFB, then redirect to login

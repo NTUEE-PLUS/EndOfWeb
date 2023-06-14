@@ -33,10 +33,10 @@ const { findWithLimit } = require('../../../Schemas/query')
 const getOut = async (req, res, next) => {
   const { id, page, perpage } = req.query
   const query = id ? { id } : {}
-  const [columnOulines, maxPage] = await findWithLimit(Column_Outline, query, page, perpage)
+  const [columnOutlines, maxPage] = await findWithLimit(Column_Outline, query, page, perpage)
   return res
     .status(201)
-    .send({ data: columnOulines.reverse().map((col) => col.getPublic()), maxPage })
+    .send({ data: columnOutlines.reverse().map((col) => col.getPublic()), maxPage })
 }
 
 const valid = require('../../../middleware/validation')

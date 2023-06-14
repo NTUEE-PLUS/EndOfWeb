@@ -40,12 +40,14 @@ const ColumnForm = ({ data }) => {
         experience: '',
         date: '',
         file: '',
+        hashtags: '',
       }
     : {
         name: data.top.name,
         experience: data.top.experience,
         date: data.date,
         file: data.columnImg,
+        hashtags: data.top.hashtags.join('、'),
       }
   const dispatch = useDispatch()
   const { croppedFile } = useSelector(selectCareer)
@@ -59,7 +61,6 @@ const ColumnForm = ({ data }) => {
     add ? [{ job: '', contributor: '' }] : data.annotation.annotation,
   )
   const [page, setPage] = useState('1')
-  const [hashtag, setHashtag] = useState(add ? [''] : data.top.hashtags)
   const [anno, setAnno] = useState(add ? [''] : data.anno)
   const [exp, setExp] = useState(add ? [''] : data.exp)
   const [edu, setEdu] = useState(add ? [''] : data.edu)
@@ -81,9 +82,6 @@ const ColumnForm = ({ data }) => {
     switch (e.target.name) {
       case 'title':
         setTitle(title.concat(['']))
-        break
-      case 'hashtag':
-        setHashtag(hashtag.concat(['']))
         break
       case 'body':
         setBody([...body, { bigtitle: '', bigsections: [{ subtitle: '', subsection: '' }] }])
@@ -113,11 +111,6 @@ const ColumnForm = ({ data }) => {
         let newTitle = [...title]
         newTitle[index] = e.target.value
         setTitle(newTitle)
-        break
-      case 'hashtag':
-        let newHashtag = [...hashtag]
-        newHashtag[index] = e.target.value
-        setHashtag(newHashtag)
         break
       case 'bigtitle':
         let newBody = [...body]
@@ -176,9 +169,7 @@ const ColumnForm = ({ data }) => {
     }
   }
   const handleDeleteArray = (e, index) => {
-    if (e.target.name === 'hashtag' && hashtag.length > 1)
-      setHashtag(hashtag.filter((_, idx) => idx !== index))
-    else if (e.target.name === 'title' && title.length > 1)
+    if (e.target.name === 'title' && title.length > 1)
       setTitle(title.filter((_, idx) => idx !== index))
     else if (e.target.name === 'body' && body.length > 1)
       setBody(body.filter((_, idx) => idx !== index))
@@ -229,7 +220,11 @@ const ColumnForm = ({ data }) => {
   }
   const handleSubmit = () => {
     const data = new FormData()
-    const top = { name: dataForm.name, experience: dataForm.experience, hashtags: hashtag }
+    const top = {
+      name: dataForm.name,
+      experience: dataForm.experience,
+      hashtags: dataForm.hashtags.split('、'),
+    }
     let _body = { body: body }
     let _annotation = { annotation: annotation }
     const _date = dataForm.date
@@ -320,7 +315,7 @@ const ColumnForm = ({ data }) => {
             title={title}
             body={body}
             annotation={annotation}
-            hashtags={hashtag}
+            // hashtags={hashtag}
             anno={anno}
             exp={exp}
             edu={edu}
@@ -364,7 +359,6 @@ const ColumnForm = ({ data }) => {
                           dataForm={dataForm}
                           exp={exp}
                           edu={edu}
-                          hashtag={hashtag}
                           title={title}
                           intro={intro}
                           handleInputChange={handleInputChange}
@@ -404,7 +398,6 @@ const ColumnForm = ({ data }) => {
                           color="dark"
                           onClick={() => {
                             setBlockModal(true)
-                            console.log(dataForm)
                           }}
                         >
                           Preview

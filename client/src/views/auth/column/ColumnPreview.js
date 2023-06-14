@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { CButton, CWidgetBrand } from '@coreui/react'
 import { eesa } from './index'
 
-const ColumnPreview = ({ post, annotation, title, body, hashtags, anno, exp, edu, intro }) => {
+const ColumnPreview = ({ post, annotation, title, body, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (post.file && typeof post.file === 'object') {
@@ -63,7 +63,7 @@ const ColumnPreview = ({ post, annotation, title, body, hashtags, anno, exp, edu
         {isExpand && (
           <>
             {titles('標籤')}
-            {hashtags.map((hashtag) => section(`#${hashtag}`))}
+            {post.hashtags.split('、').map((hashtag) => section(`#${hashtag}`))}
             <br />
             {titles('工作人員')}
             {annotation.map((annotation) =>

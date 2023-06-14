@@ -89,7 +89,6 @@ const AbroadSession = () => {
         maxPage={+maxPage}
         refresh={() => {
           getSearchData(true)
-          console.log('refreshed called')
         }}
         setAscTime={setAscTime}
         ascTime={ascTime}

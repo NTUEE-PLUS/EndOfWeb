@@ -123,7 +123,6 @@ const MatchForm = () => {
       alert('please fill in correct gpa')
       return
     }
-    console.log('dataForm=', dataForm)
     axios
       .post('/api/study/fillForm', dataForm)
       .then(() => {
@@ -138,7 +137,6 @@ const MatchForm = () => {
     await axios
       .get('/api/study/form')
       .then((res) => {
-        console.log('degree', res.data)
         const { degree: deg, hasPaper: hp, endTime: et } = res.data
         if (et) {
           const [year, month, day, h_m] = et.split('-')

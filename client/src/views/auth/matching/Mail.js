@@ -14,7 +14,6 @@ const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
   }
   const handleInputFile = () => {
     inputRef.current?.files && setUploadedFile(inputRef.current.files[0])
-    console.log(inputRef.current.files[0])
   }
   const sendMail = () => {
     setLoading(true)
@@ -22,7 +21,6 @@ const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
     let data = new FormData()
     data.append('result', uploadedFile)
     axios.post('/api/study/sendMail', data, config).then(() => {
-      console.log('mails sent!!')
       setHasSent(true)
       setLoading(false)
     })

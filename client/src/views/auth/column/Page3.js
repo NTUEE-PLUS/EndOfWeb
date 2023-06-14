@@ -112,7 +112,7 @@ const Page3 = ({
               onChange={(e) => handleInputArray(e, index)}
             />
             <ReactTooltip id="anno" place="top" type="dark" effect="solid" />
-            <CButton
+            {/* <CButton
               type="button"
               name="anno"
               onClick={(e) => handleDeleteArray(e, index)}
@@ -122,7 +122,7 @@ const Page3 = ({
             </CButton>
             <CButton type="button" name="anno" className="btn-add" onClick={handleAddArray}>
               +
-            </CButton>
+            </CButton> */}
           </CInputGroup>
         )
       })}
@@ -142,20 +142,6 @@ const Page3 = ({
         ></CFormControl>
         <ReactTooltip id="image" place="top" type="dark" effect="solid" />
       </CInputGroup>
-
-      {/* <CRow className="justify-content-center mt-3">
-                <div className="d-flex d-flex justify-content-center">
-                <CButton
-                    color="dark"
-                    onClick={() => {
-                    setBlockModal(true)
-                    console.log(dataForm)
-                    }}
-                >
-                    Preview
-                </CButton>
-                </div>
-            </CRow> */}
     </div>
   )
 }

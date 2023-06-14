@@ -87,7 +87,6 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
         })
     } else {
-      console.log('updating id', data.get('_id'))
       await axios
         .patch('/api/history', data, config)
         .then(() => {

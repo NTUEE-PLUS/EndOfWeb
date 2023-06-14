@@ -90,7 +90,7 @@ const Dashboard = () => {
     axios
       .delete('api/deleteAnnouncement', { data: { _id: id } })
       .then((res) => {
-        console.log('deleted')
+        alert('deleted')
       })
       .catch((err) => console.log(err))
     getAnnouncements()
@@ -236,7 +236,7 @@ const Dashboard = () => {
                           <CCardImage src={recruitment.image === '' ? logo : recruitment.image} />
                           <CCardBody>
                             <CCardTitle className="text-center">
-                              {recruitment.title.title}
+                              {recruitment.title.work_type}
                             </CCardTitle>
                           </CCardBody>
                         </CCard>
@@ -265,7 +265,7 @@ const Dashboard = () => {
                           />
                           <CCardBody>
                             <CCardTitle className="text-center">
-                              {recommendation.title.title}
+                              {recommendation.title.desire_work_type}
                             </CCardTitle>
                           </CCardBody>
                         </CCard>

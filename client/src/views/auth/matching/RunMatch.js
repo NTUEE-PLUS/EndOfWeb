@@ -30,9 +30,7 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
     axios
       .get('/api/study/matching', { responseType: 'blob' })
       .then((res) => {
-        console.log('res', res)
         const url = window.URL.createObjectURL(new Blob([res.data]))
-        console.log('url', url)
         const link = document.createElement('a')
         link.href = url
         link.setAttribute('download', 'output.xlsx')
@@ -40,7 +38,6 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
         link.click()
       })
       .then(() => {
-        console.log('finish match!')
         setHasMatched(true)
         setHasSent(false)
       })
@@ -73,12 +70,10 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
   const setMatchTime = () => {
     axios
       .post('/api/time/setTime', { target: 'matching_start', time: newStartTime })
-      .then(() => console.log('set start time'))
       .catch((err) => console.log(err))
     axios
       .post('/api/time/setTime', { target: 'matching_end', time: newEndTime })
       .then(() => {
-        console.log('set end time')
         hasSent ? setHasSent(false) : getMatchInfo()
       })
       .catch((err) => console.log(err))
@@ -86,7 +81,7 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
   const clearDB = () => {
     axios
       .delete('/api/study/form')
-      .then(() => console.log('clear all form!'))
+      .then(() => alert('clear all form!'))
       .catch((e) => console.log(e))
   }
   useEffect(() => {

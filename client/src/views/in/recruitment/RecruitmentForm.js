@@ -31,7 +31,7 @@ const CareerForm = ({ data }) => {
   const add = data ? false : true
   const formTemplate = add
     ? {
-        title: '',
+        title: new Date().toLocaleTimeString(),
         type: 'intern',
         companyName: '',
         workType: '',
@@ -41,13 +41,13 @@ const CareerForm = ({ data }) => {
         file: '',
       }
     : {
-        title: data.title.title,
+        title: data.title.title ? data.title.title : '',
         type: data.title.type,
         companyName: data.title.company_name,
         workType: data.title.work_type,
-        salary: data.info.salary,
-        diploma: data.info.diploma,
-        description: data.spec.description,
+        salary: data.info.salary ? data.info.salary : '',
+        diploma: data.info.diploma ? data.info.diploma : '',
+        description: data.spec.description ? data.spec.description : '',
         file: data.image,
         _id: data._id,
       }
@@ -241,7 +241,7 @@ const CareerForm = ({ data }) => {
                     <p className="text-medium-emphasis">
                       {add ? 'Create' : 'Edit'} your recruitment
                     </p>
-                    <CInputGroup className="mb-3">
+                    {/* <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon="cil-layers" name="cil-layers" />
                       </CInputGroupText>
@@ -255,7 +255,7 @@ const CareerForm = ({ data }) => {
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="title" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
+                    </CInputGroup> */}
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon="cil-user" name="cil-user" />

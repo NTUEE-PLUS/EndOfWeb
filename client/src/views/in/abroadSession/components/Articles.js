@@ -113,7 +113,6 @@ const Article = ({ index, article, canEdit, startDelete, startUpdate }) => {
               <CButton
                 color="info"
                 onClick={() => {
-                  console.log('update')
                   startUpdate()
                 }}
                 style={{ width: 'min-content' }}
@@ -124,7 +123,6 @@ const Article = ({ index, article, canEdit, startDelete, startUpdate }) => {
               <CButton
                 color="danger"
                 onClick={() => {
-                  console.log('delete')
                   startDelete()
                 }}
                 className={classes.editingButton}

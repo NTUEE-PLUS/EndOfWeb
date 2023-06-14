@@ -239,19 +239,7 @@ const ProfileEdit = () => {
                       <i className="material-icons text-info mr-2">Education</i>
                     </h6>
                     <hr className="mt-1 mb-3" />
-                    <CRow className="d-none d-lg-block">
-                      <CCol sm="3">
-                        <h6 className="mb-0">Bachelor</h6>
-                      </CCol>
-                      <CCol sm="9" className="text-secondary">
-                        <CFormControl
-                          style={inputStyle}
-                          value={data.major}
-                          onChange={(e) => setData({ ...data, major: e.target.value })}
-                        />
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-block d-lg-none">
+                    <CRow className="d-block">
                       <CRow sm="3">
                         <h6 className="mb-0">Bachelor</h6>
                       </CRow>
@@ -262,19 +250,7 @@ const ProfileEdit = () => {
                       />
                     </CRow>
                     <hr className="mt-1 mb-3" />
-                    <CRow className="d-none d-lg-block">
-                      <CCol sm="3">
-                        <h6 className="mb-0">Master</h6>
-                      </CCol>
-                      <CCol sm="9" className="text-secondary">
-                        <CFormControl
-                          style={inputStyle}
-                          value={data.master}
-                          onChange={(e) => setData({ ...data, master: e.target.value })}
-                        />
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-block d-lg-none">
+                    <CRow className="d-block">
                       <CRow sm="3">
                         <h6 className="mb-0">Master</h6>
                       </CRow>
@@ -285,19 +261,7 @@ const ProfileEdit = () => {
                       />
                     </CRow>
                     <hr className="mt-1 mb-3" />
-                    <CRow className="d-none d-lg-block">
-                      <CCol sm="3">
-                        <h6 className="mb-0">Doctor</h6>
-                      </CCol>
-                      <CCol sm="9" className="text-secondary">
-                        <CFormControl
-                          style={inputStyle}
-                          value={data.doctor}
-                          onChange={(e) => setData({ ...data, doctor: e.target.value })}
-                        />
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-block d-lg-none">
+                    <CRow className="d-block">
                       <CRow sm="3">
                         <h6 className="mb-0">Doctor</h6>
                       </CRow>
@@ -318,19 +282,7 @@ const ProfileEdit = () => {
                       <i className="material-icons text-info mr-2">Current Occupation</i>
                     </h6>
                     <hr className="mt-1 mb-3" />
-                    <CRow className="d-none d-lg-block">
-                      <CCol sm="3">
-                        <h6 className="mb-0">Company</h6>
-                      </CCol>
-                      <CCol sm="9" className="text-secondary">
-                        <CFormControl
-                          style={inputStyle}
-                          value={data.Occupation.length != 0 ? data.Occupation[0].C : ''}
-                          onChange={(e) => handleOccupationChange(0, 'C', e.target.value)}
-                        />
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-block d-lg-none">
+                    <CRow className="d-block">
                       <CRow sm="3">
                         <h6 className="mb-0">Company</h6>
                       </CRow>
@@ -341,19 +293,7 @@ const ProfileEdit = () => {
                       />
                     </CRow>
                     <hr className="mt-1 mb-3" />
-                    <CRow className="d-none d-lg-block">
-                      <CCol sm="3">
-                        <h6 className="mb-0">Division</h6>
-                      </CCol>
-                      <CCol sm="9" className="text-secondary">
-                        <CFormControl
-                          style={inputStyle}
-                          value={data.Occupation.length != 0 ? data.Occupation[0].O : ''}
-                          onChange={(e) => handleOccupationChange(0, 'O', e.target.value)}
-                        />
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-block d-lg-none">
+                    <CRow className="d-block">
                       <CRow sm="3">
                         <h6 className="mb-0">Division</h6>
                       </CRow>
@@ -364,19 +304,7 @@ const ProfileEdit = () => {
                       />
                     </CRow>
                     <hr className="mt-1 mb-3" />
-                    <CRow className="d-none d-lg-block">
-                      <CCol sm="3">
-                        <h6 className="mb-0">Position</h6>
-                      </CCol>
-                      <CCol sm="9" className="text-secondary">
-                        <CFormControl
-                          style={inputStyle}
-                          value={data.Occupation.length != 0 ? data.Occupation[0].P : ''}
-                          onChange={(e) => handleOccupationChange(0, 'P', e.target.value)}
-                        />
-                      </CCol>
-                    </CRow>
-                    <CRow className="d-block d-lg-none">
+                    <CRow className="d-block">
                       <CRow sm="3">
                         <h6 className="mb-0">Position</h6>
                       </CRow>
