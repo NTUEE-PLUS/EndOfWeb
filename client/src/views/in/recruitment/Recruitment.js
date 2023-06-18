@@ -5,7 +5,17 @@ import { selectCareer, setKeywords, clearKeywords } from '../career/index'
 import CareerBlock from '../career/CareerBlock'
 import Masonry from 'react-masonry-css'
 import { Spinner } from './index'
-import { CButton, CFormControl, CInputGroup, CFormSelect } from '@coreui/react'
+import {
+  CButton,
+  CFormControl,
+  CInputGroup,
+  CFormSelect,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
+} from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import Pagination from '@material-ui/lab/Pagination'
 import { selectLogin } from '../../../slices/loginSlice'
@@ -13,6 +23,7 @@ let datas = []
 const Recruitment = () => {
   const dispatch = useDispatch()
   const { isAuth } = useSelector(selectLogin)
+  const [isModal, setIsModal] = useState(true)
   const [showData, setShowData] = useState({ data: [], maxPage: 0 })
   const { keywords } = useSelector(selectCareer)
   const [isPending, setIsPending] = useState(true)
@@ -74,6 +85,19 @@ const Recruitment = () => {
 
   return (
     <>
+      <CModal size="xl" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
+        <CModalHeader onDismiss={() => setIsModal(false)}>
+          <CModalTitle>免責聲明</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          此網站主要目的為提供系友和學生之間的交流與互助窗口，提供內推機會的學長姐們並不需對申請者負任何責任，也請申請者不要以"練習面試機會"、"投了不虧"等等心態去聯繫學長姐，導致浪費學長姐們的時間與好意，謝謝大家的配合。
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="warning" onClick={() => setIsModal(false)}>
+            我瞭解了
+          </CButton>
+        </CModalFooter>
+      </CModal>
       <div
         className="d-flex flex-column justify-content-center align-items-center mb-4"
         style={{

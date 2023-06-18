@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 import ColumnForm from './ColumnForm'
 import eesa from '../../../assets/images/eesa-icon.png'
-export { eesa }
+import Column_Background from '../../../assets/images/column_background.jpg'
+export { eesa, Column_Background }
+
 export default ColumnForm
 
 const createImage = (url) =>

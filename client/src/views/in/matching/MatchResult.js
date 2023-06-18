@@ -37,9 +37,9 @@ const MatchResult = ({ sdata, jdata, identity, ended }) => {
         <>
           {ended ? (
             identity === 'junior' && sdata === 'unmatched' ? (
-              <h3>很抱歉我們無法為您配對到適合的學長姐</h3>
+              <h3>很抱歉本次沒有適合您的學長姐能配對給您</h3>
             ) : identity === 'senior' && jdata === 'unmatched' ? (
-              <h3>感謝您願意提供經驗分享，但目前沒有需要的學弟妹</h3>
+              <h3>很抱歉本次沒有適合您的學弟妹，但我們還是很感謝您願意提供經驗分享！</h3>
             ) : (
               <>
                 <h3>配對結果尚未公佈！</h3>

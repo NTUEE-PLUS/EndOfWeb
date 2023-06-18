@@ -14,7 +14,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import Pagination from '@material-ui/lab/Pagination'
-import { Spinner, default_male } from './index'
+import { Spinner, default_male, Column_Background } from './index'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogin } from '../../../slices/loginSlice'
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     height: '25rem',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     position: 'relative',
   },
   cardActions: {
@@ -147,7 +147,7 @@ const ColumnSummary = () => {
             <Link to={'/column_summary/' + art.id}>
               <CardMedia
                 className={classes.media}
-                image={art.imgSrc}
+                image={art.imgSrc ? art.imgSrc : Column_Background}
                 title="Contemplative Reptile"
               />
               <CardContent>

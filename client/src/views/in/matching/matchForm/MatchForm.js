@@ -96,8 +96,7 @@ const MatchForm = () => {
     }
   }
   const handleInputArray = (e) => {
-    const a = strToArray(e.target.value)
-    setDataForm({ ...dataForm, [e.target.name]: a })
+    setDataForm({ ...dataForm, [e.target.name]: e.target.value })
     if (requiredStyle.hasOwnProperty(e.target.name)) {
       if (e.target.value === '')
         setRequiredStyle({ ...requiredStyle, [e.target.name]: 'border-3 border-danger' })
@@ -123,6 +122,8 @@ const MatchForm = () => {
       alert('please fill in correct gpa')
       return
     }
+    const a = strToArray(dataForm.admission)
+    setDataForm({ ...dataForm, admission: a })
     axios
       .post('/api/study/fillForm', dataForm)
       .then(() => {

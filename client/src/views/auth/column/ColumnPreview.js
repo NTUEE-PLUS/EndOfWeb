@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CButton, CWidgetBrand } from '@coreui/react'
-import { eesa } from './index'
+import { Column_Background } from './index'
 
 const ColumnPreview = ({ post, annotation, title, body, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -46,7 +46,11 @@ const ColumnPreview = ({ post, annotation, title, body, anno, exp, edu, intro })
       <CWidgetBrand
         className="pt-4 widgetbrand"
         headerChildren={
-          <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
+          <img
+            className="eesa img-fluid"
+            src={previewURL ? previewURL : Column_Background}
+            alt="column_image"
+          />
         }
         values={[[title]]}
       />

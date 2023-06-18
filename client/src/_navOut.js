@@ -57,6 +57,13 @@ const _navOut = [
     to: '/home/#contact',
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
   },
+  {
+    _component: 'CNavItem',
+    as: NavHashLink,
+    anchor: 'SPONSORS',
+    to: '/home/#sponsors',
+    icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
+  },
 ]
 
 export default _navOut

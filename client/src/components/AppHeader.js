@@ -74,11 +74,11 @@ const AppHeader = () => {
         >
           <CIcon icon="cil-menu" name="cil-menu" size="lg" />
         </CHeaderToggler>
-        <CHeaderBrand className="d-flex justify-content-center mx-auto d-md-none" to="/">
+        {/* <CHeaderBrand className="d-flex justify-content-center mx-auto d-md-none" to="/">
           <CImage src={logo_row} fluid width="50%" />
-        </CHeaderBrand>
+        </CHeaderBrand> */}
 
-        <CHeaderNav className="d-none d-md-flex me-auto">
+        <CHeaderNav className="d-flex me-auto">
           {isLogin ? (
             <CNavItem>
               <CInputGroup>
@@ -100,11 +100,11 @@ const AppHeader = () => {
           )}
         </CHeaderNav>
         {isLogin ? (
-          <CHeaderNav className="ms-3 d-none d-md-block">
+          <CHeaderNav className="ms-3 d-block">
             <AppHeaderDropdown />
           </CHeaderNav>
         ) : (
-          <CHeaderNav className="d-none d-md-block">
+          <CHeaderNav className="d-block">
             <CNavLink to="/login" component={NavLink}>
               <CButton>Login</CButton>
             </CNavLink>

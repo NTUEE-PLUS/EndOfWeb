@@ -44,7 +44,7 @@ const AppSidebar = () => {
       onHide={() => dispatch(sidebarHide())}
     >
       <CSidebarBrand className="bg-white" to="/">
-        <CImage className="d-none d-md-flex pt-1 bg-white text-dark" src={logo_row} width="80%" />
+        <CImage className="d-flex pt-1 bg-white text-dark" src={logo_row} width="80%" />
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
@@ -54,9 +54,9 @@ const AppSidebar = () => {
             </CHeaderNav>
           ) : (
             <CHeaderNav className=" d-flex d-md-none">
-              <CNavLink to="/login" component={NavLink}>
+              {/* <CNavLink to="/login" component={NavLink}>
                 <CButton>Login</CButton>
-              </CNavLink>
+              </CNavLink> */}
             </CHeaderNav>
           )}
           <CCreateNavItem items={chNav()} />

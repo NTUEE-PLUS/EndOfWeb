@@ -9,6 +9,7 @@ import Team from './team'
 import Services from './services'
 import Interviews from './interviews'
 import Header from './header'
+import Sponsor from './sponsor'
 
 const Home = () => {
   useEffect(() => {
@@ -32,6 +33,7 @@ const Home = () => {
       <History />
       <Team />
       <Contact />
+      <Sponsor />
     </div>
   )
 }
