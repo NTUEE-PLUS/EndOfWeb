@@ -27,14 +27,15 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
   const checkFormData = (data) => {
     const YTlinkRegExp =
       /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)(?<videoId>[a-zA-Z0-9_-]{11})/
-    const required = ['title', 'intro', 'YTlink', 'img']
+    const required = ['title', 'intro', 'img']
 
     const lack = required.filter((v) => !data[v])
     if (lack.length) {
       alert(`${lack.join(', ')} is required`)
       return false
     }
-    if (!data.YTlink.match(YTlinkRegExp)) {
+    // only check Ytlink format if there is
+    if (data.YTlink && !data.YTlink.match(YTlinkRegExp)) {
       alert(`The YTlink "${data.YTlink}" doesn't match the required format`)
       return false
     }
@@ -78,7 +79,9 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
     const form = new FormData()
     form.append('title', data.title)
     form.append('intro', data.intro)
-    form.append('YTlink', data.YTlink)
+    if (data.YTlink) form.append('YTlink', data.YTlink)
+    else form.append('noYTlink', '1') // for remove YTlink at update(cannot send empty message)
+
     const blob = await fetch(data.img).then((res) => res.blob())
     form.append('img', blob, '.' + blob.type.replace('image/', ''))
     const config = { 'content-type': 'multipart/form-data' }
@@ -101,7 +104,7 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
     } else {
       form.append('_id', data._id)
       await axios
-        .patch('/api/updateAbroadSharing', form, { ...config })
+        .patch('/api/updateAbroadSharing', form, config)
         .then(() => alert('已更新'))
         .then(() => refresh())
         .catch((err) => {

@@ -25,7 +25,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const updateAbroadSharing = async (req, res, next) => {
-  const { _id, title, intro, YTlink, otherLinks, otherLinksDesc } = req.body
+  const { _id, title, intro, YTlink, noYTlink, otherLinks, otherLinksDesc } = req.body
   if (!_id) throw new ErrorHandler(403, 'please provide _id')
   const obj = await abroad_sharing.findOne({ _id }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
@@ -34,12 +34,11 @@ const updateAbroadSharing = async (req, res, next) => {
     throw new ErrorHandler(
       `length of otherLinks should be the same as descriptions, but is ${otherLinks?.length} and ${otherLinksDesc?.length}`,
     )
-
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   const toSet = updateQuery({
     title,
     intro,
-    YTlink,
+    YTlink: noYTlink && !YTlink ? '' : YTlink,
     otherLinks: otherLinks?.length
       ? otherLinks.map((v, i) => ({ link: v, desc: otherLinksDesc[i] }))
       : [],

@@ -22,7 +22,7 @@ const { parseFile } = require('../../../Schemas/query')
  */
 const addAbroadSharing = async (req, res) => {
   const { title, intro, YTlink, otherLinks, otherLinksDesc } = req.body
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   if (!otherLinks?.length === otherLinksDesc?.length)
     throw new ErrorHandler(
       `length of otherLinks should be the same as descriptions, but is ${otherLinks?.length} and ${otherLinksDesc?.length}`,

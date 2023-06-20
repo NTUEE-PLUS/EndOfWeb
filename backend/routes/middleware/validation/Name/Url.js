@@ -17,12 +17,13 @@ module.exports = ({ field = [], type = 'URL' }) => {
               }
             })
           }
-          return true
         } else {
-          if (!judgeURL(req.body[q])) {
+          //* "Url" only judges whether a string is URL or not. The existence will be check by "required"
+          if (req.body[q] && !judgeURL(req.body[q])) {
             throw new Error(`${q} must be URL, but receive ${req.body[q]}`)
           }
         }
+        return true
       })
       next() // If there are no errors, call the next middleware function
     } catch (err) {
