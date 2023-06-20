@@ -7,7 +7,6 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiGroup In/abroadSharing
  * @apiDescription 拿留學分享資訊
  *
- * @apiSuccess (201) {String} image  圖片
  * @apiSuccess (201) {String} title  標題
  * @apiSuccess (201) {String} intro  介紹
  * @apiSuccess (201) {URL} YTlink youtube連結
@@ -20,9 +19,9 @@ const { dbCatch, ErrorHandler } = require('../../../error')
 const getoneAbroadSharing = async (req, res, next) => {
   const { _id } = req.query
   if (!_id) throw new ErrorHandler(403, 'please provide _id')
-  const sharing = await abroad_sharing.findOne({ _id }).catch(dbCatch)
+  const sharing = await abroad_sharing.findOne({ _id }).select('-img').catch(dbCatch)
   if (!sharing) throw new ErrorHandler(404, '資料不存在')
-  res.set({ 'cache-control': 'private, max-age=432000' })
+  res.set({ 'cache-control': 'private, max-age=60' })
   res.status(201).send(sharing.getPublic())
 }
 const valid = require('../../../middleware/validation')

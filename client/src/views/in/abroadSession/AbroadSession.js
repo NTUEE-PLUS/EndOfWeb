@@ -16,9 +16,12 @@ const AbroadSession = () => {
   const [ascTime, setAscTime] = useState(false)
   const { id, pageNum, searchFor } = useParams()
   const isSearchPage = id === 'search' || !id
-  const getImage = (_id) =>
+  const getImage = (_id, refresh = false) =>
     axios
-      .get('/api/getAbroadSharingImg', { params: { _id } })
+      .get('/api/getAbroadSharingImg', {
+        params: { _id },
+        headers: refresh ? { 'Cache-Control': 'no-cache' } : {},
+      })
       .then((d) => d.data.imgSrc || null)
       .catch((e) => console.log('error:', e.message))
 
@@ -48,7 +51,7 @@ const AbroadSession = () => {
           Promise.all(
             data.map(async (value) => ({
               ...value,
-              img: await getImage(value._id),
+              img: await getImage(value._id, refresh),
             })),
           ),
         )
