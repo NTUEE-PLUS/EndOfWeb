@@ -34,8 +34,7 @@ const updateAbroadSharing = async (req, res, next) => {
     throw new ErrorHandler(
       `length of otherLinks should be the same as descriptions, but is ${otherLinks?.length} and ${otherLinksDesc?.length}`,
     )
-
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   const toSet = updateQuery({
     title,
     intro,
