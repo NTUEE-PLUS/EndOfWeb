@@ -25,7 +25,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const updateAbroadSharing = async (req, res, next) => {
-  const { _id, title, intro, YTlink, noYTlink, otherLinks, otherLinksDesc } = req.body
+  const { _id, title, intro, YTlink, otherLinks, otherLinksDesc } = req.body
   if (!_id) throw new ErrorHandler(403, 'please provide _id')
   const obj = await abroad_sharing.findOne({ _id }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
@@ -38,7 +38,7 @@ const updateAbroadSharing = async (req, res, next) => {
   const toSet = updateQuery({
     title,
     intro,
-    YTlink: noYTlink && !YTlink ? '' : YTlink,
+    YTlink,
     otherLinks: otherLinks?.length
       ? otherLinks.map((v, i) => ({ link: v, desc: otherLinksDesc[i] }))
       : [],

@@ -79,8 +79,7 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
     const form = new FormData()
     form.append('title', data.title)
     form.append('intro', data.intro)
-    if (data.YTlink) form.append('YTlink', data.YTlink)
-    else form.append('noYTlink', '1') // for remove YTlink at update(cannot send empty message)
+    form.append('YTlink', data.YTlink)
 
     const blob = await fetch(data.img).then((res) => res.blob())
     form.append('img', blob, '.' + blob.type.replace('image/', ''))
