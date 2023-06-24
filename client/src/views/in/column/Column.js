@@ -32,9 +32,11 @@ const Column = () => {
           .catch((err) => {
             err.response.data.description && alert('錯誤\n' + err.response.data.description)
           }),
-        axios.get('/api/column/outline', { params: { id: id } }).then((res) => {
-          temp = { ...temp, ...res.data.data[0] }
-        }),
+        axios
+          .get('/api/column/outline', { params: { id: id, selection: '-columnImg' } }) // seems the image is not used(actually, whole outline is not used?)
+          .then((res) => {
+            temp = { ...temp, ...res.data.data[0] }
+          }),
       ]).then(() => {
         setData(temp)
       })

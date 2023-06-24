@@ -12,6 +12,7 @@ const { findWithLimit } = require('../../../Schemas/query')
  * @apiparam {String} id id(optional,若未給則送全部)
  * @apiparam {String} perpage 一頁數量(optional,default 5)
  * @apiparam {String} page 頁數(optional,default 1)
+ * @apiparam {String} selection mongoDB select參數(optional,default '')
  * 
  *
  * @apiSuccessExample {json} Success-Response:
@@ -31,9 +32,17 @@ const { findWithLimit } = require('../../../Schemas/query')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const getOut = async (req, res, next) => {
-  const { id, page, perpage } = req.query
+  const { id, page, perpage, selection } = req.query
   const query = id ? { id } : {}
-  const [columnOutlines, maxPage] = await findWithLimit(Column_Outline, query, page, perpage)
+  const [columnOutlines, maxPage] = await findWithLimit(
+    Column_Outline,
+    query,
+    page,
+    perpage,
+    selection || '',
+  )
+  // * assume that images won't change frequently(max-age=2 days)
+  if (selection === 'columnImg') res.set({ 'Cache-Control': 'private, max-age=172,800' })
   return res
     .status(201)
     .send({ data: columnOutlines.reverse().map((col) => col.getPublic()), maxPage })

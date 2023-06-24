@@ -83,14 +83,43 @@ const ColumnSummary = () => {
   const { page, keywords, isSearch } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
   const { isAuth, isLogin } = useSelector(selectLogin)
+
+  const setImage = (id, imgSrc) => {
+    setData((wholeData) => ({
+      ...wholeData,
+      data: wholeData.data.map((singleData) => {
+        if (singleData.id === id) singleData.imgSrc = imgSrc
+        return singleData
+      }),
+    }))
+  }
+  const getAndSetImages = async (imgLessData) =>
+    Promise.all(
+      imgLessData.map((ildata) =>
+        axios
+          .get('/api/column/outline', {
+            params: { id: ildata.id, selection: 'columnImg' },
+          })
+          .then((res) => setImage(ildata.id, res.data.data[0].imgSrc))
+          .catch((err) => {
+            err.response.data.description && alert('錯誤\n' + err.response.data.description)
+          }),
+      ),
+    )
+
   const getData = () => {
     setIsPending(true)
     axios
       .get('/api/column/outline', {
-        params: { perpage: postsPerPage.toString(), page: page.toString() },
+        params: {
+          perpage: postsPerPage.toString(),
+          page: page.toString(),
+          selection: '-columnImg',
+        },
       })
       .then((res) => {
         setData(res.data)
+        getAndSetImages(res.data.data)
         setIsPending(false)
       })
       .catch((err) => {
@@ -105,9 +134,12 @@ const ColumnSummary = () => {
       dispatch(setIsSearch(true))
       setIsPending(true)
       axios
-        .get('/api/column/search', { params: { keyword: keywords, page: page } })
+        .get('/api/column/search', {
+          params: { keyword: keywords, page: page, selection: '-columnImg' },
+        })
         .then((res) => {
           setData(res.data)
+          getAndSetImages(res.data.data)
           setIsPending(false)
         })
         .catch((err) => {

@@ -13,6 +13,7 @@ const { dbCatch } = require('../../../error')
  * @apiparam {String} hashtags 用hashtags搜尋
  * @apiparam {String} perpage 一頁數量(optional,default 5)
  * @apiparam {String} page 頁數(optional,default 1)
+ * @apiparam {String} selection mongoDB selected field(optional,default empty string)
  *
  * @apiSuccessExample {json} Success-Response:
  * {data:
@@ -34,7 +35,7 @@ const { dbCatch } = require('../../../error')
  */
 
 const srhCol = async (req, res, next) => {
-  const { hashtags, keyword, page, perpage } = req.query
+  const { hashtags, keyword, page, perpage, selection } = req.query
   let queryId = []
   const task1 = async () => {
     if (hashtags) {
@@ -67,7 +68,9 @@ const srhCol = async (req, res, next) => {
   const toSkip = p >= maxPage ? 0 : totalData - pp * p
   const toLim = p >= maxPage ? totalData - pp * (maxPage - 1) : pp
   const query = queryId.slice(toSkip, toSkip + toLim)
-  const columnOulines = await Column_Outline.find({ id: { $in: query } }).catch(dbCatch)
+  const columnOulines = await Column_Outline.find({ id: { $in: query } })
+    .select(selection || '')
+    .catch(dbCatch)
   console.log('find done')
   return res
     .status(201)
