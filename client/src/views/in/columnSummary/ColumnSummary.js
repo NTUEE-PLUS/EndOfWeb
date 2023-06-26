@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { CButton, CFormControl, CInputGroup } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -24,6 +24,7 @@ import {
   setKeywords,
   setIsSearch,
 } from '../../../slices/columnSummarySlice'
+import ImageLoader from './ImageLoader'
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -84,28 +85,18 @@ const ColumnSummary = () => {
   const [isPending, setIsPending] = useState(true)
   const { isAuth, isLogin } = useSelector(selectLogin)
 
-  const setImage = (id, imgSrc) => {
-    setData((wholeData) => ({
-      ...wholeData,
-      data: wholeData.data.map((singleData) => {
-        if (singleData.id === id) singleData.imgSrc = imgSrc
-        return singleData
-      }),
-    }))
-  }
-  const getAndSetImages = async (imgLessData) =>
-    Promise.all(
-      imgLessData.map((ildata) =>
-        axios
-          .get('/api/column/outline', {
-            params: { id: ildata.id, selection: 'columnImg' },
-          })
-          .then((res) => setImage(ildata.id, res.data.data[0].imgSrc))
-          .catch((err) => {
-            err.response.data.description && alert('錯誤\n' + err.response.data.description)
-          }),
-      ),
-    )
+  const imgFetcher = useCallback(
+    (imgId) =>
+      axios
+        .get('/api/column/outline', {
+          params: { id: imgId, selection: 'columnImg' },
+        })
+        .then((res) => res.data.data[0].imgSrc)
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        }),
+    [],
+  )
 
   const getData = () => {
     setIsPending(true)
@@ -119,7 +110,6 @@ const ColumnSummary = () => {
       })
       .then((res) => {
         setData(res.data)
-        getAndSetImages(res.data.data)
         setIsPending(false)
       })
       .catch((err) => {
@@ -139,7 +129,6 @@ const ColumnSummary = () => {
         })
         .then((res) => {
           setData(res.data)
-          getAndSetImages(res.data.data)
           setIsPending(false)
         })
         .catch((err) => {
@@ -177,10 +166,13 @@ const ColumnSummary = () => {
         <Grid className="my-4" item xs={12} md={12} key={index}>
           <Card className={classes.card}>
             <Link to={'/column_summary/' + art.id}>
-              <CardMedia
+              <ImageLoader
                 className={classes.media}
-                image={art.imgSrc ? art.imgSrc : Column_Background}
+                defaultimg={Column_Background}
                 title="Contemplative Reptile"
+                imgFetcher={imgFetcher}
+                imgId={art.id}
+                createImgComponent={({ src, ...props }) => <CardMedia image={src} {...props} />}
               />
               <CardContent>
                 <Typography gutterBottom variant="h3" component="h3">
