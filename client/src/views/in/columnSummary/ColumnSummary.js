@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { CButton, CFormControl, CInputGroup } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -24,6 +24,7 @@ import {
   setKeywords,
   setIsSearch,
 } from '../../../slices/columnSummarySlice'
+import ImageLoader from './ImageLoader'
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -83,11 +84,29 @@ const ColumnSummary = () => {
   const { page, keywords, isSearch } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
   const { isAuth, isLogin } = useSelector(selectLogin)
+
+  const imgFetcher = useCallback(
+    (imgId) =>
+      axios
+        .get('/api/column/outline', {
+          params: { id: imgId, selection: 'columnImg' },
+        })
+        .then((res) => res.data.data[0].imgSrc)
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        }),
+    [],
+  )
+
   const getData = () => {
     setIsPending(true)
     axios
       .get('/api/column/outline', {
-        params: { perpage: postsPerPage.toString(), page: page.toString() },
+        params: {
+          perpage: postsPerPage.toString(),
+          page: page.toString(),
+          selection: '-columnImg',
+        },
       })
       .then((res) => {
         setData(res.data)
@@ -105,7 +124,9 @@ const ColumnSummary = () => {
       dispatch(setIsSearch(true))
       setIsPending(true)
       axios
-        .get('/api/column/search', { params: { keyword: keywords, page: page } })
+        .get('/api/column/search', {
+          params: { keyword: keywords, page: page, selection: '-columnImg' },
+        })
         .then((res) => {
           setData(res.data)
           setIsPending(false)
@@ -145,10 +166,13 @@ const ColumnSummary = () => {
         <Grid className="my-4" item xs={12} md={12} key={index}>
           <Card className={classes.card}>
             <Link to={'/column_summary/' + art.id}>
-              <CardMedia
+              <ImageLoader
                 className={classes.media}
-                image={art.imgSrc ? art.imgSrc : Column_Background}
+                defaultimg={Column_Background}
                 title="Contemplative Reptile"
+                imgFetcher={imgFetcher}
+                imgId={art.id}
+                createImgComponent={({ src, ...props }) => <CardMedia image={src} {...props} />}
               />
               <CardContent>
                 <Typography gutterBottom variant="h3" component="h3">

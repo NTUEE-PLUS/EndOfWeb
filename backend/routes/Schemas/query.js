@@ -37,9 +37,10 @@ const searchQuery = (obj) => {
  * @param {json} query
  * @param {Number} page (default 1)
  * @param {Number} perpage (default 5)
+ * @param {String} selection (default '')
  * @returns [documents,maxPage]
  */
-const findWithLimit = async (Collection, query, page, perpage) => {
+const findWithLimit = async (Collection, query, page, perpage, selection = '') => {
   const p = parseInt(page ? page : 1)
   const pp = parseInt(perpage && perpage > 0 ? perpage : 5)
   const totalData = await Collection.countDocuments(query).catch(dbCatch)
@@ -47,7 +48,11 @@ const findWithLimit = async (Collection, query, page, perpage) => {
   if (p > maxPage) return [[], maxPage]
   const toSkip = p >= maxPage ? 0 : totalData - pp * p
   const toLim = p >= maxPage ? totalData - pp * (maxPage - 1) : pp
-  const docs = await Collection.find(query).skip(toSkip).limit(toLim).catch(dbCatch)
+  const docs = await Collection.find(query)
+    .skip(toSkip)
+    .limit(toLim)
+    .select(selection)
+    .catch(dbCatch)
   return [docs, maxPage]
 }
 /*
