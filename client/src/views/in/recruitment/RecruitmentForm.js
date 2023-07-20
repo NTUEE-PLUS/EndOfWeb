@@ -34,6 +34,7 @@ const CareerForm = ({ data }) => {
         title: new Date().toLocaleTimeString(),
         type: 'intern',
         companyName: '',
+        email: '',
         workType: '',
         salary: '',
         diploma: '',
@@ -45,6 +46,7 @@ const CareerForm = ({ data }) => {
         type: data.title.type,
         companyName: data.title.company_name,
         workType: data.title.work_type,
+        email: data.info.email ? data.info.email : '',
         salary: data.info.salary ? data.info.salary : '',
         diploma: data.info.diploma ? data.info.diploma : '',
         description: data.spec.description ? data.spec.description : '',
@@ -141,6 +143,7 @@ const CareerForm = ({ data }) => {
     const data = new FormData()
     data.append('title', dataForm.title)
     data.append('company_name', dataForm.companyName)
+    data.append('email', dataForm.email)
     data.append('work_type', dataForm.workType)
     data.append('salary', dataForm.salary)
     data.append('diploma', dataForm.diploma)
@@ -287,6 +290,20 @@ const CareerForm = ({ data }) => {
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="companyName" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-send" name="cil-send" />
+                      </CInputGroupText>
+                      <CFormControl
+                        data-for="email"
+                        data-tip="Enter your contact email"
+                        placeholder="Email"
+                        value={dataForm.email}
+                        name="email"
+                        onChange={handleInputChange}
+                      />
+                      <ReactTooltip id="email" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>

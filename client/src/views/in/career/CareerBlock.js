@@ -102,18 +102,25 @@ const CareerBlock = ({ post, isAuth }) => {
                 <></>
               )}
             </h3>
+            {post.info.email && (
+              <>
+                <h4 style={{ lineHeight: '2.3rem', fontSize: '1.3rem' }}>{post.info.email}</h4>
+              </>
+            )}
             <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>
               $ {post.info.salary}
             </h2>
-            {post.info.diploma && (
-              <>
-                <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h4>
-                <div style={{ lineHeight: '2.3rem', fontSize: '1.3rem' }}>{post.info.diploma}</div>
-              </>
-            )}
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
             {isExpand && (
               <>
+                {post.info.diploma && (
+                  <>
+                    <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h4>
+                    <div style={{ lineHeight: '2.3rem', fontSize: '1.3rem' }}>
+                      {post.info.diploma}
+                    </div>
+                  </>
+                )}
                 {post.info.experience.length !== 0 && post.info.experience[0] !== '' && (
                   <>
                     <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h4>

@@ -220,7 +220,7 @@ const MatchForm = () => {
                   )}
                   <CInputGroup className="mb-4">
                     <CInputGroupText>
-                      <CIcon icon="cil-building" />
+                      <CIcon icon="cil-send" />
                     </CInputGroupText>
                     <CFormControl
                       className={requiredStyle.email}

@@ -18,6 +18,7 @@ const { findWithLimit } = require('../../../Schemas/query')
  * @apiSuccess (201) {String} -.title.company_name 公司名稱
  * @apiSuccess (201) {String} -.title.work_type 職位(ex.前端工程師)
  * @apiSuccess (201) {Object} -.info 工作資訊
+ * @apiSuccess (201) {String} -.info.email 聯絡信箱
  * @apiSuccess (201) {String} -.info.salary 薪資
  * @apiSuccess (201) {String[]} -.info.experience 經驗要求
  * @apiSuccess (201) {String} -.info.diploma 學院要求
