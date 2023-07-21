@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { selectLogin } from '../../../slices/loginSlice'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
 import CareerImageEditor from '../../components/CareerImageEditor'
@@ -29,12 +30,13 @@ import CIcon from '@coreui/icons-react'
 import CareerPreview from '../career/CareerPreview'
 const CareerForm = ({ data }) => {
   const add = data ? false : true
+  const { email: userEmail } = useSelector(selectLogin)
   const formTemplate = add
     ? {
         title: new Date().toLocaleTimeString(),
         type: 'intern',
         companyName: '',
-        email: '',
+        email: userEmail,
         workType: '',
         salary: '',
         diploma: '',
@@ -296,14 +298,14 @@ const CareerForm = ({ data }) => {
                         <CIcon icon="cil-send" name="cil-send" />
                       </CInputGroupText>
                       <CFormControl
-                        data-for="email"
+                        data-for="mail"
                         data-tip="Enter your contact email"
                         placeholder="Email"
                         value={dataForm.email}
                         name="email"
                         onChange={handleInputChange}
                       />
-                      <ReactTooltip id="email" place="top" type="dark" effect="solid" />
+                      <ReactTooltip id="mail" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
