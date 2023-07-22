@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CButton, CAvatar } from '@coreui/react'
-import { eesa } from './index'
+import { eesa, FormattedText } from './index'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
-import parser from 'html-react-parser'
-import { urlsToLinks } from './index'
 
 const CareerBlock = ({ post, isAuth }) => {
   const location = useLocation()
@@ -136,7 +134,7 @@ const CareerBlock = ({ post, isAuth }) => {
                 {post.spec.description && (
                   <>
                     <h4 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h4>
-                    <h5>{parser(urlsToLinks(post.spec.description))}</h5>
+                    <FormattedText text={post.spec.description} />
                   </>
                 )}
                 <button onClick={() => setIsExpand(false)}>Show less...</button>

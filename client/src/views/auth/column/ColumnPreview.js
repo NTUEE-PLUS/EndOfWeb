@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CButton, CWidgetBrand } from '@coreui/react'
 import { Column_Background } from './index'
+import { eesa } from './index'
 
 const ColumnPreview = ({ post, annotation, title, body, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -92,8 +93,8 @@ const ColumnPreview = ({ post, annotation, title, body, anno, exp, edu, intro })
                 {subtitle(body.bigtitle)}
                 {body.bigsections.map((bigsection, sectionIdx) => (
                   <div key={sectionIdx}>
-                    {section(bigsection.subtitle)}
-                    {content(bigsection.subsection)}
+                    <h3>{bigsection.subtitle}</h3>
+                    <FormattedText text={bigsection.subsection} />
                   </div>
                 ))}
               </div>
