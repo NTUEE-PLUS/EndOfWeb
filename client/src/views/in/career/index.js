@@ -3,7 +3,16 @@ import { selectCareer, setKeywords, clearKeywords } from '../../../slices/career
 import eesa from '../../../assets/images/eesa-icon.png'
 import Recruitment_image from '../../../assets/images/Recruitment.png'
 import Recommendation_image from '../../../assets/images/Recommendation.png'
-export { selectCareer, setKeywords, clearKeywords, eesa, Recommendation_image, Recruitment_image }
+import FormattedText from '../../components/FormattedText'
+export {
+  selectCareer,
+  setKeywords,
+  clearKeywords,
+  eesa,
+  Recommendation_image,
+  Recruitment_image,
+  FormattedText,
+}
 export default Career
 
 const createImage = (url) =>

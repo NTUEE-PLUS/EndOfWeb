@@ -96,7 +96,8 @@ const MatchForm = () => {
     }
   }
   const handleInputArray = (e) => {
-    setDataForm({ ...dataForm, [e.target.name]: e.target.value })
+    const a = strToArray(e.target.value)
+    setDataForm({ ...dataForm, [e.target.name]: a })
     if (requiredStyle.hasOwnProperty(e.target.name)) {
       if (e.target.value === '')
         setRequiredStyle({ ...requiredStyle, [e.target.name]: 'border-3 border-danger' })
@@ -122,8 +123,6 @@ const MatchForm = () => {
       alert('please fill in correct gpa')
       return
     }
-    const a = strToArray(dataForm.admission)
-    setDataForm({ ...dataForm, admission: a })
     axios
       .post('/api/study/fillForm', dataForm)
       .then(() => {
@@ -138,7 +137,7 @@ const MatchForm = () => {
     await axios
       .get('/api/study/form')
       .then((res) => {
-        const { degree: deg, hasPaper: hp, endTime: et } = res.data
+        const { degree: deg, hasPaper: hpaper, endTime: et } = res.data
         if (et) {
           const [year, month, day, h_m] = et.split('-')
           const [hour, min] = h_m.split(':')
@@ -151,8 +150,8 @@ const MatchForm = () => {
           degs[degg] = true
           setDegrees(degs)
         }
-        if (hp) {
-          const hp = Number(hp)
+        if (hpaper) {
+          const hp = Number(hpaper)
           let hps = Array(4).fill(false)
           hps[hp] = true
           setHasPapers(hps)
