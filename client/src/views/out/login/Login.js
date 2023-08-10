@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectLogin, login } from '../../../slices/loginSlice'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, Link, useLocation } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login'
 import axios from 'axios'
 import {
@@ -27,6 +27,9 @@ const LoginFormTemplate = {
 }
 
 const Login = () => {
+  const { search } = useLocation()
+  const redirectURL = new URLSearchParams(search).get('pathFrom') || '/home'
+
   const dispatch = useDispatch()
   const { isLogin } = useSelector(selectLogin)
   const [needRegister, setNeedRegister] = useState(false)
@@ -98,7 +101,7 @@ const Login = () => {
       })
   }
   if (isLogin) {
-    return <Redirect to="/home"></Redirect>
+    return <Redirect to={redirectURL}></Redirect>
   } else if (needRegister) {
     return <Redirect to="/register_entry"></Redirect>
   } else {

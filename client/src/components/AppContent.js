@@ -18,6 +18,26 @@ import { AppBackground, AppFallbackRender } from '.'
 // routes config
 import { routes_out, routes_in, routes_auth } from '../routes'
 
+// for redirecting to login page
+const getSearchParamsStr = (searchParams) => {
+  if (!Array.isArray(searchParams)) return ''
+  const searchParamsObj = new URLSearchParams()
+  searchParams.forEach(({ name, value }) => name && searchParamsObj.set(name, value))
+  return searchParamsObj.toString()
+}
+// eslint-disable-next-line react/prop-types
+const RedirectEleWithPathLogged = ({ to, ...props }) => {
+  const { pathname, search } = useLocation()
+  const fullpath = pathname + search
+  return (
+    <Redirect
+      to={`${to}?${getSearchParamsStr([{ name: 'pathFrom', value: fullpath }])}`}
+      {...props}
+    />
+  )
+}
+// end of redirecting to login page
+
 const AppContent = () => {
   const ContentStyle = {
     maxWidth: `100%`,
@@ -78,25 +98,27 @@ const AppContent = () => {
             )
           })}
           {/* {!isLogin ? <Redirect to="/home" /> : null} */}
-          {isLogin
-            ? routes_in.map((route, idx) => {
-                return (
-                  route.component && (
-                    <Route
-                      key={idx}
-                      path={route.path}
-                      exact={route.exact}
-                      name={route.name}
-                      render={(props) => (
-                        <ErrorBoundary fallbackRender={AppFallbackRender}>
-                          <route.component {...props} />
-                        </ErrorBoundary>
-                      )}
-                    />
-                  )
-                )
-              })
-            : null}
+          {routes_in.map((route, idx) => {
+            return (
+              route.component && (
+                <Route
+                  key={idx}
+                  path={route.path}
+                  exact={route.exact}
+                  name={route.name}
+                  render={(props) =>
+                    isLogin ? (
+                      <ErrorBoundary fallbackRender={AppFallbackRender}>
+                        <route.component {...props} />
+                      </ErrorBoundary>
+                    ) : (
+                      <RedirectEleWithPathLogged to="/login" />
+                    )
+                  }
+                />
+              )
+            )
+          })}
           {isAuth
             ? routes_auth.map((route, idx) => {
                 return (
