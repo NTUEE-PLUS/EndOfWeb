@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { CButton, CWidgetBrand } from '@coreui/react'
 import { Column_Background } from './index'
 import { eesa } from './index'
+import FormattedText from '../../components/FormattedText'
 
 const ColumnPreview = ({ post, annotation, title, body, anno, exp, edu, intro }) => {
   const [isExpand, setIsExpand] = useState(false)
