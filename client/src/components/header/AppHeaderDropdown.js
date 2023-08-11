@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { logout, clearImgSrc, clearStudentInfo, selectLogin } from '../../slices/loginSlice'
 import {
   CAvatar,
@@ -17,6 +17,7 @@ import axios from 'axios'
 
 const AppHeaderDropdown = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { imgSrc, studentID } = useSelector(selectLogin)
   const handleLogOut = (e) => {
     e.preventDefault()
@@ -27,6 +28,7 @@ const AppHeaderDropdown = () => {
         dispatch(logout())
         dispatch(clearImgSrc())
         dispatch(clearStudentInfo())
+        history.push('/home')
       })
       .catch((err) => {
         console.log(err)
