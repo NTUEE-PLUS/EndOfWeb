@@ -10,6 +10,7 @@ const Recruitment_Schema = new Schema({
     work_type: String,
   },
   info: {
+    email: String,
     salary: String,
     experience: [String],
     diploma: String,
@@ -49,6 +50,7 @@ Recruitment_Schema.statics.smartQuery = function (keywords) {
       { 'title.title': reg },
       { 'title.company_name': reg },
       { 'title.work_type': reg },
+      { 'info.email': reg },
       { 'info.salary': reg },
       { 'info.experience': reg },
       { 'info.diploma': reg },

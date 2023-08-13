@@ -14,6 +14,7 @@ const asyncHandler = require('express-async-handler')
  * 
  * @apiparam {String} title 職缺標題
  * @apiparam {String} company_name 公司名稱
+ * @apiparam {String} email 聯絡信箱
  * @apiparam {String} work_type 職位(ex.前端工程師)
  * @apiparam {String} salary 薪資
  * @apiparam {String[]} experience 經驗要求
@@ -33,6 +34,7 @@ const addRecru = async (req, res) => {
     title,
     type,
     company_name,
+    email,
     work_type,
     salary,
     experience,
@@ -51,6 +53,7 @@ const addRecru = async (req, res) => {
       work_type,
     },
     info: {
+      email,
       salary,
       experience,
       diploma,
@@ -71,7 +74,16 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'type', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
+    field: [
+      'title',
+      'type',
+      'company_name',
+      'email',
+      'work_type',
+      'salary',
+      'diploma',
+      'description',
+    ],
     type: 'string',
   },
   { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },

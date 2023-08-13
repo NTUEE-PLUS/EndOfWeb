@@ -13,6 +13,7 @@ const updateRecruitment = async (req, res, next) => {
     title,
     type,
     company_name,
+    email,
     work_type,
     salary,
     experience,
@@ -25,6 +26,7 @@ const updateRecruitment = async (req, res, next) => {
     'title.type': type,
     'title.company_name': company_name,
     'title.work_type': work_type,
+    'info.email': email,
     'info.salary': salary,
     'info.experience': experience,
     'info.diploma': diploma,
@@ -50,6 +52,7 @@ const updateRecruitment = async (req, res, next) => {
  * @apiparam {String} _id 要更新職缺的mongodb _id
  * @apiparam {String} title 職缺標題(optional)
  * @apiparam {String} company_name 公司名稱(optional)
+ * @apiparam {String} email 聯絡信箱(optional)
  * @apiparam {String} work_type 職位(ex.前端工程師)(optional)
  * @apiparam {String} salary 薪資(optional)
  * @apiparam {String[]} experience 經驗要求(optional)
@@ -69,7 +72,16 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'type', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
+    field: [
+      'title',
+      'type',
+      'company_name',
+      'email',
+      'work_type',
+      'salary',
+      'diploma',
+      'description',
+    ],
     type: 'string',
   },
   { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },

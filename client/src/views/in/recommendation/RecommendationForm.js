@@ -326,7 +326,9 @@ const RecommendationForm = ({ data }) => {
                       <ReactTooltip id="phone" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
-                      <CInputGroupText>@</CInputGroupText>
+                      <CInputGroupText>
+                        <CIcon icon="cil-send" name="cil-send" />
+                      </CInputGroupText>
                       <CFormControl
                         data-for="mail"
                         data-tip="Let others can email you!"

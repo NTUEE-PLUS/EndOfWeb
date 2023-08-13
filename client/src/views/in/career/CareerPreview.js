@@ -49,16 +49,21 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
           <h3 style={{ fontWeight: '600' }}>
             {post.companyName} 徵 {post.workType}
           </h3>
-          <h3 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>$ {post.salary}</h3>
-          {post.diploma && (
+          {post.email && (
             <>
-              <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h4>
-              <h5 style={{ lineHeight: '2.5rem', fontSize: '1.3rem' }}>{post.diploma}</h5>
+              <h4 style={{ lineHeight: '2.3rem', fontSize: '1.3rem' }}>{post.email}</h4>
             </>
           )}
+          <h3 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>$ {post.salary}</h3>
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
+              {post.diploma && (
+                <>
+                  <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h4>
+                  <h5 style={{ lineHeight: '2.5rem', fontSize: '1.3rem' }}>{post.diploma}</h5>
+                </>
+              )}
               {experience.length !== 0 && experience[0] !== '' && (
                 <>
                   <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h4>

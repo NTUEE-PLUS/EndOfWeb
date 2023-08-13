@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { selectLogin } from '../../../slices/loginSlice'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
 import CareerImageEditor from '../../components/CareerImageEditor'
@@ -29,11 +30,13 @@ import CIcon from '@coreui/icons-react'
 import CareerPreview from '../career/CareerPreview'
 const CareerForm = ({ data }) => {
   const add = data ? false : true
+  const { email: userEmail } = useSelector(selectLogin)
   const formTemplate = add
     ? {
         title: new Date().toLocaleTimeString(),
         type: 'intern',
         companyName: '',
+        email: userEmail,
         workType: '',
         salary: '',
         diploma: '',
@@ -45,6 +48,7 @@ const CareerForm = ({ data }) => {
         type: data.title.type,
         companyName: data.title.company_name,
         workType: data.title.work_type,
+        email: data.info.email ? data.info.email : '',
         salary: data.info.salary ? data.info.salary : '',
         diploma: data.info.diploma ? data.info.diploma : '',
         description: data.spec.description ? data.spec.description : '',
@@ -141,6 +145,7 @@ const CareerForm = ({ data }) => {
     const data = new FormData()
     data.append('title', dataForm.title)
     data.append('company_name', dataForm.companyName)
+    data.append('email', dataForm.email)
     data.append('work_type', dataForm.workType)
     data.append('salary', dataForm.salary)
     data.append('diploma', dataForm.diploma)
@@ -287,6 +292,20 @@ const CareerForm = ({ data }) => {
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="companyName" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-send" name="cil-send" />
+                      </CInputGroupText>
+                      <CFormControl
+                        data-for="mail"
+                        data-tip="Enter your contact email"
+                        placeholder="Email"
+                        value={dataForm.email}
+                        name="email"
+                        onChange={handleInputChange}
+                      />
+                      <ReactTooltip id="mail" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>

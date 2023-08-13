@@ -943,6 +943,7 @@ header-config
 | ------------ | ---------- | ------------------- |
 | title        | `String`   | 職缺標題            |
 | company_name | `String`   | 公司名稱            |
+| email        | `String`   | 聯絡信箱            |
 | work_type    | `String`   | 職位(ex.前端工程師) |
 | salary       | `String`   | 薪資                |
 | experience   | `String[]` | 經驗要求            |
@@ -1030,6 +1031,7 @@ POST /searchRecruitment
 | account      | `String` | 學號 (optional)     |
 | title        | `String` | 職缺標題 (optional) |
 | company_name | `String` | 公司名稱 (optional) |
+| email        | `String` | 聯絡信箱            |
 | work_type    | `String` | 職位 (optional)     |
 | salary       | `String` | 薪資 (optional)     |
 | experience   | `String` | 經驗要求 (optional) |
@@ -1053,6 +1055,7 @@ POST /searchRecruitment
       "work_type": "String"
     },
     "info": {
+      "email": "String",
       "salary": "String",
       "experience": ["String"],
       "diploma": "String"
@@ -1103,6 +1106,7 @@ POST /smartsearchRecruitment
 | &ensp;&ensp;company_name | `String`   | 公司名稱                                            |
 | &ensp;&ensp;work_type    | `String`   | 職位(ex.前端工程師)                                 |
 | &ensp;info               | `Object`   | 工作資訊                                            |
+| &ensp;&ensp;email        | `String`   | 聯絡信箱                                            |
 | &ensp;&ensp;salary       | `String`   | 薪資                                                |
 | &ensp;&ensp;experience   | `String[]` | 經驗要求                                            |
 | &ensp;&ensp;diploma      | `String`   | 學院要求                                            |
@@ -1149,6 +1153,7 @@ POST /showRecruitment
 | &ensp;&ensp;company_name | `String`   | 公司名稱                                            |
 | &ensp;&ensp;work_type    | `String`   | 職位(ex.前端工程師)                                 |
 | &ensp;info               | `Object`   | 工作資訊                                            |
+| &ensp;&ensp;email        | `String`   | 聯絡信箱                                            |
 | &ensp;&ensp;salary       | `String`   | 薪資                                                |
 | &ensp;&ensp;experience   | `String[]` | 經驗要求                                            |
 | &ensp;&ensp;diploma      | `String`   | 學院要求                                            |
@@ -1195,6 +1200,7 @@ GET /recruitment
 | &ensp;&ensp;company_name | `String`   | 公司名稱                                            |
 | &ensp;&ensp;work_type    | `String`   | 職位(ex.前端工程師)                                 |
 | &ensp;info               | `Object`   | 工作資訊                                            |
+| &ensp;&ensp;email        | `String`   | 聯絡信箱                                            |
 | &ensp;&ensp;salary       | `String`   | 薪資                                                |
 | &ensp;&ensp;experience   | `String[]` | 經驗要求                                            |
 | &ensp;&ensp;diploma      | `String`   | 學院要求                                            |
@@ -1242,6 +1248,7 @@ header-config
 | \_id         | `String`   | 要更新職缺的 mongodb \_id     |
 | title        | `String`   | 職缺標題(optional)            |
 | company_name | `String`   | 公司名稱(optional)            |
+| email        | `String`   | 聯絡信箱(optional)            |
 | work_type    | `String`   | 職位(ex.前端工程師)(optional) |
 | salary       | `String`   | 薪資(optional)                |
 | experience   | `String[]` | 經驗要求(optional)            |
@@ -3084,6 +3091,7 @@ GET /recruitment/recent
 | &ensp;&ensp;company_name | `String`   | 公司名稱                                            |
 | &ensp;&ensp;work_type    | `String`   | 職位(ex.前端工程師)                                 |
 | &ensp;info               | `Object`   | 工作資訊                                            |
+| &ensp;&ensp;email        | `String`   | 聯絡信箱                                            |
 | &ensp;&ensp;salary       | `String`   | 薪資                                                |
 | &ensp;&ensp;experience   | `String[]` | 經驗要求                                            |
 | &ensp;&ensp;diploma      | `String`   | 學院要求                                            |

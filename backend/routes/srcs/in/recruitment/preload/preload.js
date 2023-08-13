@@ -10,6 +10,7 @@ const toInsert = [
       work_type: '資深前端工程師',
     },
     info: {
+      email: 'b00000000@ntu.edu.tw',
       salary: '月薪 70000元',
       experience: '無工作經驗限制',
       diploma: 'NTUEE',
@@ -29,6 +30,7 @@ const toInsert = [
       work_type: '軟體工程師',
     },
     info: {
+      email: 'b00000000@ntu.edu.tw',
       salary: '月薪 50000元',
       experience: '無工作經驗限制',
       diploma: 'NTUEE',
@@ -48,6 +50,7 @@ const toInsert = [
       work_type: 'C++ Developer',
     },
     info: {
+      email: 'b00000000@ntu.edu.tw',
       salary: '年薪 1M ~ 2.5M 元',
       experience: '無需工作經驗限制',
       diploma: 'NTUEE',
@@ -67,6 +70,7 @@ const toInsert = [
       work_type: '3~4個月 一週2天兼職軟體專案經理 視情況延長',
     },
     info: {
+      email: 'b00000000@ntu.edu.tw',
       salary: '誠徵 可議',
       experience: '無需工作經驗限制',
       diploma: '',
@@ -85,6 +89,7 @@ const toInsert = [
       work_type: '',
     },
     info: {
+      email: 'b00000000@ntu.edu.tw',
       salary: '誠徵 可議',
       experience: '無需工作經驗限制',
       diploma: '',
@@ -104,14 +109,14 @@ const main = async () => {
   toInsert.forEach(
     ({
       title: { title, company_name, work_type },
-      info: { salary, experience, diploma },
+      info: { email, salary, experience, diploma },
       spec: { requirement, description },
       image,
     }) => {
       const rec = new Recruitment({
         account: 'b07901029',
         title: { title, company_name, work_type },
-        info: { salary, experience: experience.split('\n'), diploma },
+        info: { email, salary, experience: experience.split('\n'), diploma },
         spec: { requirement: requirement.split('\n'), description: description },
       })
       filePath = path.join(imgPath, image + '.png')

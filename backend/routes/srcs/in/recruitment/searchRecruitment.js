@@ -8,6 +8,7 @@ const searchRecruitment = async function (req, res, next) {
     account,
     title,
     company_name,
+    email,
     work_type,
     salary,
     experience,
@@ -21,6 +22,7 @@ const searchRecruitment = async function (req, res, next) {
     'title.title': title,
     'title.company_name': company_name,
     'title.work_type': work_type,
+    'info.email': email,
     'info.salary': salary,
     'info.experience': experience,
     'info.diploma': diploma,
@@ -43,6 +45,7 @@ const searchRecruitment = async function (req, res, next) {
  * @apiparam {String} account 學號 (optional)
  * @apiparam {String} title 職缺標題 (optional)
  * @apiparam {String} company_name 公司名稱 (optional)
+ * @apiparam {String} email 聯絡信箱 (optional)
  * @apiparam {String} work_type 職位 (optional)
  * @apiparam {String} salary 薪資 (optional)
  * @apiparam {String} experience 經驗要求 (optional)
@@ -61,6 +64,7 @@ const searchRecruitment = async function (req, res, next) {
  *          'work_type': 'String'
  *      },
  *      'info': {
+            'email': 'String',
             'salary': 'String',
             'experience': ['String'],
             'diploma': 'String'
@@ -84,6 +88,7 @@ const rules = [
       'account',
       'title',
       'company_name',
+      'email',
       'work_type',
       'salary',
       'experience',
