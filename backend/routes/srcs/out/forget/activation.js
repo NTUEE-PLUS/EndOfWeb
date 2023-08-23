@@ -1,6 +1,6 @@
 const Activation = require('../../../Schemas/activation')
 const Login = require('../../../Schemas/user_login')
-const crypto = require('crypto')
+const { encryptPsw } = require('../../../encrypt')
 const { ErrorHandler, dbCatch } = require('../../../error')
 const asyncHandler = require('express-async-handler')
 
@@ -21,7 +21,7 @@ const asyncHandler = require('express-async-handler')
  */
 const activate = async (req, res) => {
   const { account, active, password } = req.body
-  const newPsw = crypto.createHash('md5').update(password).digest('hex')
+  const newPsw = await encryptPsw(password)
 
   const obj = await Activation.exists({ account, active }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(401, '驗證碼已不存在，請至forget頁面')

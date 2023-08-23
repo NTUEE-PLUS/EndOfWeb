@@ -5,6 +5,8 @@ const Visual = require('../../../Schemas/user_visual_new')
 const { parseFile } = require('../../../Schemas/query')
 const { ErrorHandler, dbCatch } = require('../../../error')
 const asyncHandler = require('express-async-handler')
+const { encryptPsw } = require('../../../encrypt')
+
 const env = require('dotenv')
 env.config()
 
@@ -61,7 +63,7 @@ const register = async (req, res) => {
   const account = req.body.account.toLowerCase()
 
   //密碼加密
-  const newPsw = crypto.createHash('md5').update(password).digest('hex')
+  const newPsw = await encryptPsw(password)
 
   const query = { account }
   const isRegistered = await Login.exists(query).catch(dbCatch)
@@ -76,7 +78,7 @@ const register = async (req, res) => {
 const secure_reg = async (req, res) => {
   const { username, password, Email } = req.body
   const account = req.body.account.toLowerCase()
-  const newPsw = crypto.createHash('md5').update(password).digest('hex')
+  const newPsw = await encryptPsw(password)
   if (req.file === undefined) throw new ErrorHandler(400, '請添加照片')
   const query = { account }
   const isRegistered = await Login.exists(query).catch(dbCatch)
@@ -105,7 +107,7 @@ const reg_v3 = async (req, res) => {
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
   const { username, password, Email } = req.body
-  const newPsw = crypto.createHash('md5').update(password).digest('hex')
+  const newPsw = await encryptPsw(password)
 
   const active = Math.random().toString(36).substring(2)
   const data = {
