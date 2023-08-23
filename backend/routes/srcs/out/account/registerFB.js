@@ -6,6 +6,7 @@ const Visual = require('../../../Schemas/user_visual_new')
 const asyncHandler = require('express-async-handler')
 const { parseFile } = require('../../../Schemas/query')
 const crypto = require('crypto')
+const { encryptPsw } = require('../../../encrypt')
 
 async function insertFB(name, account, facebookID, file, user) {
   await new Login({
@@ -57,7 +58,7 @@ const registerFB = async (req, res) => {
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
   const { username, facebookID, Email } = req.body
-  const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
+  const fbIdEnc = await encryptPsw(facebookID)
 
   const avatar = parseFile(req.files['avatar'] ? req.files['avatar'][0] : undefined)
   const idFile = parseFile(req.files['file'] ? req.files['file'][0] : undefined)
@@ -107,7 +108,7 @@ const regFB_v3 = async (req, res) => {
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
   const { username, facebookID, Email } = req.body
-  const fbIdEnc = crypto.createHash('md5').update(facebookID).digest('hex')
+  const fbIdEnc = await encryptPsw(facebookID)
 
   const active = Math.random().toString(36).substr(2)
   const avatar = parseFile(req.files['avatar'] ? req.files['avatar'][0] : undefined)

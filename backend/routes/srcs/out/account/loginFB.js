@@ -1,7 +1,7 @@
 //srcs/login.js
 const Login = require('../../../Schemas/user_login')
 const { ErrorHandler, dbCatch } = require('../../../error')
-const crypto = require('crypto')
+const { encryptPsw } = require('../../../encrypt')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -22,7 +22,7 @@ const asyncHandler = require('express-async-handler')
  */
 const loginFB = async (req, res, next) => {
   const { facebookID: unEncID } = req.body
-  const facebookID = crypto.createHash('md5').update(unEncID).digest('hex')
+  const facebookID = await encryptPsw(unEncID)
   const query = { facebookID }
   const obj = await Login.findOne(query, 'username account').catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '帳號不存在')
