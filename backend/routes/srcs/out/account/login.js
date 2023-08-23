@@ -1,5 +1,5 @@
 const Login = require('../../../Schemas/user_login')
-const crypto = require('crypto')
+const { comparePsw } = require('../../../encrypt')
 const { dbCatch, ErrorHandler } = require('../../../error')
 const asyncHandler = require('express-async-handler')
 /**
@@ -25,13 +25,11 @@ const asyncHandler = require('express-async-handler')
 const login = async (req, res, next) => {
   const account = req.body.account.toLowerCase()
   const password = req.body.password
-  //密碼加密
-  const newPsw = crypto.createHash('md5').update(password).digest('hex')
 
   const query = { account }
   const obj = await Login.findOne(query, 'userpsw username account isAuth').catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '帳號不存在')
-  if (obj.userpsw !== newPsw) throw new ErrorHandler(401, '密碼錯誤')
+  if (!(await comparePsw(password, obj.userpsw))) throw new ErrorHandler(401, '密碼錯誤')
   req.session.loginName = obj.username
   req.session.loginAccount = obj.account
   req.session.isAuth = obj.isAuth
