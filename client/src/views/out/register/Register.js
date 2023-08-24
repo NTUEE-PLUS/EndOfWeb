@@ -175,6 +175,9 @@ const Register = () => {
                   <CForm>
                     <h1>Just A Few Steps to Join EE+!</h1>
                     <p className="text-medium-emphasis">Create your account</p>
+                    <p className="text-danger">
+                      <b>注意！為了資安的考量，請不要用之前您用過的密碼！</b>
+                    </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon="cil-user" name="cil-user" />

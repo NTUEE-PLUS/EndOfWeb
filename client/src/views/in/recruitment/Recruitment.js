@@ -71,6 +71,7 @@ const Recruitment = () => {
       .then((res) => {
         if (res.data.data.length !== 0) {
           datas = res.data.data
+          console.log(datas)
           setShowData({ maxPage: showData.maxPage, data: datas })
         }
         setIsPending(false)
