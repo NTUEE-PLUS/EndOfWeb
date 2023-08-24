@@ -107,11 +107,11 @@ const Profile = () => {
           </CCard>
         </CCol>
         <CCol md="8">
-          <CCard className="mb-3">
+          <CCard>
             <CCardBody>
               <CRow>
-                <CCol sm="3">
-                  <h6 className="mb-0">Nickname</h6>
+                <CCol sm="3" className="px-4">
+                  <h6 className="mb-0 ">Nickname</h6>
                 </CCol>
                 <CCol sm="9" className="text-secondary">
                   {data.nickname}
@@ -119,7 +119,7 @@ const Profile = () => {
               </CRow>
               <hr className="mt-1 mb-3" />
               <CRow>
-                <CCol sm="3">
+                <CCol sm="3" className="px-4">
                   <h6 className="mb-0">Student ID</h6>
                 </CCol>
                 <CCol sm="9" className="text-secondary">
@@ -128,7 +128,7 @@ const Profile = () => {
               </CRow>
               <hr className="mt-1 mb-3" />
               <CRow>
-                <CCol sm="3">
+                <CCol sm="3" className="px-4">
                   <h6 className="mb-0">Email</h6>
                 </CCol>
                 <CCol sm="9" className="text-secondary">
@@ -137,7 +137,7 @@ const Profile = () => {
               </CRow>
               <hr className="mt-1 mb-3" />
               <CRow>
-                <CCol sm="3">
+                <CCol sm="3" className="px-4">
                   <h6 className="mb-0">Mobile</h6>
                 </CCol>
                 <CCol sm="9" className="text-secondary">
@@ -148,70 +148,70 @@ const Profile = () => {
             </CCardBody>
           </CCard>
           <CRow>
-            <CCol sm="6" className="mb-3">
+            <CCol sm="6" className="my-3">
               <CCard className="h-100">
-                <CCardBody>
-                  <h6 className="d-flex align-items-center mb-3">
+                <CCardBody className="p-3">
+                  <h6 className="d-flex align-items-center mb-3 mt-1">
                     <i className="material-icons text-info mr-2">Education</i>
                   </h6>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-block">
-                    <CRow sm="3">
+                  <div>
+                    <div>
                       <h6 className="mb-0">Bachelor</h6>
-                    </CRow>
+                    </div>
                     <div className="text-secondary px-3 mt-2">{data.major}</div>
-                  </CRow>
+                  </div>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-block">
-                    <CRow sm="3">
+                  <div>
+                    <div>
                       <h6 className="mb-0">Master</h6>
-                    </CRow>
+                    </div>
                     <div className="text-secondary px-3 mt-2">{data.master}</div>
-                  </CRow>
+                  </div>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-block">
-                    <CRow sm="3">
+                  <div>
+                    <div>
                       <h6 className="mb-0">Doctor</h6>
-                    </CRow>
+                    </div>
                     <div className="text-secondary px-3 mt-2">{data.doctor}</div>
-                  </CRow>
+                  </div>
                   <hr className="mt-1 mb-3" />
                 </CCardBody>
               </CCard>
             </CCol>
-            <CCol sm="6" className="mb-3">
+            <CCol sm="6" className="my-3">
               <CCard className="h-100">
-                <CCardBody>
-                  <h6 className="d-flex align-items-center mb-3">
+                <CCardBody className="p-3">
+                  <h6 className="d-flex align-items-center mb-3 mt-1">
                     <i className="material-icons text-info mr-2">Current Occupation</i>
                   </h6>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-block">
-                    <CRow sm="3">
+                  <div>
+                    <div>
                       <h6 className="mb-0">Company</h6>
-                    </CRow>
+                    </div>
                     <div className="text-secondary px-3 mt-2">
                       {data.Occupation.length != 0 ? data.Occupation[0].C : ''}
                     </div>
-                  </CRow>
+                  </div>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-block">
-                    <CRow sm="3">
+                  <div>
+                    <div>
                       <h6 className="mb-0">Division</h6>
-                    </CRow>
+                    </div>
                     <div className="text-secondary px-3 mt-2">
                       {data.Occupation.length != 0 ? data.Occupation[0].O : ''}
                     </div>
-                  </CRow>
+                  </div>
                   <hr className="mt-1 mb-3" />
-                  <CRow className="d-block">
-                    <CRow sm="3">
+                  <div>
+                    <div>
                       <h6 className="mb-0">Position</h6>
-                    </CRow>
+                    </div>
                     <div className="text-secondary px-3 mt-2">
                       {data.Occupation.length != 0 ? data.Occupation[0].P : ''}
                     </div>
-                  </CRow>
+                  </div>
                   <hr className="mt-1 mb-3" />
                 </CCardBody>
               </CCard>

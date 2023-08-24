@@ -134,7 +134,7 @@ const Page3 = ({
         </CInputGroupText>
         <CFormControl
           data-for="image"
-          data-tip="專欄照片"
+          data-tip="專欄照片 (請上傳 3:2 or 1500×1000px 之照片)"
           id="formFile"
           type="file"
           onChange={handleChangeImage}

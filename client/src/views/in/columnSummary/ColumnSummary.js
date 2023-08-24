@@ -172,7 +172,15 @@ const ColumnSummary = () => {
                 title="Contemplative Reptile"
                 imgFetcher={imgFetcher}
                 imgId={art.id}
-                createImgComponent={({ src, ...props }) => <CardMedia image={src} {...props} />}
+                createImgComponent={({ src, ...props }) => (
+                  <CardMedia
+                    style={{
+                      backgroundSize: '100% 100%',
+                    }}
+                    image={src}
+                    {...props}
+                  />
+                )}
               />
               <CardContent>
                 <Typography gutterBottom variant="h3" component="h3">
