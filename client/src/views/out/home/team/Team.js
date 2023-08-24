@@ -67,7 +67,7 @@ const Team = () => {
                   </div>
                   <div className="caption">
                     <h4>{name}</h4>
-                    <p>{job}</p>
+                    <nobr>{job}</nobr>
                   </div>
                 </div>
               </div>

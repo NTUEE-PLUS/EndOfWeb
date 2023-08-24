@@ -7,7 +7,18 @@
   background-size: cover;
   margin-top: 20rem;
   text-align: center;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-40%) translateY(-50%);
 }
+
+@media only screen and (max-width: 800px) {
+  .matching {
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
 .form-check > label {
   font-size: 1.5rem;
 }
