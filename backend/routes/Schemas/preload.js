@@ -11,7 +11,7 @@ const models = [
   require('./team_data'),
 ]
 const env = require('dotenv')
-const crypto = require('crypto')
+const { encryptPsw } = require('../encrypt')
 env.config()
 const sourceUrl = process.env.MONGO_URL
 const targetUrl = process.env.MONGO_URI
@@ -42,7 +42,7 @@ const addAuth = async (targetDB) => {
       { order: true },
     )
     console.log('admin visual:', adminVisual[0]._id)
-    const newPsw = crypto.createHash('md5').update(process.env.ADMIN_PASSWORD).digest('hex')
+    const newPsw = await encryptPsw(process.env.ADMIN_PSW)
     await User.insertMany([
       {
         username: 'admin',
