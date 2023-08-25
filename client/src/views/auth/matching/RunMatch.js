@@ -54,11 +54,11 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
       .get('/api/time/getTime', { params: { target: 'matching_end' } })
       .then((res) => {
         const dataPart = res.data
-        const endTime = new Date(dataPart)
-        endTime.setHours(23)
-        endTime.setMinutes(59)
-        setEndTime(endTime)
-        const realDate = endTime.substring(0, 10) + 'T' + endTime.substring(11, 16)
+        const timeData = new Date(dataPart)
+        timeData.setHours(23)
+        timeData.setMinutes(59)
+        setEndTime(timeData)
+        const realDate = timeData.substring(0, 10) + 'T' + timeData.substring(11, 16)
         if (new Date(realDate).getTime() < nowDate) setPass(true)
       })
       .catch((err) => console.log(err))
