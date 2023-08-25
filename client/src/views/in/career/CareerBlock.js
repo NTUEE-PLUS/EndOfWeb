@@ -145,7 +145,7 @@ const CareerBlock = ({ post, isAuth }) => {
                       </CButton>
                     ) : (
                       <CButton color="info" variant="outline" onClick={hideCareer}>
-                        Show Up
+                        Show
                       </CButton>
                     ))}
                 </>
