@@ -151,7 +151,7 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
                   alert('無效的截止日期')
                   return
                 }
-                selectedEndDate.setHours(23)
+                selectedEndDate.setHours(31)
                 selectedEndDate.setMinutes(59)
                 setNewEndTime(selectedEndDate)
               }}
