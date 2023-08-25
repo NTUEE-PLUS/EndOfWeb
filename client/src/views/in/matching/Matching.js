@@ -29,7 +29,8 @@ const Matching = () => {
     })
     axios.get('/api/time/getTime', { params: { target: 'matching_end' } }).then((res) => {
       const [year, month, day, h_m] = res.data.split('-')
-      const [hour, min] = h_m.split(':')
+      const [hour] = 23
+      const [min] = 59
       setEndTime(() => [year, month, day, hour, min])
     })
   }
