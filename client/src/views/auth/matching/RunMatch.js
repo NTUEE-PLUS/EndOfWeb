@@ -53,8 +53,12 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
     axios
       .get('/api/time/getTime', { params: { target: 'matching_end' } })
       .then((res) => {
-        setEndTime(res.data)
-        const realDate = res.data.substring(0, 10) + 'T' + res.data.substring(11, 16)
+        const dataPart = res.data
+        const endTime = new Date(dataPart)
+        endTime.setHours(23)
+        endTime.setMinutes(59)
+        setEndTime(endTime)
+        const realDate = endTime.substring(0, 10) + 'T' + endTime.substring(11, 16)
         if (new Date(realDate).getTime() < nowDate) setPass(true)
       })
       .catch((err) => console.log(err))
