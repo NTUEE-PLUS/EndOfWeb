@@ -72,8 +72,6 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
       .post('/api/time/setTime', { target: 'matching_start', time: newStartTime })
       .catch((err) => console.log(err))
     axios
-      newEndTime.setHours(23)
-      newEndTime.setMinutes(59)
       .post('/api/time/setTime', { target: 'matching_end', time: newEndTime })
       .then(() => {
         hasSent ? setHasSent(false) : getMatchInfo()
@@ -146,13 +144,15 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
             <CFormControl
               type="date"
               onChange={(e) => {
-                if (new Date(e.target.value) < new Date(newStartTime)) {
+                const selectedEndDate = new Date(e.target.value)
+                if (selectedEndDate < new Date(newStartTime)) {
                   e.target.value = ''
                   setNewEndTime('')
                   alert('無效的截止日期')
                   return
                 }
-                setNewEndTime(e.target.value)
+                const changedEndDate = [selectedEndDate.getFullYear, selectedEndDate.getMonth, selectedEndDate.getDay,23,59]
+                setNewEndTime(changedEndDate)
               }}
             />
           </CInputGroup>
