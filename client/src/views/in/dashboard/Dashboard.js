@@ -229,20 +229,22 @@ const Dashboard = () => {
             <CCardBody>
               <CRow>
                 {recentRecruitments.map((recruitment, index) => {
-                  return (
-                    <CCol className="col-6" key={index}>
-                      <Link to="/recruitment">
-                        <CCard className="m-2" style={{ borderRadius: '10px' }}>
-                          <CCardImage src={recruitment.image === '' ? logo : recruitment.image} />
-                          <CCardBody>
-                            <CCardTitle className="text-center">
-                              {recruitment.title.work_type}
-                            </CCardTitle>
-                          </CCardBody>
-                        </CCard>
-                      </Link>
-                    </CCol>
-                  )
+                  if (recruitment.hide === false || recruitment.hide === undefined)
+                    // annotate
+                    return (
+                      <CCol className="col-6" key={index}>
+                        <Link to="/recruitment">
+                          <CCard className="m-2" style={{ borderRadius: '10px' }}>
+                            <CCardImage src={recruitment.image === '' ? logo : recruitment.image} />
+                            <CCardBody>
+                              <CCardTitle className="text-center">
+                                {recruitment.title.work_type}
+                              </CCardTitle>
+                            </CCardBody>
+                          </CCard>
+                        </Link>
+                      </CCol>
+                    )
                 })}
               </CRow>
             </CCardBody>

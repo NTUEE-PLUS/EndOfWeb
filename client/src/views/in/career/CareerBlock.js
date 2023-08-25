@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CButton, CAvatar } from '@coreui/react'
@@ -7,12 +7,55 @@ import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 
 const CareerBlock = ({ post, isAuth }) => {
-  const location = useLocation()
+  const formTemplate = {
+    title: post.title.title,
+    type: post.title.type,
+    companyName: post.title.company_name,
+    workType: post.title.work_type,
+    email: post.info.email,
+    salary: post.info.salary,
+    diploma: post.info.diploma,
+    description: post.spec.description,
+    file: post.file,
+    _id: post._id,
+    hide: post.hide, // annotate
+  }
+  const location = useLocation() //確認一下是不是重刷一次履歷會跑到比較前面
   const history = useHistory()
   const recru = location.pathname.search('cruitment') > 0 ? true : false
   const recom = location.pathname.search('commendation') > 0 ? true : false
   const own = location.pathname.search('own') > 0 ? true : false
+  const [dataForm, setDataForm] = useState(formTemplate)
   const [isExpand, setIsExpand] = useState(false)
+
+  const hideCareer = () => {
+    // annotate
+    if (dataForm.hide === undefined) {
+      const newdataForm = { ...dataForm, hide: true }
+      setDataForm(newdataForm)
+      axios
+        .patch('/api/recruitment', newdataForm)
+        .then(() => {
+          alert('已隱藏')
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } else {
+      const newdataForm = { ...dataForm, hide: !dataForm.hide }
+      setDataForm(newdataForm)
+
+      axios
+        .patch('/api/recruitment', newdataForm)
+        .then(() => {
+          if (!dataForm.hide) alert('已隱藏') //要處理資料進來在做事的問題
+          else alert('已顯示')
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } // annotate
+  }
   const deleteCareer = (id) => {
     if (recru) {
       axios
@@ -95,6 +138,17 @@ const CareerBlock = ({ post, isAuth }) => {
                       onClick={() => deleteCareer(post._id)}
                     ></CIcon>
                   </CAvatar>
+
+                  {own && // annotate
+                    (!dataForm.hide || dataForm.hide === undefined ? (
+                      <CButton color="secondary" variant="outline" onClick={hideCareer}>
+                        Hide
+                      </CButton>
+                    ) : (
+                      <CButton color="info" variant="outline" onClick={hideCareer}>
+                        Show Up
+                      </CButton>
+                    ))}
                 </>
               ) : (
                 <></>

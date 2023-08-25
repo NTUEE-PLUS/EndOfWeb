@@ -41,6 +41,7 @@ const addRecru = async (req, res) => {
     diploma,
     requirement,
     description,
+    hide,
   } = req.body
   const img = parseFile(req.file)
 
@@ -63,6 +64,7 @@ const addRecru = async (req, res) => {
       description,
     },
     img,
+    hide,
   })
     .save()
     .catch(dbCatch)
@@ -85,6 +87,7 @@ const rules = [
       'description',
     ],
     type: 'string',
+    hide: 'boolean',
   },
   { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },
 ]

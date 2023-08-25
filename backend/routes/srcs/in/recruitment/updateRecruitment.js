@@ -20,6 +20,7 @@ const updateRecruitment = async (req, res, next) => {
     diploma,
     requirement,
     description,
+    hide,
   } = req.body
   const keys = {
     'title.title': title,
@@ -32,6 +33,7 @@ const updateRecruitment = async (req, res, next) => {
     'info.diploma': diploma,
     'spec.requirement': requirement,
     'spec.description': description,
+    hide: hide,
     img: parseFile(req.file),
   }
   const toSet = updateQuery(keys)
@@ -84,6 +86,7 @@ const rules = [
     ],
     type: 'string',
   },
+  { filename: 'optional', field: ['hide'], type: 'boolean' },
   { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },
   { filename: 'required', field: '_id' },
 ]

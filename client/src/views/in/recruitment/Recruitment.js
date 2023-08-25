@@ -25,6 +25,7 @@ const Recruitment = () => {
   const { isAuth } = useSelector(selectLogin)
   const [isModal, setIsModal] = useState(true)
   const [showData, setShowData] = useState({ data: [], maxPage: 0 })
+  const own = location.pathname.search('own') > 0 ? true : false // annto
   const { keywords } = useSelector(selectCareer)
   const [isPending, setIsPending] = useState(true)
   const [page, setPage] = useState(1)
@@ -174,9 +175,12 @@ const Recruitment = () => {
           }}
           style={{ display: 'flex' }}
         >
-          {showData.data.map((post) => (
-            <CareerBlock post={post} key={post._id} isAuth={isAuth} />
-          ))}
+          {showData.data.map(
+            (post) =>
+              (own || post.hide === undefined || post.hide === false) && ( // annotate
+                <CareerBlock post={post} key={post._id} isAuth={isAuth} />
+              ),
+          )}
         </Masonry>
       )}
     </>
