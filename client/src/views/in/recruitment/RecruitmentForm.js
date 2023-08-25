@@ -42,7 +42,7 @@ const CareerForm = ({ data }) => {
         diploma: '',
         description: '',
         file: '',
-        hide: false, // annotate
+        hide: false,
       }
     : {
         title: data.title.title ? data.title.title : '',
@@ -55,7 +55,7 @@ const CareerForm = ({ data }) => {
         description: data.spec.description ? data.spec.description : '',
         file: data.image,
         _id: data._id,
-        hide: data.hide, // annotate
+        hide: data.hide,
       }
   const dispatch = useDispatch()
   const history = useHistory()

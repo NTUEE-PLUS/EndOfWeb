@@ -230,7 +230,6 @@ const Dashboard = () => {
               <CRow>
                 {recentRecruitments.map((recruitment, index) => {
                   if (recruitment.hide === false || recruitment.hide === undefined)
-                    // annotate
                     return (
                       <CCol className="col-6" key={index}>
                         <Link to="/recruitment">

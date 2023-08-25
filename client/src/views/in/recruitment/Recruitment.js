@@ -177,7 +177,7 @@ const Recruitment = () => {
         >
           {showData.data.map(
             (post) =>
-              (own || post.hide === undefined || post.hide === false) && ( // annotate
+              (own || post.hide === undefined || post.hide === false) && (
                 <CareerBlock post={post} key={post._id} isAuth={isAuth} />
               ),
           )}

@@ -18,7 +18,7 @@ const CareerBlock = ({ post, isAuth }) => {
     description: post.spec.description,
     file: post.file,
     _id: post._id,
-    hide: post.hide, // annotate
+    hide: post.hide,
   }
   const location = useLocation() //確認一下是不是重刷一次履歷會跑到比較前面
   const history = useHistory()
@@ -29,7 +29,6 @@ const CareerBlock = ({ post, isAuth }) => {
   const [isExpand, setIsExpand] = useState(false)
 
   const hideCareer = () => {
-    // annotate
     if (dataForm.hide === undefined) {
       const newdataForm = { ...dataForm, hide: true }
       setDataForm(newdataForm)
@@ -54,7 +53,7 @@ const CareerBlock = ({ post, isAuth }) => {
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
         })
-    } // annotate
+    }
   }
   const deleteCareer = (id) => {
     if (recru) {
@@ -139,7 +138,7 @@ const CareerBlock = ({ post, isAuth }) => {
                     ></CIcon>
                   </CAvatar>
 
-                  {own && // annotate
+                  {own &&
                     (!dataForm.hide || dataForm.hide === undefined ? (
                       <CButton color="secondary" variant="outline" onClick={hideCareer}>
                         Hide
