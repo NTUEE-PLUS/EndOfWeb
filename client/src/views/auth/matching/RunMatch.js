@@ -73,6 +73,8 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
       .catch((err) => console.log(err))
     axios
       .post('/api/time/setTime', { target: 'matching_end', time: newEndTime })
+      newEndTime.setHours(23)
+      newEndTime.setMinutes(59)
       .then(() => {
         hasSent ? setHasSent(false) : getMatchInfo()
       })
