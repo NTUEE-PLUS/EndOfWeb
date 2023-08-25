@@ -151,8 +151,9 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
                   alert('無效的截止日期')
                   return
                 }
-                const changedEndDate = [selectedEndDate.getFullYear, selectedEndDate.getMonth, selectedEndDate.getDay,23,59]
-                setNewEndTime(changedEndDate)
+                selectedEndDate.setHours(23)
+                selectedEndDate.setMinutes(59)
+                setNewEndTime(selectedEndDate)
               }}
             />
           </CInputGroup>
