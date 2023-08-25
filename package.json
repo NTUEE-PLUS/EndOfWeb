@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
+    "bcrypt": "^5.1.1",
     "bootstrap-icons": "^1.5.0",
+    "browserslist": "^4.21.10",
     "connect-history-api-fallback": "^1.6.0",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
