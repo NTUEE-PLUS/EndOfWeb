@@ -21,7 +21,7 @@ mongoose.connection.on('open', () => {
   // });
   app.use(
     cors({
-      origin: 'http://localhost:1993',
+      origin: process.env.WEB_DOMAIN,
       methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD', 'PATCH', 'DELETE'],
       credentials: true,
     }),
@@ -31,7 +31,7 @@ mongoose.connection.on('open', () => {
   app.use(
     session({
       name: 'eeplus',
-      secret: 'fuewhzk', // 用来對session id相關的cookie進行簽名，建議128byte亂碼
+      secret: process.env.SESSION_KEY, // 用来對session id相關的cookie進行簽名，建議128byte亂碼
       //store: new FileStore({ logFn: function () {} }), // 本地儲存session（文本文件，也可以選擇其他store，比如redis的）
       store: new MongoStore({
         mongooseConnection: mongoose.connection,
