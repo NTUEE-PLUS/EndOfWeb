@@ -24,6 +24,7 @@ const Recruitment_Schema = new Schema({
     data: { type: Buffer },
     contentType: { type: String },
   },
+  hide: Boolean,
 })
 
 const { buf2url } = require('./query')
@@ -31,6 +32,7 @@ Recruitment_Schema.virtual('imgSrc').get(buf2url())
 
 Recruitment_Schema.methods.getPublic = function () {
   return {
+    hide: this.hide,
     account: this.account,
     _id: this._id,
     title: this.title,
