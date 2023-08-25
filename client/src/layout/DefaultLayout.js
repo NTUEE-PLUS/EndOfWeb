@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectLogin } from '../slices/loginSlice'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
 import { CModal, CModalHeader, CModalTitle, CModalBody, CModalFooter, CButton } from '@coreui/react'
 
 const DefaultLayout = () => {
-  const pathname = useLocation().pathname
-  const [isModal, setIsModal] = useState(pathname !== '/forget' && pathname !== '/register_entry')
+  const pathname = useLocation().pathname.split('/')[1]
+  const { isLogin } = useSelector(selectLogin)
+  const noModal = ['forget', 'register_entry', 'reset_password', 'change_password']
+  const [isModal, setIsModal] = useState(false)
+  useEffect(() => {
+    setIsModal(!noModal.includes(pathname) && isLogin)
+  }, [isLogin])
   return (
     <>
       <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
@@ -13,7 +20,7 @@ const DefaultLayout = () => {
           <CModalTitle>注意！</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          為了資安的考量，請您先至<a href="/forget">此網址</a>更改密碼！
+          為了資安的考量，請您先至<a href="/change_password">此網址</a>更改密碼。
         </CModalBody>
         <CModalFooter>
           <CButton
@@ -22,16 +29,15 @@ const DefaultLayout = () => {
               setIsModal(false)
             }}
           >
-            我已經更改過密碼了！
+            我更改過密碼了！
           </CButton>
           <CButton
-            color="success"
+            color="primary"
             onClick={() => {
               setIsModal(false)
-              window.location.href = '/register_entry'
             }}
           >
-            我是要來註冊的！
+            我是新註冊的帳號！
           </CButton>
         </CModalFooter>
       </CModal>
