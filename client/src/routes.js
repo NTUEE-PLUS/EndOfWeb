@@ -34,7 +34,6 @@ import {
 } from './views/in'
 // auth pages
 import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, AuthManage, EditColumn } from './views/auth'
-
 // out routes
 const routes_out = [
   { path: '/home', exact: false, name: 'Home', component: Home },
