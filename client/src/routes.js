@@ -33,8 +33,14 @@ import {
   AbroadSession,
 } from './views/in'
 // auth pages
-import { AuthMatching, AuthRegister, AuthColumn, AuthAnnounce, EditColumn } from './views/auth'
-
+import {
+  AuthMatching,
+  AuthRegister,
+  AuthColumn,
+  AuthAnnounce,
+  AuthManage,
+  EditColumn,
+} from './views/auth'
 // out routes
 const routes_out = [
   { path: '/home', exact: false, name: 'Home', component: Home },
@@ -165,6 +171,12 @@ const routes_auth = [
     exact: false,
     name: 'AuthAnnounce',
     component: AuthAnnounce,
+  },
+  {
+    path: '/auth/manage',
+    exact: true,
+    name: 'AuthManage',
+    component: AuthManage,
   },
 ]
 export { routes_out, routes_in, routes_auth }

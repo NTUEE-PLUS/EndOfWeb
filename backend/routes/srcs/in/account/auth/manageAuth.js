@@ -1,4 +1,5 @@
-const { dbCatch } = require('../../../../error')
+const { dbCatch, ErrorHandler } = require('../../../../error')
+const Visual = require('../../../../../routes/Schemas/user_visual_new')
 const Login = require('../../../../Schemas/user_login')
 const asyncHandler = require('express-async-handler')
 
@@ -15,12 +16,23 @@ const asyncHandler = require('express-async-handler')
  *
  * @apiError (500) {String} description 資料庫錯誤
  */
-const manage = async (req, res, next) => {
-  const { account, setAuth } = req.body
-  await Login.updateOne({ account }, { isAuth: setAuth }).catch(dbCatch)
-  res.end()
+const manage = async (req, res) => {
+  const { session_account, setAuth } = req.body
+  const vuser = await Visual.findOne({ account: session_account })
+  if (!vuser) throw new ErrorHandler(404, 'profile不存在')
+  const user = await Login.findOne({ account: session_account }).catch(dbCatch)
+  if (!user) throw new ErrorHandler(404, '帳號不存在')
+
+  await Login.updateOne({ account: session_account }, { isAuth: setAuth }).catch(dbCatch)
+  return res.status(200).send({
+    account: session_account,
+    userImage: vuser.imgSrc,
+    userName: vuser.username,
+    isAuth: user.isAuth,
+  })
 }
 
-const valid = require('../../../../middleware/validation')
-const rules = ['account', { filename: 'required', field: 'setAuth', type: 'bool' }]
-module.exports = [valid(rules), asyncHandler(manage)]
+//const valid = require('../../../../middleware/validation')
+//const rules = ['account', { filename: 'required', field: 'setAuth', type: 'bool' }]
+//valid(rules),
+module.exports = asyncHandler(manage)

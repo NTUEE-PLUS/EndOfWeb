@@ -11,6 +11,13 @@ const _navAuth = [
   {
     _component: 'CNavItem',
     as: NavLink,
+    anchor: 'MANAGE AUTH',
+    to: '/auth/manage',
+    icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
     anchor: 'MATCHING',
     to: '/auth/matching',
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
