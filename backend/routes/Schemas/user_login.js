@@ -11,6 +11,7 @@ const exportVersion = (v) => {
         facebookID: String,
         account: { type: String, required: true, lowercase: true }, //學號
         userpsw: String, //密碼
+        advisingProfessor: [{ label: String, value: String }],
         isAuth: { type: Boolean, default: false },
         visual: { type: Schema.Types.ObjectId, ref: 'User_visual' },
       })
@@ -20,6 +21,7 @@ const exportVersion = (v) => {
         facebookID: String,
         account: { type: String, required: true, lowercase: true }, //學號
         userpsw: String, //密碼
+        advisingProfessor: [{ label: String, value: String }],
         isAuth: { type: Boolean, default: false },
         visual: { type: Schema.Types.ObjectId, ref: 'User_visual' },
       })
@@ -29,6 +31,7 @@ const exportVersion = (v) => {
         facebookID: String,
         account: { type: String, required: true, lowercase: true }, //學號
         userpsw: String, //密碼
+        advisingProfessor: [{ label: String, value: String }],
         isAuth: { type: Boolean, default: false },
         visual: { type: Schema.Types.ObjectId, ref: 'User_visual' },
         img: {

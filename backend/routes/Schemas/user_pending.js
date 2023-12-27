@@ -9,6 +9,7 @@ const User_pending_Schema = new Schema({
   userpsw: String, //密碼
   email: { type: mongoose.SchemaTypes.Email, required: true },
   active: String,
+  advisingProfessor: [{ label: String, value: String }],
   img: {
     data: Buffer,
     contentType: String,
