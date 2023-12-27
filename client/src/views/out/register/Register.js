@@ -20,6 +20,7 @@ import {
   CModalFooter,
   CLink,
 } from '@coreui/react'
+import Select from 'react-select'
 import CIcon from '@coreui/icons-react'
 import { Redirect, useParams } from 'react-router-dom'
 import Visibility from '@material-ui/icons/Visibility'
@@ -33,6 +34,7 @@ const Register = () => {
     ConfirmPassword: '',
     username: '',
     Email: '',
+    advisingProfessor: [],
     file: null,
     isGraduated: identity === 'alumni',
   }
@@ -93,7 +95,12 @@ const Register = () => {
                 '學號須為電機系學號格式，若您是雙轉輔系生，請用至系友身分註冊，並附上雙轉輔證明截圖',
               )
             }
-            data.append(key, registerForm[key])
+            if (key === 'advisingProfessor') {
+              data.append(key, JSON.stringify(registerForm[key]))
+              console.log(JSON.stringify(registerForm[key]))
+            } else data.append(key, registerForm[key])
+            // data.append(key, registerForm[key])
+            // console.log(data)
           }
         }
       else if (identity === 'alumni') {
@@ -102,10 +109,17 @@ const Register = () => {
           //     console.log(key)
           //     return alert('請填寫完整資料。您可能沒有上傳系友證明，詳見下方說明')
           //   }
-          data.append(key, registerForm[key])
+          if (key === 'advisingProfessor') {
+            data.append(key, JSON.stringify(registerForm[key]))
+            console.log(JSON.stringify(registerForm[key]))
+          } else data.append(key, registerForm[key])
         }
       }
+      // console.log(data)
+      // const newdata = data
+      // newdata.advisingProfessor = JSON.stringify(data.advisingProfessor)
 
+      // console.log(newdata)
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
@@ -145,6 +159,219 @@ const Register = () => {
       inputConfirmPwd.type = 'password'
     }
   }
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ]
+
+  const chineseNames = [
+    '無',
+    '張時中',
+    '張子璿',
+    '張耀文',
+    '陳政維',
+    '陳景然',
+    '陳中平',
+    '陳和麟',
+    '陳宏銘',
+    '陳信樹',
+    '陳志宏',
+    '陳銘憲',
+    '陳士元',
+    '陳耀銘',
+    '陳怡然',
+    '陳永耀',
+    '鄭皓中',
+    '陳奕君',
+    '鄭宇翔',
+    '簡韶逸',
+    '邱奕鵬',
+    '闕志達',
+    '蔡永傑',
+    '周俊廷',
+    '周錫增',
+    '莊曜宇',
+    '鐘嘉德',
+    '鍾孝文',
+    '丁建均',
+    '傅立成',
+    '謝宏昀',
+    '許源浴',
+    '胡璧合',
+    '黃鐘揚',
+    '黃定洧',
+    '黃建璋',
+    '黃俊郎',
+    '黃念祖',
+    '黃寶儀',
+    '黃升龍',
+    '黃天偉',
+    '胡振國',
+    '江蕙如',
+    '江介宏',
+    '金藝璘',
+    '郭柏齡',
+    '郭斯彥',
+    '李翔傑',
+    '李心予',
+    '李宏毅',
+    '李君浩',
+    '李致毅',
+    '李泰成',
+    '雷欽隆',
+    '李建模',
+    '李俊興',
+    '李峻霣',
+    '李百祺',
+    '連豊力',
+    '廖婉君',
+    '林澤',
+    '林建中',
+    '林致廷',
+    '林啟萬',
+    '林清富',
+    '林恭如',
+    '林浩雄',
+    '林晃巖',
+    '林坤佑',
+    '林茂昭',
+    '林士駿',
+    '林宗賢',
+    '林宗男',
+    '林怡成',
+    '劉致為',
+    '劉智弘',
+    '劉志文',
+    '劉俊麟',
+    '劉浩澧',
+    '劉深淵',
+    '劉宗德',
+    '劉子毓',
+    '盧信嘉',
+    '呂良鴻',
+    '盧奕璋',
+    '毛明華',
+    '毛紹綱',
+    '彭隆瀚',
+    '馮世邁',
+    '蘇柏青',
+    '蘇國棟',
+    '蘇炫榮',
+    '孫啟光',
+    '孫紹華',
+    '宋孔彬',
+    '蔡睿哲',
+    '蔡坤諭',
+    '蔡志宏',
+    '曾雪峰',
+    '王凡',
+    '王暉',
+    '王奕翔',
+    '王倫',
+    '王勝德',
+    '王鈺強',
+    '魏安祺',
+    '魏宏宇',
+    '吳安宇',
+    '吳肇欣',
+    '吳志毅',
+    '吳忠幟',
+    '吳沛遠',
+    '吳瑞北',
+    '吳宗霖',
+    '吳育任',
+    '楊家驤',
+    '楊志忠',
+    '楊東霖',
+    '楊奕軒',
+    '葉丙成',
+    '顏嗣鈞',
+    '于天立',
+    '林則彬',
+    '陳君朋',
+    '陳良基',
+    '陳少傑',
+    '江明理',
+    '莊哲明',
+    '賴怡吉',
+    '李紋霞',
+    '林志達',
+    '駱明凌',
+    '潘正聖',
+    '沈上翔',
+    '王和盛',
+    '王帛霞',
+    '楊柏因',
+    '楊進順',
+    '李舉賢',
+    '張煋',
+    '朱燿衣',
+    '許照',
+    '楊維楨',
+    '白光弘',
+    '馬雲龍',
+    '陳秋發',
+    '于惠中',
+    '許振發',
+    '白光弘',
+    '馬雲龍',
+    '陳秋發',
+    '于惠中',
+    '許振發',
+    '黃鐘洺',
+    '馬志欽',
+    '吳炎培',
+    '劉群章',
+    '楊武純',
+    '李茂煇',
+    '馮武雄',
+    '吳建平',
+    '龐台銘',
+    '郭德盛',
+    '詹國禎',
+    '陳俊雄',
+    '張璞曾',
+    '莊晴光',
+    '李學智',
+    '馮蟻剛',
+    '吳靜雄',
+    '汪重光',
+    '陳秋麟',
+    '王維新',
+    '馮哲川',
+    '張帆人',
+    '許博文',
+    '林巍聳',
+    '陳光禎',
+    '陳德玉',
+    '楊英杰',
+    '曹建和',
+    '郭正邦',
+    '陳少傑',
+    '瞿大雄',
+    '呂學士',
+    '貝蘇章',
+    '張宏鈞',
+    '李嗣涔',
+    '江衍偉',
+    '曹恆偉',
+    '羅仁權',
+    '陳良基',
+    '鄭士康',
+    '李枝宏',
+    '李琳山',
+    '江簡富',
+    '賴飛羆',
+    '林本堅',
+    '王榮騰',
+    '張致恩',
+  ]
+  const formattedNames = chineseNames.map((name) => ({
+    value: name,
+    label: name,
+  }))
 
   return toLogin ? (
     <Redirect to="/login" />
@@ -223,6 +450,23 @@ const Register = () => {
                         {showPassword ? <Visibility /> : <VisibilityOff />}
                       </CButton>
                     </CInputGroup>
+                    <CRow>
+                      <CCol sm="3">
+                        <h6 className="mb-0">Advising Professor</h6>
+                      </CCol>
+                      <CCol sm="9">
+                        {' '}
+                        {/* Adjusted from sm="3" to sm="9" */}
+                        <Select
+                          options={formattedNames}
+                          isMulti
+                          onChange={(item) => {
+                            setRegisterForm({ ...registerForm, advisingProfessor: item })
+                            console.log(item)
+                          }}
+                        />
+                      </CCol>
+                    </CRow>
                     {identity === 'alumni' && (
                       <>
                         <CInputGroup className="mb-3">
