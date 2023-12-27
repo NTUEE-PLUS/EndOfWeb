@@ -11,11 +11,12 @@ const env = require('dotenv')
 env.config()
 
 /*新增一筆使用者資料*/
-async function insert(username, account, psw, img, visual) {
+async function insert(username, account, psw, advisingProfessor, img, visual) {
   await new Login({
     username: username,
     account: account,
     userpsw: psw,
+    advisingProfessor: advisingProfessor,
     img,
     visual: visual._id,
   })
@@ -46,6 +47,7 @@ async function insertVisual(name, account, email) {
  * @apiparam {String} password 密碼(以後建議在前端加密)
  * @apiparam {String} ConfirmPassword 二次密碼
  * @apiparam {String} username 使用者名字
+ * @apiparam {String} advisingProfessor 指導教授
  * @apiparam {String} Email 信箱
  * @apiparam {String} isGraduated false則寄送email給account@ntu.edu.tw(newRule=version3才需要)
  * 
@@ -61,7 +63,7 @@ async function insertVisual(name, account, email) {
 const register = async (req, res) => {
   const { username, password, Email } = req.body
   const account = req.body.account.toLowerCase()
-
+  const advisingProfessor = JSON.parse(req.body.advisingProfessor)
   //密碼加密
   const newPsw = await encryptPsw(password)
 
@@ -69,7 +71,7 @@ const register = async (req, res) => {
   const isRegistered = await Login.exists(query).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
   const user = await insertVisual(username, account, Email)
-  await insert(username, account, newPsw, parseFile(req.file), user)
+  await insert(username, account, newPsw, advisingProfessor, parseFile(req.file), user)
   req.session.loginName = username
   req.session.loginAccount = account
   return res.status(201).send({ username })
@@ -78,6 +80,7 @@ const register = async (req, res) => {
 const secure_reg = async (req, res) => {
   const { username, password, Email } = req.body
   const account = req.body.account.toLowerCase()
+  const advisingProfessor = JSON.parse(req.body.advisingProfessor)
   const newPsw = await encryptPsw(password)
   if (req.file === undefined) throw new ErrorHandler(400, '請添加照片')
   const query = { account }
@@ -88,6 +91,7 @@ const secure_reg = async (req, res) => {
     username,
     account,
     userpsw: newPsw,
+    advisingProfessor: advisingProfessor,
     email: Email,
     img: {
       data: req.file.buffer,
@@ -103,6 +107,9 @@ const sendmail = require('../../../middleware/mail')
 const template = require('./mailTemplate/template_generator')
 const reg_v3 = async (req, res) => {
   const account = req.body.account.toLowerCase()
+  // console.log(req.body.advisingProfessor)
+  // console.log(req.body)
+  const advisingProfessor = JSON.parse(req.body.advisingProfessor)
   const isRegistered = await Login.exists({ account }).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
@@ -113,12 +120,13 @@ const reg_v3 = async (req, res) => {
   const data = {
     username,
     account,
+    advisingProfessor: advisingProfessor,
     userpsw: newPsw,
     email: Email,
     active,
     img: parseFile(req.file),
   }
-
+  // console.log(data)
   await Pending.findOneAndUpdate({ account }, data, {
     upsert: true,
     useFindAndModify: false,
