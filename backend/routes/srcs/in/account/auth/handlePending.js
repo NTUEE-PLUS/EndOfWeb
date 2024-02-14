@@ -21,11 +21,7 @@ const sendmail = require('../../../../middleware/mail')
  */
 const manage = async (req, res, next) => {
   const { account, acceptUser } = req.body
-  const { username, userpsw, advisingProfessor, facebookID, email } = await Pending.findOne({
-    account,
-  }).catch(dbCatch)
-  console.log(typeof advisingProfessor)
-  console.log(advisingProfessor)
+  const { username, userpsw, facebookID, email } = await Pending.findOne({ account }).catch(dbCatch)
   if (!username) throw new ErrorHandler(404, 'user not found')
   if (!acceptUser) {
     await Pending.deleteMany({ account }).catch(dbCatch)
@@ -37,7 +33,7 @@ const manage = async (req, res, next) => {
     })
       .save()
       .catch(dbCatch)
-    await Login({ username, account, advisingProfessor, facebookID, userpsw, visual: visualID })
+    await Login({ username, account, facebookID, userpsw, visual: visualID })
       .save()
       .catch(async (e) => {
         await Visual.deleteOne({ _id: visualID }).catch(dbCatch)
