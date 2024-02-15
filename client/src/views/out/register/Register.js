@@ -78,7 +78,12 @@ const Register = () => {
   const handleInputChange = (e) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value })
   }
-
+  const handleSelectChange = (selectedOptions) => {
+    setRegisterForm((currentForm) => ({
+      ...currentForm,
+      advisingProfessor: selectedOptions || [], // Update to the new array of selected options or an empty array if none
+    }))
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     if (registerForm.password !== registerForm.ConfirmPassword) {
@@ -97,10 +102,9 @@ const Register = () => {
             }
             if (key === 'advisingProfessor') {
               data.append(key, JSON.stringify(registerForm[key]))
-              console.log(JSON.stringify(registerForm[key]))
-            } else data.append(key, registerForm[key])
-            // data.append(key, registerForm[key])
-            // console.log(data)
+            } else {
+              data.append(key, registerForm[key])
+            }
           }
         }
       else if (identity === 'alumni') {
@@ -111,15 +115,12 @@ const Register = () => {
           //   }
           if (key === 'advisingProfessor') {
             data.append(key, JSON.stringify(registerForm[key]))
-            console.log(JSON.stringify(registerForm[key]))
-          } else data.append(key, registerForm[key])
+          } else {
+            data.append(key, registerForm[key])
+          }
         }
       }
-      // console.log(data)
-      // const newdata = data
-      // newdata.advisingProfessor = JSON.stringify(data.advisingProfessor)
 
-      // console.log(newdata)
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
@@ -159,13 +160,6 @@ const Register = () => {
       inputConfirmPwd.type = 'password'
     }
   }
-
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ]
-
   const chineseNames = [
     '無',
     '張時中',
@@ -450,23 +444,16 @@ const Register = () => {
                         {showPassword ? <Visibility /> : <VisibilityOff />}
                       </CButton>
                     </CInputGroup>
-                    <CRow>
-                      <CCol sm="3">
-                        <h6 className="mb-0">Advising Professor</h6>
-                      </CCol>
-                      <CCol sm="9">
-                        {' '}
-                        {/* Adjusted from sm="3" to sm="9" */}
-                        <Select
-                          options={formattedNames}
-                          isMulti
-                          onChange={(item) => {
-                            setRegisterForm({ ...registerForm, advisingProfessor: item })
-                            console.log(item)
-                          }}
-                        />
-                      </CCol>
-                    </CRow>
+                    <CInputGroup className="mb-3">
+                      <Select
+                        options={formattedNames}
+                        placeholder="Advising Professor"
+                        isMulti
+                        isSearchable
+                        onChange={handleSelectChange}
+                        value={registerForm.advisingProfessor}
+                      />
+                    </CInputGroup>
                     {identity === 'alumni' && (
                       <>
                         <CInputGroup className="mb-3">

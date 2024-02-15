@@ -39,7 +39,6 @@ Profile_Schema.virtual('imgSrc').get(buf2url('userimage'))
 Profile_Schema.statics.smartQuery = function (keywords) {
   if (!keywords) return []
   const reg = new RegExp(keywords.replace(' ', '|'), 'i')
-  //   console.log(reg)
   const query = {
     $or: [
       { account: reg },
