@@ -103,11 +103,12 @@ const sendmail = require('../../../middleware/mail')
 const template = require('./mailTemplate/template_generator')
 
 const reg_v3 = async (req, res) => {
+  // The current version
   const account = req.body.account.toLowerCase()
   const Professors = JSON.parse(req.body.advisingProfessor)
   const isRegistered = await Login.exists({ account }).catch(dbCatch)
 
-  if (isRegistered) throw new ErrorHandler(403, '777')
+  if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
   const { username, password, Email } = req.body
   const newPsw = await encryptPsw(password)
@@ -122,8 +123,6 @@ const reg_v3 = async (req, res) => {
     active,
     img: parseFile(req.file),
   }
-  const user = await insertVisual(username, account, Email, Professors)
-  await insert(username, account, newPsw, parseFile(req.file), user)
 
   await Pending.findOneAndUpdate({ account }, data, {
     upsert: true,

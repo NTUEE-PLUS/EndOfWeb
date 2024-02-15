@@ -430,7 +430,7 @@ const Register = () => {
                         onChange={handleInputChange}
                       />
                     </CInputGroup>
-                    <CInputGroup className="mb-4">
+                    <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
                       </CInputGroupText>
@@ -445,9 +445,12 @@ const Register = () => {
                       </CButton>
                     </CInputGroup>
                     <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cilPeople" name="cilPeople" />
+                      </CInputGroupText>
                       <Select
                         options={formattedNames}
-                        placeholder="Advising Professor"
+                        placeholder="專題教授"
                         isMulti
                         isSearchable
                         onChange={handleSelectChange}

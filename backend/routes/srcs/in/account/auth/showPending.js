@@ -19,12 +19,15 @@ const asyncHandler = require('express-async-handler')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const manage = async (req, res, next) => {
-  const pendings = await Pending.find({}, 'username account email img').catch(dbCatch)
-  const pend = pendings.map(({ username, account, email, imgSrc }) => ({
+  const pendings = await Pending.find({}, 'username account email img advisingProfessor').catch(
+    dbCatch,
+  )
+  const pend = pendings.map(({ username, account, email, imgSrc, advisingProfessor }) => ({
     username,
     account,
     email,
     imgSrc,
+    advisingProfessor,
   }))
   return res.send({ pendings: pend })
 }
