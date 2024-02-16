@@ -11,6 +11,7 @@ import {
   CFormControl,
   CInputGroupText,
   CImage,
+  CFormSelect,
 } from '@coreui/react'
 import ReactTooltip from 'react-tooltip'
 import CIcon from '@coreui/icons-react'
@@ -78,6 +79,7 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
     setPending(true)
     const form = new FormData()
     form.append('title', data.title)
+    form.append('category', data.category)
     form.append('intro', data.intro)
     form.append('YTlink', data.YTlink)
 
@@ -136,6 +138,24 @@ const FormModal = ({ visible, setVisible, data, setData, refresh }) => {
               />
               <ReactTooltip id="title" place="top" type="dark" effect="solid" />
             </CInputGroup>
+
+            <CInputGroup className="mb-3">
+              <CInputGroupText>
+                <CIcon icon="cil-user" />
+              </CInputGroupText>
+              <CFormSelect
+                data-for="type"
+                data-tip="Select the type of the sharing"
+                value={data.category}
+                name="category"
+                onChange={handleInputChange}
+              >
+                <option value="">選擇文章分類</option>
+                <option value="studyAbroadSharing">留學分享會</option>
+                <option value="Others">其他</option>
+              </CFormSelect>
+            </CInputGroup>
+
             <CInputGroup className="mb-3">
               <CInputGroupText>
                 <CIcon icon="cil-user" />

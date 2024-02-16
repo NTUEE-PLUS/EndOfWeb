@@ -8,6 +8,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiDescription 拿留學分享資訊
  *
  * @apiSuccess (201) {String} title  標題
+ * @apiSuccess (201) {String} category  分類
  * @apiSuccess (201) {String} intro  介紹
  * @apiSuccess (201) {URL} YTlink youtube連結
  * @apiSuccess (201) {URL} otherLinks 其他連結

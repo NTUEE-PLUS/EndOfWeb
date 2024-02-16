@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormControlLabel,
   Typography,
+  Button,
 } from '@material-ui/core'
 import Pagination from '@material-ui/lab/Pagination'
 import { makeStyles } from '@material-ui/core'
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 const formTemplate = {
   title: '',
+  category: '',
   intro: '',
   YTlink: '',
   otherLinks: [],
@@ -98,69 +100,51 @@ const Search = ({
       .catch((e) => alert(`錯誤: ${e.message}`))
   }
 
+  const [showStudyAbroadSharing, setShowStudyAbroadSharing] = useState(true)
+
   return (
-    <div className="d-flex flex-column justify-content-center m-auto w-75">
-      <Box className={classes.titleSearchContainer}>
-        <Box className={`display-1 ${classes.title}`}>
-          <strong>Abroad Sharing Sessions</strong>
-          <Typography variant="subtitle1" className={classes.controlLabelText}>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={ascTime}
-                    onChange={(e) => setAscTime(e.target.checked)}
-                    inputProps={{ 'aria-label': 'Switch Sorting Order' }}
-                  />
-                }
-                label="Ascending"
-              ></FormControlLabel>
-            </FormGroup>
-          </Typography>
-          {canEdit && (
-            <CButton onClick={handleAddData} style={{ height: 'min-content' }}>
-              Add New Data
-            </CButton>
-          )}
+    <>
+      <CButton onClick={() => setShowStudyAbroadSharing(!showStudyAbroadSharing)}>
+        change category
+      </CButton>
+
+      {/* {showStudyAbroadSharing ? (
+      <div>showStudyAbroadSharing</div>
+    ) : (
+      <div>showOthers</div>
+    )} */}
+
+      <div className="d-flex flex-column justify-content-center m-auto w-75">
+        <Box className={classes.titleSearchContainer}>
+          <Box className={`display-1 ${classes.title}`}>
+            <strong>Abroad Sharing Sessions</strong>
+            <Typography variant="subtitle1" className={classes.controlLabelText}>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={ascTime}
+                      onChange={(e) => setAscTime(e.target.checked)}
+                      inputProps={{ 'aria-label': 'Switch Sorting Order' }}
+                    />
+                  }
+                  label="Ascending"
+                ></FormControlLabel>
+              </FormGroup>
+            </Typography>
+            {canEdit && (
+              <CButton onClick={handleAddData} style={{ height: 'min-content' }}>
+                Add New Data
+              </CButton>
+            )}
+          </Box>
+          <SearchBar rootRoute={rootRoute} keywords={keywords} setKeywords={setKeywords} />
         </Box>
-        <SearchBar rootRoute={rootRoute} keywords={keywords} setKeywords={setKeywords} />
-      </Box>
-      {maxPage === 0 && !isPending ? (
-        <div className="display-4 d-flex justify-content-center mt-3 text-white">
-          No corresponding datas
-        </div>
-      ) : maxPage ? (
-        <Box my={4} className={classes.paginationContainer}>
-          <Pagination
-            count={maxPage}
-            defaultPage={1}
-            page={page}
-            color="secondary"
-            onChange={(e, val) => {
-              window.scrollTo(0, 0)
-              history.push(`${rootRoute}/${val}/${searchFor || ''}`)
-            }}
-          />
-        </Box>
-      ) : (
-        []
-      )}
-      {isPending === true ? (
-        <CircularProgress className={classes.progress} color="secondary" />
-      ) : (
-        <>
-          {data && (
-            <div className={classes.blogsContainer}>
-              <Grid container spacing={1}>
-                <Articles
-                  data={data}
-                  canEdit={canEdit}
-                  deleteArticle={deleteArticle}
-                  updateArticle={handleUpdateData}
-                />
-              </Grid>
-            </div>
-          )}
+        {maxPage === 0 && !isPending ? (
+          <div className="display-4 d-flex justify-content-center mt-3 text-white">
+            No corresponding datas
+          </div>
+        ) : maxPage ? (
           <Box my={4} className={classes.paginationContainer}>
             <Pagination
               count={maxPage}
@@ -173,16 +157,49 @@ const Search = ({
               }}
             />
           </Box>
-        </>
-      )}
-      <FormModal
-        visible={modalOpen}
-        setVisible={setModalOpen}
-        data={forEdit}
-        setData={setForEdit}
-        refresh={refresh}
-      />
-    </div>
+        ) : (
+          []
+        )}
+        {isPending === true ? (
+          <CircularProgress className={classes.progress} color="secondary" />
+        ) : (
+          <>
+            {data && (
+              <div className={classes.blogsContainer}>
+                <Grid container spacing={1}>
+                  <Articles
+                    data={data}
+                    canEdit={canEdit}
+                    deleteArticle={deleteArticle}
+                    updateArticle={handleUpdateData}
+                    showStudyAbroadSharing={showStudyAbroadSharing}
+                  />
+                </Grid>
+              </div>
+            )}
+            <Box my={4} className={classes.paginationContainer}>
+              <Pagination
+                count={maxPage}
+                defaultPage={1}
+                page={page}
+                color="secondary"
+                onChange={(e, val) => {
+                  window.scrollTo(0, 0)
+                  history.push(`${rootRoute}/${val}/${searchFor || ''}`)
+                }}
+              />
+            </Box>
+          </>
+        )}
+        <FormModal
+          visible={modalOpen}
+          setVisible={setModalOpen}
+          data={forEdit}
+          setData={setForEdit}
+          refresh={refresh}
+        />
+      </div>
+    </>
   )
 }
 Search.propTypes = {

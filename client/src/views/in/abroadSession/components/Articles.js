@@ -86,84 +86,166 @@ function getDateExp(dateStr) {
     date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
   }`
 }
-const Article = ({ index, article, canEdit, startDelete, startUpdate }) => {
+const Article = ({ index, article, canEdit, startDelete, startUpdate, showStudyAbroadSharing }) => {
   const classes = useStyles({ article })
   return (
-    <Grid className="my-4" item xs={12} md={12} key={index}>
-      <Card className={classes.card}>
-        <div className={classes.image}></div>
-        <Box className={classes.leftContainer}>
-          <Link to={'/abroad_session/' + article._id.toString()}>
-            <CardContent>
-              <Typography gutterBottom variant="h3" component="h3">
-                {article.title}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                className={classes.intro}
-              >
-                {article.intro}
-              </Typography>
-            </CardContent>
-          </Link>
-          {canEdit && (
-            <div style={{ display: 'flex' }}>
-              <CButton
-                color="info"
-                onClick={() => {
-                  startUpdate()
-                }}
-                style={{ width: 'min-content' }}
-                className={classes.editingButton}
-              >
-                update
-              </CButton>
-              <CButton
-                color="danger"
-                onClick={() => {
-                  startDelete()
-                }}
-                className={classes.editingButton}
-              >
-                delete
-              </CButton>
-            </div>
-          )}
-          <CardActions className={classes.bottomInfo}>
-            <Box className={classes.links}>
-              {article.otherLinks &&
-                article.otherLinks.map(({ link, desc }, i) => {
-                  return (
-                    <Tooltip placement="top" key={i} title={desc || 'Link to more info!'}>
-                      <Box className={classes.link} key={i}>
-                        <a
-                          href={link.match('//') ? link : '//' + link}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {getFavicon(link) ? (
-                            <Avatar src={getFavicon(link)} />
-                          ) : (
-                            <LinkIcon className={classes.linkIcon} />
-                          )}
-                        </a>
-                      </Box>
-                    </Tooltip>
-                  )
-                })}
+    <>
+      {showStudyAbroadSharing && article.category === 'studyAbroadSharing' && (
+        <Grid className="my-4" item xs={12} md={12} key={index}>
+          <Card className={classes.card}>
+            <div className={classes.image}></div>
+            <Box className={classes.leftContainer}>
+              <Link to={'/abroad_session/' + article._id.toString()}>
+                <CardContent>
+                  <Typography gutterBottom variant="h3" component="h3">
+                    {article.title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                    className={classes.intro}
+                  >
+                    {article.intro}
+                  </Typography>
+                </CardContent>
+              </Link>
+              {canEdit && (
+                <div style={{ display: 'flex' }}>
+                  <CButton
+                    color="info"
+                    onClick={() => {
+                      startUpdate()
+                    }}
+                    style={{ width: 'min-content' }}
+                    className={classes.editingButton}
+                  >
+                    update
+                  </CButton>
+                  <CButton
+                    color="danger"
+                    onClick={() => {
+                      startDelete()
+                    }}
+                    className={classes.editingButton}
+                  >
+                    delete
+                  </CButton>
+                </div>
+              )}
+              <CardActions className={classes.bottomInfo}>
+                <Box className={classes.links}>
+                  {article.otherLinks &&
+                    article.otherLinks.map(({ link, desc }, i) => {
+                      return (
+                        <Tooltip placement="top" key={i} title={desc || 'Link to more info!'}>
+                          <Box className={classes.link} key={i}>
+                            <a
+                              href={link.match('//') ? link : '//' + link}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {getFavicon(link) ? (
+                                <Avatar src={getFavicon(link)} />
+                              ) : (
+                                <LinkIcon className={classes.linkIcon} />
+                              )}
+                            </a>
+                          </Box>
+                        </Tooltip>
+                      )
+                    })}
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" color="textSecondary" component="p">
+                    {getDateExp(article.updatedAt)}
+                    {/* &emsp*/}
+                  </Typography>
+                </Box>
+              </CardActions>
             </Box>
-            <Box>
-              <Typography variant="subtitle2" color="textSecondary" component="p">
-                {getDateExp(article.updatedAt)}
-                {/* &emsp*/}
-              </Typography>
+          </Card>
+        </Grid>
+      )}
+
+      {!showStudyAbroadSharing && article.category === 'Others' && (
+        <Grid className="my-4" item xs={12} md={12} key={index}>
+          <Card className={classes.card}>
+            <div className={classes.image}></div>
+            <Box className={classes.leftContainer}>
+              <Link to={'/abroad_session/' + article._id.toString()}>
+                <CardContent>
+                  <Typography gutterBottom variant="h3" component="h3">
+                    {article.title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                    className={classes.intro}
+                  >
+                    {article.intro}
+                  </Typography>
+                </CardContent>
+              </Link>
+              {canEdit && (
+                <div style={{ display: 'flex' }}>
+                  <CButton
+                    color="info"
+                    onClick={() => {
+                      startUpdate()
+                    }}
+                    style={{ width: 'min-content' }}
+                    className={classes.editingButton}
+                  >
+                    update
+                  </CButton>
+                  <CButton
+                    color="danger"
+                    onClick={() => {
+                      startDelete()
+                    }}
+                    className={classes.editingButton}
+                  >
+                    delete
+                  </CButton>
+                </div>
+              )}
+              <CardActions className={classes.bottomInfo}>
+                <Box className={classes.links}>
+                  {article.otherLinks &&
+                    article.otherLinks.map(({ link, desc }, i) => {
+                      return (
+                        <Tooltip placement="top" key={i} title={desc || 'Link to more info!'}>
+                          <Box className={classes.link} key={i}>
+                            <a
+                              href={link.match('//') ? link : '//' + link}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {getFavicon(link) ? (
+                                <Avatar src={getFavicon(link)} />
+                              ) : (
+                                <LinkIcon className={classes.linkIcon} />
+                              )}
+                            </a>
+                          </Box>
+                        </Tooltip>
+                      )
+                    })}
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" color="textSecondary" component="p">
+                    {getDateExp(article.updatedAt)}
+                    {/* &emsp*/}
+                  </Typography>
+                </Box>
+              </CardActions>
             </Box>
-          </CardActions>
-        </Box>
-      </Card>
-    </Grid>
+          </Card>
+        </Grid>
+      )}
+    </>
   )
 }
 Article.propTypes = {
@@ -172,8 +254,9 @@ Article.propTypes = {
   canEdit: PropTypes.bool,
   startDelete: PropTypes.func,
   startUpdate: PropTypes.func,
+  showStudyAbroadSharing: PropTypes.bool,
 }
-const Articles = ({ data, canEdit, deleteArticle, updateArticle }) => {
+const Articles = ({ data, canEdit, deleteArticle, updateArticle, showStudyAbroadSharing }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [idForDel, setIdForDel] = useState('')
   const startDelete = (_id) => {
@@ -191,6 +274,7 @@ const Articles = ({ data, canEdit, deleteArticle, updateArticle }) => {
           canEdit={canEdit}
           startDelete={() => startDelete(art._id)}
           startUpdate={() => updateArticle(art)}
+          showStudyAbroadSharing={showStudyAbroadSharing}
         />
       ))}
       <ConfirmModal

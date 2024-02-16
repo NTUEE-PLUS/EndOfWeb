@@ -10,6 +10,7 @@ const { parseFile } = require('../../../Schemas/query')
  * @apiDescription 新增留學分享
  *
  * @apiParam {String} title 採訪標題
+ * @apiParam {String} category 文章分類
  * @apiParam {String} intro 介紹
  * @apiParam {URL} YTlink Youtube連結
  * @apiParam {URL[]} otherLinks 其他外部連結
@@ -21,7 +22,7 @@ const { parseFile } = require('../../../Schemas/query')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const addAbroadSharing = async (req, res) => {
-  const { title, intro, YTlink, otherLinks, otherLinksDesc } = req.body
+  const { title, category, intro, YTlink, otherLinks, otherLinksDesc } = req.body
   const img = parseFile(req.file)
   if (!otherLinks?.length === otherLinksDesc?.length)
     throw new ErrorHandler(
@@ -30,6 +31,7 @@ const addAbroadSharing = async (req, res) => {
 
   const { _id } = await new AbroadSharing({
     title,
+    category,
     intro,
     YTlink,
     otherLinks: otherLinks?.length
@@ -44,7 +46,7 @@ const addAbroadSharing = async (req, res) => {
 
 const valid = require('../../../middleware/validation')
 const rules = [
-  { filename: 'optional', field: ['title', 'intro'], type: 'String' },
+  { filename: 'optional', field: ['title', 'category', 'intro'], type: 'String' },
   { filename: 'Url', field: ['YTlink', 'otherLinks'], type: 'URL' },
 ]
 
