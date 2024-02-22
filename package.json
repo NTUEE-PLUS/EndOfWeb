@@ -25,12 +25,14 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "husky": "^7.0.0",
     "nodemon": "^2.0.12",
     "npm-run-all": "^4.1.5",
     "pretty-quick": "^3.1.1"
-  }
+  },
+  "version": "0.0.0"
 }
