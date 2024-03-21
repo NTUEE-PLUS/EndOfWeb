@@ -91,7 +91,7 @@ const Announce = () => {
                 <h1>{add === 'add' ? 'Ready to post' : 'Want to edit'} an announcement?</h1>
                 <CInputGroup className="mb-3">
                   <CInputGroupText>
-                    <CIcon icon="cil-layers" name="cil-layers" />
+                    <CIcon icon="cil-layers" />
                   </CInputGroupText>
                   <CFormControl
                     placeholder="Title*"

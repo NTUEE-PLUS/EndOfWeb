@@ -35,7 +35,7 @@ const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
             className="align-self-baseline btn btn-ghost-info"
             onClick={() => setHasMatched(false)}
           >
-            <CIcon name="cil-home" size="lg" />
+            <CIcon size="lg" />
           </button>
           <img src={mail_sent} alt="success" className="img-fluid w-25" />
           <h2 className="my-4">信件已全數寄出，謝謝您的幫忙！</h2>
@@ -46,7 +46,7 @@ const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
             className="align-self-baseline btn btn-ghost-info"
             onClick={() => setHasMatched(false)}
           >
-            <CIcon name="cil-home" size="lg" />
+            <CIcon size="lg" />
           </button>
           <h2 className="my-4">配對已完成！趕快發信告訴大家吧！</h2>
           <img src={success_icon} alt="success" className="img-fluid w-25" />

@@ -180,7 +180,7 @@ const Register = () => {
                     </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-user" name="cil-user" />
+                        <CIcon icon="cil-user" />
                       </CInputGroupText>
                       <CFormControl
                         placeholder="Your Chinese Name"
@@ -190,7 +190,7 @@ const Register = () => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-education" name="cil-education" />
+                        <CIcon icon="cil-education" />
                       </CInputGroupText>
                       <CFormControl
                         placeholder="Student ID"
@@ -200,7 +200,7 @@ const Register = () => {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
+                        <CIcon icon="cil-lock-locked" />
                       </CInputGroupText>
                       <CFormControl
                         type="password"
@@ -211,7 +211,7 @@ const Register = () => {
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
-                        <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
+                        <CIcon icon="cil-lock-locked" />
                       </CInputGroupText>
                       <CFormControl
                         type="password"
@@ -235,7 +235,7 @@ const Register = () => {
                         </CInputGroup>
                         <CInputGroup className="mb-3">
                           <CInputGroupText>
-                            <CIcon icon="cil-image" name="cil-image" />
+                            <CIcon icon="cil-image" />
                           </CInputGroupText>
                           <CFormControl
                             id="formFile"

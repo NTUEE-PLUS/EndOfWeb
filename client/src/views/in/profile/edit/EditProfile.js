@@ -331,7 +331,7 @@ const ProfileEdit = () => {
                 <CListGroupItem>
                   <h6 className="mb-0">
                     <CAvatar>
-                      <CIcon icon="website" name="website"></CIcon>
+                      <CIcon icon="website"></CIcon>
                     </CAvatar>
                     Website
                   </h6>
@@ -345,7 +345,7 @@ const ProfileEdit = () => {
                 <CListGroupItem>
                   <h6 className="mb-0">
                     <CAvatar>
-                      <CIcon icon="cib-github" name="cib-github"></CIcon>
+                      <CIcon icon="cib-github"></CIcon>
                     </CAvatar>
                     Github
                   </h6>
@@ -359,7 +359,7 @@ const ProfileEdit = () => {
                 <CListGroupItem>
                   <h6 className="mb-0">
                     <CAvatar>
-                      <CIcon icon="cib-linkedin" name="cib-linkedin"></CIcon>
+                      <CIcon icon="cib-linkedin"></CIcon>
                     </CAvatar>
                     Linkedin
                   </h6>
@@ -373,7 +373,7 @@ const ProfileEdit = () => {
                 <CListGroupItem>
                   <h6 className="mb-0">
                     <CAvatar>
-                      <CIcon icon="cib-facebook" name="cib-facebook"></CIcon>
+                      <CIcon icon="cib-facebook"></CIcon>
                     </CAvatar>
                     Facebook
                   </h6>

@@ -176,7 +176,7 @@ const MatchForm = () => {
                   className="align-self-baseline btn btn-ghost-info my-3"
                   onClick={(e) => history.push('/matching')}
                 >
-                  <CIcon name="cil-arrow-left" size="lg" />
+                  <CIcon size="lg" />
                 </button>
                 <CForm>
                   <h2>

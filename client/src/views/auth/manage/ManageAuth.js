@@ -77,7 +77,7 @@ function ManageAuth() {
           onKeyPress={handleEnter}
         />
         <CButton onClick={handleSearch}>
-          <CIcon icon="cil-search" name="cil-search" />
+          <CIcon icon="cil-search" />
         </CButton>
       </CInputGroup>
       <br />

@@ -44,22 +44,22 @@ const AppHeaderDropdown = () => {
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Your Space</CDropdownHeader>
         <CDropdownItem component={Link} to={`/profile/${studentID}`}>
-          <CIcon icon="cil-user" name="cil-user" className="me-2" />
+          <CIcon icon="cil-user" className="me-2" />
           Profile
         </CDropdownItem>
 
         <CDropdownItem component={Link} to="/own_recruitment">
-          <CIcon icon="cil-user" name="cil-user" className="me-2" />
+          <CIcon icon="cil-user" className="me-2" />
           Your Recruitment
         </CDropdownItem>
 
         <CDropdownItem component={Link} to={`/own_recommendation`}>
-          <CIcon icon="cil-user" name="cil-user" className="me-2" />
+          <CIcon icon="cil-user" className="me-2" />
           Your Recommendation
         </CDropdownItem>
 
         <CDropdownItem component={Link} to={`/change_password`}>
-          <CIcon icon="cil-lock-locked" name="cil-lock-locked" className="me-2" />
+          <CIcon icon="cil-lock-locked" className="me-2" />
           Change Password
         </CDropdownItem>
 
@@ -72,7 +72,7 @@ const AppHeaderDropdown = () => {
         </CDropdownItem> */}
         <CDropdownDivider />
         <CDropdownItem onClick={handleLogOut}>
-          <CIcon icon="cil-lock-locked" name="cil-lock-locked" className="me-2" />
+          <CIcon icon="cil-lock-locked" className="me-2" />
           Logout
         </CDropdownItem>
       </CDropdownMenu>
