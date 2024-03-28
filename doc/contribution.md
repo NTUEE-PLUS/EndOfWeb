@@ -52,7 +52,7 @@ git commit -m {commit message}
 
 ## Step 6 Push
 
-After you finished tour work, push this branch to origin.
+After you finished your work, push this branch to origin.
 Please do not use git pull, since it may create redundant commits.
 
 ```

@@ -28,7 +28,7 @@ const LoginFormTemplate = {
 
 const Login = () => {
   const { search } = useLocation()
-  const redirectURL = new URLSearchParams(search).get('pathFrom') || '/home'
+  const redirectURL = new URLSearchParams(search).get('pathFrom') || '/dashboard'
 
   const dispatch = useDispatch()
   const { isLogin } = useSelector(selectLogin)

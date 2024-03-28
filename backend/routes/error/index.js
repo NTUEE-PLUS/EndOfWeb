@@ -16,7 +16,7 @@ const handleError = (err, req, res, next) => {
   if (!description) {
     console.log('Error:', err)
     return res.status(404).json({
-      description: 'unknow error',
+      description: 'unknown error',
     })
   }
   console.log('Error:', description)
