@@ -44,7 +44,9 @@ const AppSidebar = () => {
       onHide={() => dispatch(sidebarHide())}
     >
       <CSidebarBrand className="bg-white" to="/">
-        <CImage className="d-flex pt-1 bg-white text-dark" src={logo_row} width="80%" />
+        <CNavLink to="/home" component={NavLink}>
+          <CImage className="d-flex pt-1 bg-white text-dark" src={logo_row} width="80%" />
+        </CNavLink>
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

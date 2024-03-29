@@ -7,6 +7,10 @@ import MatchResult from './MatchResult'
 import Experience from './Experience'
 import Spinner from '../../components/Spinner'
 
+/**
+ * Check if t1 (now) is earlier than t2 (given time).
+ * Note that the month of t2 is from 1 to 12 while that of the object "Date" is from 0 to 11.
+ */
 const earlier = (t1, t2) => {
   const time1 = Date.parse(t1)
   const time2 = Date.parse(new Date(t2[0], Number(t2[1]) - 1, t2[2], t2[3], t2[4], 0, 0))
@@ -16,11 +20,13 @@ const earlier = (t1, t2) => {
 const Matching = () => {
   const [startTime, setStartTime] = useState()
   const [endTime, setEndTime] = useState()
-  const [jdata, setJdata] = useState({})
-  const [sdata, setSdata] = useState({})
-  const [identity, setIdentity] = useState('')
+  const [jdata, setJdata] = useState({}) /** junior's data */
+  const [sdata, setSdata] = useState({}) /** senior's data */
+  const [identity, setIdentity] = useState('') /** junior or senior */
   const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1) /** 1:配對結果 2:申請心得精華區 */
+
+  /** Set up the start time and end time. */
   const getTime = async () => {
     axios.get('/api/time/getTime', { params: { target: 'matching_start' } }).then((res) => {
       const [year, month, day, h_m] = res.data.split('-')
@@ -33,6 +39,8 @@ const Matching = () => {
       setEndTime(() => [year, month, day, hour, min])
     })
   }
+
+  /** Get the data of the applicant. */
   const checkOpen = async () => {
     axios
       .get('/api/study/form')
@@ -46,6 +54,8 @@ const Matching = () => {
         (err) => err.response.data.description && alert('錯誤\n' + err.response.data.description),
       )
   }
+
+  /** Get the matching result of the applicant. */
   const checkResult = async () => {
     axios
       .get('/api/study/result')
@@ -67,12 +77,12 @@ const Matching = () => {
   }, [])
 
   useEffect(() => {
-    if (!startTime || !endTime) return
+    if (!startTime || !endTime) return /** 若沒有startTime或endTime，則不CheckOpen()*/
     checkOpen()
   }, [startTime, endTime])
 
   useEffect(() => {
-    if (!identity) return
+    if (!identity) return /** 若沒有 identity (初次開通)，則不 CheckResult()*/
     checkResult()
   }, [identity])
   return loading ? (
@@ -82,6 +92,8 @@ const Matching = () => {
       <CNav className="mb-4" variant="tabs" role="tablist" layout="justified">
         <CNavItem>
           <CNavLink href="javascript:void(0);" active={page === 1} onClick={() => setPage(1)}>
+            {' '}
+            {/** Remember to use arrow function in onClick={}.*/}
             配對結果
           </CNavLink>
         </CNavItem>
@@ -93,7 +105,9 @@ const Matching = () => {
       </CNav>
       <CTabContent>
         <CTabPane role="tabpanel" aria-labelledby="home-tab" visible={page === 1}>
-          {earlier(Date(), startTime) ? (
+          {' '}
+          {/** 配對結果*/}
+          {earlier(Date(), startTime) /** 配對未開始*/ ? (
             <div>
               <h2>抱歉，配對表單填寫尚未開始</h2>
               <h3>
@@ -103,14 +117,17 @@ const Matching = () => {
             </div>
           ) : (
             <div className="d-flex align-items-center justify-content-around p-2">
-              {identity ? (
+              {identity /** 若非初次開通(有identity)，則顯示 MatchResult */ ? (
                 <MatchResult
                   jdata={jdata}
                   sdata={sdata}
                   identity={identity}
                   ended={!earlier(Date(), endTime)}
                 />
-              ) : earlier(Date(), endTime) ? (
+              ) : earlier(
+                  Date(),
+                  endTime,
+                ) /** 若初次開通(無identity)且尚未截止，則顯示 OpenMatching*/ ? (
                 <div className="d-flex flex-column">
                   <h2>
                     本期表單開放時間: {startTime[0]}/{startTime[1]}/{startTime[2]} {startTime[3]}:
@@ -120,6 +137,7 @@ const Matching = () => {
                   <OpenMatching />
                 </div>
               ) : (
+                /** 配對已截止*/
                 <div>
                   <h2>抱歉，配對表單填寫已經結束</h2>
                   <h3>
@@ -133,6 +151,8 @@ const Matching = () => {
           )}
         </CTabPane>
         <CTabPane role="tabpanel" aria-labelledby="contact-tab" visible={page === 2}>
+          {' '}
+          {/** 申請心得精華區*/}
           <Experience />
         </CTabPane>
       </CTabContent>
