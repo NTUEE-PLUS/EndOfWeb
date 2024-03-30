@@ -1,25 +1,29 @@
+import CIcon from '@coreui/icons-react'
 import {
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalFooter,
-  CModalTitle,
   CButton,
   CForm,
-  CInputGroup,
-  CFormControl,
-  CInputGroupText,
   CImage,
+  CInputGroup,
+  CInputGroupText,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
 } from '@coreui/react'
-import ReactTooltip from 'react-tooltip'
-import CIcon from '@coreui/icons-react'
-import React, { Fragment, useState } from 'react'
-import PropTypes from 'prop-types'
 import axios from 'axios'
+import PropTypes from 'prop-types'
+import React, { Fragment, useRef, useState } from 'react'
+import ReactTooltip from 'react-tooltip'
 
 const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) => {
-  const [imgPreview, setImgPreview] = useState(dataForm.people.slice().fill(false))
+  const [imgPreview, setImgPreview] = useState(new Array(dataForm.people.length).fill(false))
   const [pending, setPending] = useState(false)
+  const formRef = useRef(null)
+  const preventDefaultAndFocus = (e) => {
+    e.preventDefault()
+    e.target.focus()
+  }
   const handleEnterImgIcon = (index) => {
     const result = imgPreview.slice()
     result[index] = true
@@ -60,6 +64,9 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
     reader.readAsDataURL(file)
   }
   const handleSubmit = async () => {
+    // prevent the form from submitting if the form is invalid
+    if (!formRef.current.reportValidity()) return
+
     setPending(true)
     const data = new FormData()
     data.append('grade', dataForm.grade)
@@ -108,19 +115,24 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
           <CModalTitle>{add ? 'Add a year' : 'Edit this year'} </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <CForm>
+          <CForm ref={formRef}>
             <CInputGroup className="mb-3">
               <CInputGroupText>
                 <CIcon icon="cil-calendar" />
               </CInputGroupText>
-              <CFormControl
-                data-for="grade"
-                data-tip="Grade(Bxx)"
+              <input
+                required
+                pattern="B\d{2}"
+                type="text"
+                name="grade"
+                data-for="grade" // for react-tooltip
+                data-tip="Grade(Bxx)" // the hovering texts
                 placeholder="Grade*"
                 value={dataForm.grade}
-                name="grade"
                 onChange={handleInputChange}
                 disabled={pending}
+                className="form-control"
+                onInvalid={preventDefaultAndFocus}
               />
               <ReactTooltip id="grade" place="top" type="dark" effect="solid" />
             </CInputGroup>
@@ -128,14 +140,18 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
               <CInputGroupText>
                 <CIcon icon="cil-user" />
               </CInputGroupText>
-              <CFormControl
+              <input
+                required
+                type="text"
+                name="title"
+                placeholder="Title*"
                 data-for="title"
                 data-tip="Add Title Here"
-                placeholder="Title*"
                 value={dataForm.title}
-                name="title"
                 onChange={handleInputChange}
                 disabled={pending}
+                className="form-control"
+                onInvalid={preventDefaultAndFocus}
               />
               <ReactTooltip id="title" place="top" type="dark" effect="solid" />
             </CInputGroup>
@@ -146,14 +162,17 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                     <CInputGroupText>
                       <CIcon icon="cil-user" />
                     </CInputGroupText>
-                    <CFormControl
-                      data-for="name"
-                      data-tip="Enter the name"
+                    <input
+                      type="text"
+                      required
+                      className="form-control"
+                      data-for="name" // for react-tooltip
+                      data-tip="Enter the name" // the hovering texts
                       placeholder="Name*"
-                      name="name"
                       value={person.name}
                       onChange={(e) => handlePeopleChange(e, index)}
                       disabled={pending}
+                      onInvalid={preventDefaultAndFocus}
                     />
                     <ReactTooltip id="name" place="top" type="dark" effect="solid" />
                     <CButton
@@ -172,28 +191,25 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                         onMouseLeave={() => handleLeaveImgIcon(index)}
                       />
                       <div
-                        style={{
-                          top: '-250%',
-                          left: '30%',
-                          maxWidth: '50%',
-                          zIndex: 5,
-                        }}
-                        className={'position-absolute '.concat(
-                          imgPreview[index] && dataForm.people[index].img ? 'visible' : 'invisible',
-                        )}
+                        className={'position-absolute form-floating-img-container'}
+                        hidden={!(imgPreview[index] && dataForm.people[index].img)}
                       >
                         <CImage fluid src={dataForm.people[index].img} alt="img preview" />
                       </div>
                     </CInputGroupText>
-                    <CFormControl
-                      data-for="image"
-                      data-tip="Put a picture"
-                      id="formFile"
+                    <input
                       type="file"
+                      id="formFile"
                       onChange={(e) => handleChangeImage(e, index)}
                       onClick={(e) => (e.target.value = null)}
                       disabled={pending}
-                    ></CFormControl>
+                      className="form-control"
+                      data-for="image"
+                      data-tip="Put a picture"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/avif"
+                      required={dataForm.people[index].img === null}
+                      onInvalid={preventDefaultAndFocus}
+                    />
                     <ReactTooltip id="image" place="top" type="dark" effect="solid" />
                   </CInputGroup>
                 </Fragment>
@@ -206,9 +222,8 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
               <CButton
                 type="button"
                 name="person"
-                className="form-add"
+                className="form-add form-btn-full-width"
                 onClick={addPeople}
-                style={{ width: '91.2%' }}
                 disabled={pending}
               >
                 +

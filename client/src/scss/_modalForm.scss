@@ -1,0 +1,14 @@
+form {
+  input.form-control:invalid {
+    background-color: #fdd;
+  }
+  button.form-btn-full-width {
+    width: 91.2%;
+  }
+  div.form-floating-img-container {
+    top: -250%;
+    left: 30%;
+    max-width: 50%;
+    z-index: 5;
+  }
+}
