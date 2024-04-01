@@ -2,6 +2,7 @@ import CIcon from '@coreui/icons-react'
 import {
   CButton,
   CForm,
+  CFormControl,
   CImage,
   CInputGroup,
   CInputGroupText,
@@ -19,6 +20,7 @@ import ReactTooltip from 'react-tooltip'
 const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) => {
   const [imgPreview, setImgPreview] = useState(new Array(dataForm.people.length).fill(false))
   const [pending, setPending] = useState(false)
+  const [validated, setValidated] = useState(false)
   const formRef = useRef(null)
   const preventDefaultAndFocus = (e) => {
     e.preventDefault()
@@ -64,8 +66,9 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
     reader.readAsDataURL(file)
   }
   const handleSubmit = async () => {
+    setValidated(true) // display the validation message & style
     // prevent the form from submitting if the form is invalid
-    if (!formRef.current.reportValidity()) return
+    if (!formRef.current.checkValidity()) return
 
     setPending(true)
     const data = new FormData()
@@ -105,6 +108,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
     }
     setPending(false)
     setVisible(false)
+    setValidated(false)
     refetch()
   }
 
@@ -115,12 +119,12 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
           <CModalTitle>{add ? 'Add a year' : 'Edit this year'} </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <CForm ref={formRef}>
+          <CForm ref={formRef} validated={validated} noValidate>
             <CInputGroup className="mb-3">
               <CInputGroupText>
                 <CIcon icon="cil-calendar" />
               </CInputGroupText>
-              <input
+              <CFormControl
                 required
                 pattern="B\d{2}"
                 type="text"
@@ -140,7 +144,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
               <CInputGroupText>
                 <CIcon icon="cil-user" />
               </CInputGroupText>
-              <input
+              <CFormControl
                 required
                 type="text"
                 name="title"
@@ -162,7 +166,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                     <CInputGroupText>
                       <CIcon icon="cil-user" />
                     </CInputGroupText>
-                    <input
+                    <CFormControl
                       type="text"
                       required
                       className="form-control"
@@ -179,6 +183,7 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                       type="button"
                       name="name"
                       onClick={(e) => handlePeopleDelete(e, index)}
+                      disabled={dataForm.people.length === 1 || pending}
                     >
                       x
                     </CButton>
@@ -191,13 +196,13 @@ const Editor = ({ visible, setVisible, add, dataForm, setDataForm, refetch }) =>
                         onMouseLeave={() => handleLeaveImgIcon(index)}
                       />
                       <div
-                        className={'position-absolute form-floating-img-container'}
+                        className="position-absolute form-floating-img-container"
                         hidden={!(imgPreview[index] && dataForm.people[index].img)}
                       >
                         <CImage fluid src={dataForm.people[index].img} alt="img preview" />
                       </div>
                     </CInputGroupText>
-                    <input
+                    <CFormControl
                       type="file"
                       id="formFile"
                       onChange={(e) => handleChangeImage(e, index)}
