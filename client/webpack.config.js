@@ -70,6 +70,23 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
+        test: /\.(png|jpe?g|gif|webp|avif)$/i,
+        use: [
+          {
+            loader: 'responsive-loader',
+            options: {
+              adapter: require('responsive-loader/sharp'),
+              sizes: [480, 960, 1500],
+              placeholder: true,
+              placeholderSize: 40,
+              pregressive: true,
+              format: 'webp', // ? or 'avif' in the future
+            },
+          },
+        ],
+        type: 'javascript/auto',
+      },
+      {
         test: /\.(png|svg|jpg|gif)$/,
         use: {
           loader: 'file-loader',

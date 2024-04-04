@@ -47,6 +47,7 @@
     "html-react-parser": "^1.2.8",
     "html-webpack-plugin": "^5.3.2",
     "jodit-react": "^1.1.1",
+    "lazysizes": "^5.3.2",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -78,7 +79,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "2.3.2",
     "react-scripts": "^4.0.3",
+    "responsive-loader": "3.1.2",
     "sass": "^1.35.1",
+    "sharp": "0.32.6",
     "tsparticles": "^2.0.6"
   },
   "scripts": {
@@ -99,5 +102,8 @@
   "engines": {
     "node": ">=10",
     "npm": ">=6"
+  },
+  "imports": {
+    "#assets/*": "./src/assets/*"
   }
 }

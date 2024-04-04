@@ -5,7 +5,7 @@ import AppHeaderDropdown from './header/AppHeaderDropdown'
 import AppSidebar from './AppSidebar'
 import AppBackground from './AppBackground'
 import { AppFallbackRender } from './AppFallbackRender'
-
+import ResImage from './ResImage'
 export {
   AppContent,
   AppFooter,
@@ -14,4 +14,5 @@ export {
   AppSidebar,
   AppBackground,
   AppFallbackRender,
+  ResImage,
 }

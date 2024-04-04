@@ -1,11 +1,7 @@
 /* eslint-disable prettier/prettier */
+import { CContainer, CRow } from '@coreui/react'
 import React from 'react'
-import { CContainer, CRow, CImage } from '@coreui/react'
-import studyabroad from '../../../../assets/images/studyabroad.png'
-import column from '../../../../assets/images/column.png'
-import communicate from '../../../../assets/images/communicate.png'
-import career from '../../../../assets/images/career.png'
-
+import { ResImage } from '../../../../components'
 const Services = () => {
   return (
     <div id="services" className="text-center section">
@@ -21,7 +17,13 @@ const Services = () => {
           <div className="col-xs-6 col-sm-3">
             {' '}
             <div className="square-img-container">
-              <CImage src={communicate} alt="..." className="img img-fluid"></CImage>
+              <ResImage
+                avifSrc={require('#assets/images/communicate.png?{format: "avif", sizes:[310, 520]}')}
+                jpgSrc={require('#assets/images/communicate.png?{format: "jpg", sizes:[310, 520]}')}
+                alt="..."
+                className="img img-fluid"
+                sizes="(max-width: 575px) 520px, 300px"
+              />
             </div>
             <h3>通訊錄</h3>
             <p>
@@ -33,7 +35,13 @@ const Services = () => {
           <div className="col-xs-6 col-sm-3">
             {' '}
             <div className="square-img-container">
-              <CImage src={career} alt="..." className="img img-fluid"></CImage>
+              <ResImage
+                avifSrc={require('#assets/images/career.png?{format: "avif", sizes:[310, 520]}')}
+                jpgSrc={require('#assets/images/career.png?{format: "jpg", sizes:[310, 520]}')}
+                alt="..."
+                className="img img-fluid"
+                sizes="(max-width: 575px) 520px, 300px"
+              />
             </div>
             <h3>徵才求職</h3>
             <p>
@@ -45,7 +53,13 @@ const Services = () => {
           <div className="col-xs-6 col-sm-3">
             {' '}
             <div className="square-img-container">
-              <CImage src={studyabroad} alt="..." className="img img-fluid"></CImage>
+              <ResImage
+                avifSrc={require('#assets/images/studyabroad.png?{format: "avif", sizes:[310, 520]}')}
+                jpgSrc={require('#assets/images/studyabroad.png?{format: "jpg", sizes:[310, 520]}')}
+                alt="..."
+                className="img img-fluid"
+                sizes="(max-width: 575px) 520px, 300px"
+              />
             </div>
             <h3>留學資訊</h3>
             <p>
@@ -57,7 +71,13 @@ const Services = () => {
           <div className="col-xs-6 col-sm-3">
             {' '}
             <div className="square-img-container">
-              <CImage src={column} alt="..." className="img img-fluid"></CImage>
+              <ResImage
+                avifSrc={require('#assets/images/column.png?{format: "avif", sizes:[310, 520]}')}
+                jpgSrc={require('#assets/images/column.png?{format: "jpg", sizes:[310, 520]}')}
+                alt="..."
+                className="img img-fluid"
+                sizes="(max-width: 575px) 520px, 300px"
+              />
             </div>
             <h3>採訪文章</h3>
             <p>
