@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectLogin, login } from '../../../slices/loginSlice'
 import axios from 'axios'
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { Link, Redirect } from 'react-router-dom'
 import { CCol, CContainer, CRow, CImage } from '@coreui/react'
 import FB from 'fb-react-sdk'
 
-import Alumnus from './images/Alumnus.png'
-import Student from './images/Student.png'
+import Alumnus from '../../../assets/images/Alumnus.png'
+import Student from '../../../assets/images/Student.png'
 
 const RegisterEntry = () => {
   const dispatch = useDispatch()
