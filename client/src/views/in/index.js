@@ -18,7 +18,7 @@ const Profile = React.lazy(() => import('./profile'))
 const EditProfile = React.lazy(() => import('./profile/edit'))
 const SearchProfile = React.lazy(() => import('./profile/search'))
 
-const Study = React.lazy(() => import('./study'))
+// const Study = React.lazy(() => import('./study'))
 
 const Matching = React.lazy(() => import('./matching'))
 const MatchForm = React.lazy(() => import('./matching/matchForm'))
@@ -44,7 +44,7 @@ export {
   Profile,
   EditProfile,
   SearchProfile,
-  Study,
+  // Study,
   Matching,
   MatchForm,
   ChangePsw,

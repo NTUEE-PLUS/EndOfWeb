@@ -21,8 +21,8 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
   const [endTime, setEndTime] = useState('')
   const [newStartTime, setNewStartTime] = useState('')
   const [newEndTime, setNewEndTime] = useState('')
-  const [snumber, setSnumber] = useState(0)
-  const [jnumber, setJnumber] = useState(0)
+  const [snumber, setSnumber] = useState(0) // 學長姐
+  const [jnumber, setJnumber] = useState(0) // 學弟妹
   const [loading, setLoading] = useState(true)
   const [pass, setPass] = useState(false)
   const nowDate = new Date()
@@ -198,7 +198,8 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
         </h2>
         <button
           className="btn btn-danger mt-3 mx-1"
-          disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
+          // disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
+          disabled={snumber !== 0 || jnumber !== 0}
           onClick={() => setIsModal(true)}
         >
           <h5 className="m-0">我要開新的一期</h5>
