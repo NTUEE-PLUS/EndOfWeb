@@ -196,12 +196,7 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
             ? '若要開啟一期新配對，請點下方按鈕'
             : '要先將本期的配對結果寄給大家後才能再開一期喔~'}
         </h2>
-        <button
-          className="btn btn-danger mt-3 mx-1"
-          // disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
-          disabled={snumber !== 0 || jnumber !== 0}
-          onClick={() => setIsModal(true)}
-        >
+        <button className="btn btn-danger mt-3 mx-1" onClick={() => setIsModal(true)}>
           <h5 className="m-0">我要開新的一期</h5>
         </button>
         <button
