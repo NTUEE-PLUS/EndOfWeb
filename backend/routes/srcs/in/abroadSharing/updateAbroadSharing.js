@@ -11,6 +11,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  *
  * @apiParam {String} _id _id
  * @apiParam {String} title 標題
+ * @apiParam {String} category 分類
  * @apiParam {String} intro 介紹
  * @apiParam {URL} YTlink youtube連結
  * @apiParam {URL[]} otherLinks 其他連結
@@ -25,7 +26,7 @@ const { dbCatch, ErrorHandler } = require('../../../error')
  * @apiError (500) {String} description 資料庫錯誤
  */
 const updateAbroadSharing = async (req, res, next) => {
-  const { _id, title, intro, YTlink, otherLinks, otherLinksDesc } = req.body
+  const { _id, title, category, intro, YTlink, otherLinks, otherLinksDesc } = req.body
   if (!_id) throw new ErrorHandler(403, 'please provide _id')
   const obj = await abroad_sharing.findOne({ _id }).catch(dbCatch)
   if (!obj) throw new ErrorHandler(404, '資料不存在')
@@ -37,6 +38,7 @@ const updateAbroadSharing = async (req, res, next) => {
   const img = parseFile(req.file)
   const toSet = updateQuery({
     title,
+    category,
     intro,
     YTlink,
     otherLinks: otherLinks?.length
@@ -51,7 +53,7 @@ const updateAbroadSharing = async (req, res, next) => {
 const valid = require('../../../middleware/validation')
 const rules = [
   { filename: 'required', field: '_id' },
-  { filename: 'optional', field: ['intro', 'title'], type: 'String' },
+  { filename: 'optional', field: ['category', 'intro', 'title'], type: 'String' },
   { filename: 'Url', field: ['YTlink', 'otherLinks'], type: 'URL' },
 ]
 
