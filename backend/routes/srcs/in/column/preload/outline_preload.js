@@ -1,6 +1,13 @@
 const mongoose = require('../../../../Schemas/db')
 const Column_out = require('../../../../Schemas/column_outline')
 const Column = require('../../../../Schemas/column')
+// anno: ['姓名一、姓名二、姓名三、...'],
+// date: 'yyyy/mm/dd',     //星期幾感覺不太需要?
+// id: 'yymmn',    //n是本年本月第幾篇採訪 應該不會超過九篇?
+// title: ['xxxx級 xxx  (公司名稱與職位)'],
+// exp: ['現任：...', '曾任：...'],        //若無可不寫
+// edu: ['博士：...', '碩士：...', '學士：...'],      //若無可不寫
+// intro: ['一段簡介']
 toInsert = [
   {
     anno: ['羅韻瑢', '鄭謹譯', '李筠婕', '吳建翰', '余欣澄'],
