@@ -11,6 +11,7 @@ const Register = () => {
     account: '',
     email: '',
     imgSrc: '',
+    advisingProfessor: [],
   })
   const [isPending, setIsPending] = useState(true)
   const [applicants, setApplicants] = useState([])

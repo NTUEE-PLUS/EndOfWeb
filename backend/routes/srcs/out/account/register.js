@@ -23,8 +23,9 @@ async function insert(username, account, psw, img, visual) {
     .catch(dbCatch)
 }
 
-async function insertVisual(name, account, email) {
+async function insertVisual(name, account, email, advisingProfessor) {
   return await new Visual({
+    advisingProfessor: advisingProfessor,
     username: name,
     account: account,
     publicEmail: email,
@@ -46,6 +47,7 @@ async function insertVisual(name, account, email) {
  * @apiparam {String} password 密碼(以後建議在前端加密)
  * @apiparam {String} ConfirmPassword 二次密碼
  * @apiparam {String} username 使用者名字
+ * @apiparam {String} advisingProfessor 指導教授
  * @apiparam {String} Email 信箱
  * @apiparam {String} isGraduated false則寄送email給account@ntu.edu.tw(newRule=version3才需要)
  * 
@@ -61,14 +63,13 @@ async function insertVisual(name, account, email) {
 const register = async (req, res) => {
   const { username, password, Email } = req.body
   const account = req.body.account.toLowerCase()
-
+  const Professors = JSON.parse(req.body.advisingProfessor)
   //密碼加密
   const newPsw = await encryptPsw(password)
-
   const query = { account }
   const isRegistered = await Login.exists(query).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
-  const user = await insertVisual(username, account, Email)
+  const user = await insertVisual(username, account, Email, Professors)
   await insert(username, account, newPsw, parseFile(req.file), user)
   req.session.loginName = username
   req.session.loginAccount = account
@@ -83,7 +84,6 @@ const secure_reg = async (req, res) => {
   const query = { account }
   const isRegistered = await Login.exists(query).catch(dbCatch)
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
-
   const data = {
     username,
     account,
@@ -101,18 +101,23 @@ const secure_reg = async (req, res) => {
 
 const sendmail = require('../../../middleware/mail')
 const template = require('./mailTemplate/template_generator')
+
 const reg_v3 = async (req, res) => {
+  // The current version
   const account = req.body.account.toLowerCase()
+  const Professors = JSON.parse(req.body.advisingProfessor)
   const isRegistered = await Login.exists({ account }).catch(dbCatch)
+
   if (isRegistered) throw new ErrorHandler(403, '帳號已存在')
 
   const { username, password, Email } = req.body
   const newPsw = await encryptPsw(password)
-
   const active = Math.random().toString(36).substring(2)
+
   const data = {
     username,
     account,
+    advisingProfessor: Professors,
     userpsw: newPsw,
     email: Email,
     active,
@@ -144,7 +149,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   'account',
   'password',
-  { filename: 'required', field: 'username' },
+  { filename: 'required', field: ['username', 'advisingProfessor'] },
   'Email',
   'ConfirmPassword',
 ]
